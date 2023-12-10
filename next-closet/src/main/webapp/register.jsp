@@ -1,5 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="model.*" %>
+<%@ page import="model.bean.*" %>
+<%@ page import="model.dao.*" %>
+<% int loginUser = (int)request.getSession().getAttribute("user"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +10,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<%@ include file="includes/navbar.jsp" %>
 
 	<h3>新規会員登録</h3>
 	<% String success = (String)request.getSession().getAttribute("success"); %>
@@ -18,7 +22,7 @@
 	<p><%=failure %></p>
 	<% session.getAttribute("failure"); %>
 	<% } %>
-		<form action="register" method="post">
+		<form action="RegisterServlet" method="post">
 			お名前：<input type="text" name="lastname" placeholder="例) 姓" required>&nbsp; &nbsp;<input type="text" name="firstname" placeholder="例) 名" required><br>
 			フリガナ：<input type="text" name="lastkananame" placeholder="例) セイ" required>&nbsp; &nbsp;<input type="text" name="firstkananame" placeholder="例) メイ" required><br>
 			郵便番号：<input type="text" name="postcode" placeholder="0000000" required><br> 

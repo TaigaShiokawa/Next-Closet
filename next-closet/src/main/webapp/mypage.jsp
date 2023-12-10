@@ -7,6 +7,7 @@
 
 </head>
 <body>
+<%@ include file="includes/navbar.jsp" %>
 
     <h2>マイページ</h2>
         <table>

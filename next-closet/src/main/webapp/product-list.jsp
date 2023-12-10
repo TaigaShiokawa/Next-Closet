@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +6,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<%@ include file="includes/navbar.jsp" %>
+<h2>商品一覧</h2>
 </body>
 </html>

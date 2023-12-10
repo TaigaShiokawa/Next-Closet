@@ -16,7 +16,7 @@ import model.dao.UserDAO;
 /**
  * Servlet implementation class RegisterServlet
  */
-@WebServlet("/register")
+@WebServlet("/RegisterServlet")
 public class RegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -56,10 +56,10 @@ public class RegisterServlet extends HttpServlet {
 				try {
 					int setAddress = uDao.registerAddress(userId, postCode, prefectures+address);
 					if(setAddress == 1) {
-						request.getSession().setAttribute("success", "登録完了！");
+						request.getSession().setAttribute("success", "登録完了！ ログインへお進みください");
 						request.getRequestDispatcher("register.jsp").forward(request, response);
 					} else {
-						request.getSession().setAttribute("failure", "登録失敗！");
+						request.getSession().setAttribute("failure", "登録失敗...");
 						request.getRequestDispatcher("register.jsp").forward(request, response);
 					}
 				} catch(SQLException | ClassNotFoundException e) {

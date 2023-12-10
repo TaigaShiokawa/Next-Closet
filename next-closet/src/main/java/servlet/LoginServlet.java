@@ -11,12 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import hashedPassword.HashPW;
+import model.bean.UserBean;
 import model.dao.UserDAO;
 
 /**
  * Servlet implementation class LoginServlet
  */
-@WebServlet("/login")
+@WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -35,9 +36,9 @@ public class LoginServlet extends HttpServlet {
 		UserDAO uDao = new UserDAO();
 		try {
 			String hashedPass = HashPW.hashPass(password);
-			boolean loginUser = uDao.validate(email, hashedPass);
-			if(loginUser) {
-				request.getSession().setAttribute("user", uDao.getUserId(email));
+			UserBean loginUser = uDao.userLogin(email, hashedPass);
+			if(loginUser != null) {
+				request.getSession().setAttribute("user", loginUser);
 				request.getRequestDispatcher("product-list.jsp").forward(request, response);
 			} else {
 				request.getSession().setAttribute("loginError", "ログインに失敗しました...");

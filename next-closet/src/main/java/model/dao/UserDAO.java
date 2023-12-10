@@ -21,7 +21,6 @@ public class UserDAO {
 			pstmt.setString(3, email);
 			pstmt.setString(4, password);
 			pstmt.setString(5, telNumber);
-			
 			processingNum = pstmt.executeUpdate();
 		}
 		return processingNum;
@@ -58,8 +57,8 @@ public class UserDAO {
 		return userId;
 	}
 	
-	
-	public boolean validate(String email, String password) throws ClassNotFoundException, SQLException {
+	//ユーザーログイン
+	public UserBean userLogin(String email, String password) throws ClassNotFoundException, SQLException {
 		UserBean user = new UserBean();
 		String sql = "SELECT * FROM users WHERE email = ? AND hash_pass = ?";
 		try (Connection con = DBConnection.getConnection(); 
@@ -77,7 +76,7 @@ public class UserDAO {
 				user.setUserStatus(res.getBoolean("user_status"));
 			}
 		}
-		return true;
+		return user;
 	}
 
 }
