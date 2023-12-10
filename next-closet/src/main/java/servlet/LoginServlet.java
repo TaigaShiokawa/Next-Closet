@@ -30,6 +30,7 @@ public class LoginServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
+		
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
@@ -39,6 +40,7 @@ public class LoginServlet extends HttpServlet {
 			UserBean loginUser = uDao.userLogin(email, hashedPass);
 			if(loginUser != null) {
 				request.getSession().setAttribute("user", loginUser);
+				request.getSession().setAttribute("userAddress", uDao.getUserId(email));
 				request.getRequestDispatcher("product-list.jsp").forward(request, response);
 			} else {
 				request.getSession().setAttribute("loginError", "ログインに失敗しました...");

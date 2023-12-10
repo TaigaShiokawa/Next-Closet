@@ -70,5 +70,4 @@ public class RegisterServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 	}
-
 }

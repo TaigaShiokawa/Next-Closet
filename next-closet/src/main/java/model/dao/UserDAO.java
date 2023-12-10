@@ -59,7 +59,9 @@ public class UserDAO {
 	
 	//ユーザーログイン
 	public UserBean userLogin(String email, String password) throws ClassNotFoundException, SQLException {
+		
 		UserBean user = new UserBean();
+		
 		String sql = "SELECT * FROM users WHERE email = ? AND hash_pass = ?";
 		try (Connection con = DBConnection.getConnection(); 
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
@@ -78,5 +80,4 @@ public class UserDAO {
 		}
 		return user;
 	}
-
 }
