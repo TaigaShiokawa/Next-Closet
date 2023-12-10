@@ -2,7 +2,7 @@
 <%@ page import="model.*" %>
 <%@ page import="model.bean.*" %>
 <%@ page import="model.dao.*" %>
-<% int loginUser = (int)request.getSession().getAttribute("user"); %>
+<% String loginUser = (String)request.getSession().getAttribute("user"); %>
 <!DOCTYPE html>
 <html>
 <head>
