@@ -53,7 +53,7 @@ public class RegisterServlet extends HttpServlet {
 			if(setUser == 1) {
 				int userId = uDao.getUserId(email);
 				try {
-					int setAddress = uDao.registerAddress(userId, postCode, prefectures+address);
+					int setAddress = uDao.registerAddress(userId, postCode, prefectures, address);
 					if(setAddress == 1) {
 						request.getSession().setAttribute("success", "登録完了！ ログインへお進みください");
 						request.getRequestDispatcher("register.jsp").forward(request, response);

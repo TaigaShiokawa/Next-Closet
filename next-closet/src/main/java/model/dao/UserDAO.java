@@ -29,15 +29,16 @@ public class UserDAO {
 	}
 	
 	//新規登録 (addressesテーブル)
-	public int registerAddress(int userId, String postCode, String address) 
+	public int registerAddress(int userId, String postCode, String prefectures, String address) 
 			throws ClassNotFoundException, SQLException {
 		int processingNum = 0;
-		String sql = "INSERT INTO addresses (user_id, post_code, address) VALUES (?, ?, ?)";
+		String sql = "INSERT INTO addresses (user_id, post_code, prefectures, address) VALUES (?, ?, ?, ?)";
 		try (Connection con = DBConnection.getConnection(); 
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setInt(1, userId);
 			pstmt.setString(2, postCode);
-			pstmt.setString(3, address);
+			pstmt.setString(3, prefectures);
+			pstmt.setString(4, address);
 			
 			processingNum = pstmt.executeUpdate();
 		}

@@ -5,15 +5,17 @@ public class AddressBean {
 	private int address_id;
 	private int user_id;
 	private String postCode;
+	private String prefectures;
 	private String address;
 	
 	public AddressBean() {}
 
-	public AddressBean(int address_id, int user_id, String postCode, String address) {
+	public AddressBean(int address_id, int user_id, String postCode, String prefectures, String address) {
 		super();
 		this.address_id = address_id;
 		this.user_id = user_id;
 		this.postCode = postCode;
+		this.prefectures = prefectures;
 		this.address = address;
 	}
 
@@ -39,6 +41,14 @@ public class AddressBean {
 
 	public void setPostCode(String postCode) {
 		this.postCode = postCode;
+	}
+
+	public String getPrefectures() {
+		return prefectures;
+	}
+
+	public void setPrefectures(String prefectures) {
+		this.prefectures = prefectures;
 	}
 
 	public String getAddress() {
