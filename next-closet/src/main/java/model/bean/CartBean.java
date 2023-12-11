@@ -4,30 +4,30 @@ import java.io.Serializable;
 
 public class CartBean implements Serializable{
 	
-	private int cart_id;
-	private int user_id;
+	private int cartId;
+	private int userId;
 	
 	public CartBean() {}
 	
-	public CartBean(int cart_id, int user_id) {
-		this.cart_id = cart_id;
-		this.user_id = user_id;
+	public CartBean(int cartId, int userId) {
+		this.cartId = cartId;
+		this.userId = userId;
 	}
 
-	public int getCart_id() {
-		return cart_id;
+	public int getCartId() {
+		return cartId;
 	}
 
-	public void setCart_id(int cart_id) {
-		this.cart_id = cart_id;
+	public void setCart_id(int cartId) {
+		this.cartId = cartId;
 	}
 
 	public int getUser_id() {
-		return user_id;
+		return userId;
 	}
 
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
+	public void setUser_id(int userId) {
+		this.userId = userId;
 	}
 	
 	
