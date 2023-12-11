@@ -19,7 +19,7 @@ public class UserEditServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		
-		response.sendRedirect("mypage-edit.jsp");
+		request.getRequestDispatcher("mypage-edit.jsp").forward(request, response);
 	}
 
 	

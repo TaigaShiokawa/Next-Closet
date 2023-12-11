@@ -71,7 +71,7 @@
 			    <option value="沖縄県">沖縄県</option>
 			</select><br>
 
-			住所：<textarea type="text" name="address"><%=loginUser.getAddress()%></textarea><br>
+			住所：<textarea type="text" name="address"><%=loginUserAddress.getAddress()%></textarea><br>
 			電話番号：<input type="text" name="telnumber" value="<%=loginUser.getTelNumber()%>"><br> 
 			メールアドレス：<input type="email" name="email" value="<%=loginUser.getEmail()%>"><br> 
 			パスワード：<input type="password" name="password" value="<%=loginUser.getHashPass()%>"><br> 
