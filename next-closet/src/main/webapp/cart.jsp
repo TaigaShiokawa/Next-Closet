@@ -48,6 +48,10 @@
                 <input type="hidden" name="productId" value="${cartItem.productId}">
                 <input type="submit" value="購入">
             </form>
+            
+            <!-- カート内の商品一覧表示の後に合計金額を表示 javaで合計処理のメソッド作るかも -->
+            <p>ご注文金額（税込）: <%= totalAmount %></p>
+            
         </div>
     <% /* for文のおわり */ %>
    
