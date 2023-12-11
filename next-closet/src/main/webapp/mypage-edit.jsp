@@ -12,26 +12,15 @@
 <title>Insert title here</title>
 </head>
 <body>
-<% HttpSession session = request.getSession();
-String lastname = (String) session.getAttribute("lastname");
-String firstname = (String) session.getAttribute("firstname");
-String lastkananame = (String) session.getAttribute("lastkananame");
-String firstkananame = (String) session.getAttribute("firstkananame");
-String postcode = (String) session.getAttribute("postcode");
-String prefectures = (String) session.getAttribute("prefectures");
-String address = (String) session.getAttribute("address");
-String telnumber = (String) session.getAttribute("telnumber");
-String email = (String) session.getAttribute("email");
-String password = (String) session.getAttribute("password")%> 
 
 <h3>ユーザー情報更新画面</h3>
 <form action="edit" method="post">
-			お名前：<input type="text" name="lastname" placeholder="<%=lastname%>" required>&nbsp; &nbsp;<input type="text" name="firstname" placeholder="<%=firstname%>" required><br>
-			フリガナ：<input type="text" name="lastkananame" placeholder="<%=lastkananame%>" required>&nbsp; &nbsp;<input type="text" name="firstkananame" placeholder="<%=firstkananame%>" required><br>
-			郵便番号：<input type="text" name="postcode" placeholder="<%=postcode%>" required><br> 
+			お名前：<input type="text" name="lastname" value="<%=loginUser.getUserName() %>"><br>
+			フリガナ：<input type="text" name="lastkananame" value="<%=loginUser.getKanaName()%>"><br>
+			郵便番号：<input type="text" name="postcode" placeholder="" required><br> 
 			都道府県：
 			<select name="prefectures" required>
-			    <option selected><%=prefectures%></option>
+			    <option selected>選択してください</option>
 			    <option value="北海道">北海道</option>
 			    <option value="青森県">青森県</option>
 			    <option value="岩手県">岩手県</option>
@@ -81,10 +70,10 @@ String password = (String) session.getAttribute("password")%>
 			    <option value="沖縄県">沖縄県</option>
 			</select><br>
 
-			住所：<textarea type="text" name="address" placeholder="<%=address%>" required></textarea><br>
-			電話番号：<input type="text" name="telnumber" placeholder="<%=telnumber%>" required><br> 
-			メールアドレス：<input type="email" name="email" placeholder="<%=email%>" required><br> 
-			パスワード：<input type="password" name="password" placeholder="<%=password%>" required><br> 
+			住所：<textarea type="text" name="address" placeholder="" required></textarea><br>
+			電話番号：<input type="text" name="telnumber" placeholder="" required><br> 
+			メールアドレス：<input type="email" name="email" placeholder="" required><br> 
+			パスワード：<input type="password" name="password" placeholder="" required><br> 
 			<button type="submit">更新する</button>
 		</form>
 </body>
