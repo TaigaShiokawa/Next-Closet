@@ -22,7 +22,7 @@ h2{
 }
 
 input, select, textarea{
-    width: 30%;
+    width: 50%;
     height: 50px;
     margin:0 auto;
     margin-top: 16px;
