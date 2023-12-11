@@ -128,5 +128,18 @@ public class UserDAO {
 	}
 	
 	//ユーザー住所編集
+	public int loginUserAddressUpDate(String postCode, String prefectures, String address) throws ClassNotFoundException, SQLException {
+		int processingNum = 0;
+		String sql = "UPDATE addresses SET post_code = ?, prefectures = ?, address = ?";
+		try (Connection con = DBConnection.getConnection(); 
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setString(1, postCode);
+			pstmt.setString(2, prefectures);
+			pstmt.setString(3, address);
+			
+			processingNum = pstmt.executeUpdate();
+		}
+		return processingNum;
+	}
 	
 }
