@@ -10,10 +10,14 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
   <style>
+  #sentr{
+    text-align: center; /* 中央に配置 */
+  }
   #parent {
     display: flex;
      justify-content: space-between; /* 左右に均等に配置 */
     position: relative;
+    
   }
   #child1, #child2 {
     flex-grow: 1;
@@ -21,7 +25,7 @@
   }
 
 
-  @media (min-width: 100px) {
+  @media (min-width: 600px) {
     #parent::after {
       content: '';
       position: absolute;
@@ -122,6 +126,10 @@
   
 </form>
 </div>
+ </div>
+ 
+ <div id="sentr">
+ <a href="MypageServlet">マイページに戻る</a>
  </div>
 </body>
 </html>
