@@ -49,7 +49,7 @@
 </table>
 
         <p>
-            <button type="submit"><a href="mypage-edit.jsp">変更</a></button>
+            <button type="submit"><a href="UserEditServlet">変更</a></button>
             <button type="submit"><a href="order-history.jsp">購入履歴</a></button>
         </p>
         

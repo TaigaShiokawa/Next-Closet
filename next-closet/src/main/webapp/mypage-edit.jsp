@@ -19,7 +19,7 @@
 			フリガナ：<input type="text" name="lastkananame" value="<%=loginUser.getKanaName()%>"><br>
 			郵便番号：<input type="text" name="postcode"><br> 
 			都道府県：
-			<select name="prefectures" required>
+			<select name="prefectures" value="">
 			    <option selected>選択してください</option>
 			    <option value="北海道">北海道</option>
 			    <option value="青森県">青森県</option>
