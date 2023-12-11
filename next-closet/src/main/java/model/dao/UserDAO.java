@@ -57,7 +57,7 @@ public class UserDAO {
 			ResultSet res = pstmt.executeQuery();
 			while(res.next()) {
 				address = new AddressBean();
-				address.setUser_id(res.getInt("user_id"));
+				address.setUserId(res.getInt("user_id"));
 				address.setPostCode(res.getString("post_code"));
 				address.setPrefectures(res.getString("prefectures"));
 				address.setAddress(res.getString("address"));
@@ -128,4 +128,5 @@ public class UserDAO {
 	}
 	
 	//ユーザー住所編集
+	
 }

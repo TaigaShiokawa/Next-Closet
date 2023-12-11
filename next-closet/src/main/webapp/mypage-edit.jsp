@@ -2,6 +2,7 @@
 <%@ page import="model.bean.*" %>
 <%@ page import="model.dao.*" %>
 <% UserBean loginUser = (UserBean)request.getSession().getAttribute("user"); %>
+<% AddressBean loginUserAddress = (AddressBean)request.getSession().getAttribute("userAddress"); %>
 <% if(loginUser == null) { %>
 <% response.sendRedirect("product-list.jsp"); %>
 <% } %>
@@ -17,10 +18,10 @@
 <form action="UserEditServlet" method="post">
 			お名前：<input type="text" name="lastname" value="<%=loginUser.getUserName() %>"><br>
 			フリガナ：<input type="text" name="lastkananame" value="<%=loginUser.getKanaName()%>"><br>
-			郵便番号：<input type="text" name="postcode"><br> 
+			郵便番号：<input type="text" name="postcode" value="<%=loginUserAddress.getPostCode()%>"><br> 
 			都道府県：
-			<select name="prefectures" value="">
-			    <option selected>選択してください</option>
+			<select name="prefectures">
+			    <option value="<%=loginUserAddress.getPrefectures()%>"><%=loginUserAddress.getPrefectures()%></option>
 			    <option value="北海道">北海道</option>
 			    <option value="青森県">青森県</option>
 			    <option value="岩手県">岩手県</option>
@@ -70,10 +71,10 @@
 			    <option value="沖縄県">沖縄県</option>
 			</select><br>
 
-			住所：<textarea type="text" name="address"></textarea><br>
-			電話番号：<input type="text" name="telnumber"><br> 
-			メールアドレス：<input type="email" name="email"><br> 
-			パスワード：<input type="password" name="password"><br> 
+			住所：<textarea type="text" name="address"><%=loginUser.getAddress()%></textarea><br>
+			電話番号：<input type="text" name="telnumber" value="<%=loginUser.getTelNumber()%>"><br> 
+			メールアドレス：<input type="email" name="email" value="<%=loginUser.getEmail()%>"><br> 
+			パスワード：<input type="password" name="password" value="<%=loginUser.getHashPass()%>"><br> 
 			<button type="submit">更新する</button>
 		</form>
 </body>
