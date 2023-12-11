@@ -110,7 +110,8 @@ public class UserDAO {
 	}
 	
 	//ユーザー情報編集
-	public int loginUserUpDate(String userName, String kanaName, String telNumber, String email, String password) throws ClassNotFoundException, SQLException {
+	public int loginUserUpDate(String userName, String kanaName, String telNumber, String email, String password) 
+			throws ClassNotFoundException, SQLException {
 		int processingNum = 0;
 		String sql = "UPDATE users SET user_name = ?, kana_name = ?, tel_number = ?, email = ?, hash_pass = ?";
 		try (Connection con = DBConnection.getConnection(); 
