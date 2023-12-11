@@ -10,6 +10,6 @@
 </head>
 <body>
 <%@ include file="includes/navbar.jsp" %>
-<h2>商品一覧</h2>
+<h2>商品一覧</h2><!-- 仮で置いているだけ. 消してからコードを書いてください -->
 </body>
 </html>
