@@ -5,104 +5,103 @@ import java.sql.Date;
 
 public class ProductBean implements Serializable{
 	
-	private int product_id;
-	private int category_id;
+	private int productId;
+	private int categoryid;
 	private int gender;
-	private String product_name;
+	private String productName;
 	private int price;
 	private String descruption;
 	private boolean status;
 	private String image;
-	private Date registration_date;
+	private Date registrationDate;
 	
 	public ProductBean() {}
-	
-	public ProductBean(int product_id, int category_id, int gender, String product_name, int price, String descruption,
-			boolean status, String image, Date registration_date) {
 
-		this.product_id = product_id;
-		this.category_id = category_id;
+	public ProductBean(int productId, int categoryid, int gender, String productName, int price, String descruption,
+			boolean status, String image, Date registrationDate) {
+		super();
+		this.productId = productId;
+		this.categoryid = categoryid;
 		this.gender = gender;
-		this.product_name = product_name;
+		this.productName = productName;
 		this.price = price;
 		this.descruption = descruption;
 		this.status = status;
 		this.image = image;
-		this.registration_date = registration_date;
+		this.registrationDate = registrationDate;
 	}
 
-	public int getProduct_id() {
-		return product_id;
+	public int getProductId() {
+		return productId;
 	}
-	
-	public void setProduct_id(int product_id) {
-		this.product_id = product_id;
+
+	public void setProductId(int productId) {
+		this.productId = productId;
 	}
-	
-	public int getCategory_id() {
-		return category_id;
+
+	public int getCategoryid() {
+		return categoryid;
 	}
-	
-	public void setCategory_id(int category_id) {
-		this.category_id = category_id;
+
+	public void setCategoryid(int categoryid) {
+		this.categoryid = categoryid;
 	}
-	
+
 	public int getGender() {
 		return gender;
 	}
-	
+
 	public void setGender(int gender) {
 		this.gender = gender;
 	}
-	
-	public String getProduct_name() {
-		return product_name;
+
+	public String getProductName() {
+		return productName;
 	}
-	
-	public void setProduct_name(String product_name) {
-		this.product_name = product_name;
+
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
-	
+
 	public int getPrice() {
 		return price;
 	}
-	
+
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	
+
 	public String getDescruption() {
 		return descruption;
 	}
-	
+
 	public void setDescruption(String descruption) {
 		this.descruption = descruption;
 	}
-	
-	public boolean getStatus() {
+
+	public boolean isStatus() {
 		return status;
 	}
-	
+
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
-	
+
 	public String getImage() {
 		return image;
 	}
-	
+
 	public void setImage(String image) {
 		this.image = image;
 	}
-	
-	public Date getRegistration_date() {
-		return registration_date;
+
+	public Date getRegistrationDate() {
+		return registrationDate;
 	}
-	
-	public void setRegistration_date(Date registration_date) {
-		this.registration_date = registration_date;
+
+	public void setRegistrationDate(Date registrationDate) {
+		this.registrationDate = registrationDate;
 	}
-	
 	
 	
 }
