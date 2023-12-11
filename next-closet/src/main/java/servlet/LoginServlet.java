@@ -36,6 +36,7 @@ public class LoginServlet extends HttpServlet {
 		try {
 			String hashedPass = HashPW.hashPass(password);
 			UserBean loginUser = uDao.userLogin(email, hashedPass);
+			UserBean login
 			request.getSession().setAttribute("userAddress", uDao.getUserAddressId(email));
 			if(loginUser != null) {
 				request.getSession().setAttribute("user", loginUser);
