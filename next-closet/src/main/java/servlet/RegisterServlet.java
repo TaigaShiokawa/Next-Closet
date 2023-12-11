@@ -31,10 +31,8 @@ public class RegisterServlet extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		
-		String lastName = request.getParameter("lastname");
-		String firstName = request.getParameter("firstname");
-		String lastKanaName = request.getParameter("lastkananame");
-		String firstKanaName = request.getParameter("firstkananame");
+		String userName = request.getParameter("username");
+		String kanaName = request.getParameter("kananame");
 		String postCode = request.getParameter("postcode");
 		String prefectures = request.getParameter("prefectures");
 		String address = request.getParameter("address");
@@ -51,7 +49,7 @@ public class RegisterServlet extends HttpServlet {
 		
 		UserDAO uDao = new UserDAO();
 		try {
-			int setUser = uDao.registerUser(lastName+" "+firstName, lastKanaName+" "+firstKanaName, email, hashedPass, telNumber);
+			int setUser = uDao.registerUser(userName, kanaName, email, hashedPass, telNumber);
 			if(setUser == 1) {
 				int userId = uDao.getUserId(email);
 				try {
