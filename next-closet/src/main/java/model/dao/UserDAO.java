@@ -164,4 +164,18 @@ public class UserDAO {
 		}
 		return user;
 	}
+	
+	//パスワード変更
+	public int userPasswordUpdate(int userId, String password) throws ClassNotFoundException, SQLException {
+		int processingNumber = 0;
+		String sql = "UPDATE users SET hash_pass = ? WHERE user_id = ?";
+		try (Connection con = DBConnection.getConnection(); 
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setString(1, password);
+			pstmt.setInt(2, userId);
+			
+			processingNumber = pstmt.executeUpdate();
+		}
+		return processingNumber;
+	}
 }

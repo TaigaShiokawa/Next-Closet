@@ -75,8 +75,16 @@
 			住所：<textarea type="text" name="address"><%=loginUserAddress.getAddress() %></textarea><br>
 			電話番号：<input type="text" name="telnumber" value="<%=loginUser.getTelNumber()%>"><br> 
 			メールアドレス：<input type="email" name="email" value="<%=loginUser.getEmail()%>"><br> 
-			パスワード：<input type="password" name="password" value="<%=loginUser.getHashPass()%>"><br> 
-			<button type="submit">更新する</button>
+			
+			<button type="submit">更新する</button>			
 		</form>
+		
+		<form action="PasswordUpdateServlet" method="post">
+		<label for="pass">パスワードの変更はこちらから</label>
+		<input type="password" id="pass" name="password" placeholder="8文字以上">
+		<input type="hidden" name="userId" value="<%=loginUser.getUserId()%>">
+		<button type="submit">変更する</button>
+		</form>
+		
 </body>
 </html>
