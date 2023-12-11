@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import hashedPassword.HashPW;
+import model.bean.AddressBean;
 import model.bean.UserBean;
 import model.dao.UserDAO;
 
@@ -36,9 +37,11 @@ public class LoginServlet extends HttpServlet {
 		try {
 			String hashedPass = HashPW.hashPass(password);
 			UserBean loginUser = uDao.userLogin(email, hashedPass);
+			int userId = uDao.getUserId(email);
+			AddressBean loginUserAddress = uDao.getUserAddressId(userId);
 			if(loginUser != null) {
 				request.getSession().setAttribute("user", loginUser);
-				request.getSession().setAttribute("userAddress", uDao.getUserAddressId(email));
+				request.getSession().setAttribute("userAddress", loginUserAddress);
 				request.getRequestDispatcher("product-list.jsp").forward(request, response);
 			} else {
 				request.getSession().setAttribute("loginError", "ログインに失敗しました...");

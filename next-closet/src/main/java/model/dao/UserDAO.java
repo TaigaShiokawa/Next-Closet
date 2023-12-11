@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import connection.DBConnection;
+import model.bean.AddressBean;
 import model.bean.UserBean;
 
 public class UserDAO {
@@ -44,24 +45,27 @@ public class UserDAO {
 	}
 	
 	//アドレスid取得
-	public int getUserAddressId(String email) 
+	public AddressBean getUserAddressId(int userId) 
 			throws ClassNotFoundException, SQLException {
-		int userAddressId = -1;
-		String sql = "SELECT address_id FROM addresses WHERE email = ?";
+		String sql = "SELECT * FROM addresses WHERE user_id = ?";
 		try (Connection con = DBConnection.getConnection(); 
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
-			pstmt.setString(1, email);
+			AddressBean address = new AddressBean();
+			pstmt.setInt(1, userId);
 			
 			ResultSet res = pstmt.executeQuery();
-			if(res.next()) {
-				userAddressId = res.getInt("address_id");
+			while(res.next()) {
+				address = new AddressBean();
+				address.setUser_id(res.getInt("user_id"));
+				address.setPostCode(res.getString("post_code"));
+				address.setAddress(res.getString("address"));
 			}
+			return address;
 		}
-		return userAddressId;
 	}
 	
 	//ユーザIDを取得
-	public int getUserId(String email) 
+	public int getUserId(String email)
 			throws ClassNotFoundException, SQLException {
 		int userId = -1;
 		String sql = "SELECT user_id FROM users WHERE email = ?";
