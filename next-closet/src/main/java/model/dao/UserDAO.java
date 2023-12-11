@@ -110,10 +110,10 @@ public class UserDAO {
 	}
 	
 	//ユーザー情報編集
-	public int loginUserUpDate(String userName, String kanaName, String telNumber, String email, String password) 
+	public int loginUserUpdate(String userName, String kanaName, String telNumber, String email, String password, int userId) 
 			throws ClassNotFoundException, SQLException {
 		int processingNum = 0;
-		String sql = "UPDATE users SET user_name = ?, kana_name = ?, tel_number = ?, email = ?, hash_pass = ?";
+		String sql = "UPDATE users SET user_name = ?, kana_name = ?, tel_number = ?, email = ?, hash_pass = ? WHERE user_id = ?";
 		try (Connection con = DBConnection.getConnection(); 
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setString(1, userName);
@@ -121,6 +121,7 @@ public class UserDAO {
 			pstmt.setString(3, telNumber);
 			pstmt.setString(4, email);
 			pstmt.setString(5, password);
+			pstmt.setInt(6, userId);
 			
 			processingNum = pstmt.executeUpdate();
 		}
@@ -128,14 +129,15 @@ public class UserDAO {
 	}
 	
 	//ユーザー住所編集
-	public int loginUserAddressUpDate(String postCode, String prefectures, String address) throws ClassNotFoundException, SQLException {
+	public int loginUserAddressUpdate(String postCode, String prefectures, String address, int userId) throws ClassNotFoundException, SQLException {
 		int processingNum = 0;
-		String sql = "UPDATE addresses SET post_code = ?, prefectures = ?, address = ?";
+		String sql = "UPDATE addresses SET post_code = ?, prefectures = ?, address = ? WHERE user_id = ?";
 		try (Connection con = DBConnection.getConnection(); 
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setString(1, postCode);
 			pstmt.setString(2, prefectures);
 			pstmt.setString(3, address);
+			pstmt.setInt(4, userId);
 			
 			processingNum = pstmt.executeUpdate();
 		}

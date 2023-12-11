@@ -2,7 +2,6 @@ package servlet;
 
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
-import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import hashedPassword.HashPW;
+import model.bean.AddressBean;
+import model.bean.UserBean;
 import model.dao.UserDAO;
 
 /**
@@ -24,7 +25,7 @@ public class UserEditServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		
-		response.setContentType("text/html; charset=UTF-8");
+		request.setCharacterEncoding("UTF-8");
 		
 		response.sendRedirect("mypage-edit.jsp");
 	}
@@ -33,7 +34,7 @@ public class UserEditServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		
-		response.setContentType("text/html; charset=UTF-8");
+		request.setCharacterEncoding("UTF-8");
 		String userName = request.getParameter("username");
 		String kanaName = request.getParameter("kananame");
 		String postCode = request.getParameter("postcode");
@@ -43,24 +44,37 @@ public class UserEditServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
+		String hashedPass = null;
 		try {
-			String hashedPass = HashPW.hashPass(password);
-			
-			UserDAO uDao = new UserDAO();
-			int updateUser = uDao.loginUserUpDate(userName, kanaName, telNumber, email, hashedPass);
+			hashedPass = HashPW.hashPass(password);
+		} catch (NoSuchAlgorithmException e) {
+			// TODO 自動生成された catch ブロック
+			e.printStackTrace();
+		}
+		UserBean loginUser = new UserBean();
+		AddressBean loginAddress = new AddressBean();
+		
+		loginUser.setUserName(userName);
+		loginUser.setKanaName(kanaName);
+		loginUser.setTelNumber(telNumber);
+		loginUser.setHashPass(hashedPass);
+		
+		loginAddress.setPostCode(postCode);
+		loginAddress.setPrefectures(prefectures);
+		loginAddress.setAddress(address);
+		
+		UserDAO uDao = new UserDAO();
+		try {
+			int userId = uDao.getUserId(email);
+			int updateUser = uDao.loginUserUpdate(userName, kanaName, telNumber, email, hashedPass, userId);
 			if(updateUser == 1) {
-				try {
-					int updateUserAddress = uDao.loginUserAddressUpDate(postCode, prefectures, address);
-					if(updateUserAddress == 1) {
-						request.getRequestDispatcher("mypage.jsp").forward(request, response);
-					} else {
-						request.getRequestDispatcher("mypage-edit.jsp").forward(request, response);
-					}
-				} catch(Exception e) {
-					e.printStackTrace();
+				int updateUserAddress = uDao.loginUserAddressUpdate(postCode, prefectures, address, userId);
+				if(updateUserAddress == 1) {
+					response.sendRedirect("MypageServlet");
+					return;
 				}
 			}
-		} catch (NoSuchAlgorithmException | ClassNotFoundException | SQLException e) {
+		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
