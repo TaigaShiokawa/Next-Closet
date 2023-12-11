@@ -11,7 +11,8 @@ import model.bean.UserBean;
 public class UserDAO {
 	
 	//新規登録 (usersテーブル)
-	public int registerUser(String userName, String kanaName, String email, String password, String telNumber) throws ClassNotFoundException, SQLException {
+	public int registerUser(String userName, String kanaName, String email, String password, String telNumber) 
+			throws ClassNotFoundException, SQLException {
 		int processingNum = 0;
 		String sql = "INSERT INTO users (user_name, kana_name, email, hash_pass, tel_number) VALUES (?, ?, ?, ?, ?)";
 		try (Connection con = DBConnection.getConnection(); 
@@ -27,7 +28,8 @@ public class UserDAO {
 	}
 	
 	//新規登録 (addressesテーブル)
-	public int registerAddress(int userId, String postCode, String address) throws ClassNotFoundException, SQLException {
+	public int registerAddress(int userId, String postCode, String address) 
+			throws ClassNotFoundException, SQLException {
 		int processingNum = 0;
 		String sql = "INSERT INTO addresses (user_id, post_code, address) VALUES (?, ?, ?)";
 		try (Connection con = DBConnection.getConnection(); 
@@ -41,8 +43,26 @@ public class UserDAO {
 		return processingNum;
 	}
 	
+	//アドレスid取得
+	public int getUserAddressId(String email) 
+			throws ClassNotFoundException, SQLException {
+		int userAddressId = -1;
+		String sql = "SELECT address_id FROM addresses WHERE email = ?";
+		try (Connection con = DBConnection.getConnection(); 
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setString(1, email);
+			
+			ResultSet res = pstmt.executeQuery();
+			if(res.next()) {
+				userAddressId = res.getInt("address_id");
+			}
+		}
+		return userAddressId;
+	}
+	
 	//ユーザIDを取得
-	public int getUserId(String email) throws ClassNotFoundException, SQLException {
+	public int getUserId(String email) 
+			throws ClassNotFoundException, SQLException {
 		int userId = -1;
 		String sql = "SELECT user_id FROM users WHERE email = ?";
 		try (Connection con = DBConnection.getConnection(); 
@@ -58,7 +78,8 @@ public class UserDAO {
 	}
 	
 	//ユーザーログイン
-	public UserBean userLogin(String email, String password) throws ClassNotFoundException, SQLException {
+	public UserBean userLogin(String email, String password) 
+			throws ClassNotFoundException, SQLException {
 		
 		UserBean user = new UserBean();
 		

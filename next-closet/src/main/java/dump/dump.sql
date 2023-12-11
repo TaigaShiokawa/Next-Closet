@@ -321,12 +321,12 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `user_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_name` varchar(50) NOT NULL,
+  `kana_name` varchar(50) NOT NULL,
   `email` varchar(100) NOT NULL,
   `hash_pass` varchar(250) NOT NULL,
   `registration_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `tel_number` varchar(20) NOT NULL,
   `user_status` tinyint(1) DEFAULT '1',
-  `kana_name` varchar(50) NOT NULL,
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;

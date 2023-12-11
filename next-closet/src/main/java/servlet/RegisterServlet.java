@@ -30,6 +30,7 @@ public class RegisterServlet extends HttpServlet {
 			throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
+		
 		String lastName = request.getParameter("lastname");
 		String firstName = request.getParameter("firstname");
 		String lastKanaName = request.getParameter("lastkananame");
