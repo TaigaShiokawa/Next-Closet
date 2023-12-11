@@ -59,6 +59,7 @@ public class UserDAO {
 				address = new AddressBean();
 				address.setUser_id(res.getInt("user_id"));
 				address.setPostCode(res.getString("post_code"));
+				address.setPrefectures(res.getString("prefectures"));
 				address.setAddress(res.getString("address"));
 			}
 			return address;
