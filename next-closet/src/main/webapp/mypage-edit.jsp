@@ -14,10 +14,10 @@
 <body>
 
 <h3>ユーザー情報更新画面</h3>
-<form action="edit" method="post">
+<form action="UserEditServlet" method="post">
 			お名前：<input type="text" name="lastname" value="<%=loginUser.getUserName() %>"><br>
 			フリガナ：<input type="text" name="lastkananame" value="<%=loginUser.getKanaName()%>"><br>
-			郵便番号：<input type="text" name="postcode" placeholder="" required><br> 
+			郵便番号：<input type="text" name="postcode"><br> 
 			都道府県：
 			<select name="prefectures" required>
 			    <option selected>選択してください</option>
@@ -70,10 +70,10 @@
 			    <option value="沖縄県">沖縄県</option>
 			</select><br>
 
-			住所：<textarea type="text" name="address" placeholder="" required></textarea><br>
-			電話番号：<input type="text" name="telnumber" placeholder="" required><br> 
-			メールアドレス：<input type="email" name="email" placeholder="" required><br> 
-			パスワード：<input type="password" name="password" placeholder="" required><br> 
+			住所：<textarea type="text" name="address"></textarea><br>
+			電話番号：<input type="text" name="telnumber"><br> 
+			メールアドレス：<input type="email" name="email"><br> 
+			パスワード：<input type="password" name="password"><br> 
 			<button type="submit">更新する</button>
 		</form>
 </body>

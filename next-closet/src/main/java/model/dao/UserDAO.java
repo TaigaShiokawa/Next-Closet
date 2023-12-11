@@ -108,4 +108,23 @@ public class UserDAO {
 		}
 		return user;
 	}
+	
+	//ユーザー情報編集
+	public int loginUserUpDate(String userName, String kanaName, String telNumber, String email, String password) throws ClassNotFoundException, SQLException {
+		int processingNum = 0;
+		String sql = "UPDATE users SET user_name = ?, kana_name = ?, tel_number = ?, email = ?, hash_pass = ?";
+		try (Connection con = DBConnection.getConnection(); 
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setString(1, userName);
+			pstmt.setString(2, kanaName);
+			pstmt.setString(3, telNumber);
+			pstmt.setString(4, email);
+			pstmt.setString(5, password);
+			
+			processingNum = pstmt.executeUpdate();
+		}
+		return processingNum;
+	}
+	
+	//ユーザー住所編集
 }

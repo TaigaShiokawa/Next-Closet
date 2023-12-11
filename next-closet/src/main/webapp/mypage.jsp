@@ -32,7 +32,7 @@
     </tr>
     <tr>
         <td><label for="address">都道府県</label></td>
-        <td><!-- Javaで都道府県を表示 --></td>
+        <td><%=loginUserAddress.getPrefectures() %></td>
     </tr>
     <tr>
         <td><label for="city">住所</label></td>
