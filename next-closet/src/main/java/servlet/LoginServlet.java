@@ -36,9 +36,9 @@ public class LoginServlet extends HttpServlet {
 		try {
 			String hashedPass = HashPW.hashPass(password);
 			UserBean loginUser = uDao.userLogin(email, hashedPass);
+			request.getSession().setAttribute("userAddress", uDao.getUserAddressId(email));
 			if(loginUser != null) {
 				request.getSession().setAttribute("user", loginUser);
-				request.getSession().setAttribute("userAddress", uDao.getUserAddressId(email));
 				request.getRequestDispatcher("product-list.jsp").forward(request, response);
 			} else {
 				request.getSession().setAttribute("loginError", "ログインに失敗しました...");
