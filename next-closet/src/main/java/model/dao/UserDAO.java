@@ -98,6 +98,7 @@ public class UserDAO {
 				user = new UserBean();
 				user.setUserId(res.getInt("user_id"));
 				user.setUserName(res.getString("user_name"));
+				user.setKanaName(res.getString("kana_name"));
 				user.setEmail(res.getString("email"));
 				user.setTelNumber(res.getString("tel_number"));
 				user.setUserStatus(res.getBoolean("user_status"));
