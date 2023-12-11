@@ -1,0 +1,169 @@
+
+@charset "UTF-8";
+
+
+*{
+    padding: 0;
+    margin: 0;
+}
+
+/* header関係 */
+
+.header_innner{
+    max-width:1200px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.header_right{
+    display: flex;
+}
+
+.search_box{
+    border: none;
+    border-radius: 10px;
+    height: 40px;
+    width: 300px;
+    margin-top: 5px;
+    padding-left: 10px;
+}
+
+.sarch_btn{
+    background-color: transparent;
+    border: none;
+    font-weight: bold;
+}
+
+header , footer{
+    background-color: #c7c7c7;
+    height: 50px;
+}
+
+.nav_list{
+    display: flex;
+}
+
+h1{
+    font-size: 16px;
+}
+
+a {
+  color: #333;
+  text-decoration: none;
+  transition: all 0.5s;
+}
+
+a:hover {
+  opacity: 0.7;
+}
+
+img {
+  max-width: 100%;
+}
+
+li {
+  list-style: none;
+}
+
+.container{
+    display:flex;
+}
+
+p{
+    font-size: 12px;
+}
+
+.wrapper {
+  width: 85%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.content {
+  padding-top: 60px;
+  padding-bottom: 160px;
+}
+
+.page-title {
+  font-size: 0.875rem;
+  font-weight: normal;
+  margin-bottom: 30px;
+}
+
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.product-list li {
+  width: 23%;
+  margin-bottom: 40px;
+}
+
+.product-list img {
+  margin-bottom: 10px;
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+}
+
+
+/* サイドバー */
+
+.side_bar{
+    width: 15%;
+}
+
+#category_list{
+    margin-left:10px;
+}
+
+a{
+    padding: 15px 30px;
+    display: block;
+    font-size: 12px;
+    letter-spacing: .2em;
+}
+
+.category{
+    position: absolute;
+    left: 150px;
+    display: none;
+   
+}
+
+.category li{
+    display: block;
+}
+
+.category li a{
+    background-color: #efefef;
+    color: #444;
+}
+
+.category li a:hover{
+    background-color: #ddd;
+}
+
+.gender{
+    text-align: center;
+    margin-bottom:30px;
+    font-weight: bold;
+    display: block;
+}
+
+.gender:hover{
+    border-bottom:1px solid black;
+}
+
+.gender:hover .category{
+    display: block;
+}
+
+.list_top{
+    margin-top:200px;
+} 
