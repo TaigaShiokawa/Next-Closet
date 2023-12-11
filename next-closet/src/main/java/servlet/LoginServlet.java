@@ -42,7 +42,7 @@ public class LoginServlet extends HttpServlet {
 			if(loginUser != null) {
 				request.getSession().setAttribute("user", loginUser);
 				request.getSession().setAttribute("userAddress", loginUserAddress);
-				request.getRequestDispatcher("product-list.jsp").forward(request, response);
+				request.getRequestDispatcher("mypage.jsp").forward(request, response);
 			} else {
 				request.getSession().setAttribute("loginError", "ログインに失敗しました...");
 				request.getRequestDispatcher("login.jsp").forward(request, response);
