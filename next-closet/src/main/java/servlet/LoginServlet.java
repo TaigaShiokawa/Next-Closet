@@ -44,7 +44,8 @@ public class LoginServlet extends HttpServlet {
 			if(loginUser != null) {
 				request.getSession().setAttribute("user", loginUser);
 				request.getSession().setAttribute("userAddress", loginUserAddress);
-				request.getRequestDispatcher("mypage.jsp").forward(request, response);
+				request.getSession().setAttribute("userId", userId);
+				response.sendRedirect("test.jsp");
 			} else {
 				request.getSession().setAttribute("loginError", "ログインに失敗しました...");
 				response.sendRedirect("login.jsp");

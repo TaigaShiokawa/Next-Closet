@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,8 +25,7 @@ public class UserEditServlet extends HttpServlet {
 			throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
-		
-		response.sendRedirect("mypage-edit.jsp");
+		request.getRequestDispatcher("mypage-edit.jsp").forward(request, response);
 	}
 
 	
@@ -44,20 +42,13 @@ public class UserEditServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
-		String hashedPass = null;
-		try {
-			hashedPass = HashPW.hashPass(password);
-		} catch (NoSuchAlgorithmException e) {
-			// TODO 自動生成された catch ブロック
-			e.printStackTrace();
-		}
 		UserBean loginUser = new UserBean();
 		AddressBean loginAddress = new AddressBean();
 		
 		loginUser.setUserName(userName);
 		loginUser.setKanaName(kanaName);
 		loginUser.setTelNumber(telNumber);
-		loginUser.setHashPass(hashedPass);
+		loginUser.setHashPass(password);
 		
 		loginAddress.setPostCode(postCode);
 		loginAddress.setPrefectures(prefectures);
@@ -66,12 +57,21 @@ public class UserEditServlet extends HttpServlet {
 		UserDAO uDao = new UserDAO();
 		try {
 			int userId = uDao.getUserId(email);
-			int updateUser = uDao.loginUserUpdate(userName, kanaName, telNumber, email, hashedPass, userId);
-			if(updateUser == 1) {
-				int updateUserAddress = uDao.loginUserAddressUpdate(postCode, prefectures, address, userId);
-				if(updateUserAddress == 1) {
-					response.sendRedirect("MypageServlet");
-					return;
+			if(userId > 0) {
+				String hashedPass = password;
+				if(password != null && !password.isEmpty()) {
+					hashedPass = HashPW.hashPass(password);
+				}
+				int updateUser = uDao.loginUserUpdate(userName, kanaName, telNumber, email, hashedPass, userId);
+				if(updateUser == 1) {
+					int updateUserAddress = uDao.loginUserAddressUpdate(postCode, prefectures, address, userId);
+					if(updateUserAddress == 1) {
+						UserBean updatedUser = uDao.getUpdateUser(userId);
+						AddressBean userAddress = uDao.getUserAddressId(userId);
+				        request.getSession().setAttribute("user", updatedUser);
+				        request.getSession().setAttribute("userAddress", userAddress);
+						response.sendRedirect("MypageServlet");
+					}
 				}
 			}
 		} catch(Exception e) {

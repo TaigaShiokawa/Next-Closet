@@ -13,11 +13,12 @@
 <title>Insert title here</title>
 </head>
 <body>
+<%@ include file="includes/navbar.jsp" %>
 
 <h3>ユーザー情報更新画面</h3>
 <form action="UserEditServlet" method="post">
 			お名前：<input type="text" name="username" value="<%=loginUser.getUserName() %>"><br>
-			フリガナ：<input type="text" name="kananame" value="<%=loginUser.getKanaName()%>"><br>
+			フリガナ：<input type="text" name="kananame" value="<%=loginUser.getKanaName() %>"><br>
 			郵便番号：<input type="text" name="postcode" value="<%=loginUserAddress.getPostCode()%>"><br> 
 			都道府県：
 			<select name="prefectures">

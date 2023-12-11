@@ -102,6 +102,7 @@ public class UserDAO {
 				user.setUserName(res.getString("user_name"));
 				user.setKanaName(res.getString("kana_name"));
 				user.setEmail(res.getString("email"));
+				user.setHashPass(res.getString("hash_pass"));
 				user.setTelNumber(res.getString("tel_number"));
 				user.setUserStatus(res.getBoolean("user_status"));
 			}
@@ -144,4 +145,23 @@ public class UserDAO {
 		return processingNum;
 	}
 	
+	//編集後、ユーザー取得
+	public UserBean getUpdateUser(int userId) throws ClassNotFoundException, SQLException {
+		UserBean user = new UserBean();
+		String sql = "SELECT * FROM users WHERE user_id = ?";
+		try (Connection con = DBConnection.getConnection(); 
+				PreparedStatement pstmt = con.prepareStatement(sql)) { 
+			pstmt.setInt(1, userId);
+			ResultSet res = pstmt.executeQuery();
+			while(res.next()) {
+				user.setUserId(res.getInt("user_id"));
+				user.setUserName(res.getString("user_name"));
+				user.setKanaName(res.getString("kana_name"));
+				user.setEmail(res.getString("email"));
+				user.setHashPass(res.getString("hash_pass"));
+				user.setTelNumber(res.getString("tel_number"));
+			}
+		}
+		return user;
+	}
 }
