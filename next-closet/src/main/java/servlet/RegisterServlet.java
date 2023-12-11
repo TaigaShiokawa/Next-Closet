@@ -58,10 +58,10 @@ public class RegisterServlet extends HttpServlet {
 					int setAddress = uDao.registerAddress(userId, postCode, prefectures, address);
 					if(setAddress == 1) {
 						request.getSession().setAttribute("success", "登録完了！ ログインへお進みください");
-						request.getRequestDispatcher("register.jsp").forward(request, response);
+						response.sendRedirect("register.jsp");
 					} else {
 						request.getSession().setAttribute("failure", "登録失敗...");
-						request.getRequestDispatcher("register.jsp").forward(request, response);
+						response.sendRedirect("register.jsp");
 					}
 				} catch(SQLException | ClassNotFoundException e) {
 					e.printStackTrace();

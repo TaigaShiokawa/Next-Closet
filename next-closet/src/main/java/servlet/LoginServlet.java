@@ -44,10 +44,10 @@ public class LoginServlet extends HttpServlet {
 			if(loginUser != null) {
 				request.getSession().setAttribute("user", loginUser);
 				request.getSession().setAttribute("userAddress", loginUserAddress);
-				request.getRequestDispatcher("mypage.jsp").forward(request, response);
+				response.sendRedirect("mypage.jsp");
 			} else {
 				request.getSession().setAttribute("loginError", "ログインに失敗しました...");
-				request.getRequestDispatcher("login.jsp").forward(request, response);
+				response.sendRedirect("mypage.jsp");
 			}
 		} catch (NoSuchAlgorithmException | ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
