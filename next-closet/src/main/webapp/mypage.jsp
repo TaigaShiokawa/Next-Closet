@@ -20,7 +20,7 @@
         <table>
     <tr>
         <td><label for="name">お名前</label></td>
-        <td><%=loginUser.getUserId() %></td>
+        <td><%=loginUser.getUserName() %></td>
     </tr>
     <tr>
         <td><label for="furigana">フリガナ</label></td>
