@@ -27,8 +27,8 @@
 			<% } %>
 				<form action="RegisterServlet" method="post">
 
-					<label>お名前</label><input type="text" name="lastname" placeholder="例) テスト太郎" required><br>
-					<label>フリガナ</label><input type="text" name="lastkananame" placeholder="例) テストタロウ" required><br>
+					<label>お名前</label><input type="text" name="username" placeholder="例) テスト太郎" required><br>
+					<label>フリガナ</label><input type="text" name="kananame" placeholder="例) テストタロウ" required><br>
 
 					<label>郵便番号</label><input type="text" name="postcode" placeholder="0000000" required><br> 
 					<label>都道府県</label>

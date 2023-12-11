@@ -24,6 +24,8 @@ public class UserEditServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		
+		response.setContentType("text/html; charset=UTF-8");
+		
 		response.sendRedirect("mypage-edit.jsp");
 	}
 
@@ -31,6 +33,7 @@ public class UserEditServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		
+		response.setContentType("text/html; charset=UTF-8");
 		String userName = request.getParameter("username");
 		String kanaName = request.getParameter("kananame");
 		String postCode = request.getParameter("postcode");
@@ -57,7 +60,6 @@ public class UserEditServlet extends HttpServlet {
 					e.printStackTrace();
 				}
 			}
-			
 		} catch (NoSuchAlgorithmException | ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
