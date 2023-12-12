@@ -11,25 +11,22 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="css/order.css">
 </head>
 <body>
 <%@ include file="includes/navbar.jsp" %>
-<div>
-	<ul>
-		<li class="list1">カートの商品</li>
-		<li class="list2">ご注文内容確認</li>
-		<li class="list3"><strong>完了</strong></li>
-	</ul>
-</div>
+<div class="container">
+<!-- ここに画像入れる -->
 
-<div>
-	<h3><strong>ご注文ありがとうございました</strong></h3>
- </div>
+<h3><strong>ご注文ありがとうございました</strong></h3>
  
- <div>
- 	<p><a href="商品一覧jsp">商品一覧</a></p>
-  	<p><a href="購入履歴jsp">購入履歴</a></p>
+ 
+ <div class="link">
+ 	<ul>
+ 	<li class="product"><a href="商品一覧jsp">商品一覧</a></li>
+  	<li class="history"><a href="購入履歴jsp">購入履歴</a></li>
+  </ul>
  </div>
-
+</div>
 </body>
 </html>

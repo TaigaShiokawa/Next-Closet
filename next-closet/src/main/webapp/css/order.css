@@ -1,0 +1,58 @@
+@charset "UTF-8";
+
+*{
+    padding: 0;
+    margin: 0;
+}
+ 
+ main{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+	width: 100%;
+	max-width: 800px;
+	padding-top: 100px;
+	text-align: center;
+	
+}
+
+
+li{
+	display: inline-block;
+ 	 list-style: none;
+}
+
+h3{
+	font-size: 25px;
+	padding-bottom: 100px;
+}
+
+.link {
+	display: flex;
+	text-align: center;
+	width: 100%;
+}
+
+li.product {
+	padding-right: 40px;
+}
+
+li.history{
+	padding-left: 40px;
+}
+
+a {
+	color: lightslategray;
+}
+
+a:hover{
+	color: lightgrey;
+}
+
+ul{
+	margin : 0 auto;
+}
+
