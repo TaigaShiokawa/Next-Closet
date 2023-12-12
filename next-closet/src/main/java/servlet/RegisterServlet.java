@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import hashedPassword.HashPW;
 import model.dao.UserDAO;
+import regexp.EmailValidator;
 
 /**
  * Servlet implementation class RegisterServlet
@@ -43,10 +44,22 @@ public class RegisterServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		
 		if(password.length() < 8) {
+			//パスワードの文字数チェック
 			request.getSession().setAttribute("passError", "8文字以上で設定してください");
 			response.sendRedirect("register.jsp");
 			return;
+		} else if(telNumber.length() > 11) {
+			//電話番号の文字数チェック
+			request.getSession().setAttribute("telNumberError", "無効な電話番号です");
+			response.sendRedirect("register.jsp");
 		}
+		
+		if (!EmailValidator.validate(email)) {
+	        // Eメールが無効な形式の場合の処理
+	        request.getSession().setAttribute("emailError", "無効なEメールアドレスです");
+	        response.sendRedirect("register.jsp");
+	        return;
+	    }
 		
 		String hashedPass = null;
 		try {
