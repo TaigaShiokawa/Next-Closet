@@ -11,10 +11,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="css/withdrawal.css">
 </head>
 <body>
 <%@ include file="includes/navbar.jsp" %>
-<div class=thanks>
+<div class="container">
+<div class="thanks">
 <p>退会手続きを完了しました</p>
 <p>ご利用ありがとうございました</p>
 <p>またのご利用をお待ちしております</p>
@@ -22,6 +24,8 @@
 <div class=reason>
 <label for="feedback" id="feedback">よろしければ退会理由を教えてください</label><br>
 <textarea id="feedback" name="feedback" rows="4" cols="50"></textarea><br>
+</div>
+<a href="product-list.jsp">商品一覧へ戻る</a>
 </div>
 </body>
 </html>
