@@ -3,9 +3,6 @@
 <%@ page import="model.bean.*" %>
 <%@ page import="model.dao.*" %>
 <% UserBean loginUser = (UserBean)request.getSession().getAttribute("user"); %>
-<% if(loginUser == null) { %>
-<% response.sendRedirect("product-list.jsp"); %>
-<% } %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,6 +23,8 @@
 <textarea id="feedback" name="feedback" rows="4" cols="50"></textarea><br>
 </div>
 
-</div>
+
+<a href="ProductListServlet">商品一覧に戻る</a>
+
 </body>
 </html>

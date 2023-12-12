@@ -23,6 +23,8 @@ public class RegisterServlet extends HttpServlet {
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
+		
+		response.sendRedirect("register.jsp");
 	}
 
 	
@@ -40,6 +42,12 @@ public class RegisterServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
+		if(password.length() < 8) {
+			request.getSession().setAttribute("passError", "8文字以上で設定してください");
+			response.sendRedirect("register.jsp");
+			return;
+		}
+		
 		String hashedPass = null;
 		try {
 			hashedPass = HashPW.hashPass(password);
@@ -56,10 +64,10 @@ public class RegisterServlet extends HttpServlet {
 					int setAddress = uDao.registerAddress(userId, postCode, prefectures, address);
 					if(setAddress == 1) {
 						request.getSession().setAttribute("success", "登録完了！ ログインへお進みください");
-						request.getRequestDispatcher("register.jsp").forward(request, response);
+						response.sendRedirect("register.jsp");
 					} else {
-						request.getSession().setAttribute("failure", "登録失敗...");
-						request.getRequestDispatcher("register.jsp").forward(request, response);
+						request.getSession().setAttribute("failure", "登録済みです。ログインへお進みください");
+						response.sendRedirect("register.jsp");
 					}
 				} catch(SQLException | ClassNotFoundException e) {
 					e.printStackTrace();

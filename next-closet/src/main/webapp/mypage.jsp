@@ -32,11 +32,12 @@
     </tr>
     <tr>
         <td><label for="address">都道府県</label></td>
-        <td><!-- Javaで都道府県を表示 --></td>
+        <td><%=loginUserAddress.getPrefectures() %></td>
     </tr>
     <tr>
         <td><label for="city">住所</label></td>
         <td><%=loginUserAddress.getAddress() %></td>
+        <td><a href="SubAddressServlet">その他の住所</a></td> <!-- サブ住所の追加 SubAddressServletへ -->
     </tr>
     <tr>
         <td><label for="phone">電話番号</label></td>
@@ -49,11 +50,13 @@
 </table>
 
         <p>
-            <button type="submit"><a href="mypage-edit.jsp">変更</a></button>
+            <button type="submit"><a href="UserEditServlet?<%=loginUser.getUserId()%>">変更</a></button>
             <button type="submit"><a href="order-history.jsp">購入履歴</a></button>
         </p>
         
         <a href="product-list.jsp">商品一覧へ戻る</a>
+        
+        <a href="WithdrawalServlet?userId=<%=loginUser.getUserId()%>">退会はこちら</a>
 
 </body>
 </html>
