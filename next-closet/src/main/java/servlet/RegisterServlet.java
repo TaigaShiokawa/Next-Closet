@@ -54,16 +54,18 @@ public class RegisterServlet extends HttpServlet {
 			response.sendRedirect("register.jsp");
 		}
 		
-		if (!EmailValidator.validate(email)) {
+		if (!EmailValidator.validate(email)) { //正規表現を含んだEmailValidatorクラスを使用.
 	        // Eメールが無効な形式の場合の処理
 	        request.getSession().setAttribute("emailError", "無効なEメールアドレスです");
 	        response.sendRedirect("register.jsp");
 	        return;
 	    }
+		//郵便番号とパスワードも正規表現を使った方がいいかも
+		
 		
 		String hashedPass = null;
 		try {
-			hashedPass = HashPW.hashPass(password);
+			hashedPass = HashPW.hashPass(password); //パスワードハッシュ化
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
@@ -71,11 +73,11 @@ public class RegisterServlet extends HttpServlet {
 		UserDAO uDao = new UserDAO();
 		try {
 			int setUser = uDao.registerUser(userName, kanaName, email, hashedPass, telNumber);
-			if(setUser == 1) {
+			if(setUser == 1) { //ユーザー情報が1行追加されたら...
 				int userId = uDao.getUserId(email);
 				try {
 					int setAddress = uDao.registerAddress(userId, postCode, prefectures, address);
-					if(setAddress == 1) {
+					if(setAddress == 1) { //ユーザーの住所情報が1行追加されたら...
 						request.getSession().setAttribute("success", "登録完了！ ログインへお進みください");
 						response.sendRedirect("register.jsp");
 					} else {
@@ -94,7 +96,7 @@ public class RegisterServlet extends HttpServlet {
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
-			request.getSession().setAttribute("errorMessageAll", "システムエラーが発生しました。管理者に連絡してください");
+			request.getSession().setAttribute("errorMessage", "システムエラーが発生しました。管理者に連絡してください");
 	        response.sendRedirect("error.jsp");
 		}
 	}

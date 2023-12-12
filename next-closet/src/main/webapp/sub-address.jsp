@@ -108,13 +108,13 @@
 </div>
 <div id="child2">
 
-<!-- Listで追加した住所を表示 -->
+<!-- Listをfor文で回して追加した住所を表示 -->
 <h3>追加した住所</h3>
 <% List<AddressBean> addressList = (List<AddressBean>)request.getAttribute("addressList"); %>
 <% for(AddressBean addresses : addressList) { %>
 <form action="AddressDeleteServlet" method="post">
   <div>
-    <input type="checkbox" name="addAddressId" value="<%=addresses.getAddAddressId()%>">
+    <input type="checkbox" name="addAddressId" value="<%=addresses.getAddAddressId()%>"> <!-- サブ住所のIDを値として返す -->
     <label><%=addresses.getPrefectures()%><%=addresses.getAddress()%></label>
   </div>
 <% } %>
