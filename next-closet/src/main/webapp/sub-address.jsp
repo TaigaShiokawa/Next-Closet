@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.*" %>
 <%@ page import="model.bean.*" %>
 <%@ page import="model.dao.*" %>
 <% UserBean loginUser = (UserBean)request.getSession().getAttribute("user"); %>
@@ -42,11 +43,12 @@
 	
 	 <div id="parent">
         <div id="child1">
-     
+        
+<!-- add_addressテーブルに追加する --> 
 <h3>新しい住所を追加</h3>
 
-<form action=""method="">
-郵便番号：<input type="text" name="postcode" placeholder="0000000" required><br> 
+<form action="SubAddressServlet" method="post">
+郵便番号：<input type="text" name="postcode" placeholder="例) 0000000" required><br> 
 
 都道府県：<select name="prefectures" required>
 			    <option selected>選択してください</option>
@@ -106,24 +108,18 @@
 </div>
 <div id="child2">
 
+<!-- Listで追加した住所を表示 -->
 <h3>追加した住所</h3>
-<form action="" method="">
-<!-- 本当はここにArrayListみたいなのを入れる予定なんだがわからないからここは -->
+<% List<AddressBean> addressList = (List<AddressBean>)request.getAttribute("addressList"); %>
+<% for(AddressBean addresses : addressList) { %>
+<form action="AddressDeleteServlet" method="post">
   <div>
     <input type="checkbox" id="scales" name="scales">
-    <label for="scales">住所１</label>
+    <label for="scales"><%=addresses.getPrefectures()%><%=addresses.getAddress()%></label>
+    
   </div>
-   <div>
-    <input type="checkbox" id="scales" name="scales">
-    <label for="scales">住所２</label>
-  </div>
-   <div>
-    <input type="checkbox" id="scales" name="scales">
-    <label for="scales">住所３</label>
-  </div>
-  
+<% } %>
   <button type="submit">削除</button>
-  
 </form>
 </div>
  </div>
