@@ -202,7 +202,7 @@ public class UserDAO {
 			throws ClassNotFoundException, SQLException {
 		
 		List<AddressBean> addressList = new ArrayList<>();
-		String sql = "SELECT prefectures, address FROM add_addresses WHERE user_id = ?";
+		String sql = "SELECT * FROM add_addresses WHERE user_id = ?";
 		try (Connection con = DBConnection.getConnection(); 
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			
@@ -210,12 +210,29 @@ public class UserDAO {
 			ResultSet res = pstmt.executeQuery();
 			while(res.next()) {
 				AddressBean address = new AddressBean();
+				address.setAddAddressId(res.getInt("add_address_id"));
+				address.setUserId(res.getInt("user_id"));
 				address.setAddress(res.getString("address"));
+				address.setPostCode(res.getString("post_code"));
 				address.setPrefectures(res.getString("prefectures"));
 				
 				addressList.add(address);
 			}
 		}
 		return addressList;
+	}
+	
+	// サブ住所削除
+	public int deleteSubAddress(int addAddressId) 
+	        throws ClassNotFoundException, SQLException {
+		
+		int processingNum = 0;
+	    String sql = "DELETE FROM add_addresses WHERE add_address_id = ?";
+	    try (Connection con = DBConnection.getConnection(); 
+	            PreparedStatement pstmt = con.prepareStatement(sql)) {
+	        pstmt.setInt(1, addAddressId);
+	        processingNum = pstmt.executeUpdate();
+	    }
+	    return processingNum;
 	}
 }

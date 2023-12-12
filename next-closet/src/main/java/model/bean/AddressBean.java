@@ -1,6 +1,6 @@
 package model.bean;
 
-public class AddressBean {
+public class AddressBean extends SubAddressBean{
 	
 	private int addressId;
 	private int userId;
