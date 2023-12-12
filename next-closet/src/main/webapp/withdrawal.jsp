@@ -8,10 +8,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="css/withdrawal.css">
 </head>
 <body>
 <%@ include file="includes/navbar.jsp" %>
-<div class=thanks>
+<div class="container">
+<div class="thanks">
 <p>退会手続きを完了しました</p>
 <p>ご利用ありがとうございました</p>
 <p>またのご利用をお待ちしております</p>
@@ -21,6 +23,8 @@
 <textarea id="feedback" name="feedback" rows="4" cols="50"></textarea><br>
 </div>
 
+
 <a href="ProductListServlet">商品一覧に戻る</a>
+
 </body>
 </html>
