@@ -39,13 +39,8 @@ public class LoginServlet extends HttpServlet {
 		try {
 			String hashedPass = HashPW.hashPass(password);
 			UserBean loginUser = uDao.userLogin(email, hashedPass);
-//<<<<<<< Updated upstream
 			int userId = uDao.getUserId(email);
 			AddressBean loginUserAddress = uDao.getUserAddressId(userId);
-//=======
-			UserBean login;
-			request.getSession().setAttribute("userAddress", uDao.getUserAddressId(email));
-//>>>>>>> Stashed changes
 			if(loginUser != null) {
 				request.getSession().setAttribute("user", loginUser);
 				request.getSession().setAttribute("userAddress", loginUserAddress);
