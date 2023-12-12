@@ -9,9 +9,31 @@ public class CartItemBean implements Serializable{
 	private int productId;
 	private int quantity;
 	
+<<<<<<< Updated upstream
 	// カート一覧で使用するフィールド
     private ProductBean product;
     private SizeBean size;
+=======
+	//カート一覧用のフィールド
+	private ProductBean product;
+    public ProductBean getProduct() {
+		return product;
+	}
+
+	public void setProduct(ProductBean product) {
+		this.product = product;
+	}
+
+	public SizeBean getSize() {
+		return size;
+	}
+
+	public void setSize(SizeBean size) {
+		this.size = size;
+	}
+
+	private SizeBean size;
+>>>>>>> Stashed changes
 	
 	public CartItemBean() {}
 	
