@@ -34,12 +34,6 @@ public class LoginServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
-//		if(userStatus == false) {
-//			request.getSession().setAttribute("notFound", "退会済みのようです");
-//			response.sendRedirect("login.jsp");
-//			return;
-//		}
-		
 		UserDAO uDao = new UserDAO();
 		
 		try {
