@@ -82,12 +82,20 @@ public class RegisterServlet extends HttpServlet {
 						request.getSession().setAttribute("failure", "登録済みです。ログインへお進みください");
 						response.sendRedirect("register.jsp");
 					}
-				} catch(SQLException | ClassNotFoundException e) {
+				} catch(ClassNotFoundException e) {
 					e.printStackTrace();
+					request.getSession().setAttribute("errorMessage", "システムエラーが発生しました。管理者に連絡してください");
+			        response.sendRedirect("error.jsp");
+				} catch(SQLException e) {
+					e.printStackTrace();
+					request.getSession().setAttribute("errorMessage", "データベースエラーが発生しました。しばらくしてから再開してください");
+			        response.sendRedirect("error.jsp");
 				}
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
+			request.getSession().setAttribute("errorMessageAll", "システムエラーが発生しました。管理者に連絡してください");
+	        response.sendRedirect("error.jsp");
 		}
 	}
 }

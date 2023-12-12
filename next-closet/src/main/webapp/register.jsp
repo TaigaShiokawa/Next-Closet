@@ -35,6 +35,7 @@
 			<% session.removeAttribute("telNumberError"); %>
 			<% } else if(emailError != null) { %>
 			<p><%=emailError %></p>
+			<% session.removeAttribute("emailError"); %>
 			<% } %>
 				<form action="RegisterServlet" method="post">
 
