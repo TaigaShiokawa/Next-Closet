@@ -25,7 +25,7 @@
 <label for="feedback" id="feedback">よろしければ退会理由を教えてください</label><br>
 <textarea id="feedback" name="feedback" rows="4" cols="50"></textarea><br>
 </div>
-<a href="product-list.jsp">商品一覧へ戻る</a>
+
 </div>
 </body>
 </html>
