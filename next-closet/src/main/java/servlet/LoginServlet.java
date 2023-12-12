@@ -34,6 +34,12 @@ public class LoginServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
+//		if(userStatus == false) {
+//			request.getSession().setAttribute("notFound", "退会済みのようです");
+//			response.sendRedirect("login.jsp");
+//			return;
+//		}
+		
 		UserDAO uDao = new UserDAO();
 		
 		try {
@@ -41,7 +47,7 @@ public class LoginServlet extends HttpServlet {
 			UserBean loginUser = uDao.userLogin(email, hashedPass);
 			int userId = uDao.getUserId(email);
 			AddressBean loginUserAddress = uDao.getUserAddressId(userId);
-			if(loginUser != null) {
+			if((loginUser != null) && (loginUser.isUserStatus() == true)) { //退会済みのチェック
 				request.getSession().setAttribute("user", loginUser);
 				request.getSession().setAttribute("userAddress", loginUserAddress);
 				request.getSession().setAttribute("userId", userId);

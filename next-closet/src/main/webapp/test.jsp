@@ -10,6 +10,13 @@
 </head>
 <body>
 <%@ include file="includes/navbar.jsp" %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Step Indicator</title>
+</head>
+<body>
 
 </body>
 </html>

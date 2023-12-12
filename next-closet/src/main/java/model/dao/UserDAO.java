@@ -91,7 +91,7 @@ public class UserDAO {
 		
 		UserBean user = new UserBean();
 		
-		String sql = "SELECT * FROM users WHERE email = ? AND hash_pass = ?";
+		String sql = "SELECT * FROM users WHERE email = ? AND hash_pass = ? AND user_status = true";
 		try (Connection con = DBConnection.getConnection(); 
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setString(1, email);
@@ -234,5 +234,18 @@ public class UserDAO {
 	        processingNum = pstmt.executeUpdate();
 	    }
 	    return processingNum;
+	}
+	
+	//ユーザー退会
+	public int chageUserStatus(int userId) throws ClassNotFoundException, SQLException {
+		int processingNum = 0;
+		String sql = "UPDATE users SET user_status = false WHERE user_id = ?";
+		try (Connection con = DBConnection.getConnection(); 
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setInt(1, userId);
+			pstmt.executeUpdate();
+			processingNum = pstmt.executeUpdate();
+		}
+		return processingNum;
 	}
 }
