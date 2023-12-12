@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -10,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.bean.CartItemBean;
-import model.bean.UserBean;
 import model.dao.CartDAO;
 
 
@@ -18,16 +18,24 @@ import model.dao.CartDAO;
 public class AddToCartServlet extends HttpServlet  {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
+		
+		int userId = 1;
+		
+//		HttpSession session = request.getSession();
+//		Integer userId = (Integer)session.getAttribute("id");
 
+		CartDAO cartDao = new CartDAO();
+        List<CartItemBean> cartItems = null;
 		try {
-			UserBean loginUser = (UserBean)request.getSession().getAttribute("user");
-			CartDAO cartDao = new CartDAO();
-			List<CartItemBean> cartItems = cartDao.getCartItems(loginUser.getUserId());
-			request.setAttribute("cartItems", cartItems);
-			request.getRequestDispatcher("cart.jsp").forward(request, response);
-		} catch (Exception e) {
+			cartItems = cartDao.getCartItems(userId);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		System.out.println(cartItems);
+        request.setAttribute("cartItems", cartItems);
+        request.getRequestDispatcher("cart.jsp").forward(request, response);
 	}
 	
 	

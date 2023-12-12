@@ -3,6 +3,9 @@
 <%@ page import="model.bean.*" %>
 <%@ page import="model.dao.*" %>
 <% UserBean loginUser = (UserBean)request.getSession().getAttribute("user"); %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="model.bean.CartItemBean" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,18 +23,21 @@
     </form>
 
 
-   <c:forEach var="cartItem" items="${cartItems}">
+    <% 
+        List<CartItemBean> cartItems = (ArrayList<CartItemBean>) request.getAttribute("cartItems"); 
+        for (CartItemBean item : cartItems) {
+    %>
     <div>
-        <img src="${cartItem.product.image}" alt="Product Image">
+        <img src="<%= item.getProduct().getImage() %>" alt="Product Image">
         <div>
-            <p>商品名: ${cartItem.product.productName}</p>
-            <p>サイズ: ${cartItem.size.sizeName}</p>
+            <p>商品名: <%= item.getProduct().getProductName() %></p>
+            <p>サイズ: <%= item.getSize().getSizeName() %></p>
+            <p>価格: <%= item.getProduct().getPrice() %></p>
             <form action="updateCartQuantity" method="post">
-                <input type="hidden" name="cartItemId" value="${cartItem.cartItemId}">
-                <input type="number" name="quantity" value="${cartItem.quantity}">
+                <input type="hidden" name="cartItemId" value="<%= item.getQuantity() %>">
+                <input type="number" name="quantity" value="<%= item.getQuantity() %>">
                 <input type="submit" value="更新">
-            </form>
-            <p>合計金額: ${cartItem.product.price * cartItem.quantity}</p>
+            </form>     
         </div>
         <form action="deleteCartItem" method="post">
             <input type="hidden" name="cartItemId" value="${cartItem.cartItemId}">
@@ -42,7 +48,8 @@
             <input type="submit" value="購入">
         </form>
     </div>
-</c:forEach>
+    <% } %>   
+    <p>合計金額: <%-- ${cartItem.product.price * cartItem.quantity} --%></p>
    
 </body>
 </html>
