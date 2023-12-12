@@ -2,9 +2,9 @@
 <%@ page import="model.bean.*" %>
 <%@ page import="model.dao.*" %>
 <% UserBean loginUser = (UserBean)request.getSession().getAttribute("user"); %>
-<%-- <% if(loginUser == null) { %>
+<% if(loginUser == null) { %>
 <% response.sendRedirect("product-list.jsp"); %>
-<% } %>  --%>
+<% } %>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,13 +15,13 @@
 
 </head>
 <body>
-<%-- <%@ include file="includes/navbar.jsp" %>   --%>
+ <%@ include file="includes/navbar.jsp" %>  
 
     <h2>マイページ</h2>
         <table>
     <tr>
         <td><label for="name">お名前</label></td>
-<%--         <td><%=loginUser.getUserName() %></td> --%>
+      <td><%=loginUser.getUserName() %></td> 
     </tr>
     <tr>
         <td><label for="furigana">フリガナ</label></td>
