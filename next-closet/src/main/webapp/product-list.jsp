@@ -70,55 +70,16 @@
                   			  <p>当該商品がありません</p>
                   	 <% } %>
                     
-                      <!-- <li>
-                        <a href="#">
-                          <img src="../img/2.jpg" alt="">
-                          <p>プロダクトタイトルプロダクトタイトル</p>
-                          <p>&yen;99,999 +tax</p>
+                      <!-- ダミーの商品一覧
+                      <li>
+                      	<a href="#">
+                        	<img src="../img/2.jpg" alt="">
+                         	<p>プロダクトタイトルプロダクトタイトル</p>
+                          	<p>&yen;99,999 +tax</p>
                         </a>
                       </li>
-                      <li>
-                        <a href="#">
-                          <img src="../img/3.jpg" alt="">
-                          <p>プロダクトタイトルプロダクトタイトル</p>
-                          <p>&yen;99,999 +tax</p>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <img src="../img/4.jpg" alt="">
-                          <p>プロダクトタイトルプロダクトタイトル</p>
-                          <p>&yen;99,999 +tax</p>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <img src="../img/5.jpg" alt="">
-                          <p>プロダクトタイトルプロダクトタイトル</p>
-                          <p>&yen;99,999 +tax</p>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <img src="../img/6.jpg" alt="">
-                          <p>プロダクトタイトルプロダクトタイトル</p>
-                          <p>&yen;99,999 +tax</p>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <img src="../img/7.jpg" alt="">
-                          <p>プロダクトタイトルプロダクトタイトル</p>
-                          <p>&yen;99,999 +tax</p>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="#">
-                          <img src="../img/1.jpg" alt="">
-                          <p>プロダクトタイトルプロダクトタイトル</p>
-                          <p>&yen;99,999 +tax</p>
-                        </a>
-                      </li> -->
+                      <l
+                      -->
                   </ul>
             </div>
         </div>
