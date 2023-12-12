@@ -23,12 +23,14 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
+		response.sendRedirect("login.jsp");
 	}
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		
+		request.setCharacterEncoding("UTF-8");
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
@@ -47,10 +49,11 @@ public class LoginServlet extends HttpServlet {
 			if(loginUser != null) {
 				request.getSession().setAttribute("user", loginUser);
 				request.getSession().setAttribute("userAddress", loginUserAddress);
-				request.getRequestDispatcher("product-list.jsp").forward(request, response);
+				request.getSession().setAttribute("userId", userId);
+				response.sendRedirect("test.jsp"); //ナビゲーションからマイページへの遷移を確認するため, test.jspという仮の商品一覧ページを作って検証している.
 			} else {
 				request.getSession().setAttribute("loginError", "ログインに失敗しました...");
-				request.getRequestDispatcher("login.jsp").forward(request, response);
+				response.sendRedirect("login.jsp");
 			}
 		} catch (NoSuchAlgorithmException | ClassNotFoundException | SQLException e) {
 			e.printStackTrace();

@@ -57,7 +57,7 @@ public class UserDAO {
 			ResultSet res = pstmt.executeQuery();
 			while(res.next()) {
 				address = new AddressBean();
-				address.setUser_id(res.getInt("user_id"));
+				address.setUserId(res.getInt("user_id"));
 				address.setPostCode(res.getString("post_code"));
 				address.setPrefectures(res.getString("prefectures"));
 				address.setAddress(res.getString("address"));
@@ -102,6 +102,7 @@ public class UserDAO {
 				user.setUserName(res.getString("user_name"));
 				user.setKanaName(res.getString("kana_name"));
 				user.setEmail(res.getString("email"));
+				user.setHashPass(res.getString("hash_pass"));
 				user.setTelNumber(res.getString("tel_number"));
 				user.setUserStatus(res.getBoolean("user_status"));
 			}
@@ -110,10 +111,10 @@ public class UserDAO {
 	}
 	
 	//ユーザー情報編集
-	public int loginUserUpDate(String userName, String kanaName, String telNumber, String email, String password) 
+	public int loginUserUpdate(String userName, String kanaName, String telNumber, String email, String password, int userId) 
 			throws ClassNotFoundException, SQLException {
 		int processingNum = 0;
-		String sql = "UPDATE users SET user_name = ?, kana_name = ?, tel_number = ?, email = ?, hash_pass = ?";
+		String sql = "UPDATE users SET user_name = ?, kana_name = ?, tel_number = ?, email = ?, hash_pass = ? WHERE user_id = ?";
 		try (Connection con = DBConnection.getConnection(); 
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setString(1, userName);
@@ -121,6 +122,7 @@ public class UserDAO {
 			pstmt.setString(3, telNumber);
 			pstmt.setString(4, email);
 			pstmt.setString(5, password);
+			pstmt.setInt(6, userId);
 			
 			processingNum = pstmt.executeUpdate();
 		}
@@ -128,4 +130,52 @@ public class UserDAO {
 	}
 	
 	//ユーザー住所編集
+	public int loginUserAddressUpdate(String postCode, String prefectures, String address, int userId) throws ClassNotFoundException, SQLException {
+		int processingNum = 0;
+		String sql = "UPDATE addresses SET post_code = ?, prefectures = ?, address = ? WHERE user_id = ?";
+		try (Connection con = DBConnection.getConnection(); 
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setString(1, postCode);
+			pstmt.setString(2, prefectures);
+			pstmt.setString(3, address);
+			pstmt.setInt(4, userId);
+			
+			processingNum = pstmt.executeUpdate();
+		}
+		return processingNum;
+	}
+	
+	//編集後、ユーザー取得
+	public UserBean getUpdateUser(int userId) throws ClassNotFoundException, SQLException {
+		UserBean user = new UserBean();
+		String sql = "SELECT * FROM users WHERE user_id = ?";
+		try (Connection con = DBConnection.getConnection(); 
+				PreparedStatement pstmt = con.prepareStatement(sql)) { 
+			pstmt.setInt(1, userId);
+			ResultSet res = pstmt.executeQuery();
+			while(res.next()) {
+				user.setUserId(res.getInt("user_id"));
+				user.setUserName(res.getString("user_name"));
+				user.setKanaName(res.getString("kana_name"));
+				user.setEmail(res.getString("email"));
+				user.setHashPass(res.getString("hash_pass"));
+				user.setTelNumber(res.getString("tel_number"));
+			}
+		}
+		return user;
+	}
+	
+	//パスワード変更
+	public int userPasswordUpdate(int userId, String password) throws ClassNotFoundException, SQLException {
+		int processingNumber = 0;
+		String sql = "UPDATE users SET hash_pass = ? WHERE user_id = ?";
+		try (Connection con = DBConnection.getConnection(); 
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setString(1, password);
+			pstmt.setInt(2, userId);
+			
+			processingNumber = pstmt.executeUpdate();
+		}
+		return processingNumber;
+	}
 }
