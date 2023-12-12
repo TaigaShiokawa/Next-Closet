@@ -45,7 +45,7 @@ public class LoginServlet extends HttpServlet {
 				request.getSession().setAttribute("user", loginUser);
 				request.getSession().setAttribute("userAddress", loginUserAddress);
 				request.getSession().setAttribute("userId", userId);
-				response.sendRedirect("test.jsp");
+				response.sendRedirect("test.jsp"); //ナビゲーションからマイページへの遷移を確認するため, test.jspという仮の商品一覧ページを作って検証している.
 			} else {
 				request.getSession().setAttribute("loginError", "ログインに失敗しました...");
 				response.sendRedirect("login.jsp");

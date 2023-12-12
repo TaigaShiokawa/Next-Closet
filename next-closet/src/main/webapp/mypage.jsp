@@ -37,6 +37,7 @@
     <tr>
         <td><label for="city">住所</label></td>
         <td><%=loginUserAddress.getAddress() %></td>
+        <td><a href="#">その他の住所</a></td> <!-- サブ住所の追加 sub-address.jspへ -->
     </tr>
     <tr>
         <td><label for="phone">電話番号</label></td>
