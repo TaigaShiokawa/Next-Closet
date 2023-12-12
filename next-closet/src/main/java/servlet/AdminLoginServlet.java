@@ -52,7 +52,7 @@ public class AdminLoginServlet extends HttpServlet {
           
           try {
 			  if(adminDao.validate(email, hashpass)) {
-					String view ="/WEB-INF/view/.jsp";
+					String view ="/WEB-INF/view/admin-product-list.jsp";
 				    request.getRequestDispatcher(view).forward(request, response);
 			  }else {
 					String view ="/WEB-INF/view/admin-login.jsp";
