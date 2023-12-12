@@ -9,10 +9,6 @@ public class CartItemBean implements Serializable{
 	private int productId;
 	private int quantity;
 	
-	// カート一覧で使用するフィールド
-    private ProductBean product;
-    private SizeBean size;
-	
 	public CartItemBean() {}
 	
 	public CartItemBean(int cartItemId, int cartId, int productId, int quantity) {
@@ -54,21 +50,23 @@ public class CartItemBean implements Serializable{
 		this.quantity = quantity;
 	}
 	
-	// ProductBean と SizeBean に対するゲッターとセッター
-    public ProductBean getProduct() {
-        return product;
-    }
+	private ProductBean product;
+	private SizeBean size;
+	public ProductBean getProduct() {
+		return product;
+	}
 
-    public void setProduct(ProductBean product) {
-        this.product = product;
-    }
+	public void setProduct(ProductBean product) {
+		this.product = product;
+	}
 
-    public SizeBean getSize() {
-        return size;
-    }
+	public SizeBean getSize() {
+		return size;
+	}
 
-    public void setSize(SizeBean size) {
-        this.size = size;
-    }
-
+	public void setSize(SizeBean size) {
+		this.size = size;
+	}
+	
+	
 }

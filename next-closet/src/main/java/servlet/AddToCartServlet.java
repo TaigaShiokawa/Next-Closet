@@ -18,6 +18,7 @@ import model.dao.CartDAO;
 public class AddToCartServlet extends HttpServlet  {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
+
 		try {
 			UserBean loginUser = (UserBean)request.getSession().getAttribute("user");
 			CartDAO cartDao = new CartDAO();
