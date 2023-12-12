@@ -1,0 +1,61 @@
+@charset "UTF-8";
+
+*{
+    padding: 0;
+    margin: 0;
+}
+
+main{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container{
+    width: 100%;
+    max-width:800px;
+    padding-top: 100px ;
+}
+
+h2{
+    font-size: 20px;
+}
+
+input, select, textarea{
+    width: 50%;
+    height: 50px;
+    margin:0 auto;
+    margin-top: 16px;
+    padding-left:5px;
+}
+
+textarea{
+    padding-top:5px; 
+}
+
+select{
+    padding-left: 0 ;
+}
+
+label{
+    padding-left: 30px;
+    display:inline-block;
+    width: 150px;
+}
+
+button{
+    width: 300px;
+    height: 60px;
+    border: none;
+    margin-top: 40px;
+    display: block;
+    margin: 40px auto;
+}
+
+button:hover{
+    opacity: .7;
+}
+
+span{
+    padding-right: 10px;
+}

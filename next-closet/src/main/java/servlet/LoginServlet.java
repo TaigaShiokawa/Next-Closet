@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import hashedPassword.HashPW;
+import model.bean.AddressBean;
 import model.bean.UserBean;
 import model.dao.UserDAO;
 
@@ -22,12 +23,14 @@ public class LoginServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
+		response.sendRedirect("login.jsp");
 	}
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		
+		request.setCharacterEncoding("UTF-8");
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
@@ -36,14 +39,16 @@ public class LoginServlet extends HttpServlet {
 		try {
 			String hashedPass = HashPW.hashPass(password);
 			UserBean loginUser = uDao.userLogin(email, hashedPass);
-			UserBean login
-			request.getSession().setAttribute("userAddress", uDao.getUserAddressId(email));
-			if(loginUser != null) {
+			int userId = uDao.getUserId(email);
+			AddressBean loginUserAddress = uDao.getUserAddressId(userId);
+			if((loginUser != null) && (loginUser.isUserStatus() == true)) { //退会済みのチェック
 				request.getSession().setAttribute("user", loginUser);
-				request.getRequestDispatcher("product-list.jsp").forward(request, response);
+				request.getSession().setAttribute("userAddress", loginUserAddress);
+				request.getSession().setAttribute("userId", userId);
+				response.sendRedirect("test.jsp"); //ナビゲーションからマイページへの遷移を確認するため, test.jspという仮の商品一覧ページを作って検証している.
 			} else {
 				request.getSession().setAttribute("loginError", "ログインに失敗しました...");
-				request.getRequestDispatcher("login.jsp").forward(request, response);
+				response.sendRedirect("login.jsp");
 			}
 		} catch (NoSuchAlgorithmException | ClassNotFoundException | SQLException e) {
 			e.printStackTrace();

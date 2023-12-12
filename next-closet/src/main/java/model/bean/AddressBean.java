@@ -1,36 +1,38 @@
 package model.bean;
 
-public class AddressBean {
+public class AddressBean extends SubAddressBean{
 	
-	private int address_id;
-	private int user_id;
+	private int addressId;
+	private int userId;
 	private String postCode;
+	private String prefectures;
 	private String address;
 	
 	public AddressBean() {}
 
-	public AddressBean(int address_id, int user_id, String postCode, String address) {
+	public AddressBean(int addressId, int userId, String postCode, String prefectures, String address) {
 		super();
-		this.address_id = address_id;
-		this.user_id = user_id;
+		this.addressId = addressId;
+		this.userId = userId;
 		this.postCode = postCode;
+		this.prefectures = prefectures;
 		this.address = address;
 	}
 
-	public int getAddress_id() {
-		return address_id;
+	public int getAddressId() {
+		return addressId;
 	}
 
-	public void setAddress_id(int address_id) {
-		this.address_id = address_id;
+	public void setAddressId(int addressId) {
+		this.addressId = addressId;
 	}
 
-	public int getUser_id() {
-		return user_id;
+	public int getUserId() {
+		return userId;
 	}
 
-	public void setUser_id(int user_id) {
-		this.user_id = user_id;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 	public String getPostCode() {
@@ -39,6 +41,14 @@ public class AddressBean {
 
 	public void setPostCode(String postCode) {
 		this.postCode = postCode;
+	}
+
+	public String getPrefectures() {
+		return prefectures;
+	}
+
+	public void setPrefectures(String prefectures) {
+		this.prefectures = prefectures;
 	}
 
 	public String getAddress() {

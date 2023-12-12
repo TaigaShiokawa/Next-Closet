@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import hashedPassword.HashPW;
 import model.dao.UserDAO;
+import regexp.EmailValidator;
 
 /**
  * Servlet implementation class RegisterServlet
@@ -23,6 +24,8 @@ public class RegisterServlet extends HttpServlet {
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
+		
+		response.sendRedirect("register.jsp");
 	}
 
 	
@@ -31,16 +34,32 @@ public class RegisterServlet extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		
-		String lastName = request.getParameter("lastname");
-		String firstName = request.getParameter("firstname");
-		String lastKanaName = request.getParameter("lastkananame");
-		String firstKanaName = request.getParameter("firstkananame");
+		String userName = request.getParameter("username");
+		String kanaName = request.getParameter("kananame");
 		String postCode = request.getParameter("postcode");
 		String prefectures = request.getParameter("prefectures");
 		String address = request.getParameter("address");
 		String telNumber = request.getParameter("telnumber");
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
+		
+		if(password.length() < 8) {
+			//パスワードの文字数チェック
+			request.getSession().setAttribute("passError", "8文字以上で設定してください");
+			response.sendRedirect("register.jsp");
+			return;
+		} else if(telNumber.length() > 11) {
+			//電話番号の文字数チェック
+			request.getSession().setAttribute("telNumberError", "無効な電話番号です");
+			response.sendRedirect("register.jsp");
+		}
+		
+		if (!EmailValidator.validate(email)) {
+	        // Eメールが無効な形式の場合の処理
+	        request.getSession().setAttribute("emailError", "無効なEメールアドレスです");
+	        response.sendRedirect("register.jsp");
+	        return;
+	    }
 		
 		String hashedPass = null;
 		try {
@@ -51,17 +70,17 @@ public class RegisterServlet extends HttpServlet {
 		
 		UserDAO uDao = new UserDAO();
 		try {
-			int setUser = uDao.registerUser(lastName+" "+firstName, lastKanaName+" "+firstKanaName, email, hashedPass, telNumber);
+			int setUser = uDao.registerUser(userName, kanaName, email, hashedPass, telNumber);
 			if(setUser == 1) {
 				int userId = uDao.getUserId(email);
 				try {
-					int setAddress = uDao.registerAddress(userId, postCode, prefectures+address);
+					int setAddress = uDao.registerAddress(userId, postCode, prefectures, address);
 					if(setAddress == 1) {
 						request.getSession().setAttribute("success", "登録完了！ ログインへお進みください");
-						request.getRequestDispatcher("register.jsp").forward(request, response);
+						response.sendRedirect("register.jsp");
 					} else {
-						request.getSession().setAttribute("failure", "登録失敗...");
-						request.getRequestDispatcher("register.jsp").forward(request, response);
+						request.getSession().setAttribute("failure", "登録済みです。ログインへお進みください");
+						response.sendRedirect("register.jsp");
 					}
 				} catch(SQLException | ClassNotFoundException e) {
 					e.printStackTrace();

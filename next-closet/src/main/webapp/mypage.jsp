@@ -2,6 +2,7 @@
 <%@ page import="model.bean.*" %>
 <%@ page import="model.dao.*" %>
 <% UserBean loginUser = (UserBean)request.getSession().getAttribute("user"); %>
+<% AddressBean loginUserAddress = (AddressBean)request.getSession().getAttribute("userAddress"); %>
 <% if(loginUser == null) { %>
 <% response.sendRedirect("product-list.jsp"); %>
 <% } %>  
@@ -25,27 +26,28 @@
     </tr>
     <tr>
         <td><label for="furigana">フリガナ</label></td>
-        <td><!-- Javaでフリガナを表示 --></td>
+        <td><%=loginUser.getKanaName() %></td>
     </tr>
     <tr>
         <td><label for="postalcode">郵便番号</label></td>
-        <td><!-- Javaで郵便番号を表示 --></td>
+        <td><%=loginUserAddress.getPostCode() %></td>
     </tr>
     <tr>
         <td><label for="address">都道府県</label></td>
-        <td><!-- Javaで都道府県を表示 --></td>
+        <td><%=loginUserAddress.getPrefectures() %></td>
     </tr>
     <tr>
         <td><label for="city">住所</label></td>
-        <td><!-- Javaで市区町村を表示 --></td>
+        <td><%=loginUserAddress.getAddress() %></td>
+        <td><a href="SubAddressServlet">その他の住所</a></td> <!-- サブ住所の追加 SubAddressServletへ -->
     </tr>
     <tr>
         <td><label for="phone">電話番号</label></td>
-        <td><!-- Javaで電話番号を表示 --></td>
+        <td><%=loginUser.getTelNumber() %></td>
     </tr>
     <tr>
         <td><label for="email">メールアドレス</label></td>
-        <td><!-- Javaでメールアドレスを表示 --></td>
+        <td><%=loginUser.getEmail() %></td>
     </tr>
 </table>
 
@@ -57,6 +59,7 @@
         <a href="product-list.jsp" class="one-a">商品一覧へ戻る</a>
         
          <a href="WithdrawalServlet?userId=<%=loginUser.getUserId()%>">退会はこちら</a>
+
 
 </body>
 </html>
