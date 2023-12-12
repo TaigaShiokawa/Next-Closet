@@ -55,6 +55,8 @@
         </p>
         
         <a href="product-list.jsp">商品一覧へ戻る</a>
+        
+        <a href="WithdrawalServlet?userId=<%=loginUser.getUserId()%>">退会はこちら</a>
 
 </body>
 </html>
