@@ -2,24 +2,26 @@
 <%@ page import="model.bean.*" %>
 <%@ page import="model.dao.*" %>
 <% UserBean loginUser = (UserBean)request.getSession().getAttribute("user"); %>
-<% if(loginUser == null) { %>
+<%-- <% if(loginUser == null) { %>
 <% response.sendRedirect("product-list.jsp"); %>
-<% } %>
+<% } %>  --%>
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="css/mypage.css">
+<link rel="stylesheet" href="css/mypage.css">
 <meta charset="UTF-8">
 <title>フォーム</title>
 
 </head>
 <body>
-<%@ include file="includes/navbar.jsp" %>
+<%-- <%@ include file="includes/navbar.jsp" %>   --%>
 
     <h2>マイページ</h2>
         <table>
     <tr>
         <td><label for="name">お名前</label></td>
-        <td><%=loginUser.getUserName() %></td>
+<%--         <td><%=loginUser.getUserName() %></td> --%>
     </tr>
     <tr>
         <td><label for="furigana">フリガナ</label></td>
@@ -48,11 +50,11 @@
 </table>
 
         <p>
-            <button type="submit"><a href="mypage-edit.jsp">変更</a></button>
-            <button type="submit"><a href="order-history.jsp">購入履歴</a></button>
+            <a href="mypage-edit.jsp"><button type="submit" class="one-button">変更</button></a>
+            <a href="order-history.jsp"><button type="submit" class="twe-button">購入履歴</button></a>
         </p>
         
-        <a href="product-list.jsp">商品一覧へ戻る</a>
+        <a href="product-list.jsp" class="one-a">商品一覧へ戻る</a>
 
 </body>
 </html>

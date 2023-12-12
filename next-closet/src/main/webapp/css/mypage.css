@@ -1,0 +1,62 @@
+table {
+  border-collapse: collapse;
+  width: 45%;
+  border: 1px solid black;
+  table-layout: fixed; /* セルの幅を指定した幅に固定 */
+}
+
+th{
+  padding: 10px;
+  text-align: left;
+  overflow: hidden; /* セル内の内容がはみ出た場合は表示を省略 */
+  white-space: nowrap; /* 文字列を折り返さずに表示 */
+}
+
+td {
+width: 150px;
+height: 35px;
+ table-layout: fixed; /* セルの幅を指定した幅に固定 */
+}
+
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 85vh;
+  margin: 10;
+}
+button {
+  font-size: 18px; /* ボタンのテキストのサイズを変更 */
+  padding: 10px 20px; /* ボタンの上下左右の余白を変更 */
+   border-radius: 10px; /* 丸みの半径を設定 */
+      width: 200px; 
+}
+
+
+.one-button{
+    margin: 0px 50px;
+    background-color: grey; /* 背景色をグレーに設定 */
+  color: white; /* 文字色を白に設定 */
+}
+.twe-button{
+	background-color: grey; /* 背景色をグレーに設定 */
+  color: white; /* 文字色を白に設定 */
+}
+
+p{
+	margin-right: 225px; /* 例えば、左に20px動かす */
+}
+
+a {
+  text-decoration: none; /* 下線をなしに設定 */
+}
+h2{
+  margin-right: 500px; /* 例えば、左に20px動かす */
+}
+
+.one-a{
+	margin-right: 200px;
+	line-height: 50px; 
+	}
