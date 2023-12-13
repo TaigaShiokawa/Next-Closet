@@ -30,7 +30,7 @@
 			<p><%= columns.getProductName() %><p>
 			<p><%= columns.getDescruption() %></p>
 			<p>&yen; <%= columns.getPrice() %><span>税込</span></p>
-			<form id="form" name="form" action="AddToCartServlet" method="get">
+			<form id="form" name="form" action="AddToCartServlet" method="post">
 				<input type="hidden" name="order" value="いますぐ買う" >
 				<input type="hidden" name="productId" value="<%= columns.getProductId() %>" >
 				<input type="radio" name="sizeId" value="1" checked ><label>S</label>
@@ -45,6 +45,7 @@
 		
 		<script>
 			function goOrder(){
+				document.getElementById('form').method = 'get';
 				document.getElementById('form').action = 'OrderConfirmServlet';
 			}
 		</script>
