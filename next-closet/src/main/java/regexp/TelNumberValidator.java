@@ -5,7 +5,8 @@ import java.util.regex.Pattern;
 
 public class TelNumberValidator {
 	
-private static final String TEL_NUMBER_PATTERN = "^\\d{11}$";
+	//11文字以外は無効
+	private static final String TEL_NUMBER_PATTERN = "^\\d{11}$";
 	
 	public static boolean validate(String postCode) {
 		Pattern pattern = Pattern.compile(TEL_NUMBER_PATTERN);
