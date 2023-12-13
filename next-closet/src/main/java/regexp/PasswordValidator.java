@@ -10,10 +10,10 @@ public class PasswordValidator {
 	}
 	
 	//テスト用
-	public static void main(String[] args) {
-		String input = "Test@123!#"; // この文字列は半角英数字と特殊文字
-		boolean isHalfWidth = PasswordValidator.isHalfWidth(input);
-		System.out.println("入力は半角英数字および特殊文字のみですか？: " + isHalfWidth);
-	}
+//	public static void main(String[] args) {
+//		String input = "Test@123!#"; // この文字列は半角英数字と特殊文字
+//		boolean isHalfWidth = PasswordValidator.isHalfWidth(input);
+//		System.out.println("入力は半角英数字および特殊文字のみですか？: " + isHalfWidth);
+//	}
 
 }
