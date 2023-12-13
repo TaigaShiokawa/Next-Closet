@@ -40,16 +40,17 @@ public class UserEditServlet extends HttpServlet {
 		String address = request.getParameter("address");
 		String telNumber = request.getParameter("telnumber");
 		String email = request.getParameter("email");
-//		String password = request.getParameter("password");
 		
 		UserBean loginUser = new UserBean();
 		AddressBean loginAddress = new AddressBean();
 		
+		
+		
+		//ユーザー情報セット 必要かわからん
 		loginUser.setUserName(userName);
 		loginUser.setKanaName(kanaName);
 		loginUser.setTelNumber(telNumber);
-//		loginUser.setHashPass(password);
-		
+		//ユーザーの住所情報セット 必要かわからん
 		loginAddress.setPostCode(postCode);
 		loginAddress.setPrefectures(prefectures);
 		loginAddress.setAddress(address);
