@@ -102,6 +102,7 @@ public class ProductBean implements Serializable{
 	public void setRegistrationDate(Date registrationDate) {
 		this.registrationDate = registrationDate;
 	}
+
 	
 	@Override
     public String toString() {
@@ -111,5 +112,6 @@ public class ProductBean implements Serializable{
                ", image='" + image + '\'' +
                '}';
     }
+
 	
 }
