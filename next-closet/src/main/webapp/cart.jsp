@@ -24,15 +24,28 @@
 
 
     <% 
-        List<CartItemBean> cartItems = (ArrayList<CartItemBean>) request.getAttribute("cartItems"); 
+        List<CartItemBean> cartItems = (ArrayList<CartItemBean>) request.getAttribute("cartItems");
+        double totalPrice = 0;
         for (CartItemBean item : cartItems) {
+            int itemPrice = item.getProduct().getPrice();
+            int quantity = item.getQuantity();
+            totalPrice += itemPrice * quantity;
+            String formattedItemTotal = String.format("%,d", itemPrice * quantity);
+        }
+        String formattedTotalPrice = String.format("%,d", (int)Math.round(totalPrice));
+    %>
+    <% 
+        for (CartItemBean item : cartItems) {
+        	int itemPrice = item.getProduct().getPrice();
+            int quantity = item.getQuantity();
+            String formattedItemTotal = String.format("%,d", itemPrice * quantity);
     %>
     <div>
         <img src="<%= item.getProduct().getImage() %>" alt="Product Image">
         <div>
             <p>商品名: <%= item.getProduct().getProductName() %></p>
             <p>サイズ: <%= item.getSize().getSizeName() %></p>
-            <p>価格: <%= item.getProduct().getPrice() %></p>
+            <p>価格: <%= formattedItemTotal %>円</p>
             <form action="CartUpdateServlet" method="post">
                 <input type="hidden" name="cartItemId" value="<%= item.getCartItemId() %>">
                 <input type="number" name="quantity" value="<%= item.getQuantity() %>">
@@ -49,7 +62,7 @@
         </form>
     </div>
     <% } %>   
-    <p>合計金額: <%-- ${cartItem.product.price * cartItem.quantity} --%></p>
+    <p>合計金額: <%= formattedTotalPrice %>円</p>
    
 </body>
 </html>
