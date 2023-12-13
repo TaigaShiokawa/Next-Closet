@@ -19,6 +19,8 @@
 			<% String success = (String)request.getSession().getAttribute("success"); %>
 			<% String failure = (String)request.getSession().getAttribute("failure"); %>
 			<% String passError = (String)request.getSession().getAttribute("passError"); %>
+			<% String telNumberError = (String)request.getSession().getAttribute("telNumberError"); %>
+			<% String emailError = (String)request.getSession().getAttribute("emailError"); %>
 			<% if(success != null) { %>
 			<p><%=success %></p>
 			<% session.removeAttribute("success"); %>
@@ -28,6 +30,12 @@
 			<% } else if(passError != null) {%>
 			<p><%=passError %></p>
 			<% session.removeAttribute("passError"); %>
+			<% } else if(telNumberError != null) { %>
+			<p><%=telNumberError %></p>
+			<% session.removeAttribute("telNumberError"); %>
+			<% } else if(emailError != null) { %>
+			<p><%=emailError %></p>
+			<% session.removeAttribute("emailError"); %>
 			<% } %>
 				<form action="RegisterServlet" method="post">
 
