@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import hashedPassword.HashPW;
 import model.dao.UserDAO;
 import regexp.EmailValidator;
+import regexp.KanaNameValidator;
 
 /**
  * Servlet implementation class RegisterServlet
@@ -43,19 +44,33 @@ public class RegisterServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
+		//名前の空文字チェック
 		if(userName.isEmpty()) {
 			request.getSession().setAttribute("userNameError", "名前の入力が正しくありません");
 			response.sendRedirect("register.jsp");
+			return;
 		}
 		
-		if((password.length() < 8) && (password.isEmpty())) { //パスワードの文字数チェック
+		//フリガナの全角チェック (ひらがなは許可せず, カタカナのみ)
+		if(!KanaNameValidator.validate(password)) {
+			request.getSession().setAttribute("kanaNameError", "フリガナの入力が正しくありません");
+	        response.sendRedirect("register.jsp");
+	        return;
+		}
+		
+		//郵便番号チェック (ハイフンを含まない) 全角を半角に置換
+		
+		//パスワードの文字数チェック
+		if((password.length() < 8) && (password.trim().isEmpty())) { //8文字以上かつ空文字を許可しない
 			request.getSession().setAttribute("passError", "8文字以上で設定してください");
 			response.sendRedirect("register.jsp");
 			return;
 		} 
-		if(telNumber.length() > 11) { //電話番号の文字数チェック
+		//電話番号の文字数チェック
+		if((telNumber.length() > 11)) { //全角を半角に置換する正規表現
 			request.getSession().setAttribute("telNumberError", "無効な電話番号です");
 			response.sendRedirect("register.jsp");
+			return;
 		}
 		
 		//パスワード 使用文字制限の正規表現
