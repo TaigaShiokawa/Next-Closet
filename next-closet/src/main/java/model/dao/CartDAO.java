@@ -133,5 +133,19 @@ public class CartDAO {
 		}
 	}
 	
+	public void UpdateCarItemQuantity(int cart_item_id, int quantity)
+			throws ClassNotFoundException, SQLException {
+		String sql = "UPDATE cart_items SET quantity = ? WHERE cart_item_id = ?";
+		
+		try (Connection con = DBConnection.getConnection();
+			 PreparedStatement pstmt = con.prepareStatement(sql)) {
+			
+			pstmt.setInt(1, quantity);
+			pstmt.setInt(2, cart_item_id);
+			
+			pstmt.executeUpdate();
+		}
+	}
+	
 
 }

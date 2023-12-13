@@ -12,5 +12,4 @@ public class PostCodeValidator {
 		Matcher matcher = pattern.matcher(postCode);
 		return matcher.matches();
 	}
-
 }

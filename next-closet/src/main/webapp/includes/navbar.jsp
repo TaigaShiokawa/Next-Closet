@@ -27,15 +27,7 @@
         		                    </a>
                       		  </li>
 								<li><a class="nav_text" href="LogoutServlet">logout</a></li>
-								
-								<!-- 管理者 ログイン済み -->
-								<%-- <% } else if (admin != null) { %>
-								<li><a href="product-list.jsp">商品一覧</a></li>
-								<li><a href="LogoutServlet">ログアウト</a></li>
-								<li><a href="#">ユーザー編集</a></li>
-								<li><a href="#">管理者編集</a></li>
-								<li><a href="#">購入通知</a></li> --%>
-								
+			
 								<!-- ログインしていない -->
 								 <% } else { %> 
 								<li>

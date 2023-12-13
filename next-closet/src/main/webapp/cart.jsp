@@ -33,8 +33,8 @@
             <p>商品名: <%= item.getProduct().getProductName() %></p>
             <p>サイズ: <%= item.getSize().getSizeName() %></p>
             <p>価格: <%= item.getProduct().getPrice() %></p>
-            <form action="updateCartQuantity" method="post">
-                <input type="hidden" name="cartItemId" value="<%= item.getQuantity() %>">
+            <form action="CartUpdateServlet" method="post">
+                <input type="hidden" name="cartItemId" value="<%= item.getCartItemId() %>">
                 <input type="number" name="quantity" value="<%= item.getQuantity() %>">
                 <input type="submit" value="更新">
             </form>     
@@ -43,8 +43,8 @@
             <input type="hidden" name="cartItemId" value="<%= item.getCartItemId() %>">
             <input type="submit" value="削除">
         </form>
-        <form action="purchaseItem" method="post">
-            <input type="hidden" name="productId" value="${cartItem.product.productId}">
+        <form action="OrderConfilmServlet" method="get">
+            <input type="hidden" name="cartItemId" value="<%= item.getCartItemId() %>">
             <input type="submit" value="購入">
         </form>
     </div>
