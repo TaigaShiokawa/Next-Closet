@@ -41,9 +41,13 @@ public class AddToCartServlet extends HttpServlet  {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		
-		int userId = Integer.parseInt(request.getParameter("id"));
-		int productId = Integer.parseInt(request.getParameter("product_id"));
-		int sizeId = Integer.parseInt(request.getParameter("size_id"));
+        int userId = 1;
+		
+//		HttpSession session = request.getSession();
+//		Integer userId = (Integer)session.getAttribute("id");
+
+		int productId = Integer.parseInt(request.getParameter("productId"));
+		int sizeId = Integer.parseInt(request.getParameter("sizeId"));
 		int quantity = Integer.parseInt(request.getParameter("quantity"));
 		
 		CartDAO cartDao = new CartDAO();
