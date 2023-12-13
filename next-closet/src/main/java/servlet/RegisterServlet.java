@@ -80,29 +80,16 @@ public class RegisterServlet extends HttpServlet {
 	        return;
 		}
 		
-		//住所のデータを統一(全角を半角にする)
+		//住所の空文字チェック
 		if(address.isEmpty()) {
 			request.getSession().setAttribute("addressError", "住所が正しくありません");
 	        response.sendRedirect("register.jsp");
 	        return;
 		}
-		
+		//住所のデータを統一(全角を半角にする)
 		String normalizedAddress = AddressValidator.normalizeAddress(address);
 		
-		
-		//半角であれば特殊文字を許可
-		if(!HalfWidthValidator.isHalfWidth(password)) {
-			request.getSession().setAttribute("passError", "パスワードが不正です。正しく入力してください");
-			response.sendRedirect("register.jsp");
-			return;
-			
-			//パスワードの文字数と空文字チェック
-		} else if((password.length() < 8) && (password.trim().isEmpty())) { 
-			request.getSession().setAttribute("passError", "8文字以上で設定してください");
-			response.sendRedirect("register.jsp");
-			return;
-		} 
-		
+		//電話番号チェック 全角を半角に置換
 		String convertTelNumber = telNumber.replaceAll("０", "0")
 								 		   .replaceAll("１", "1")
 								 		   .replaceAll("２", "2")
@@ -121,26 +108,30 @@ public class RegisterServlet extends HttpServlet {
 			return;
 		}
 		
-		//パスワード 使用文字制限の正規表現
-		//null, 空文字チェック
-		
-		//郵便番号でハイフンを使用できない正規表現
-		//null, 空文字チェック
-		
-		//電話番号でハイフンを使用できない正規表現
-		//null, 空文字チェック
-		
-		if (!EmailValidator.validate(email)) { //正規表現を含んだEmailValidatorクラスを使用.
+		//メールアドレスチェック(一般的な形式に則っていなければ無効)
+		if (!EmailValidator.validate(email)) { 
 	        // Eメールが無効な形式の場合の処理
 	        request.getSession().setAttribute("emailError", "無効なEメールアドレスです");
 	        response.sendRedirect("register.jsp");
 	        return;
 		}
 		
-		
+		//パスワード 半角であれば特殊文字を許可
+		if(!HalfWidthValidator.isHalfWidth(password)) {
+			request.getSession().setAttribute("passError", "パスワードが不正です。正しく入力してください");
+			response.sendRedirect("register.jsp");
+			return;
+			
+			//パスワードの文字数と空文字チェック
+		} else if((password.length() < 8) && (password.trim().isEmpty())) { 
+			request.getSession().setAttribute("passError", "8文字以上で設定してください");
+			response.sendRedirect("register.jsp");
+			return;
+		} 
+		//パスワードハッシュ化
 		String hashedPass = null;
 		try {
-			hashedPass = HashPW.hashPass(password); //パスワードハッシュ化
+			hashedPass = HashPW.hashPass(password); 
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
