@@ -9,6 +9,9 @@
 <% SizeText st = new SizeText(); %>
 
 <% UserBean user = ( UserBean )request.getSession().getAttribute("user");  //user関係の情報%>
+<% String message = (String)request.getAttribute("message"); 
+   int totalAmount = 0 ;
+   %>
 
 <!DOCTYPE html>
 <html>
@@ -21,8 +24,24 @@
 <body>
 <%@ include file="includes/navbar.jsp" %>
   <main>
+
+<div>
+		<div　class="order">
+			<h3>まだ注文が確定していません。この商品を購入しますか？</h3>
+	</div>
+</div>
+<div class="border">
+<form action="OrderConfilmServlet" method="post">
+
+<% if( order.equals("allCartItems") ){
+	
+	List <CartBean> cartAllItemList = ( ArrayList <CartBean> )request.getAttribute("cartAllItemList"); %> 
+		for(CartBean columns : cartAllItemList) { %>
+
 		<div>
 			<div　class="order">
+				<p> <%= message %></p>
+
 				<h3>まだ注文が確定していません。この商品を購入しますか？</h3>
 			</div>
 		</div>
@@ -34,16 +53,25 @@
 		<div class="flex">
 			<%  for( ProductBean columns : productList) { 
 				int sizeId = (int)request.getAttribute("sizeId");
-			%>
+
+				int quantity = (int)request.getAttribute("quantity");
+				int price =   columns.getPrice() %>
+			
+
 		 		<figure class="image"><img src="<%= columns.getImage() %>" alt="商品画像"></figure>
 		  		<div class="right">
 				    <p class="product">商品名：<%= columns.getProductName()  %></p>
 				    <p class="size">サイズ：<%= st.sizeText(sizeId) %></p>
 				    <p class="quantity">数量：<%= (int)request.getAttribute("quantity") %></p>
+
+				    
+				    <% totalAmount = price * quantity %>
 				    <input type="hidden" name="productId" value="：<%= columns.getProductId()  %>">
 				    <input type="hidden" name="order" value="order">
 				    <input type="hidden" name="sizeId" value= <%= sizeId %>>
+				    <input type="hidden" name="totalAmount" value= <%= totalAmount %>>
 				    <input type="hidden" name="quantity"  value="<%= (int)request.getAttribute("quantity") %>
+				    
 		 		</div>	
 		 		<% } %>
 		</div>
@@ -57,7 +85,7 @@
 <% if( order.equals("allCartItems") ){ //　カート内全て
 	List <CartItemBean> cartAllItemList = ( ArrayList <CartItemBean> )request.getAttribute("cartAllItemList"); %> 
 		for(CartItemsBean columns : cartAllItemList) { %>
-		
+
 		<div class="flex">
 		 	<figure class="image"><img src="<%= columns.getImage() %>" alt="商品画像"></figure>
 		  	<div class="right">
@@ -124,8 +152,10 @@
 <div class=total>
 		<span>ご注文金額(税込)</span>
 		<label>合計</label>
-	<%-- 	<p><%= totalprice %></p> --%>
+
+	<p><%= totalAmount %></p>
 		</div>
+
 <input type="submit" value="購入確定">
 </form>
 <a href="ProductListServlet">戻る</a>

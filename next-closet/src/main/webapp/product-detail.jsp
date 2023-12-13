@@ -37,7 +37,7 @@
 				<input type="radio" name="sizeId" value="1" checked ><label>S</label>
 				<input type="radio" name="sizeId" value="2"  ><label>M</label>
 				<input type="radio" name="sizeId" value="3" ><label>L</label>
-				<label>数量</label><input type="number" name = "quantity">
+				<label>数量</label><input type="number" name = "quantity"　required>
 				<input type="submit" value="カートに入れる" >
 				<input type="submit" value="いますぐ買う" onclick="goOrder()">
 			</form>
