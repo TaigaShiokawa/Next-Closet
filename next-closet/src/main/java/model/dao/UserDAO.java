@@ -108,6 +108,7 @@ public class UserDAO {
 			}
 		}
 
+
 	//ユーザーログイン
 	public UserBean userLogin(String email, String password) 
 			throws ClassNotFoundException, SQLException {
