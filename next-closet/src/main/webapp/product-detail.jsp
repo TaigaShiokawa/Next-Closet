@@ -8,6 +8,7 @@
 	<title>next closet...</title>
 	   <link rel="stylesheet" href="css/product-detail.css">
 	   <link rel = "stylesheet" href = "css/navbar.css">
+	   <% UserBean loginUser = (UserBean)request.getSession().getAttribute("user"); %>
 		 <%
 	   		 List <ProductBean> productList = (ArrayList <ProductBean>)request.getAttribute("productList");
 	     %>
@@ -46,7 +47,7 @@
 		<script>
 			function goOrder(){
 				document.getElementById('form').method = 'get';
-				document.getElementById('form').action = 'OrderConfirmServlet';
+				document.getElementById('form').action = 'OrderConfilmServlet';
 			}
 		</script>
 	</body>
