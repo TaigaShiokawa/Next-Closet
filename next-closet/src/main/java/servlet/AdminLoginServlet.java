@@ -58,9 +58,10 @@ public class AdminLoginServlet extends HttpServlet {
 					String view ="/WEB-INF/view/admin-login.jsp";
 				    request.getRequestDispatcher(view).forward(request, response);
 			  }
-		  }catch(Exception e) {
+		  } catch(Exception e) {
 			  e.printStackTrace();
+			  request.getSession().setAttribute("errorMessageToAdmin", "システムエラーが発生しました。");
+			  response.sendRedirect("errorToAdmin.jsp");
 		  }
-
       }
 	}
