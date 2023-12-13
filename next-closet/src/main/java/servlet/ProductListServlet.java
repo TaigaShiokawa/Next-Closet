@@ -1,41 +1,73 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class ProductListServlet
- */
+import model.dao.ProductDAO;
+
 @WebServlet("/ProductListServlet")
 public class ProductListServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ProductListServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
+		
+		int categoryId = -1;
+		int gender = 0;
+		String categoryIdStr = request.getParameter("categoryId");
+		String genderStr =  request.getParameter("gender");
+		
+		if( categoryIdStr != null ) {
+			categoryId = Integer.parseInt(request.getParameter("categoryId"));
+		}
+		
+		if( genderStr != null ) {
+			gender = Integer.parseInt(request.getParameter("gender"));
+		}
+		
+		if (gender == 0 ) {
+			genderStr = "MENS";
+		} else if( gender == 1 ) {
+			genderStr = "WOMENS";
+		} else {
+			genderStr = "ALL";
+		}
+		
+		String categoryName = request.getParameter("categoryName");		
+		ProductDAO dao = new ProductDAO();
+		
+		try {
+			
+			request.setAttribute("categoryList", dao.categoryList());
+			
+			if( categoryId == -1 ) {
+				request.setAttribute("title","ALL / 商品一覧");
+				request.setAttribute("productList",dao.allProductList());
+				
+			} else {
+				
+				if(  gender == -1 ){
+					request.setAttribute("title",  " ALL / " + categoryName + "/ 商品一覧");
+					request.setAttribute("productList",dao.allCategoryProductList(categoryId));
+					
+				}else {
+					request.setAttribute("title", genderStr + "/" + categoryName + "/ 商品一覧");
+					request.setAttribute("productList",dao.categoryProductList(categoryId , gender));
+				}
+			}
+		
+			} catch (SQLException | ClassNotFoundException e) {
+				e.printStackTrace();
+			}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
+		 RequestDispatcher dispatcher = request.getRequestDispatcher("product-list.jsp");
+   	     dispatcher.forward(request, response);
+ 
 
+	}
+	
 }

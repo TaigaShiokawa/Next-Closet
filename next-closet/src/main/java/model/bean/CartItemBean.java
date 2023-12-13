@@ -5,17 +5,17 @@ import java.io.Serializable;
 public class CartItemBean implements Serializable{
 	
 	private int cartItemId;
+	private int userId;
 	private int productId;
 	private int quantity;
-	private int sizeId;
 	
 	public CartItemBean() {}
 	
-	public CartItemBean(int cartItemId, int productId, int quantity , int sizeId) {
+	public CartItemBean(int cartItemId, int userId, int productId, int quantity) {
 		this.cartItemId = cartItemId;
+		this.userId = userId;
 		this.productId = productId;
 		this.quantity = quantity;
-		this.sizeId = sizeId;
 	}
 
 	public int getCartItemId() {
@@ -24,6 +24,14 @@ public class CartItemBean implements Serializable{
 
 	public void setCartItemId(int cartItemId) {
 		this.cartItemId = cartItemId;
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 	public int getProductId() {
@@ -41,13 +49,38 @@ public class CartItemBean implements Serializable{
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-
-	public int getSizeId() {
-		return sizeId;
+	
+	private ProductBean product;
+	private SizeBean size;
+	public ProductBean getProduct() {
+		return product;
 	}
 
-	public void setSizeId(int sizeId) {
-		this.sizeId = sizeId;
+	public void setProduct(ProductBean product) {
+		this.product = product;
 	}
 
+	public SizeBean getSize() {
+		return size;
+	}
+
+	public void setSize(SizeBean size) {
+		this.size = size;
+	}
+	
+	@Override
+    public String toString() {
+        return "CartItemBean{" +
+                "cartItemId=" + cartItemId +
+                ", userId=" + userId +
+                ", productId=" + productId +
+                ", quantity=" + quantity +
+                ", product=" + (product != null ? product.toString() : "null") +
+                ", size=" + (size != null ? size.toString() : "null") +
+                '}';
+    }
+	
 }
+
+
+

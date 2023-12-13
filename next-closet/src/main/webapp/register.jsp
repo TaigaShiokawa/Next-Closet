@@ -18,19 +18,35 @@
 			<h2>新規会員登録</h2>
 			<% String success = (String)request.getSession().getAttribute("success"); %>
 			<% String failure = (String)request.getSession().getAttribute("failure"); %>
+			<% String userNameError = (String)request.getSession().getAttribute("userNameError"); %>
+			<% String passError = (String)request.getSession().getAttribute("passError"); %>
+			<% String telNumberError = (String)request.getSession().getAttribute("telNumberError"); %>
+			<% String emailError = (String)request.getSession().getAttribute("emailError"); %>
 			<% if(success != null) { %>
 			<p><%=success %></p>
 			<% session.removeAttribute("success"); %>
 			<% } else if(failure != null) { %>
 			<p><%=failure %></p>
 			<% session.getAttribute("failure"); %>
+			<% }  else if(userNameError != null){ %>
+			<p><%=userNameError %></p>
+			<% session.removeAttribute("userNameError"); %>
+			<% } else if(passError != null) {%>
+			<p><%=passError %></p>
+			<% session.removeAttribute("passError"); %>
+			<% } else if(telNumberError != null) { %>
+			<p><%=telNumberError %></p>
+			<% session.removeAttribute("telNumberError"); %>
+			<% } else if(emailError != null) { %>
+			<p><%=emailError %></p>
+			<% session.removeAttribute("emailError"); %>
 			<% } %>
 				<form action="RegisterServlet" method="post">
 
-					<label>お名前</label><input type="text" name="lastname" placeholder="例) テスト太郎" required><br>
-					<label>フリガナ</label><input type="text" name="lastkananame" placeholder="例) テストタロウ" required><br>
+					<label>お名前</label><input type="text" name="username" placeholder="例) テスト太郎" required><br>
+					<label>フリガナ</label><input type="text" name="kananame" placeholder="例) テストタロウ" required><br>
 
-					<label>郵便番号</label><input type="text" name="postcode" placeholder="0000000" required><br> 
+					<label>郵便番号</label><input type="text" name="postcode" placeholder="例) 0000000" required><br> 
 					<label>都道府県</label>
 					<select name="prefectures" required>
 					    <option selected>選択してください</option>
