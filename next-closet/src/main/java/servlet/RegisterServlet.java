@@ -14,6 +14,7 @@ import hashedPassword.HashPW;
 import model.dao.UserDAO;
 import regexp.AddressValidator;
 import regexp.EmailValidator;
+import regexp.HalfWidthValidator;
 import regexp.KanaNameValidator;
 import regexp.PostCodeValidator;
 
@@ -88,12 +89,19 @@ public class RegisterServlet extends HttpServlet {
 		String normalizedAddress = AddressValidator.normalizeAddress(address);
 		
 		
-		//パスワードの文字数チェック
-		if((password.length() < 8) && (password.trim().isEmpty())) { //8文字以上かつ空文字を許可しない
+		//半角であれば特殊文字を許可
+		if(!HalfWidthValidator.isHalfWidth(password)) {
+			request.getSession().setAttribute("passError", "パスワードが不正です。正しく入力してください");
+			response.sendRedirect("register.jsp");
+			return;
+			
+			//パスワードの文字数と空文字チェック
+		} else if((password.length() < 8) && (password.trim().isEmpty())) { 
 			request.getSession().setAttribute("passError", "8文字以上で設定してください");
 			response.sendRedirect("register.jsp");
 			return;
 		} 
+		
 		//電話番号の文字数チェック
 		if((telNumber.length() > 11)) { //全角を半角に置換する正規表現
 			request.getSession().setAttribute("telNumberError", "無効な電話番号です");
