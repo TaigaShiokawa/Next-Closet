@@ -39,7 +39,7 @@ public class AddToCartServlet extends HttpServlet  {
 			throws ServletException, IOException {
 		
 
-		int userId = Integer.parseInt(request.getParameter("id"));
+		int userId = (int)request.getSession().getAttribute("userId");
 		int productId = Integer.parseInt(request.getParameter("productId"));
 		int sizeId = Integer.parseInt(request.getParameter("sizeId"));
 		int quantity = Integer.parseInt(request.getParameter("quantity"));
@@ -51,7 +51,15 @@ public class AddToCartServlet extends HttpServlet  {
 			e.printStackTrace();
 		}
 		
-		response.sendRedirect("cart.jsp");
+		CartDAO cartDao2 = new CartDAO();
+		List<CartItemBean> cartItems;
+		try {
+			cartItems = cartDao2.getCartItems(userId);
+			request.setAttribute("cartItems", cartItems);
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+		request.getRequestDispatcher("cart.jsp").forward(request, response);
 	}
 	
 }
