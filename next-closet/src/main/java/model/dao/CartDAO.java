@@ -7,8 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import connection.DBConnection;
 import model.bean.CartItemBean;
 import model.bean.ProductBean;
@@ -18,16 +16,16 @@ import model.bean.SizeBean;
 public class CartDAO {
 	
 	//商品をカートに入れる処理
-	public int addCartItem(HttpServletRequest request, int productId, int quantity) 
+	public int addCartItem(int userId, int productId, int sizeId, int quantity) 
 			throws ClassNotFoundException, SQLException{
 		int processingNum = 0;
-		String sql = "INSERT INTO cart_items (cart_id, product_id, quantity) VALUES (?, ?, ?)";
-		int userId = (int) request.getSession().getAttribute("user_id");
+		String sql = "INSERT INTO cart_items (user_id, product_id, size_id, quantity) VALUES (?, ?, ?, ?)";
 		try (Connection con = DBConnection.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
-			pstmt.setInt(1, userId); //セッションのuser_idをcart_idに保存
+			pstmt.setInt(1, userId);
 			pstmt.setInt(2, productId);
-			pstmt.setInt(3, quantity);
+			pstmt.setInt(3, sizeId);
+			pstmt.setInt(4, quantity);
 			processingNum = pstmt.executeUpdate();
 		}
 		return processingNum;
