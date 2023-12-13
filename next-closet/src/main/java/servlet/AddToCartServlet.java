@@ -19,7 +19,7 @@ public class AddToCartServlet extends HttpServlet  {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		
-		int userId = 1;
+		int userId = 2;
 		
 //		HttpSession session = request.getSession();
 //		Integer userId = (Integer)session.getAttribute("id");
@@ -33,7 +33,6 @@ public class AddToCartServlet extends HttpServlet  {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println(cartItems);
         request.setAttribute("cartItems", cartItems);
         request.getRequestDispatcher("cart.jsp").forward(request, response);
 	}
