@@ -10,7 +10,7 @@
 <html>
 <head>
 <link rel="stylesheet" href="css/mypage.css">
-<link rel="stylesheet" href="css/mypage.css">
+<link rel="stylesheet" href="css/navbar.css">
 <meta charset="UTF-8">
 <title>フォーム</title>
 
