@@ -102,7 +102,7 @@ public class ProductDAO {
 		
 		List <ProductBean> productList = new ArrayList<>();
        
-		String sql = "SELECT * FROM products WHERE category_id = ? ";
+		String sql = "SELECT * FROM products WHERE product_id = ? ";
 		 try(Connection con = DBConnection.getConnection();  //データベースに接続する
 			 PreparedStatement pstmt = con.prepareStatement(sql)){ //引数で指定されたSQLをデータベースで実行するメソッド
       
@@ -192,8 +192,55 @@ public class ProductDAO {
 				     }	
 				return stock;		
 		}
+		
+		
+		//オーダーに購入情報を送る
+		public void addOrderItem( int productId , int quantity , int size_id , int user_id , int total_amount ) throws SQLException , ClassNotFoundException {
+			String sql = "INSERT INTO next_closet_db.order_items ( product_id , quantity , size_id ,user_id ,total_amount ) VALUES ( ? , ?, ?  , ? , ? ) "; 
+	        try(Connection con = DBConnection.getConnection();  //データベースに接続する
+	   			 PreparedStatement pstmt = con.prepareStatement(sql)){ //引数で指定されたSQLをデータベースで実行するメソッド
+	        		pstmt.setInt(1, productId);
+		   			pstmt.setInt(2, quantity);
+		   			pstmt.setInt(3, size_id);
+		   			pstmt.setInt(4, user_id);
+		   			pstmt.setInt(5, total_amount);
+	        }
+		}
+		
+		//今の在庫数を持ってくる
+		public int nowStockQuantity( int product_id , int size_id ) throws SQLException , ClassNotFoundException {
+			String sql = "SELECT stock_quantity FROM next_closet_db.inventory WHERE product_id = ? AND size_id = ?";
+			
+			int stock = -1;
 
-
-	
-
+	        try(Connection con = DBConnection.getConnection();  //データベースに接続する
+	   			 PreparedStatement pstmt = con.prepareStatement(sql)){ //引数で指定されたSQLをデータベースで実行するメソッド
+		   			pstmt.setInt(1, product_id);
+		   			pstmt.setInt(2, size_id);
+		   			
+		   			ResultSet res = pstmt.executeQuery(); 
+		   			
+		   			while(res.next()) {
+		   				stock = res.getInt("stock_quantity");
+		   				
+		   			}
+		   			
+	        }
+	        return  stock;
+		
+		}
+		
+		
+		//購入商品の在庫を減したり増やしたりする（購入時や商品数追加時） 足したり減らすのは呼び出し元で行う？
+		public void changeStock( int stockQuantity , int product_id , int size_id , String delivery_address) throws SQLException , ClassNotFoundException {
+			String sql = "UPDATE next_closet_db.inventory  SET stock_quantity = ?  WHERE product_id = ? AND size_id = ? , delivery_address = ?";
+	  
+	        try(Connection con = DBConnection.getConnection();  //データベースに接続する
+	   			 PreparedStatement pstmt = con.prepareStatement(sql)){ //引数で指定されたSQLをデータベースで実行するメソッド
+	        		pstmt.setInt(1, stockQuantity);
+		   			pstmt.setInt(2, product_id);
+		   			pstmt.setInt(3, size_id);
+		   			pstmt.setString(4, delivery_address);
+	        }
+		}
 }
