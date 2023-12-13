@@ -43,24 +43,30 @@ public class RegisterServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
-		if(password.length() < 8) {
-			//パスワードの文字数チェック
+		if(password.length() < 8) { //パスワードの文字数チェック
 			request.getSession().setAttribute("passError", "8文字以上で設定してください");
 			response.sendRedirect("register.jsp");
 			return;
-		} else if(telNumber.length() > 11) {
-			//電話番号の文字数チェック
+		} else if(telNumber.length() > 11) { //電話番号の文字数チェック
 			request.getSession().setAttribute("telNumberError", "無効な電話番号です");
 			response.sendRedirect("register.jsp");
 		}
+		
+		//パスワード 使用文字制限の正規表現
+		//null, 空文字チェック
+		
+		//郵便番号でハイフンを使用できない正規表現
+		//null, 空文字チェック
+		
+		//電話番号でハイフンを使用できない正規表現
+		//null, 空文字チェック
 		
 		if (!EmailValidator.validate(email)) { //正規表現を含んだEmailValidatorクラスを使用.
 	        // Eメールが無効な形式の場合の処理
 	        request.getSession().setAttribute("emailError", "無効なEメールアドレスです");
 	        response.sendRedirect("register.jsp");
 	        return;
-	    }
-		//郵便番号とパスワードも正規表現を使った方がいいかも
+	    } //else ifでnull, 空文字チェック
 		
 		
 		String hashedPass = null;
