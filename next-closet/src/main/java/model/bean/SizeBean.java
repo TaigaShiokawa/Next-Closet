@@ -2,7 +2,7 @@ package model.bean;
 
 import java.io.Serializable;
 
-public class SizeBean implements Serializable{
+public class SizeBean  extends CartItemBean implements Serializable{
 	
 	private int sizeId;
 	private String sizeName;
@@ -10,6 +10,7 @@ public class SizeBean implements Serializable{
 	public SizeBean() {}
 	
 	public SizeBean(int sizeId, String sizeName) {
+		super();
 		this.sizeId = sizeId;
 		this.sizeName = sizeName;
 	}
