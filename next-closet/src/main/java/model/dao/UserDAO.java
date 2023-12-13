@@ -47,7 +47,11 @@ public class UserDAO {
 		return processingNum;
 	}
 	//ユーザIDを取得
+<<<<<<< Updated upstream
 	public int getUserId(String email)throws ClassNotFoundException, SQLException {
+=======
+	public int getUserId(String email)	throws ClassNotFoundException, SQLException {
+>>>>>>> Stashed changes
 		int userId = -1;
 		String sql = "SELECT user_id FROM users WHERE email = ?";
 		try (Connection con = DBConnection.getConnection(); 
@@ -61,6 +65,7 @@ public class UserDAO {
 		}
 		return userId;
 	}
+
 	
 	//アドレスid取得
 	public AddressBean getUserAddressId(int userId) 
@@ -104,7 +109,11 @@ public class UserDAO {
 				return address;
 			}
 		}
+<<<<<<< Updated upstream
 	
+=======
+
+>>>>>>> Stashed changes
 
 	
 	
