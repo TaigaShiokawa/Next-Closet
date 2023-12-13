@@ -102,6 +102,7 @@ public class OrderConfilmServlet extends HttpServlet {
 		CartDAO cartDAO = new CartDAO();
 		
 		String order     = request.getParameter("order");
+		String delivery_address =  request.getParameter("address");
 		int productId = Integer.parseInt(request.getParameter("productId"));
 		HttpSession session = request.getSession(false);
 		int userId = (int)session.getAttribute("userId"); 
@@ -111,7 +112,7 @@ public class OrderConfilmServlet extends HttpServlet {
 		ProductDAO productDAO = new ProductDAO();
 		StockManager st = new StockManager();
 		
-		//productIdと在庫を照らし合わせ、足りなかったら「在庫がない商品があルので購入いただけません」で確認画面に戻す
+		//productIdと在庫を照らし合わせ、足りなかったら「在庫がない商品があるので購入いただけません」で確認画面に戻す
 		//productIdとsizeのん
 		//しかもカート内のうち一つだけのパターンもある。。。
 		if ( order.equals("cart")) {
@@ -138,8 +139,7 @@ public class OrderConfilmServlet extends HttpServlet {
 			} catch (SQLException | ClassNotFoundException e){
 			e.printStackTrace();
 			}
-		} else if ( order.equals("cartItem"))  {
-			
+		} else if ( order.equals("cartItem"))  { //カートの中のどれか一つ
 			
 			int quantity = Integer.parseInt(request.getParameter("quantity"));
 			int sizeId = Integer.parseInt(request.getParameter("sizeId"));
@@ -150,6 +150,7 @@ public class OrderConfilmServlet extends HttpServlet {
 				//在庫を減らす
 				
 			} else {
+				
 				//購入アイテムのデータ
 				request.setAttribute("order", "cartItem");
 				request.setAttribute("message", "在庫切れの商品があるため購入できません");
@@ -157,7 +158,22 @@ public class OrderConfilmServlet extends HttpServlet {
 				
 			}
 			
-		} else if ( order.equals("order")) {
+		} else if ( order.equals("order")) { //商品詳細 → 今すぐ購入
+			
+			int quantity = Integer.parseInt(request.getParameter("quantity"));
+			int sizeId = Integer.parseInt(request.getParameter("sizeId"));
+			if( st.productStock(productId,sizeId,quantity)) {
+				st.decrementStock(productId,sizeId,quantity,delivery_address );
+			
+				
+				
+			} else { // 在庫 < 購入数だったら
+				
+				request.setAttribute("message", "在庫切れの商品があるため購入できません");
+				request.getRequestDispatcher("order-confilm.jsp").forward(request, response);
+				
+			}
+			
 			
 		}
 		
@@ -171,5 +187,3 @@ public class OrderConfilmServlet extends HttpServlet {
 	
 }
 
-
-//listに入れるメソッド（あとでmodelにうつす）
