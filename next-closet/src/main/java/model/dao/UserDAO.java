@@ -47,8 +47,8 @@ public class UserDAO {
 		return processingNum;
 	}
 	//ユーザIDを取得
-	public int getUserId(String email)
-			throws ClassNotFoundException, SQLException {
+	public int getUserId(String email)throws ClassNotFoundException, SQLException {
+
 		int userId = -1;
 		String sql = "SELECT user_id FROM users WHERE email = ?";
 		try (Connection con = DBConnection.getConnection(); 
@@ -62,6 +62,7 @@ public class UserDAO {
 		}
 		return userId;
 	}
+
 	
 	//アドレスid取得
 	public AddressBean getUserAddressId(int userId) 
@@ -97,6 +98,7 @@ public class UserDAO {
 				ResultSet res = pstmt.executeQuery();
 				while(res.next()) {
 					address = new AddressBean();
+
 					address.setUserId(res.getInt("user_id"));
 					address.setPostCode(res.getString("post_code"));
 					address.setPrefectures(res.getString("prefectures"));
@@ -105,6 +107,12 @@ public class UserDAO {
 				return address;
 			}
 		}
+
+
+	
+	
+
+
 	
 	//ユーザIDを取得
 	public int getUserId(String email)
