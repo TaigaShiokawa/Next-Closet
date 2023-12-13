@@ -36,8 +36,7 @@ public class CartDAO {
 
 	
 	//一つの商品のみカートから購入するメソッド
-		public int cartItem( int cart_item_id ) throws ClassNotFoundException, SQLException{
-			int cartItemId = 0;
+		public CartItemBean getCartItem( int cart_item_id ) throws ClassNotFoundException, SQLException{
 			CartItemBean cartItem = new CartItemBean();
 			String sql = "SELECT * FROM cart_items WHERE cart_item_id = ?";
 			try (Connection con = DBConnection.getConnection();
@@ -52,7 +51,7 @@ public class CartDAO {
 					cartItem.setSizeId(res.getInt("size_id"));
 				}
 			}
-			return cartItemId;
+			return cartItem;
 		}
 		
 
