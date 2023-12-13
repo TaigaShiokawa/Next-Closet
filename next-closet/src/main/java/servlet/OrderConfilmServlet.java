@@ -9,7 +9,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import model.StockManager;
 import model.bean.CartItemBean;
@@ -96,17 +95,34 @@ public class OrderConfilmServlet extends HttpServlet {
 
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		
 		ProductDAO productDao = new ProductDAO();
 		UserDAO userDao = new UserDAO();
 		CartDAO cartDAO = new CartDAO();
 		
-		String order     = request.getParameter("order");
-		String delivery_address =  request.getParameter("address");
+	
+		int userId = (int) request.getSession().getAttribute("userId");
+		
+		// カート内全てか商品一つか　と　カートからか今すぐ購入か()
+		String order = request.getParameter("order");
+	
+		
+		try {
+			//userIdでUserBeanから情報を持ってくる
+			request.setAttribute("user" , userDao.getUpdateUser(userId));				//user情報
+			request.setAttribute("address" , userDao.getUserAddressId(userId));			//メイン住所
+			request.setAttribute("addAddresses" , userDao.getSubAddress(userId));	//サブ住所
+		}catch(SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+	
+		String delivery_address = (String)request.getParameter("address");
 		int productId = Integer.parseInt(request.getParameter("productId"));
-		HttpSession session = request.getSession(false);
-		int userId = (int)session.getAttribute("userId"); 
-		boolean stock = true;
+		int totalAmount = Integer.parseInt(request.getParameter("totalAmount"));
+		System.out.println("住所は" +  delivery_address);
+
 		
 		request.setAttribute("order" , order);
 		ProductDAO productDAO = new ProductDAO();
@@ -132,13 +148,19 @@ public class OrderConfilmServlet extends HttpServlet {
 						}
 	
 					request.setAttribute("order", "cart");
-					request.setAttribute("message", "在庫切れの商品があるため購入できません");
+					request.setAttribute("message", "在庫切れの商品があるため購入できません");			
+					int sizeId = Integer.parseInt(request.getParameter("sizeId"));
+					int quantity = Integer.parseInt(request.getParameter("quantity"));
+					request.setAttribute("productList", productDao.detailProductList(productId)); //商品の詳細情報　商品名やらお金やら
+					request.setAttribute("sizeId", sizeId);
+					request.setAttribute("quantity", quantity);
 					request.getRequestDispatcher("order-confilm.jsp").forward(request, response);
 					
 				}
 			} catch (SQLException | ClassNotFoundException e){
 			e.printStackTrace();
 			}
+			
 		} else if ( order.equals("cartItem"))  { //カートの中のどれか一つ
 			
 			int quantity = Integer.parseInt(request.getParameter("quantity"));
@@ -159,18 +181,38 @@ public class OrderConfilmServlet extends HttpServlet {
 			}
 			
 		} else if ( order.equals("order")) { //商品詳細 → 今すぐ購入
+			//System.out.println("オーダーの分岐には入ってます");
 			
 			int quantity = Integer.parseInt(request.getParameter("quantity"));
 			int sizeId = Integer.parseInt(request.getParameter("sizeId"));
-			if( st.productStock(productId,sizeId,quantity)) {
-				st.decrementStock(productId,sizeId,quantity,delivery_address );
 			
+			if( st.productStock(productId,sizeId,quantity)) {
+				System.out.println(delivery_address);				
+				st.decrementStock(productId,sizeId,quantity );
+				st.orderRegistration(productId,sizeId,quantity, userId ,totalAmount , delivery_address );
 				
-				
+				//ご購入いただきましてありがとうございました。に飛ばす
+				RequestDispatcher dispatcher = request.getRequestDispatcher("order.jsp");
+		  	    dispatcher.forward(request, response);
+			
+			
 			} else { // 在庫 < 購入数だったら
 				
+				
+				request.setAttribute("message", "在庫切れの商品があるため購入できません");			
+				sizeId = Integer.parseInt(request.getParameter("sizeId"));
+				quantity = Integer.parseInt(request.getParameter("quantity"));
+				try {
+				request.setAttribute("productList", productDao.detailProductList(productId)); //商品の詳細情報　商品名やらお金やら
+				} catch (SQLException | ClassNotFoundException e) {
+					e.printStackTrace();
+				}
+				request.setAttribute("order", "order");
+				request.setAttribute("sizeId", sizeId);
+				request.setAttribute("quantity", quantity);
+				
 				request.setAttribute("message", "在庫切れの商品があるため購入できません");
-				request.getRequestDispatcher("order-confilm.jsp").forward(request, response);
+				request.getRequestDispatcher("order-confirm.jsp").forward(request, response);
 				
 			}
 			
@@ -179,9 +221,7 @@ public class OrderConfilmServlet extends HttpServlet {
 		
 		//orderなのかcartitemなのかcartなのかでcartからのDERETEとorderへのINSERTを行う
 		
-		//ご購入いただきましてありがとうございました。に飛ばす
-		RequestDispatcher dispatcher = request.getRequestDispatcher("order.jsp");
-  	    dispatcher.forward(request, response);
+		
 	}
 	
 	

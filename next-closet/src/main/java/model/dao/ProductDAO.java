@@ -149,7 +149,7 @@ public class ProductDAO {
 
 	//商品の在庫（単品）の在庫数とストック数を比較する
 		public  int getStockItem(int productId , int  sizeId) throws ClassNotFoundException, SQLException {
-			String sql = "SELECT * FROM add inventory WHERE product_id = ? AND size_id = ?";
+			String sql = "SELECT stock_quantity FROM inventory WHERE product_id = ? AND size_id = ?";
 			int inventory = -1;
 			try (Connection con = DBConnection.getConnection(); 
 					PreparedStatement pstmt = con.prepareStatement(sql)) {
@@ -222,7 +222,6 @@ public class ProductDAO {
 		   			
 		   			while(res.next()) {
 		   				stock = res.getInt("stock_quantity");
-		   				
 		   			}
 		   			
 	        }
@@ -232,15 +231,33 @@ public class ProductDAO {
 		
 		
 		//購入商品の在庫を減したり増やしたりする（購入時や商品数追加時） 足したり減らすのは呼び出し元で行う？
-		public void changeStock( int stockQuantity , int product_id , int size_id , String delivery_address) throws SQLException , ClassNotFoundException {
-			String sql = "UPDATE next_closet_db.inventory  SET stock_quantity = ?  WHERE product_id = ? AND size_id = ? , delivery_address = ?";
+		public void changeStock( int product_id , int size_id , int stockQuantity ) throws SQLException , ClassNotFoundException {
+			String sql = "UPDATE inventory SET stock_quantity = ?  WHERE product_id = ? AND size_id = ?";
 	  
-	        try(Connection con = DBConnection.getConnection();  //データベースに接続する
-	   			 PreparedStatement pstmt = con.prepareStatement(sql)){ //引数で指定されたSQLをデータベースで実行するメソッド
+			try (Connection con = DBConnection.getConnection(); 
+					PreparedStatement pstmt = con.prepareStatement(sql)) {
 	        		pstmt.setInt(1, stockQuantity);
 		   			pstmt.setInt(2, product_id);
 		   			pstmt.setInt(3, size_id);
-		   			pstmt.setString(4, delivery_address);
+		   			pstmt.executeUpdate(); 
+		   			System.out.println("---------------------------");
 	        }
 		}
+		
+		//オーダーに登録
+				public void orderRegistration( int product_id ,  int size_id , int quantity , int user_id ,int total_amount , String delivery_address) throws SQLException , ClassNotFoundException {
+					String sql = "INSERT INTO order_items  ( product_id , quantity , size_id ,user_id , total_amount , delivery_address) VALUES ( ? , ? , ? , ? , ? , ?)";
+			  
+					try (Connection con = DBConnection.getConnection(); 
+							PreparedStatement pstmt = con.prepareStatement(sql)) {
+			        		pstmt.setInt(1, product_id);
+				   			pstmt.setInt(2, quantity);
+				   			pstmt.setInt(3, size_id);
+				   			pstmt.setInt(4, user_id);
+				   			pstmt.setInt(5, total_amount);
+				   			pstmt.setString(6, delivery_address);
+				   			pstmt.executeUpdate(); 
+				   			System.out.println("オーダー登録完了---------------------------");
+			        }
+				}
 }
