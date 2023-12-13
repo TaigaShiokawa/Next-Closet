@@ -17,6 +17,7 @@ import regexp.EmailValidator;
 import regexp.HalfWidthValidator;
 import regexp.KanaNameValidator;
 import regexp.PostCodeValidator;
+import regexp.TelNumberValidator;
 
 /**
  * Servlet implementation class RegisterServlet
@@ -72,7 +73,7 @@ public class RegisterServlet extends HttpServlet {
 								 		 .replaceAll("７", "7")
 								 		 .replaceAll("８", "8")
 								 		 .replaceAll("９", "9");
-		
+		//郵便番号の入力に対してハイフン無しの形式を要求
 		if(!PostCodeValidator.validate(convertPostCode)) {
 			request.getSession().setAttribute("postCodeError", "郵便番号が正しくありません");
 	        response.sendRedirect("register.jsp");
@@ -102,8 +103,19 @@ public class RegisterServlet extends HttpServlet {
 			return;
 		} 
 		
-		//電話番号の文字数チェック
-		if((telNumber.length() > 11)) { //全角を半角に置換する正規表現
+		String convertTelNumber = telNumber.replaceAll("０", "0")
+		 		 .replaceAll("１", "1")
+		 		 .replaceAll("２", "2")
+		 		 .replaceAll("３", "3")
+		 		 .replaceAll("４", "4")
+		 		 .replaceAll("５", "5")
+		 		 .replaceAll("６", "6")
+		 		 .replaceAll("７", "7")
+		 		 .replaceAll("８", "8")
+		 		 .replaceAll("９", "9");
+		
+		//電話番号の入力に対してハイフン無しの形式を要求
+		if(!TelNumberValidator.validate(convertTelNumber)) {
 			request.getSession().setAttribute("telNumberError", "無効な電話番号です");
 			response.sendRedirect("register.jsp");
 			return;
@@ -135,7 +147,7 @@ public class RegisterServlet extends HttpServlet {
 		
 		UserDAO uDao = new UserDAO();
 		try {
-			int setUser = uDao.registerUser(userName, kanaName, email, hashedPass, telNumber);
+			int setUser = uDao.registerUser(userName, kanaName, email, hashedPass, convertTelNumber);
 			if(setUser == 1) { //ユーザー情報が1行追加されたら...
 				int userId = uDao.getUserId(email);
 				try {
