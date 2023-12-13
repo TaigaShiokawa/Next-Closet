@@ -19,10 +19,7 @@ import model.dao.UserDAO;
 @WebServlet("/OrderConfilmServlet")
 public class OrderConfilmServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-<<<<<<< Updated upstream
-=======
-		request.setCharacterEncoding("UTF-8");
->>>>>>> Stashed changes
+
 		
 		
 		ProductDAO productDao = new ProductDAO();
