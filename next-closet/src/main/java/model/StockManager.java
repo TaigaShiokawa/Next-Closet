@@ -14,12 +14,12 @@ public class StockManager {
 		boolean stock = true;
 		int stockQuantity = 0;
 		try {
-		stockQuantity = dao.getStockItem(productId , sizeId );
+		stockQuantity = dao.getStockItem( productId , sizeId );
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 		
-		if( quantity - stockQuantity < 0 ) {
+		if(stockQuantity -  quantity  < 0 ) {
 			stock = false;
 		}
 		
@@ -27,16 +27,31 @@ public class StockManager {
 	}
 	
 	//在庫数 - 購入数　を　在庫数に更新するメソッド
-	public void decrementStock(int productId , int sizeId , int buyQuantity , String delivery_address) {
+	public void decrementStock(int productId , int sizeId , int buyQuantity ) {
 		
 		int  nowStockQuantity = -1;
+		
 		try {
 			 nowStockQuantity = dao.nowStockQuantity(productId , sizeId );
+			
 			 int quantity = nowStockQuantity - buyQuantity;
-			 dao.changeStock( quantity , productId , sizeId , delivery_address);
+			 dao.changeStock( productId , sizeId , quantity );
+		} catch (SQLException | ClassNotFoundException e) {
+			System.out.println("ああああ");
+				e.printStackTrace();
+		}
+	
+	}
+	
+	public void orderRegistration(int productId , int sizeId , int buyQuantity , int userId , int totalAmount , String delivery_address) {
+		
+		try {
+			 dao.orderRegistration(productId , sizeId , buyQuantity , userId ,totalAmount , delivery_address);
+			 
 		} catch (SQLException | ClassNotFoundException e) {
 				e.printStackTrace();
 		}
+	
 	
 	}
 	
