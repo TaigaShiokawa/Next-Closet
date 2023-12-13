@@ -47,11 +47,8 @@ public class UserDAO {
 		return processingNum;
 	}
 	//ユーザIDを取得
-<<<<<<< Updated upstream
 	public int getUserId(String email)throws ClassNotFoundException, SQLException {
-=======
-	public int getUserId(String email)	throws ClassNotFoundException, SQLException {
->>>>>>> Stashed changes
+
 		int userId = -1;
 		String sql = "SELECT user_id FROM users WHERE email = ?";
 		try (Connection con = DBConnection.getConnection(); 
@@ -101,7 +98,8 @@ public class UserDAO {
 				ResultSet res = pstmt.executeQuery();
 				while(res.next()) {
 					address = new AddressBean();
-					address.setUser_id(res.getInt("user_id"));
+
+					address.setUserId(res.getInt("user_id"));
 					address.setPostCode(res.getString("post_code"));
 					address.setPrefectures(res.getString("prefectures"));
 					address.setAddress(res.getString("address"));
@@ -109,16 +107,30 @@ public class UserDAO {
 				return address;
 			}
 		}
-<<<<<<< Updated upstream
-	
-=======
 
->>>>>>> Stashed changes
 
 	
 	
 
+
 	
+	//ユーザIDを取得
+	public int getUserId(String email)
+			throws ClassNotFoundException, SQLException {
+		int userId = -1;
+		String sql = "SELECT user_id FROM users WHERE email = ?";
+		try (Connection con = DBConnection.getConnection(); 
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setString(1, email);
+			
+			ResultSet res = pstmt.executeQuery();
+			if(res.next()) {
+				userId = res.getInt("user_id");
+			}
+		}
+		return userId;
+	}
+
 	//ユーザーログイン
 	public UserBean userLogin(String email, String password) 
 			throws ClassNotFoundException, SQLException {
