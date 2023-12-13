@@ -31,6 +31,9 @@
 			<% }  else if(userNameError != null){ %>
 			<p><%=userNameError %></p>
 			<% session.removeAttribute("userNameError"); %>
+			<% } else if(kanaNameError != null) { %>
+			<p><%=kanaNameError %></p>
+			<% session.removeAttribute("kanaNameError"); %>
 			<% } else if(passError != null) {%>
 			<p><%=passError %></p>
 			<% session.removeAttribute("passError"); %>
@@ -43,8 +46,8 @@
 			<% } %>
 				<form action="RegisterServlet" method="post">
 
-					<label>お名前</label><input type="text" name="username" placeholder="例) テスト太郎" required><br>
-					<label>フリガナ</label><input type="text" name="kananame" placeholder="例) テストタロウ" required><br>
+					<label>お名前</label><input type="text" name="username" placeholder="例) テスト　太郎" required><br>
+					<label>フリガナ</label><input type="text" name="kananame" placeholder="例) テスト　タロウ" required><br>
 
 					<label>郵便番号</label><input type="text" name="postcode" placeholder="例) 0000000" required><br> 
 					<label>都道府県</label>
