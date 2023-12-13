@@ -9,18 +9,21 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="css/mypage-edit.css">
+<link rel="stylesheet" href="css/navbar.css">
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
 <%@ include file="includes/navbar.jsp" %>
-
+<main>
+<div class="container">
 <h3>ユーザー情報更新画面</h3>
-<form action="UserEditServlet" method="post">
-			お名前：<input type="text" name="username" value="<%=loginUser.getUserName() %>"><br>
-			フリガナ：<input type="text" name="kananame" value="<%=loginUser.getKanaName() %>"><br>
-			郵便番号：<input type="text" name="postcode" value="<%=loginUserAddress.getPostCode()%>"><br> 
-			都道府県：
+<form action="UserEditServlet" method="post" class="center-form">
+			<label>お名前：</label><input type="text" name="username" value="<%=loginUser.getUserName() %>"><br>
+			<label>フリガナ：</label><input type="text" name="kananame" value="<%=loginUser.getKanaName() %>"><br>
+			<label>郵便番号：</label><input type="text" name="postcode" value="<%=loginUserAddress.getPostCode()%>"><br> 
+			<label>都道府県：</label>
 			<select name="prefectures">
 			    <option value="<%=loginUserAddress.getPrefectures()%>"><%=loginUserAddress.getPrefectures()%></option>
 			    <option value="北海道">北海道</option>
@@ -72,19 +75,22 @@
 			    <option value="沖縄県">沖縄県</option>
 			</select><br>
 
-			住所：<textarea type="text" name="address"><%=loginUserAddress.getAddress() %></textarea><br>
-			電話番号：<input type="text" name="telnumber" value="<%=loginUser.getTelNumber()%>"><br> 
-			メールアドレス：<input type="email" name="email" value="<%=loginUser.getEmail()%>"><br> 
+			<label>住所：</label><textarea type="text" name="address"><%=loginUserAddress.getAddress() %></textarea><br>
+			<label>電話番号：</label><input type="text" name="telnumber" value="<%=loginUser.getTelNumber()%>"><br> 
+			<label>メールアドレス：</label><input type="email" name="email" value="<%=loginUser.getEmail()%>"><br> 
 			
 			<button type="submit">更新する</button>			
 		</form>
-		
+
+
 		<form action="PasswordUpdateServlet" method="post">
-		<label for="pass">パスワードの変更はこちらから</label>
+		<label for="pass">パスワードの変更</label>
 		<input type="password" id="pass" name="password" placeholder="8文字以上">
 		<input type="hidden" name="userId" value="<%=loginUser.getUserId()%>">
 		<button type="submit">変更する</button>
 		</form>
+		</div>
+</main>
 		
 </body>
 </html>
