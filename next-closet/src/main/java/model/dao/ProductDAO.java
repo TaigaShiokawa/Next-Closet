@@ -146,56 +146,53 @@ public class ProductDAO {
 		     }	
 		return categoryList;		
 }
-<<<<<<< Updated upstream
-=======
-	
+
 	//商品の在庫（単品）の在庫数とストック数を比較する
-	public  int getStockItem(int productId , int  sizeId) throws ClassNotFoundException, SQLException {
-		String sql = "SELECT * FROM add inventory WHERE product_id = ? AND size_id = ?";
-		int inventory = -1;
-		try (Connection con = DBConnection.getConnection(); 
-				PreparedStatement pstmt = con.prepareStatement(sql)) {
-				pstmt.setInt(1, productId);
-				pstmt.setInt(2, sizeId);
-			
-			ResultSet res = pstmt.executeQuery();
-			while(res.next()) {
-				inventory = res.getInt("stock_quantity");
+		public  int getStockItem(int productId , int  sizeId) throws ClassNotFoundException, SQLException {
+			String sql = "SELECT * FROM add inventory WHERE product_id = ? AND size_id = ?";
+			int inventory = -1;
+			try (Connection con = DBConnection.getConnection(); 
+					PreparedStatement pstmt = con.prepareStatement(sql)) {
+					pstmt.setInt(1, productId);
+					pstmt.setInt(2, sizeId);
+				
+				ResultSet res = pstmt.executeQuery();
+				while(res.next()) {
+					inventory = res.getInt("stock_quantity");
+				}
+				return inventory;
 			}
-			return inventory;
 		}
-	}
-	
-	//買い物かご全ての商品の在庫数と購入数を比較するメソッド
-	public boolean cartProductStock(int userId ) throws SQLException , ClassNotFoundException{
-		 String sql = "SELECT * FROM cart_items WHERE user_id = " + userId ; //postsテーブルの全データをsqlに格納
-	        boolean stock = true;
-	        try(Connection con = DBConnection.getConnection();  //データベースに接続する
-	   			 PreparedStatement pstmt = con.prepareStatement(sql)){ //引数で指定されたSQLをデータベースで実行するメソッド
-	         
-	   			 pstmt.setInt(1, userId);
-	           	  ResultSet res = pstmt.executeQuery(); //引数で指定されたSQLをデータベースで実行するメソッド
-	        		    
-			            while (res.next()){ 
-			            	int product_id			= res.getInt("product_id");
-			            	int size_id			= res.getInt("size_id");
-			            	int quantity			= res.getInt("quantity");
-			            	
-			            	sql = "SELECT stock_quantity FROM inventory WHERE product_id = " + product_id + " AND size_id = " + size_id  ; //postsテーブルの全データをsqlに格納
-				    	        try(Connection conn = DBConnection.getConnection();  //データベースに接続する
-				    	   			 PreparedStatement pst = con.prepareStatement(sql)){
-				    	        	int stock_quantity = res.getInt("stock_quantity");
-				    	        	if(  quantity -  stock_quantity  < 0  ) {
-				    	        		stock = false;
-				    	        	}
-				    	        
-				    	        }
-			            }
-			     }	
-			return stock;		
-	}
-	
->>>>>>> Stashed changes
+		
+		//買い物かご全ての商品の在庫数と購入数を比較するメソッド
+		public boolean cartProductStock(int userId ) throws SQLException , ClassNotFoundException{
+			 String sql = "SELECT * FROM cart_items WHERE user_id = " + userId ; //postsテーブルの全データをsqlに格納
+		        boolean stock = true;
+		        try(Connection con = DBConnection.getConnection();  //データベースに接続する
+		   			 PreparedStatement pstmt = con.prepareStatement(sql)){ //引数で指定されたSQLをデータベースで実行するメソッド
+		         
+		   			 pstmt.setInt(1, userId);
+		           	  ResultSet res = pstmt.executeQuery(); //引数で指定されたSQLをデータベースで実行するメソッド
+		        		    
+				            while (res.next()){ 
+				            	int product_id			= res.getInt("product_id");
+				            	int size_id			= res.getInt("size_id");
+				            	int quantity			= res.getInt("quantity");
+				            	
+				            	sql = "SELECT stock_quantity FROM inventory WHERE product_id = " + product_id + " AND size_id = " + size_id  ; //postsテーブルの全データをsqlに格納
+					    	        try(Connection conn = DBConnection.getConnection();  //データベースに接続する
+					    	   			 PreparedStatement pst = con.prepareStatement(sql)){
+					    	        	int stock_quantity = res.getInt("stock_quantity");
+					    	        	if(  quantity -  stock_quantity  < 0  ) {
+					    	        		stock = false;
+					    	        	}
+					    	        
+					    	        }
+				            }
+				     }	
+				return stock;		
+		}
+
 
 	
 
