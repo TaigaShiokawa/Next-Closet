@@ -39,8 +39,8 @@
                 <input type="submit" value="更新">
             </form>     
         </div>
-        <form action="deleteCartItem" method="post">
-            <input type="hidden" name="cartItemId" value="${cartItem.cartItemId}">
+        <form action="CartDeleteServlet" method="post">
+            <input type="hidden" name="cartItemId" value="<%= item.getCartItemId() %>">
             <input type="submit" value="削除">
         </form>
         <form action="purchaseItem" method="post">
