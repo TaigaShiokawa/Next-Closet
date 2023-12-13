@@ -31,14 +31,16 @@ public class OrderConfilmServlet extends HttpServlet {
 		String cartItem = request.getParameter("cartitem");
 		
 		try {
+			System.out.print("-------------------------");	
+			System.out.print(userDao.getUpdateUser(userId));		
 			//userIdでUserBeanから情報を持ってくる
 			request.setAttribute("user" , userDao.getUpdateUser(userId));				//user情報
 			request.setAttribute("address" , userDao.getUserAddressId(userId));			//メイン住所
-			request.setAttribute("addAddresses" , userDao.getSubAddress(userId));	//サブ住所
+			request.setAttribute("addAddresses" , userDao.getSubAddress(userId));	    //サブ住所
+			
 		}catch(SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		
 		
 		if(order != null ) { //商品詳細 → 今すぐ購入の場合
 			
@@ -54,9 +56,6 @@ public class OrderConfilmServlet extends HttpServlet {
 			} catch (SQLException | ClassNotFoundException e){
 				e.printStackTrace();
 			}
-		
-			
-
 			
 		} else {
 			
