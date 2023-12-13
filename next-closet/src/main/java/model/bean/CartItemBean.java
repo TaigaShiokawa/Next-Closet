@@ -2,7 +2,7 @@ package model.bean;
 
 import java.io.Serializable;
 
-public class CartItemBean implements Serializable{
+public class CartItemBean  extends SizeBean implements Serializable{
 	
 	private int cartItemId;
 	private int userId;
