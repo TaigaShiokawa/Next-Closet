@@ -14,10 +14,11 @@ import hashedPassword.HashPW;
 import model.dao.UserDAO;
 import regexp.AddressValidator;
 import regexp.EmailValidator;
-import regexp.PasswordValidator;
 import regexp.KanaNameValidator;
+import regexp.PasswordValidator;
 import regexp.PostCodeValidator;
 import regexp.TelNumberValidator;
+import regexp.UserNameValidator;
 
 /**
  * Servlet implementation class RegisterServlet
@@ -48,11 +49,11 @@ public class RegisterServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
-		//名前の空文字チェック
-		if(userName.isEmpty()) {
+		//名前の入力チェック
+		if(!UserNameValidator.validate(userName)) {
 			request.getSession().setAttribute("userNameError", "名前の入力が正しくありません");
-			response.sendRedirect("register.jsp");
-			return;
+	        response.sendRedirect("register.jsp");
+	        return;
 		}
 		
 		//フリガナの全角チェック (ひらがなは許可せず, カタカナのみ)
