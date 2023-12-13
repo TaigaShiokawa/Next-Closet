@@ -3,6 +3,9 @@
 <%@ page import="model.bean.*" %>
 <%@ page import="model.dao.*" %>
 <% UserBean loginUser = (UserBean)request.getSession().getAttribute("user"); %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="model.bean.CartItemBean" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,40 +23,33 @@
     </form>
 
 
-    <% /* for文でカートの商品一覧を出す */ %>
-    
-        <!-- 変数名やアクション名は全て仮 -->
+    <% 
+        List<CartItemBean> cartItems = (ArrayList<CartItemBean>) request.getAttribute("cartItems"); 
+        for (CartItemBean item : cartItems) {
+    %>
+    <div>
+        <img src="<%= item.getProduct().getImage() %>" alt="Product Image">
         <div>
-            <img src="${cartItem.productImage}" alt="Product Image">
-            <div>
-                <p>商品名: ${cartItem.productName}</p>
-                <p>サイズ: ${cartItem.size}</p>
-                
-                <form action="updateCartQuantity" method="post">
-                    <input type="hidden" name="cartItemId" value="${cartItem.cartItemId}">
-                    <input type="number" name="quantity" value="${cartItem.quantity}">
-                    <input type="submit" value="更新">
-                </form>
-                <p>合計金額: ${cartItem.price * cartItem.quantity}</p>
-            </div>
-            
-            <!-- 商品削除 -->
-            <form action="deleteCartItem" method="post">
-                <input type="hidden" name="cartItemId" value="${cartItem.cartItemId}">
-                <input type="submit" value="削除">
-            </form>
-            
-            <!-- cartitemの個別の情報をorderとorder_itemsに送る -->
-            <form action="purchaseItem" method="post">
-                <input type="hidden" name="productId" value="${cartItem.productId}">
-                <input type="submit" value="購入">
-            </form>
-            
-            <!-- カート内の商品一覧表示の後に合計金額を表示 javaで合計処理のメソッド作るかも -->
-            <%-- <p>ご注文金額（税込）: <%= totalAmount %></p> --%>
-            
+            <p>商品名: <%= item.getProduct().getProductName() %></p>
+            <p>サイズ: <%= item.getSize().getSizeName() %></p>
+            <p>価格: <%= item.getProduct().getPrice() %></p>
+            <form action="updateCartQuantity" method="post">
+                <input type="hidden" name="cartItemId" value="<%= item.getQuantity() %>">
+                <input type="number" name="quantity" value="<%= item.getQuantity() %>">
+                <input type="submit" value="更新">
+            </form>     
         </div>
-    <% /* for文のおわり */ %>
+        <form action="deleteCartItem" method="post">
+            <input type="hidden" name="cartItemId" value="${cartItem.cartItemId}">
+            <input type="submit" value="削除">
+        </form>
+        <form action="purchaseItem" method="post">
+            <input type="hidden" name="productId" value="${cartItem.product.productId}">
+            <input type="submit" value="購入">
+        </form>
+    </div>
+    <% } %>   
+    <p>合計金額: <%-- ${cartItem.product.price * cartItem.quantity} --%></p>
    
 </body>
 </html>

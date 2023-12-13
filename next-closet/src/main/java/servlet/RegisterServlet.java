@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import hashedPassword.HashPW;
 import model.dao.UserDAO;
+import regexp.EmailValidator;
 
 /**
  * Servlet implementation class RegisterServlet
@@ -42,15 +43,35 @@ public class RegisterServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
-		if(password.length() < 8) {
+		if(password.length() < 8) { //パスワードの文字数チェック
 			request.getSession().setAttribute("passError", "8文字以上で設定してください");
 			response.sendRedirect("register.jsp");
 			return;
+		} else if(telNumber.length() > 11) { //電話番号の文字数チェック
+			request.getSession().setAttribute("telNumberError", "無効な電話番号です");
+			response.sendRedirect("register.jsp");
 		}
+		
+		//パスワード 使用文字制限の正規表現
+		//null, 空文字チェック
+		
+		//郵便番号でハイフンを使用できない正規表現
+		//null, 空文字チェック
+		
+		//電話番号でハイフンを使用できない正規表現
+		//null, 空文字チェック
+		
+		if (!EmailValidator.validate(email)) { //正規表現を含んだEmailValidatorクラスを使用.
+	        // Eメールが無効な形式の場合の処理
+	        request.getSession().setAttribute("emailError", "無効なEメールアドレスです");
+	        response.sendRedirect("register.jsp");
+	        return;
+	    } //else ifでnull, 空文字チェック
+		
 		
 		String hashedPass = null;
 		try {
-			hashedPass = HashPW.hashPass(password);
+			hashedPass = HashPW.hashPass(password); //パスワードハッシュ化
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}
@@ -58,23 +79,31 @@ public class RegisterServlet extends HttpServlet {
 		UserDAO uDao = new UserDAO();
 		try {
 			int setUser = uDao.registerUser(userName, kanaName, email, hashedPass, telNumber);
-			if(setUser == 1) {
+			if(setUser == 1) { //ユーザー情報が1行追加されたら...
 				int userId = uDao.getUserId(email);
 				try {
 					int setAddress = uDao.registerAddress(userId, postCode, prefectures, address);
-					if(setAddress == 1) {
+					if(setAddress == 1) { //ユーザーの住所情報が1行追加されたら...
 						request.getSession().setAttribute("success", "登録完了！ ログインへお進みください");
 						response.sendRedirect("register.jsp");
 					} else {
 						request.getSession().setAttribute("failure", "登録済みです。ログインへお進みください");
 						response.sendRedirect("register.jsp");
 					}
-				} catch(SQLException | ClassNotFoundException e) {
+				} catch(ClassNotFoundException e) {
 					e.printStackTrace();
+					request.getSession().setAttribute("errorMessage", "システムエラーが発生しました。管理者に連絡してください");
+			        response.sendRedirect("error.jsp");
+				} catch(SQLException e) {
+					e.printStackTrace();
+					request.getSession().setAttribute("errorMessage", "データベースエラーが発生しました。しばらくしてから再開してください");
+			        response.sendRedirect("error.jsp");
 				}
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
+			request.getSession().setAttribute("errorMessage", "システムエラーが発生しました。管理者に連絡してください");
+	        response.sendRedirect("error.jsp");
 		}
 	}
 }

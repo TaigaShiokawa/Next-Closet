@@ -1,8 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
-import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -41,7 +39,7 @@ public class LoginServlet extends HttpServlet {
 			UserBean loginUser = uDao.userLogin(email, hashedPass);
 			int userId = uDao.getUserId(email);
 			AddressBean loginUserAddress = uDao.getUserAddressId(userId);
-			if(loginUser != null) {
+			if((loginUser != null) && (loginUser.isUserStatus() == true)) { //退会済みのチェック
 				request.getSession().setAttribute("user", loginUser);
 				request.getSession().setAttribute("userAddress", loginUserAddress);
 				request.getSession().setAttribute("userId", userId);
@@ -50,8 +48,11 @@ public class LoginServlet extends HttpServlet {
 				request.getSession().setAttribute("loginError", "ログインに失敗しました...");
 				response.sendRedirect("login.jsp");
 			}
-		} catch (NoSuchAlgorithmException | ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			final String ERROR_MESSAGE_KEY = "errorMessage"; //全ての例外をまとめるから定数として定義.
+	        e.printStackTrace();
+	        request.getSession().setAttribute(ERROR_MESSAGE_KEY, "システムエラーが発生しました。しばらくしてから再度お試しいただくか、管理者に連絡してください");
+	        response.sendRedirect("error.jsp");
 		}
 	}
 }
