@@ -10,7 +10,6 @@ public class SizeBean  extends CartItemBean implements Serializable{
 	public SizeBean() {}
 	
 	public SizeBean(int sizeId, String sizeName) {
-		super();
 		this.sizeId = sizeId;
 		this.sizeName = sizeName;
 	}

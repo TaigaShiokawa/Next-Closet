@@ -12,6 +12,7 @@ public class CartItemBean implements Serializable{
 	public CartItemBean() {}
 	
 	public CartItemBean(int cartItemId, int userId, int productId, int quantity) {
+		super();
 		this.cartItemId = cartItemId;
 		this.userId = userId;
 		this.productId = productId;
