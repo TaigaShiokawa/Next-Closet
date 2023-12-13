@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import hashedPassword.HashPW;
 import model.dao.UserDAO;
+import regexp.AddressValidator;
 import regexp.EmailValidator;
 import regexp.KanaNameValidator;
 import regexp.PostCodeValidator;
@@ -77,6 +78,16 @@ public class RegisterServlet extends HttpServlet {
 	        return;
 		}
 		
+		//住所のデータを統一(全角を半角にする)
+		if(address.isEmpty()) {
+			request.getSession().setAttribute("addressError", "住所が正しくありません");
+	        response.sendRedirect("register.jsp");
+	        return;
+		}
+		
+		String normalizedAddress = AddressValidator.normalizeAddress(address);
+		
+		
 		//パスワードの文字数チェック
 		if((password.length() < 8) && (password.trim().isEmpty())) { //8文字以上かつ空文字を許可しない
 			request.getSession().setAttribute("passError", "8文字以上で設定してください");
@@ -120,7 +131,7 @@ public class RegisterServlet extends HttpServlet {
 			if(setUser == 1) { //ユーザー情報が1行追加されたら...
 				int userId = uDao.getUserId(email);
 				try {
-					int setAddress = uDao.registerAddress(userId, convertPostCode, prefectures, address);
+					int setAddress = uDao.registerAddress(userId, convertPostCode, prefectures, normalizedAddress);
 					if(setAddress == 1) { //ユーザーの住所情報が1行追加されたら...
 						request.getSession().setAttribute("success", "登録完了！ ログインへお進みください");
 						response.sendRedirect("register.jsp");
