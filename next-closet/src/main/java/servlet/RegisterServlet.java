@@ -14,7 +14,7 @@ import hashedPassword.HashPW;
 import model.dao.UserDAO;
 import regexp.AddressValidator;
 import regexp.EmailValidator;
-import regexp.HalfWidthValidator;
+import regexp.PasswordValidator;
 import regexp.KanaNameValidator;
 import regexp.PostCodeValidator;
 import regexp.TelNumberValidator;
@@ -117,7 +117,7 @@ public class RegisterServlet extends HttpServlet {
 		}
 		
 		//パスワード 半角であれば特殊文字を許可
-		if(!HalfWidthValidator.isHalfWidth(password)) {
+		if(!PasswordValidator.isHalfWidth(password)) {
 			request.getSession().setAttribute("passError", "パスワードが不正です。正しく入力してください");
 			response.sendRedirect("register.jsp");
 			return;
