@@ -20,7 +20,6 @@ public class AddToCartServlet extends HttpServlet  {
 			throws ServletException, IOException {
 		
 		int userId = (int)request.getSession().getAttribute("userId");
-		System.out.println(userId);
 
 		CartDAO cartDao = new CartDAO();
         List<CartItemBean> cartItems = null;
