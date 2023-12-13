@@ -66,6 +66,30 @@ public class UserDAO {
 		}
 	}
 	
+<<<<<<< Updated upstream
+=======
+	//サブの方のアドレス取得
+		public AddressBean getUserAddAddress(int userId) 
+				throws ClassNotFoundException, SQLException {
+			String sql = "SELECT * FROM add_addresses WHERE user_id = ?";
+			try (Connection con = DBConnection.getConnection(); 
+					PreparedStatement pstmt = con.prepareStatement(sql)) {
+				AddressBean address = new AddressBean();
+				pstmt.setInt(1, userId);
+				
+				ResultSet res = pstmt.executeQuery();
+				while(res.next()) {
+					address = new AddressBean();
+					address.setUser_id(res.getInt("user_id"));
+					address.setPostCode(res.getString("post_code"));
+					address.setPrefectures(res.getString("prefectures"));
+					address.setAddress(res.getString("address"));
+				}
+				return address;
+			}
+		}
+	
+>>>>>>> Stashed changes
 	//ユーザIDを取得
 	public int getUserId(String email)
 			throws ClassNotFoundException, SQLException {
