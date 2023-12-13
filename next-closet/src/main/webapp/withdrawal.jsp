@@ -9,7 +9,7 @@ UserBean loginUser = (UserBean) request.getSession().getAttribute("user");
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>退会ページ</title>
 <link rel="stylesheet" href="css/withdrawal.css">
 </head>
 <body>
