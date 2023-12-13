@@ -1,11 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-
 <header>
         <div class="header_innner">
             <div class="header_left">
                 <h1 id="site-title">
-                    <a href = "product-list.jsp" >next closet...</a>
+                    <a href = "ProductListServlet" >next closet...</a>
                 </h1>
             </div>
             <div class="header_right">
