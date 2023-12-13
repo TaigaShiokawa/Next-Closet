@@ -40,7 +40,7 @@
 			<% session.removeAttribute("kanaNameError"); %>
 			<% } else if(postCodeError != null) { %>
 			<p><%=postCodeError %></p>
-			<% session.removeAttribute("postCodeError") %>
+			<% session.removeAttribute("postCodeError"); %>
 			<% } else if(addressError != null) { %>
 			<p><%=addressError %></p>
 			<% session.removeAttribute("addressError"); %>

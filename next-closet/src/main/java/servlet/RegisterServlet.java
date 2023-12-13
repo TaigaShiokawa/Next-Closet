@@ -104,15 +104,15 @@ public class RegisterServlet extends HttpServlet {
 		} 
 		
 		String convertTelNumber = telNumber.replaceAll("０", "0")
-		 		 .replaceAll("１", "1")
-		 		 .replaceAll("２", "2")
-		 		 .replaceAll("３", "3")
-		 		 .replaceAll("４", "4")
-		 		 .replaceAll("５", "5")
-		 		 .replaceAll("６", "6")
-		 		 .replaceAll("７", "7")
-		 		 .replaceAll("８", "8")
-		 		 .replaceAll("９", "9");
+								 		   .replaceAll("１", "1")
+								 		   .replaceAll("２", "2")
+								 		   .replaceAll("３", "3")
+								 		   .replaceAll("４", "4")
+								 		   .replaceAll("５", "5")
+								 		   .replaceAll("６", "6")
+								 		   .replaceAll("７", "7")
+								 		   .replaceAll("８", "8")
+								 		   .replaceAll("９", "9");
 		
 		//電話番号の入力に対してハイフン無しの形式を要求
 		if(!TelNumberValidator.validate(convertTelNumber)) {
