@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -57,25 +58,34 @@ public class UserEditServlet extends HttpServlet {
 		try {
 			int userId = uDao.getUserId(email);
 			if(userId > 0) {
-//				String hashedPass = password;
-				{
-//				if(password != null && !password.isEmpty()) 
-//					hashedPass = HashPW.hashPass(password);
-					int updateUser = uDao.loginUserUpdate(userName, kanaName, telNumber, email, userId);
-					if(updateUser == 1) {
-						int updateUserAddress = uDao.loginUserAddressUpdate(postCode, prefectures, address, userId);
-						if(updateUserAddress == 1) {
-							UserBean updatedUser = uDao.getUpdateUser(userId);
-							AddressBean userAddress = uDao.getUserAddressId(userId);
-							request.getSession().setAttribute("user", updatedUser);
-							request.getSession().setAttribute("userAddress", userAddress);
-							response.sendRedirect("MypageServlet");
-						}
+				int updateUser = uDao.loginUserUpdate(userName, kanaName, telNumber, email, userId);
+				if(updateUser == 1) {
+					int updateUserAddress = uDao.loginUserAddressUpdate(postCode, prefectures, address, userId);
+					if(updateUserAddress == 1) {
+						UserBean updatedUser = uDao.getUpdateUser(userId);
+						AddressBean userAddress = uDao.getUserAddressId(userId);
+						request.getSession().setAttribute("user", updatedUser);
+						request.getSession().setAttribute("userAddress", userAddress);
+						response.sendRedirect("MypageServlet");
 					}
 				}
 			}
-		} catch(Exception e) {
+		} catch(ClassNotFoundException e) {
 			e.printStackTrace();
+			request.getSession().setAttribute("errorMessage", "内部の設定エラーが発生しました。"
+					+ "お問い合わせよ管理者に連絡して、解決の支援を受けてください。");
+	        response.sendRedirect("error.jsp");
+		} catch(SQLException e) {
+			e.printStackTrace();
+			request.getSession().setAttribute("errorMessage", "現在データベースにアクセスできません。後ほど再度お試しください。"
+					+ "問題が続く場合は、お問い合わせより管理者にご連絡ください。");
+			response.sendRedirect("error.jsp");
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			request.getSession().setAttribute("errorMessage", "申し訳ありませんが、システムエラーが発生しました。"
+					+ "もう一度お試しいただくか、お問い合わせより管理者にお問い合わせください。");
+			response.sendRedirect("error.jsp");
 		}
 	}
 

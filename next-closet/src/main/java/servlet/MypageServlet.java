@@ -42,6 +42,7 @@ public class MypageServlet extends HttpServlet {
 					+ "問題が続く場合は、お問い合わせより管理者にご連絡ください。");
 			response.sendRedirect("error.jsp");
 		} catch(Exception e) {
+			e.printStackTrace();
 			request.getSession().setAttribute("errorMessage", "申し訳ありませんが、システムエラーが発生しました。"
 					+ "もう一度お試しいただくか、お問い合わせより管理者にお問い合わせください。");
 			response.sendRedirect("error.jsp");
