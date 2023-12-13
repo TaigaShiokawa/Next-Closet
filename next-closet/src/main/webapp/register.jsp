@@ -18,6 +18,7 @@
 			<h2>新規会員登録</h2>
 			<% String success = (String)request.getSession().getAttribute("success"); %>
 			<% String failure = (String)request.getSession().getAttribute("failure"); %>
+			<% String userNameError = (String)request.getSession().getAttribute("userNameError"); %>
 			<% String passError = (String)request.getSession().getAttribute("passError"); %>
 			<% String telNumberError = (String)request.getSession().getAttribute("telNumberError"); %>
 			<% String emailError = (String)request.getSession().getAttribute("emailError"); %>
@@ -27,6 +28,9 @@
 			<% } else if(failure != null) { %>
 			<p><%=failure %></p>
 			<% session.getAttribute("failure"); %>
+			<% }  else if(userNameError != null){ %>
+			<p><%=userNameError %></p>
+			<% session.removeAttribute("userNameError"); %>
 			<% } else if(passError != null) {%>
 			<p><%=passError %></p>
 			<% session.removeAttribute("passError"); %>

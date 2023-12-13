@@ -43,11 +43,17 @@ public class RegisterServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
-		if(password.length() < 8) { //パスワードの文字数チェック
+		if(userName.isEmpty()) {
+			request.getSession().setAttribute("userNameError", "名前の入力が正しくありません");
+			response.sendRedirect("register.jsp");
+		}
+		
+		if((password.length() < 8) && (password.isEmpty())) { //パスワードの文字数チェック
 			request.getSession().setAttribute("passError", "8文字以上で設定してください");
 			response.sendRedirect("register.jsp");
 			return;
-		} else if(telNumber.length() > 11) { //電話番号の文字数チェック
+		} 
+		if(telNumber.length() > 11) { //電話番号の文字数チェック
 			request.getSession().setAttribute("telNumberError", "無効な電話番号です");
 			response.sendRedirect("register.jsp");
 		}
@@ -66,7 +72,7 @@ public class RegisterServlet extends HttpServlet {
 	        request.getSession().setAttribute("emailError", "無効なEメールアドレスです");
 	        response.sendRedirect("register.jsp");
 	        return;
-	    } //else ifでnull, 空文字チェック
+		}
 		
 		
 		String hashedPass = null;
