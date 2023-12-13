@@ -108,29 +108,6 @@ public class UserDAO {
 			}
 		}
 
-
-	
-	
-
-
-	
-	//ユーザIDを取得
-	public int getUserId(String email)
-			throws ClassNotFoundException, SQLException {
-		int userId = -1;
-		String sql = "SELECT user_id FROM users WHERE email = ?";
-		try (Connection con = DBConnection.getConnection(); 
-				PreparedStatement pstmt = con.prepareStatement(sql)) {
-			pstmt.setString(1, email);
-			
-			ResultSet res = pstmt.executeQuery();
-			if(res.next()) {
-				userId = res.getInt("user_id");
-			}
-		}
-		return userId;
-	}
-
 	//ユーザーログイン
 	public UserBean userLogin(String email, String password) 
 			throws ClassNotFoundException, SQLException {
