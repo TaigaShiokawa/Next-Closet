@@ -19,9 +19,13 @@
 			<% String success = (String)request.getSession().getAttribute("success"); %>
 			<% String failure = (String)request.getSession().getAttribute("failure"); %>
 			<% String userNameError = (String)request.getSession().getAttribute("userNameError"); %>
+			<% String kanaNameError = (String)request.getSession().getAttribute("kanaNameError"); %>
+			<% String postCodeError = (String)request.getSession().getAttribute("postCodeError"); %>
+			<% String addressError = (String)request.getSession().getAttribute("addressError"); %>
 			<% String passError = (String)request.getSession().getAttribute("passError"); %>
 			<% String telNumberError = (String)request.getSession().getAttribute("telNumberError"); %>
 			<% String emailError = (String)request.getSession().getAttribute("emailError"); %>
+			
 			<% if(success != null) { %>
 			<p><%=success %></p>
 			<% session.removeAttribute("success"); %>
@@ -34,6 +38,12 @@
 			<% } else if(kanaNameError != null) { %>
 			<p><%=kanaNameError %></p>
 			<% session.removeAttribute("kanaNameError"); %>
+			<% } else if(postCodeError != null) { %>
+			<p><%=postCodeError %></p>
+			<% session.removeAttribute("postCodeError"); %>
+			<% } else if(addressError != null) { %>
+			<p><%=addressError %></p>
+			<% session.removeAttribute("addressError"); %>
 			<% } else if(passError != null) {%>
 			<p><%=passError %></p>
 			<% session.removeAttribute("passError"); %>

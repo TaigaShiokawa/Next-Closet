@@ -17,15 +17,20 @@
 <html>
 <head>
 <meta charset="UTF-8">
+  
+  
+ 
 <title>next closet ...</title>
+  <link rel="stylesheet" href="css/order-confirm.css">
 
 </head>
 <body>
 <%@ include file="includes/navbar.jsp" %>
+  <main>
 <div>
-	<span>
-		<strong>まだ注文が確定していません。この商品を購入しますか？</strong>
-	</span>
+		<div　class="order">
+			<h3>まだ注文が確定していません。この商品を購入しますか？</h3>
+	</div>
 </div>
 <div class="border">
 <form action="OrderConfilmServlet" method="post">
@@ -101,6 +106,10 @@
 <input type="submit" value="購入確定">
 </form>
 <a href="ProductListServlet">戻る</a>
+
+</main>
+
+	
 
 </body>
 </html>

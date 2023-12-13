@@ -19,10 +19,7 @@ public class AddToCartServlet extends HttpServlet  {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		
-		int userId = 2;
-		
-//		HttpSession session = request.getSession();
-//		Integer userId = (Integer)session.getAttribute("id");
+		int userId = (int)request.getSession().getAttribute("userId");
 
 		CartDAO cartDao = new CartDAO();
         List<CartItemBean> cartItems = null;
@@ -41,11 +38,8 @@ public class AddToCartServlet extends HttpServlet  {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		
-        int userId = 1;
-		
-//		HttpSession session = request.getSession();
-//		Integer userId = (Integer)session.getAttribute("id");
 
+		int userId = Integer.parseInt(request.getParameter("id"));
 		int productId = Integer.parseInt(request.getParameter("productId"));
 		int sizeId = Integer.parseInt(request.getParameter("sizeId"));
 		int quantity = Integer.parseInt(request.getParameter("quantity"));
