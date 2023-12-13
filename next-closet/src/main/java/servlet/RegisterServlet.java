@@ -14,6 +14,7 @@ import hashedPassword.HashPW;
 import model.dao.UserDAO;
 import regexp.EmailValidator;
 import regexp.KanaNameValidator;
+import regexp.PostCodeValidator;
 
 /**
  * Servlet implementation class RegisterServlet
@@ -52,13 +53,29 @@ public class RegisterServlet extends HttpServlet {
 		}
 		
 		//フリガナの全角チェック (ひらがなは許可せず, カタカナのみ)
-		if(!KanaNameValidator.validate(password)) {
+		if(!KanaNameValidator.validate(kanaName)) {
 			request.getSession().setAttribute("kanaNameError", "フリガナの入力が正しくありません");
 	        response.sendRedirect("register.jsp");
 	        return;
 		}
 		
 		//郵便番号チェック (ハイフンを含まない) 全角を半角に置換
+		String convertPostCode = postCode.replaceAll("０", "0")
+								 		 .replaceAll("１", "1")
+								 		 .replaceAll("２", "2")
+								 		 .replaceAll("３", "3")
+								 		 .replaceAll("４", "4")
+								 		 .replaceAll("５", "5")
+								 		 .replaceAll("６", "6")
+								 		 .replaceAll("７", "7")
+								 		 .replaceAll("８", "8")
+								 		 .replaceAll("９", "9");
+		
+		if(!PostCodeValidator.validate(convertPostCode)) {
+			request.getSession().setAttribute("postCodeError", "郵便番号が正しくありません");
+	        response.sendRedirect("register.jsp");
+	        return;
+		}
 		
 		//パスワードの文字数チェック
 		if((password.length() < 8) && (password.trim().isEmpty())) { //8文字以上かつ空文字を許可しない
@@ -103,7 +120,7 @@ public class RegisterServlet extends HttpServlet {
 			if(setUser == 1) { //ユーザー情報が1行追加されたら...
 				int userId = uDao.getUserId(email);
 				try {
-					int setAddress = uDao.registerAddress(userId, postCode, prefectures, address);
+					int setAddress = uDao.registerAddress(userId, convertPostCode, prefectures, address);
 					if(setAddress == 1) { //ユーザーの住所情報が1行追加されたら...
 						request.getSession().setAttribute("success", "登録完了！ ログインへお進みください");
 						response.sendRedirect("register.jsp");
