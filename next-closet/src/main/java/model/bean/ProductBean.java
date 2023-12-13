@@ -103,5 +103,13 @@ public class ProductBean implements Serializable{
 		this.registrationDate = registrationDate;
 	}
 	
+	@Override
+    public String toString() {
+        return "ProductBean{" +
+               "productName='" + productName + '\'' +
+               ", price=" + price +
+               ", image='" + image + '\'' +
+               '}';
+    }
 	
 }

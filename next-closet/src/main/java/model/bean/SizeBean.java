@@ -29,5 +29,12 @@ public class SizeBean implements Serializable{
 	public void setSizeName(String sizeName) {
 		this.sizeName = sizeName;
 	}
+	
+	@Override
+    public String toString() {
+        return "SizeBean{" +
+               "sizeName='" + sizeName + '\'' +
+               '}';
+    }
 
 }

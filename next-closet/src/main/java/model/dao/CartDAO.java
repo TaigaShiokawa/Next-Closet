@@ -13,7 +13,6 @@ import connection.DBConnection;
 import model.bean.CartItemBean;
 import model.bean.ProductBean;
 import model.bean.SizeBean;
-import model.bean.UserBean;
 
 
 public class CartDAO {
@@ -34,7 +33,7 @@ public class CartDAO {
 		return processingNum;
 	}
 	
-	public List<CartItemBean> getCartItems(HttpServletRequest request) 
+	public List<CartItemBean> getCartItems(int userId) 
 	        throws ClassNotFoundException, SQLException {
 	    List<CartItemBean> cartItems = new ArrayList<>();
 	    
@@ -43,14 +42,6 @@ public class CartDAO {
 	               + "INNER JOIN products p ON ci.product_id = p.product_id "
 	               + "INNER JOIN sizes s ON ci.size_id = s.size_id "
 	               + "WHERE ci.user_id = ?";
-	    
-	    // UserBeanオブジェクトからユーザーIDを取得
-	    UserBean userBean = (UserBean) request.getSession().getAttribute("user");
-	    if (userBean == null) {
-	        // ユーザーがログインしていない場合の処理（例：エラーを返す、ログインページへリダイレクト等）
-	        throw new IllegalStateException("User not logged in");
-	    }
-	    int userId = userBean.getUserId();
 
 	    try (Connection con = DBConnection.getConnection();
 	         PreparedStatement pstmt = con.prepareStatement(sql)) {
