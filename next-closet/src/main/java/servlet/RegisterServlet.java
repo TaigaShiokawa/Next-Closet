@@ -63,7 +63,7 @@ public class RegisterServlet extends HttpServlet {
 	        return;
 		}
 		
-		//郵便番号チェック (ハイフンを含まない) 全角を半角に置換
+		//郵便番号チェック全角を半角に置換
 		String convertPostCode = postCode.replaceAll("０", "0")
 								 		 .replaceAll("１", "1")
 								 		 .replaceAll("２", "2")

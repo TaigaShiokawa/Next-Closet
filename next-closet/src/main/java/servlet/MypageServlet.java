@@ -32,6 +32,8 @@ public class MypageServlet extends HttpServlet {
 			request.getRequestDispatcher("mypage.jsp").forward(request, response);
 		} catch(Exception e) {
 			e.printStackTrace();
+			request.getSession().setAttribute("errorMessage", "システムエラーが発生しました。管理者に連絡してください");
+	        response.sendRedirect("error.jsp");
 		}
 		
 	}
