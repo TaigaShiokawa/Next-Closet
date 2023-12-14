@@ -66,6 +66,7 @@ public class AdminLoginServlet extends HttpServlet {
 					String view ="admin-login.jsp";
 				    request.getRequestDispatcher(view).forward(request, response);
 			  }
+			  
 		  } catch(ClassNotFoundException e) {
 				e.printStackTrace();
 				request.getSession().setAttribute("errorMessageToAdmin", "内部の設定エラーが発生しました。"
