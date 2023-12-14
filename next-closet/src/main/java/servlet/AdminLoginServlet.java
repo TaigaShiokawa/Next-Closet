@@ -19,11 +19,11 @@ import model.dao.AdminDAO;
 public class AdminLoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
-    		throws ServletException, IOException {
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
     	String view = "admin-login.jsp";
     	request.getRequestDispatcher(view).forward(request, response);
-    	
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
@@ -58,6 +58,7 @@ public class AdminLoginServlet extends HttpServlet {
           adminBean.setPassword(hashedPass);
           
           try {
+
 			  if(adminDao.validate(email, hashedPass)) {
 					String view ="admin-product-list.jsp";
 				    request.getRequestDispatcher(view).forward(request, response);
