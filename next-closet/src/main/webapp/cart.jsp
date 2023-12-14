@@ -16,7 +16,11 @@
 <%@ include file="includes/navbar.jsp" %>
 
 <h1>買い物かご</h1>
-
+<% String cartItemNotFound = (String)request.getSession().getAttribute("cartItemNotFound"); %>
+<% if(cartItemNotFound != null) { %>
+<p><%=cartItemNotFound %></p>
+<% session.removeAttribute("cartItemNotFound"); %>
+<% } %>
    <!-- cartitemの全て情報をorderとorder_itemsに送る -->
    <form action="OrderConfilmServlet" method="get">
         <input type="submit" value="カート内のものを全て購入">
