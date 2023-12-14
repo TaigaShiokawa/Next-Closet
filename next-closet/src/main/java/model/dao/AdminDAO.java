@@ -12,8 +12,10 @@ public class AdminDAO {
 	public boolean validate(String email,String password) throws ClassNotFoundException, SQLException {
 		
 		boolean status = false;
+
 		//管理者ログイン用
 		String sql ="SELECT * FROM admins WHERE email = ? and hash_pass = ?";
+
 		try
 		   (Connection con = DBConnection.getConnection();
 			PreparedStatement stmt = con.prepareStatement(sql)){
