@@ -220,19 +220,21 @@ public class OrderConfilmServlet extends HttpServlet {
 					
 
 					//ご購入ありがとうございました
-					request.getRequestDispatcher("orde.jsp").forward(request, response);
+					request.getRequestDispatcher("order.jsp").forward(request, response);
 					
 				} else { //在庫がない商品があれば
 					
-					request.setAttribute("message", "在庫切れの商品が含まれているため購入できません");	
-					request.setAttribute("order", "cartAllItemList"); //今回のオーダーがカートの中身のうち一つであることを証明
+					
 					try {
-					request.setAttribute("cartAllItemList", cartDao.getCartItems(userId)); //カート内商品の情報を渡す
+						request.setAttribute("cartAllItemList", cartDao.getCartItems(userId));
+						request.setAttribute("message", "在庫切れの商品が含まれているため購入できません");	
+						request.setAttribute("order", "allCartItems"); //今回のオーダーがカートの中身のうち一つであることを証明
+						request.getRequestDispatcher("order-confirm.jsp").forward(request, response);
 					} catch ( SQLException | ClassNotFoundException e) {
 						e.printStackTrace();
 					}
 					
-					request.getRequestDispatcher("order-confirm.jsp").forward(request, response);
+					
 				} 
 		 }
 				

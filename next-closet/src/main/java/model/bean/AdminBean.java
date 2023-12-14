@@ -3,21 +3,41 @@ package model.bean;
 import java.io.Serializable;
 
 public class AdminBean implements Serializable{
-	private String admin_name;
+	private String adminName;
+	private String adminKanaName;
 	private String email;
 	private String password;
 	
 	public AdminBean() {}
 
-	public AdminBean(String admin_name, String email, String password) {
-		this.admin_name = admin_name;
+	public AdminBean(String adminName, String adminKanaName, String email, String password) {
+		super();
+		this.adminName = adminName;
+		this.adminKanaName = adminKanaName;
 		this.email = email;
 		this.password = password;
 	}
 
 	public AdminBean(String email, String password) {
+		super();
 		this.email = email;
 		this.password = password;
+	}
+
+	public String getAdminName() {
+		return adminName;
+	}
+
+	public void setAdminName(String adminName) {
+		this.adminName = adminName;
+	}
+
+	public String getAdminKanaName() {
+		return adminKanaName;
+	}
+
+	public void setAdminKanaName(String adminKanaName) {
+		this.adminKanaName = adminKanaName;
 	}
 
 	public String getEmail() {
@@ -35,14 +55,6 @@ public class AdminBean implements Serializable{
 	public void setPassword(String password) {
 		this.password = password;
 	}
-   
-
-	public String getAdmin_name() {
-		return admin_name;
-	}
-
-	public void setAdmin_name(String admin_name) {
-		this.admin_name = admin_name;
-	}
+	
 
 }
