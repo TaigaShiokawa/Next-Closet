@@ -58,6 +58,26 @@ public class AddToCartServlet extends HttpServlet  {
 		int sizeId = Integer.parseInt(request.getParameter("sizeId"));
 		int quantity = Integer.parseInt(request.getParameter("quantity"));
 		
+		if(userId < 1) {
+			request.getSession().setAttribute("userNotFound", "ユーザーが見つかりませんでした。"
+					+ "再度お試しいただくか、お問い合わせより管理者にご連絡ください。");
+			response.sendRedirect("error.jsp");
+			return;
+		} else if(productId < 1) {
+			request.getSession().setAttribute("productNotFound", "商品が見つかりませんでした。"
+					+ "再度お試しいただくか、お問い合わせより管理者にご連絡ください。");
+			response.sendRedirect("cart.jsp");
+			return;
+		} else if(sizeId < 1) {
+			request.getSession().setAttribute("sizeNotFound", "サイズが選択されていません。");
+			response.sendRedirect("cart.jsp");
+			return;
+		} else if(quantity < 1) {
+			request.getSession().setAttribute("productNotFound", "数量が選択されていません。");
+			response.sendRedirect("cart.jsp");
+			return;
+		}
+		
 		CartDAO cartDao = new CartDAO();
 		try {
 			cartDao.addCartItem( userId,  productId, sizeId, quantity);
