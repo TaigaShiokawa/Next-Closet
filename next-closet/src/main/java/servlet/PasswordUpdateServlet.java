@@ -31,8 +31,17 @@ public class PasswordUpdateServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		
+		String userIdStr = (String)request.getAttribute("userId");
+		if(userIdStr == null) {
+			request.getSession().setAttribute("userNotFound", "ユーザーが存在しません。");
+			response.sendRedirect("error.jsp");
+			return;
+		}
+		
 		String password = request.getParameter("password");
+		
 		int userId = Integer.parseInt(request.getParameter("userId"));
+		
 		String hashedPass = null;
 		try {
 			hashedPass = HashPW.hashPass(password);

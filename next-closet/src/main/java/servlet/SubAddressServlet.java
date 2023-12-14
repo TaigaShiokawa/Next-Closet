@@ -26,6 +26,7 @@ public class SubAddressServlet extends HttpServlet {
 			throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
+		
 		int userId = (int)request.getSession().getAttribute("userId");
 		
 		//Listで追加した住所を表示

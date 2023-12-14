@@ -4,7 +4,7 @@
 <% UserBean loginUser = (UserBean)request.getSession().getAttribute("user"); %>
 <% AddressBean loginUserAddress = (AddressBean)request.getSession().getAttribute("userAddress"); %>
 <% if(loginUser == null) { %>
-<% response.sendRedirect("product-list.jsp"); %>
+<% response.sendRedirect("LoginServlet"); %>
 <% } %>  
 <!DOCTYPE html>
 <html>
@@ -56,7 +56,7 @@
             <a href="OrderHistoryServlet"><button type="submit" class="twe-button">購入履歴</button></a>
         </p>
         
-        <a href="product-list.jsp" class="one-a">商品一覧へ戻る</a>
+        <a href="ProductListServlet" class="one-a">商品一覧へ戻る</a>
         
          <a href="WithdrawalServlet?userId=<%=loginUser.getUserId()%>">退会はこちら</a>
 
