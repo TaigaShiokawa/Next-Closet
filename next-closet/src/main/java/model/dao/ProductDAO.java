@@ -165,33 +165,73 @@ public class ProductDAO {
 		}
 		
 		//買い物かご全ての商品の在庫数と購入数を比較するメソッド
+//		public boolean cartProductStock(int userId ) throws SQLException , ClassNotFoundException{
+//			 String sql = "SELECT * FROM cart_items WHERE user_id = ? "; //postsテーブルの全データをsqlに格納
+//		        boolean stock = true;
+//		        int stock_quantity = -1;
+//		        try(Connection con = DBConnection.getConnection();  //データベースに接続する
+//		   			 PreparedStatement pstmt = con.prepareStatement(sql)){ //引数で指定されたSQLをデータベースで実行するメソッド
+//		         
+//		   			 pstmt.setInt(1, userId);
+//		           	  ResultSet res = pstmt.executeQuery(); //引数で指定されたSQLをデータベースで実行するメソッド
+//		           	
+//		        		    
+//				            while (res.next()){ 
+//				            	
+//				            	int product_id		= res.getInt("product_id");
+//				            	int size_id			= res.getInt("size_id");
+//				            	int quantity		= res.getInt("quantity");
+//				            	sql= "SELECT stock_quantity FROM next_closet_db.inventory WHERE product_id = " + product_id + " AND size_id = " + size_id;
+//					    	        try(Connection conn = DBConnection.getConnection();  //データベースに接続する
+//					    	   			 PreparedStatement pst = con.prepareStatement(sql)){
+//					    	        	 ResultSet rs = pst.executeQuery();  
+//					    	        	 stock_quantity = rs.getInt("stock_quantity");
+//						    	        	if( stock_quantity  - quantity < 0  ) {
+//						    	        		stock = false;
+//						    	        	} 
+//					    	       }
+//				            }
+//				     }	
+//				return stock;		
+//		}
 		public boolean cartProductStock(int userId ) throws SQLException , ClassNotFoundException{
-			 String sql = "SELECT * FROM cart_items WHERE user_id = " + userId ; //postsテーブルの全データをsqlに格納
+			
 		        boolean stock = true;
-		        try(Connection con = DBConnection.getConnection();  //データベースに接続する
-		   			 PreparedStatement pstmt = con.prepareStatement(sql)){ //引数で指定されたSQLをデータベースで実行するメソッド
-		         
-		   			 pstmt.setInt(1, userId);
-		           	  ResultSet res = pstmt.executeQuery(); //引数で指定されたSQLをデータベースで実行するメソッド
-		        		    
+			    int product_id = -1;
+			    int size_id = -1;
+			    int quantity = -1;
+		        int stock_quantity = -1;
+		        
+		        String sql = "SELECT ci.product_id, ci.size_id, ci.quantity, inv.stock_quantity "
+			               + "FROM cart_items ci "
+			               + "INNER JOIN inventory inv ON ci.product_id = inv.product_id "
+			               + "WHERE ci.user_id = ?";
+		        
+				        try(Connection con = DBConnection.getConnection();  //データベースに接続する
+				   			 PreparedStatement pstmt = con.prepareStatement(sql)){ //引数で指定されたSQLをデータベースで実行するメソッド
+				         
+				   			 pstmt.setInt(1, userId);
+				           	  ResultSet res = pstmt.executeQuery(); //引数で指定されたSQLをデータベースで実行するメソッド
+				           	
+		        		
 				            while (res.next()){ 
-				            	int product_id			= res.getInt("product_id");
-				            	int size_id			= res.getInt("size_id");
-				            	int quantity			= res.getInt("quantity");
 				            	
-				            	sql = "SELECT stock_quantity FROM inventory WHERE product_id = " + product_id + " AND size_id = " + size_id  ; //postsテーブルの全データをsqlに格納
-					    	        try(Connection conn = DBConnection.getConnection();  //データベースに接続する
-					    	   			 PreparedStatement pst = con.prepareStatement(sql)){
-					    	        	int stock_quantity = res.getInt("stock_quantity");
-					    	        	if(  quantity -  stock_quantity  < 0  ) {
-					    	        		stock = false;
-					    	        	}
-					    	        
-					    	        }
-				            }
+				            	product_id		= res.getInt("product_id");
+				            	size_id			= res.getInt("size_id");
+				            	quantity		= res.getInt("quantity");
+				            	stock_quantity  = res.getInt("stock_quantity");
+				            	
+			    	        	if( stock_quantity  - quantity < 0  ) {
+			    	        		stock = false;
+			    	        	} 
+					    	 }
+				            
 				     }	
 				return stock;		
 		}
+		
+		
+		
 		
 		
 		//オーダーに購入情報を送る
