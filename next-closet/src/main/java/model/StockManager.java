@@ -69,14 +69,14 @@ public class StockManager {
 			CartDAO cartDao = new CartDAO();
 			List <CartItemBean> cartList = null;
 			try {
-			cartList = cartDao.getCartItems(userId);
+			cartList = cartDao.getAllCartItems(userId);
 			}catch(SQLException | ClassNotFoundException e) {
 				e.printStackTrace();
 			}
 			
 			 for (CartItemBean item : cartList) {
 				 
-					 productId = item.getProductId();
+					 productId = item.getProduct().getProductId();
 					 sizeId = item.getSizeId();
 					 buyQuantity = item.getQuantity();
 				 
@@ -103,15 +103,17 @@ public class StockManager {
 			CartDAO cartDao = new CartDAO();
 			List <CartItemBean> cartList = null;
 			try {
-			cartList = cartDao.getCartItems(userId);
+			cartList = cartDao.getAllCartItems(userId);
 			}catch(SQLException | ClassNotFoundException e) {
 				e.printStackTrace();
 			}
 			
 			 for (CartItemBean item : cartList) {
 				 
-				 productId = item.getProductId();
+				 productId = item.getProduct().getProductId();
+				 System.out.println(productId);
 				 sizeId = item.getSizeId();
+				 System.out.println(sizeId);
 				 buyQuantity = item.getQuantity();
 				 price = item.getProduct().getPrice();
 				 totalAmount += (buyQuantity * price);
