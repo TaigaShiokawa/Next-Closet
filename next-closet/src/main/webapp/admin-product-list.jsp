@@ -6,6 +6,8 @@
  List<CategoryBean> categoryList = (ArrayList <CategoryBean>)request.getAttribute("categoryList");
  List<ProductBean> searchProducts = (ArrayList<ProductBean>)request.getAttribute("searchProducts");
  String  title = (String)request.getAttribute("title");
+ String img = ""; 
+ boolean status = true;
  %>
 <!-- 管理者のセッション設定が必要 -->
 <!DOCTYPE html>
@@ -13,176 +15,101 @@
 <head>
 <meta charset="UTF-8">
 <title>管理者ログインページ</title>
+<link rel="stylesheet" href="css/admin-product-list.css">
 </head>
 
 <body>
-
-<div class="side_bar">
+<div class="content wrapper">
+		<div class="side_bar">
                 <ul id="category_list">
                     <li class="gender list_top"><span>ALL</span>
                         <ul class="category">
                             <li><a href='ProductListServlet'>全ての商品</a></li>
                             <% for ( CategoryBean columns : categoryList){ %>
-                             <li><a href='ProductListServlet?categoryId=<%= columns.getCategoryId() %>&gender=-1&categoryName=<%= columns.getCategoryName() %>'><%= columns.getCategoryName() %></a></li>
+                             <li><a href='AdminProductListServlet?categoryId=<%= columns.getCategoryId() %>&gender=-1&categoryName=<%= columns.getCategoryName() %>'><%= columns.getCategoryName() %></a></li>
                              <% } %>
-                            
- 
                         </ul>
                     </li>
+                    
                     <li class="gender"><span>MAN</span>
                         <ul class="category">
                              <% for ( CategoryBean columns : categoryList){ %>
-                            <li><a href='ProductListServlet?categoryId=<%= columns.getCategoryId() %>&gender=0&categoryName=<%= columns.getCategoryName() %>'><%= columns.getCategoryName() %></a></li>
+                            <li><a href='AdminProductListServlet?categoryId=<%= columns.getCategoryId() %>&gender=0&categoryName=<%= columns.getCategoryName() %>'><%= columns.getCategoryName() %></a></li>
                              <% } %>
                         </ul>
                     </li>
+                    
                     <li class="gender"><span>WOMAN</span>
                         <ul class="category">
  							<% for ( CategoryBean columns : categoryList){ %>
-                            <li><a href='ProductListServlet?categoryId=<%= columns.getCategoryId() %>&gender=1&categoryName=<%= columns.getCategoryName() %>'><%= columns.getCategoryName() %></a></li>
+                            <li><a href='AdminProductListServlet?categoryId=<%= columns.getCategoryId() %>&gender=1&categoryName=<%= columns.getCategoryName() %>'><%= columns.getCategoryName() %></a></li>
                             <% } %>
                         </ul>
                     </li>
+                    
                 </ul>
-            </div>
+          </div><!--  side_barの閉じタグ -->
             
-  <div class="tab">
+  		<div class="tab">
+ 				 <h1 class="page-title"><%= title %></h1>	
   
-		    <ul class="tab__menu">
-		      <li class="tab__menu-item is-active" data-tab="01">商品一覧表</li>
-		      <li class="tab__menu-item" data-tab="02">販売中</li>
-		      <li class="tab__menu-item" data-tab="03">削除済み</li>
-		    </ul> 
-		    
-		    
-		    <%-- <div class="tab__panel">
-				      <div class="tab__panel-box tab__panel-box001 is-show" data-panel="01">
-						        <div>
-						        
-						      			  <%
-						      			  //全部の商品一覧
-						      			 if( productManTops != null ){
-									        	for(Product columns  : productManTops) { 
-									        %>
-									        		<p class="tab__panel-text">︎<%= columns.getProductName() %></p>
-									        		<p class="tab__panel-text"><%= columns.getProductPrice() %></p>
-									        		<p class="tab__panel-text">︎<%= columns.getGender() %></p>
-									        		<p class="tab__panel-text">︎<%= columns.getCategory() %></p>
-									        		
-									        <% 
-										       } //for文ここまで
-									        	} else {%>
-									        		<p>該当商品はありません</p>
-									         <% 	}
-										    %>
-						                   
-										    
-										    <%
-										    if( productWomanTops != null ){
-									        	for(Product columns  : productWomanTops) { 
-									        		  //販売中の商品一覧
-									        %>
-									        		<p class="tab__panel-text">︎<%= columns.getProductName() %></p>
-									        		<p class="tab__panel-text">︎<%= columns.getProductPrice() %></p>
-									        		<p class="tab__panel-text"><%= columns.getGender() %></p>
-									        		<p class="tab__panel-text"><%= columns.getCategory() %></p>
-									        		
-									        <% 
-										       } //for文ここまで
-									        	}
-										    %></p>
-										    
-								  </div>
-				      </div>
-		      		  <div class="tab__panel-box tab__panel-box002" data-panel="02">	
-		       					 <div class="tab__panel-text">		
-		        
-					                    <%
-					                      if(productManBottoms != null ){
-					                    	//販売中の商品一覧
-								        	for(Product columns  : productManBottoms) { 
-								        		
-								        %>
-								        		<p>︎<%= columns.getProductName() %></p>
-								        		<p>︎<%= columns.getProductPrice() %></p>
-								        		<p>︎<%= columns.getGender() %></p>
-								        		<p>︎<%= columns.getCategory() %></p>
-								        		
-								        <% 
-									       } //for文ここまで
-					                      } else { %>
-					                      <p>Mansの靴の該当商品はありません</p>
-									   <% } %>
-									    
-									    <%
-									    if(productWomanBottoms != null ){
-								        	for(Product columns  : productWomanBottoms) { 
-								        %>
-								        		<p>︎<%= columns.getProductName() %></p>
-								        		<p>︎<%= columns.getProductPrice() %></p>
-								        		<p>︎<%= columns.getGender() %></p>
-								        		<p>︎<%= columns.getCategory() %></p>
-								        		
-								        <% 
-								        	}
-									       } else { 
-									    %>
-									     <p>Womasの靴の該当商品はありません</p>
-									   <% } %>
-						  	  </div>
-		     		 </div>
-		     		<div class="tab__panel-box tab__panel-box003" data-panel="03">
-					        <div class="tab__panel-text">
-				        			<%  //削除
-				        			  if(productWomanBottoms != null ){
-							        	for(Product columns  : productManShoes) { 
-							        %>
-							        		<p>︎<%= columns.getProductName() %></p>
-							        		<p>︎<%= columns.getProductPrice() %></p>
-							        		<p>︎<%= columns.getGender() %></p>
-							        		<p>︎<%= columns.getCategory() %></p>
-							        		
-							        <% 
-								       } //for文ここまで
-				        			  }
-								    %>
-								    
-								    <%
-								    if(productWomanShoes != null ){
-							        	for(Product columns  : productWomanShoes) { 
-							        %>
-							        		<p>︎<%= columns.getProductName() %></p>
-							        		<p>︎<%= columns.getProductPrice() %></p>
-							        		<p>︎<%= columns.getGender() %></p>
-							        		<p>︎<%= columns.getCategory() %></p>
-							        		
-							        <% 
-								       } //for文ここまで
-								    }
-								    %>
-					        </div>
-		     	 	</div>
-		     	 	<div class="tab__panel-box tab__panel-box004" data-panel="04">
-					        <div class="tab__panel-text">
-				        			<%  
-				        			  if(productList != null ){
-							        	for(Product columns  : productList) { 
-							        %>
-							        		<p>︎<%= columns.getProductName() %></p>
-							        		<p>︎<%= columns.getProductPrice() %></p>
-							        		<p>︎<%= columns.getGender() %></p>
-							        		<p>︎<%= columns.getCategory() %></p>
-							        		
-							        <% 
-								       } //for文ここまで
-				        			  }
-								    %>
-								    
-					        </div>
-		     	 	</div>
-		   	 </div>
-  </div> --%>  <!--  tab全体の閉じタグ -->
-  
+			    <ul class="tab__menu">
+				      <li class="tab__menu-item is-active" data-tab="01">商品一覧表</li>
+				      <li class="tab__menu-item" data-tab="02">販売中</li>
+				      <li class="tab__menu-item" data-tab="03">削除済み</li>
+			    </ul> 
+			    <div class="tab__panel">
+                    <div class="tab__panel-box tab__panel-box001 is-show" data-panel="01"> <!-- 全表示 -->
+                     	<ul class="product-list">
+	                       	 <% for (ProductBean columns : productList) {%>
+			            	 <li>
+		                         <a href="AdminProductDetailServlet?productId=<%= columns.getProductId() %>">
+			                         
+			                          <p><%= columns.getProductName() %></p>
+			                          <p>&yen; <%= columns.getPrice() %></p>
+		                         </a>
+	                    	 </li>
+                  			 <%  } %>
+                    	 </ul>
+                     </div>
+                     
+                     
+                     <div class="tab__panel-box tab__panel-box002 " data-panel="02"> <!-- 販売中 -->
+                     		<ul class="product-list">
+                       	 	<% for (ProductBean columns : productList) {
+                       			 status = columns.getStatus();
+                       			 if(status){ %>
+		            			 <li>
+	                       			  <a href="AdminProductDetailServlet?productId=<%= columns.getProductId() %>">
+				                          <p><%= columns.getProductName() %></p>
+				                          <p>&yen; <%= columns.getPrice() %></p>
+			                         </a>
+                    			 </li>
+                  			 <% } } %>
+                   		  </ul>
+                    </div>
+                     
+                     
+                     
+                     <div class="tab__panel-box tab__panel-box003" data-panel="03"> <!-- 削除済み -->
+	                     <ul class="product-list">
+	                    	  <%  for (ProductBean columns : productList) {
+	                 		     status = columns.getStatus();
+	                       		   if( status == false ){
+			                       %>
+					            	 <li>
+				                         <a href="AdminProductDetailServlet?productId=<%= columns.getProductId() %>">
+					                          <p><%= columns.getProductName() %></p>
+					                          <p>&yen; <%= columns.getPrice() %></p>
+				                         </a>
+			                    	 </li>
+	                  		 <%}} %>
+	                     </ul>
+	                  </div>
+	                  
+	              </div><!-- tab閉じタグ -->
+			</div>
+                    
 	<body>
   <script>
 

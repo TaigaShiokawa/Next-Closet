@@ -79,7 +79,7 @@ public class ProductBean implements Serializable{
 		this.descruption = descruption;
 	}
 
-	public boolean isStatus() {
+	public boolean getStatus() {
 		return status;
 	}
 
