@@ -54,8 +54,8 @@ public class ProductListServlet extends HttpServlet {
 				//検索がある場合、検索機能を使用
 				SearchDAO searchDao = new SearchDAO();
 				searchProducts = searchDao.searchProductList(searchName);
-				System.out.println(searchProducts);
 				request.setAttribute("searchProducts", searchProducts);
+				request.setAttribute("title", searchName + "の検索結果");
 			} else {
 			
 			if( categoryId == -1 ) {
