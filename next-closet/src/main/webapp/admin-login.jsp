@@ -12,7 +12,9 @@
 <title>next closet...</title>
 </head>
 <body>
+
 <!-- 管理者用のナビゲーションバーが必要かも -->
+   <%@ include file="includes/navbar.jsp" %>  
 	<h2>管理者ログイン</h2>
 		<% String errorMessageToAdmin = (String)request.getSession().getAttribute("errorMessageToAdmin"); %>
 		<% if(errorMessageToAdmin != null) { %>
@@ -24,6 +26,7 @@
 			<input type="password" name="password" placeholder="パスワード"><br>
 			<button type="submit">login</button>
 		</form>
+
 
 </body>
 </html>
