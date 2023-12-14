@@ -2,6 +2,7 @@ package model.bean;
 
 import java.io.Serializable;
 
+
 public class SizeBean implements Serializable{
 	
 	private int sizeId;
