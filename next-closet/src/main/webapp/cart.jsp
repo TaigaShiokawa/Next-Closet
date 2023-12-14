@@ -25,6 +25,11 @@
 
     <% 
         List<CartItemBean> cartItems = (ArrayList<CartItemBean>) request.getAttribute("cartItems");
+    	if(cartItems == null) {
+    		request.getSession().setAttribute("productNotFound", cartItems);
+    		response.sendRedirect("product-detail.jsp");
+    		return;
+    	}
         double totalPrice = 0;
         for (CartItemBean item : cartItems) {
             int itemPrice = item.getProduct().getPrice();

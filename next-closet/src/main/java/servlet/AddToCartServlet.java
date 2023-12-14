@@ -56,7 +56,7 @@ public class AddToCartServlet extends HttpServlet  {
 		int userId = (int)request.getSession().getAttribute("userId");
 		int productId = Integer.parseInt(request.getParameter("productId"));
 		int sizeId = Integer.parseInt(request.getParameter("sizeId"));
-		int quantity = Integer.parseInt(request.getParameter("quantity"));
+		String quantityStr = request.getParameter("quantity");
 		
 		if(userId < 1) {
 			request.getSession().setAttribute("userNotFound", "ユーザーが見つかりませんでした。"
@@ -72,7 +72,9 @@ public class AddToCartServlet extends HttpServlet  {
 			request.getSession().setAttribute("sizeNotFound", "サイズが選択されていません。");
 			response.sendRedirect("cart.jsp");
 			return;
-		} else if(quantity < 1) {
+		} 
+		
+		if(quantityStr.isEmpty()) {
 			request.getSession().setAttribute("productNotFound", "数量が選択されていません。");
 			response.sendRedirect("cart.jsp");
 			return;
@@ -80,7 +82,12 @@ public class AddToCartServlet extends HttpServlet  {
 		
 		CartDAO cartDao = new CartDAO();
 		try {
+			int quantity = Integer.parseInt(request.getParameter("quantity"));
 			cartDao.addCartItem( userId,  productId, sizeId, quantity);
+		} catch (NumberFormatException e) {
+		    request.getSession().setAttribute("quantityError", "無効な数量が入力されました。");
+		    response.sendRedirect("cart.jsp");
+		    return;
 		} catch(ClassNotFoundException e) {
 			e.printStackTrace();
 			request.getSession().setAttribute("errorMessage", "内部の設定エラーが発生しました。"
@@ -95,10 +102,15 @@ public class AddToCartServlet extends HttpServlet  {
 			return;
 		}
 		
-		CartDAO cartDao2 = new CartDAO();
+		
 		List<CartItemBean> cartItems;
 		try {
-			cartItems = cartDao2.getCartItems(userId);
+			cartItems = cartDao.getCartItems(userId);
+			if(cartItems.isEmpty()) {
+				request.getSession().setAttribute("productNotFound", "数量またはサイズが選択されていません。");
+				response.sendRedirect("product-detail.jsp");
+				return;
+			}
 			request.setAttribute("cartItems", cartItems);
 		} catch(ClassNotFoundException e) {
 			e.printStackTrace();

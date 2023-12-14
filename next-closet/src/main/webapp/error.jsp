@@ -13,6 +13,7 @@
 <% String errorMessage = (String)session.getAttribute("errorMessage"); %>
 <% String userNotFound = (String)session.getAttribute("userNotFound"); %>
 <% String cartItemNotFound = (String)session.getAttribute("cartItemNotFound"); %>
+<% String productNotFound = (String)session.getAttribute("productNotFound"); %>
 <% if(errorMessage != null && !errorMessage.isEmpty()) { %>
 <p><%= errorMessage %></p>
 <% session.removeAttribute("errorMessage"); %>
@@ -22,6 +23,9 @@
 <% } else if(cartItemNotFound != null) { %>
 <p><%=cartItemNotFound %></p>
 <% session.removeAttribute("cartItemNotFound"); %>
+<% } else if(productNotFound != null) { %>
+<p><%=productNotFound %></p>
+<% session.removeAttribute("productNotFound"); %>
 <% } %>
 </body>
 </html>
