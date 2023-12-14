@@ -36,8 +36,7 @@ public class CartDAO {
 
 	
 	//一つの商品のみカートから購入するメソッド
-		public int cartItem( int cart_item_id ) throws ClassNotFoundException, SQLException{
-			int cartItemId = 0;
+		public CartItemBean getCartItem( int cart_item_id ) throws ClassNotFoundException, SQLException{
 			CartItemBean cartItem = new CartItemBean();
 			String sql = "SELECT * FROM cart_items WHERE cart_item_id = ?";
 			try (Connection con = DBConnection.getConnection();
@@ -52,7 +51,7 @@ public class CartDAO {
 					cartItem.setSizeId(res.getInt("size_id"));
 				}
 			}
-			return cartItemId;
+			return cartItem;
 		}
 		
 
@@ -81,7 +80,7 @@ public class CartDAO {
 			}
 			
 
-	
+	//ユーザーIDを基に商品の詳細情報を取得
 	public List<CartItemBean> getCartItems(int userId) 
 	        throws ClassNotFoundException, SQLException {
 	    List<CartItemBean> cartItems = new ArrayList<>();
@@ -97,6 +96,8 @@ public class CartDAO {
 	        pstmt.setInt(1, userId);
 	        try (ResultSet res = pstmt.executeQuery()) {
 	            while (res.next()) {
+	            	
+	            	//下記、3つのインスタンス化しているオブジェクトは、Beanファイルでそれぞれを継承させたら少し短くなるかも
 	                CartItemBean cartItem = new CartItemBean();
 	                cartItem.setCartItemId(res.getInt("cart_item_id"));
 	                cartItem.setQuantity(res.getInt("quantity"));
@@ -119,6 +120,34 @@ public class CartDAO {
 	    return cartItems;
 	}
 	
+	public void destroyCartItem(int cartItemId) 
+			throws ClassNotFoundException, SQLException {
+		String sql = "DELETE FROM cart_items WHERE cart_item_id = ?"; 
+		int processingNum = 0;
+		
+		try (Connection con = DBConnection.getConnection();
+		     PreparedStatement pstmt = con.prepareStatement(sql)) {	
+			
+		pstmt.setInt(1, cartItemId);
+		processingNum = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void UpdateCarItemQuantity(int cart_item_id, int quantity)
+			throws ClassNotFoundException, SQLException {
+		String sql = "UPDATE cart_items SET quantity = ? WHERE cart_item_id = ?";
+		
+		try (Connection con = DBConnection.getConnection();
+			 PreparedStatement pstmt = con.prepareStatement(sql)) {
+			
+			pstmt.setInt(1, quantity);
+			pstmt.setInt(2, cart_item_id);
+			
+			pstmt.executeUpdate();
+		}
+	}
 	
 
 }

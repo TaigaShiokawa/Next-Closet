@@ -8,6 +8,7 @@
 	<title>next closet...</title>
 	   <link rel="stylesheet" href="css/product-detail.css">
 	   <link rel = "stylesheet" href = "css/navbar.css">
+	   <% UserBean loginUser = (UserBean)request.getSession().getAttribute("user"); %>
 		 <%
 	   		 List <ProductBean> productList = (ArrayList <ProductBean>)request.getAttribute("productList");
 	     %>
@@ -31,12 +32,12 @@
 			<p><%= columns.getDescruption() %></p>
 			<p>&yen; <%= columns.getPrice() %><span>税込</span></p>
 			<form id="form" name="form" action="AddToCartServlet" method="post">
-				<input type="hidden" name="order" value="いますぐ買う" >
+				<input type="hidden" name="order" value="order" >
 				<input type="hidden" name="productId" value="<%= columns.getProductId() %>" >
 				<input type="radio" name="sizeId" value="1" checked ><label>S</label>
 				<input type="radio" name="sizeId" value="2"  ><label>M</label>
 				<input type="radio" name="sizeId" value="3" ><label>L</label>
-				<label>数量</label><input type="number" name = "quantity">
+				<label>数量</label><input type="number" name = "quantity"　required>
 				<input type="submit" value="カートに入れる" >
 				<input type="submit" value="いますぐ買う" onclick="goOrder()">
 			</form>
@@ -46,7 +47,7 @@
 		<script>
 			function goOrder(){
 				document.getElementById('form').method = 'get';
-				document.getElementById('form').action = 'OrderConfirmServlet';
+				document.getElementById('form').action = 'OrderConfilmServlet';
 			}
 		</script>
 	</body>
