@@ -20,12 +20,6 @@ public class AddToCartServlet extends HttpServlet  {
 			throws ServletException, IOException {
 		
 		int userId = (int)request.getSession().getAttribute("userId");
-		if(userId < 1) {
-			request.getSession().setAttribute("userNotFound", "ユーザーが見つかりませんでした。"
-					+ "再度お試しいただくか、お問い合わせより管理者にご連絡ください。");
-			response.sendRedirect("error.jsp");
-			return;
-		}
 
 		CartDAO cartDao = new CartDAO();
         List<CartItemBean> cartItems = null;
@@ -47,7 +41,6 @@ public class AddToCartServlet extends HttpServlet  {
         request.setAttribute("cartItems", cartItems);
         request.getRequestDispatcher("cart.jsp").forward(request, response);
 	}
-	
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {

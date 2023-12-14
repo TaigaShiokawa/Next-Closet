@@ -19,6 +19,11 @@
 </head>
 <body>
 <%@ include file="includes/navbar.jsp" %>
+<% String productNotFound = (String)request.getSession().getAttribute("productNotFound"); %>
+<% if(productNotFound != null) { %>
+<p><%=productNotFound %></p>
+<% session.removeAttribute("productNotFound"); %>
+<% } %>
     <main>
         <div class = "container" >
             <div class="side_bar">

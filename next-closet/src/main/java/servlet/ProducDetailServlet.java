@@ -44,10 +44,6 @@ public class ProducDetailServlet extends HttpServlet {
 
 		 RequestDispatcher dispatcher = request.getRequestDispatcher("product-detail.jsp");
    	     dispatcher.forward(request, response);
-   	     
-   	     
- 
-
 	}
 	
 }
