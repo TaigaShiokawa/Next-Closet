@@ -3,8 +3,7 @@
 <%@ page import="java.util.*" %>
 <%@ page import="model.bean.*" %>
 <%@ page import="model.dao.*" %>
-<%-- <% UserBean loginUser = (UserBean)request.getSession().getAttribute("user"); %>
-     --%>
+<% UserBean loginUser = (UserBean)request.getSession().getAttribute("user"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -82,12 +81,12 @@
 <div class="split right-box">
 <!-- Listをfor文で回して追加した住所を表示 -->
 <h2>追加した住所</h2>
-<%-- <% List<AddressBean> addressList = (List<AddressBean>)request.getAttribute("addressList"); %>
-<% for(AddressBean addresses : addressList) { %> --%>
+<% List<AddressBean> addressList = (List<AddressBean>)request.getAttribute("addressList"); %>
+<% for(AddressBean addresses : addressList) { %>
 <form action="AddressDeleteServlet" method="post">
 	<div>
-    	<input type="checkbox" name="addAddressId" value="<%-- <%=addresses.getAddAddressId()%> --%>"> <!-- サブ住所のIDを値として返す -->
-    	<label><%-- <%=addresses.getPrefectures()%><%=addresses.getAddress()%> --%>；</label>
+    	<input type="checkbox" name="addAddressId" value="<%=addresses.getAddAddressId()%>"> <!-- サブ住所のIDを値として返す -->
+    	<label><%=addresses.getPrefectures()%><%=addresses.getAddress()%>；</label>
     </div>
 <%-- <% } %> --%>
 	<button type="submit">削除</button>
