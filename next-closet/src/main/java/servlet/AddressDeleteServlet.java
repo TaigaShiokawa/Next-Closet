@@ -31,7 +31,7 @@ public class AddressDeleteServlet extends HttpServlet {
 	    UserDAO uDao = new UserDAO();
 
 	    String[] addAddressIds = request.getParameterValues("addAddressId"); 
-	    //削除する住所のIDを全て配列に格納.getParameterValuesを使用しているのは, 同じ名前のパラメータが複数存在するため.
+	    //削除するサブ住所のIDを全て配列に格納.getParameterValuesを使用しているのは, 同じ名前のパラメータが複数存在するため.
 	    if(addAddressIds != null) {
 	        for(String addressId : addAddressIds) {
 	            int addAddressId = Integer.parseInt(addressId); //文字列型で受け取ったからInt型に変換.

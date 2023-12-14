@@ -19,7 +19,7 @@ import model.dao.UserDAO;
 @WebServlet("/OrderConfilmServlet")
 public class OrderConfilmServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
+
 		ProductDAO productDao = new ProductDAO();
 		UserDAO userDao = new UserDAO();
 		CartDAO cartDao = new CartDAO();
