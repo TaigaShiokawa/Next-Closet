@@ -2,7 +2,9 @@
 <%@ page import="model.bean.*" %>
 <%@ page import="model.dao.*" %>
 
+
 <% AdminBean loginAdmin = (AdminBean)request.getSession().getAttribute("Admin"); %>
+
 
 <!DOCTYPE html>
 <html>
