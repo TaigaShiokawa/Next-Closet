@@ -19,94 +19,89 @@ import model.dao.UserDAO;
 @WebServlet("/OrderConfilmServlet")
 public class OrderConfilmServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
+	
 		ProductDAO productDao = new ProductDAO();
 		UserDAO userDao = new UserDAO();
 		CartDAO cartDao = new CartDAO();
 		int userId = (int) request.getSession().getAttribute("userId");
+		String order = request.getParameter("order"); //今すぐ購入だったら中身がある
+		int cartItemId = -1;
+		String cartItemIdStr = request.getParameter("cartItemId");
 		
-		// カート内全てか商品一つか　と　カートからか今すぐ購入か()
-		String order = request.getParameter("order");
-		String cartItem = request.getParameter("cartitem");
+		if(cartItemIdStr!=null) {
+			cartItemId = Integer.parseInt(request.getParameter("cartItemId")); //カートの中身のうち一つのみ購入の場合は中身が入る
+		}
 		
-		try {
-			System.out.print("-------------------------");	
-			System.out.print(userDao.getUpdateUser(userId));		
+		try {	
 			//userIdでUserBeanから情報を持ってくる
 			request.setAttribute("user" , userDao.getUpdateUser(userId));				//user情報
 			request.setAttribute("address" , userDao.getUserAddressId(userId));			//メイン住所
 			request.setAttribute("addAddresses" , userDao.getSubAddress(userId));	    //サブ住所
-			
 		}catch(SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 		
 		if(order != null ) { //商品詳細 → 今すぐ購入の場合
 			
-			try {
-				//productIdで商品の情報をとってくる
-				int productId = Integer.parseInt(request.getParameter("productId"));
-				int sizeId = Integer.parseInt(request.getParameter("sizeId"));
-				int quantity = Integer.parseInt(request.getParameter("quantity"));
-				request.setAttribute("productList", productDao.detailProductList(productId)); //商品の詳細情報　商品名やらお金やら
-				request.setAttribute("order", "order");
-				request.setAttribute("sizeId", sizeId);
-				request.setAttribute("quantity", quantity);
-			} catch (SQLException | ClassNotFoundException e){
-				e.printStackTrace();
-			}
+				try {
+					//productIdで商品の情報をとってくる
+					int productId = Integer.parseInt(request.getParameter("productId"));
+					int sizeId = Integer.parseInt(request.getParameter("sizeId"));
+					int quantity = Integer.parseInt(request.getParameter("quantity"));
+					request.setAttribute("productList", productDao.detailProductList(productId)); //商品の詳細情報　商品名やらお金やら
+					request.setAttribute("order", "order");//今回のオーダーが今すぐ購入から購入であることを証明
+					request.setAttribute("sizeId", sizeId);
+					request.setAttribute("quantity", quantity);
+				} catch (SQLException | ClassNotFoundException e){
+					e.printStackTrace();
+				}
 			
 		} else {
 			
-			if(cartItem != null) { //カートの中のどれか一つの場合
-				//setAttributeでカートの単品であることを情報として持っていく
-				request.setAttribute("order", "cartItem");
-				int cartItemId = Integer.parseInt(request.getParameter("cartItemId")); //カートページから単品のカートアイテムIDを受け取る
-				try {
+				if(cartItemId != -1) { //カートの中のどれか一つの場合
+					//setAttributeでカートの単品であることを情報として持っていく
+					request.setAttribute("order", "singleCartItem"); //今回のオーダーがカートの中身のうち一つであることを証明
 					
-				CartItemBean Item = cartDao.getCartItem(cartItemId); //cartItemの情報を受け取る
-				request.setAttribute( "cartItem" , Item );
-				int productId = Item.getProductId(); //cartItemのproductIdを受け取る
-				request.setAttribute("productList", productDao.detailProductList(productId));  //商品の詳細をjspに渡す
-
-						
+						try {
+						CartItemBean Item = cartDao.getCartItem(cartItemId); //cartItemの情報を受け取る
+						request.setAttribute( "cartItem" , Item ); //CartItemBeanのリストでくる
+						request.setAttribute( "cartItemId",cartItemId );
+						int productId = Item.getProductId(); //cartItemのproductIdを受け取る
+						request.setAttribute("productList", productDao.detailProductList(productId));  //商品の詳細をjspに渡す
+						} catch (SQLException | ClassNotFoundException e) {
+							e.printStackTrace();
+						}
+					
+				} else { //もしカートの中身全部だったら
+				
+						try {
+							request.setAttribute("cartAllItemList", cartDao.getCartItems(userId));
+						} catch ( SQLException | ClassNotFoundException e) {
+							e.printStackTrace();
+						}
+							request.setAttribute("order", "allCartItems");//今回のオーダーがカートの中身を全て購入であることを証明
 			
-				request.setAttribute("productList", cartDao.getCartItem(cartItemId));
-				} catch (SQLException | ClassNotFoundException e) {
-					e.printStackTrace();
-				}
-				
-			} else {
-				
-				try {
-				request.setAttribute("cartAllItemList", cartDao.getCartItems(userId));
-				} catch ( SQLException | ClassNotFoundException e) {
-					e.printStackTrace();
-				}
-				request.setAttribute("order", "allCartItems");
-				
-			}
+				}	
+		
 		}
-		// 一つの時はproductIdとuserIdでcartitemsからとってくる
 		
 		request.getRequestDispatcher("order-confirm.jsp").forward(request, response);
-
 	}
+
+	
+	
+	
+
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
 		ProductDAO productDao = new ProductDAO();
 		UserDAO userDao = new UserDAO();
-		CartDAO cartDAO = new CartDAO();
-		
+		CartDAO cartDao = new CartDAO();
 	
 		int userId = (int) request.getSession().getAttribute("userId");
-		
-		// カート内全てか商品一つか　と　カートからか今すぐ購入か()
-		String order = request.getParameter("order");
 	
-		
 		try {
 			//userIdでUserBeanから情報を持ってくる
 			request.setAttribute("user" , userDao.getUpdateUser(userId));				//user情報
@@ -116,113 +111,138 @@ public class OrderConfilmServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-	
 		String delivery_address = (String)request.getParameter("address");
-		int productId = Integer.parseInt(request.getParameter("productId"));
 		int totalAmount = Integer.parseInt(request.getParameter("totalAmount"));
-		System.out.println("住所は" +  delivery_address);
-
-		
+		String order = request.getParameter("order");
 		request.setAttribute("order" , order);
-		ProductDAO productDAO = new ProductDAO();
 		StockManager st = new StockManager();
 		
-		//productIdと在庫を照らし合わせ、足りなかったら「在庫がない商品があるので購入いただけません」で確認画面に戻す
-		//productIdとsizeのん
-		//しかもカート内のうち一つだけのパターンもある。。。
-		if ( order.equals("cart")) {
-			try {
-				if(productDAO.cartProductStock(userId)) {
-					
-					//カート内一括購入のロジック
-					//orderに追加
-					//在庫を減らす
-					
-				} else {
-					
-					try {
-						request.setAttribute("cartItemList", cartDAO.cartAllItem(request));
-						} catch ( SQLException | ClassNotFoundException e) {
-							e.printStackTrace();
-						}
-	
-					request.setAttribute("order", "cart");
-					request.setAttribute("message", "在庫切れの商品があるため購入できません");			
-					int sizeId = Integer.parseInt(request.getParameter("sizeId"));
-					int quantity = Integer.parseInt(request.getParameter("quantity"));
-					request.setAttribute("productList", productDao.detailProductList(productId)); //商品の詳細情報　商品名やらお金やら
-					request.setAttribute("sizeId", sizeId);
-					request.setAttribute("quantity", quantity);
-					request.getRequestDispatcher("order-confilm.jsp").forward(request, response);
-					
-				}
-			} catch (SQLException | ClassNotFoundException e){
-			e.printStackTrace();
-			}
+
+		if ( order.equals("order")) { //商品詳細 → 今すぐ購入だったら
+
+			int quantity = Integer.parseInt(request.getParameter("quantity")); //購入数を取得
+			int sizeId = Integer.parseInt(request.getParameter("sizeId"));     //sizeを取得
+			int productId = Integer.parseInt(request.getParameter("productId"));
 			
-		} else if ( order.equals("cartItem"))  { //カートの中のどれか一つ
-			
-			int quantity = Integer.parseInt(request.getParameter("quantity"));
-			int sizeId = Integer.parseInt(request.getParameter("sizeId"));
-			if( st.productStock(productId,sizeId,quantity)) {
-				
-				//カート内一括購入のロジック
-				//orderに追加
-				//在庫を減らす
-				
-			} else {
-				
-				//購入アイテムのデータ
-				request.setAttribute("order", "cartItem");
-				request.setAttribute("message", "在庫切れの商品があるため購入できません");
-				request.getRequestDispatcher("order-confilm.jsp").forward(request, response);
-				
-			}
-			
-		} else if ( order.equals("order")) { //商品詳細 → 今すぐ購入
-			//System.out.println("オーダーの分岐には入ってます");
-			
-			int quantity = Integer.parseInt(request.getParameter("quantity"));
-			int sizeId = Integer.parseInt(request.getParameter("sizeId"));
-			
-			if( st.productStock(productId,sizeId,quantity)) {
-				System.out.println(delivery_address);				
-				st.decrementStock(productId,sizeId,quantity );
-				st.orderRegistration(productId,sizeId,quantity, userId ,totalAmount , delivery_address );
+			if( st.productStock(productId,sizeId,quantity)) {				   //もし在庫がたりたら	
+				st.decrementStock(productId,sizeId,quantity );				   //在庫 - 購入数
+				st.orderRegistration(productId,sizeId,quantity, userId ,totalAmount , delivery_address ); //order_itemsに追加（INSERT）
 				
 				//ご購入いただきましてありがとうございました。に飛ばす
 				RequestDispatcher dispatcher = request.getRequestDispatcher("order.jsp");
 		  	    dispatcher.forward(request, response);
 			
 			
-			} else { // 在庫 < 購入数だったら
+			} else { // もし在庫がたりなかったら
 				
+				request.setAttribute("message", "この商品は在庫切れのため現在購入できません");			
+				sizeId = Integer.parseInt(request.getParameter("sizeId"));		 //もう一度サイズ渡す
+				quantity = Integer.parseInt(request.getParameter("quantity"));	 //もう数量渡す
 				
-				request.setAttribute("message", "在庫切れの商品があるため購入できません");			
-				sizeId = Integer.parseInt(request.getParameter("sizeId"));
-				quantity = Integer.parseInt(request.getParameter("quantity"));
-				try {
-				request.setAttribute("productList", productDao.detailProductList(productId)); //商品の詳細情報　商品名やらお金やら
-				} catch (SQLException | ClassNotFoundException e) {
-					e.printStackTrace();
-				}
+					try {
+						request.setAttribute("productList", productDao.detailProductList(productId)); //商品の詳細情報を渡す
+					} catch (SQLException | ClassNotFoundException e) {
+						e.printStackTrace();
+					}
+				
 				request.setAttribute("order", "order");
 				request.setAttribute("sizeId", sizeId);
 				request.setAttribute("quantity", quantity);
-				
-				request.setAttribute("message", "在庫切れの商品があるため購入できません");
 				request.getRequestDispatcher("order-confirm.jsp").forward(request, response);
+			}
 				
+		} else if (order.equals("singleCartItem")) {
+		
+				
+				int cartItemId = Integer.parseInt(request.getParameter("cartItemId"));
+				int productId = Integer.parseInt(request.getParameter("productId"));
+				int quantity = Integer.parseInt(request.getParameter("quantity")); //購入数を取得
+				int sizeId = Integer.parseInt(request.getParameter("sizeId"));     //sizeを取得
+				
+					if( st.productStock(productId,sizeId,quantity)) {				   //もし在庫がたりたら	
+						
+						st.decrementStock(productId,sizeId,quantity );				   //在庫 - 購入数
+						st.orderRegistration(productId , sizeId , quantity , userId ,totalAmount , delivery_address ); //order_itemsに追加（INSERT）
+						//カートから削除
+							try {
+								cartDao.destroyCartItem(cartItemId); //cartから削除
+							} catch (SQLException | ClassNotFoundException e) {
+								e.printStackTrace();
+							}
+						
+						//ご購入いただきましてありがとうございました。に飛ばす
+						RequestDispatcher dispatcher = request.getRequestDispatcher("order.jsp");
+				  	    dispatcher.forward(request, response);
+					
+					} else { // もし在庫がたりなかったら
+					
+						request.setAttribute("message", "この商品は在庫切れのため現在購入できません");	
+						request.setAttribute("order", "singleCartItem"); //今回のオーダーがカートの中身のうち一つであることを証明
+						
+								try {
+								CartItemBean Item = cartDao.getCartItem(cartItemId); //cartItemの情報を受け取る
+								request.setAttribute( "cartItem" , Item ); //CartItemBeanのリストでくる
+								request.setAttribute( "cartItemId",cartItemId );
+								request.setAttribute("productList", productDao.detailProductList(productId));  //商品の詳細をjspに渡す
+								} catch (SQLException | ClassNotFoundException e) {
+									e.printStackTrace();
+								}
+					
+						sizeId = Integer.parseInt(request.getParameter("sizeId"));		 //もう一度サイズ渡す
+						quantity = Integer.parseInt(request.getParameter("quantity"));	 //もう数量渡す
+						request.getRequestDispatcher("order-confirm.jsp").forward(request, response);
+					}
+				
+		} else if (order.equals("allCartItems")) {
+			
+			
+			boolean stock = true;
+			//カート全購入
+			try {
+				stock = productDao.cartProductStock(userId);
+			} catch ( SQLException | ClassNotFoundException e) {
+				e.printStackTrace();
+				System.out.println("-----------");
 			}
 			
-			
-		}
-		
-		//orderなのかcartitemなのかcartなのかでcartからのDERETEとorderへのINSERTを行う
-		
-		
-	}
-	
-	
-}
+				if (stock) { //もし在庫が揃ってたら
 
+					//在庫減らす
+					 st.cartDecrementStock(userId);
+					 st.cartRegistration(userId , delivery_address);
+					 
+					//カートから削除
+						try {
+							cartDao.destroyAllCartItem(userId); //cartから削除
+						} catch (SQLException | ClassNotFoundException e) {
+							e.printStackTrace();
+						}
+					
+
+					//ご購入ありがとうございました
+					request.getRequestDispatcher("orde.jsp").forward(request, response);
+					
+				} else { //在庫がない商品があれば
+					
+					request.setAttribute("message", "在庫切れの商品が含まれているため購入できません");	
+					request.setAttribute("order", "cartAllItemList"); //今回のオーダーがカートの中身のうち一つであることを証明
+					try {
+					request.setAttribute("cartAllItemList", cartDao.getCartItems(userId)); //カート内商品の情報を渡す
+					} catch ( SQLException | ClassNotFoundException e) {
+						e.printStackTrace();
+					}
+					
+					request.getRequestDispatcher("order-confirm.jsp").forward(request, response);
+				} 
+		 }
+				
+	}
+	}
+
+			
+		
+		
+	
+		
+
+	
