@@ -33,7 +33,7 @@
     line-height: 50px;
 }
 
-header{
+header ,footer{
     background-color: #c7c7c7;
     height: 50px;
 }
@@ -80,4 +80,11 @@ header li{
 
 header label{
 	font-size:12px;
+}
+
+footer{
+	width:100vw;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
