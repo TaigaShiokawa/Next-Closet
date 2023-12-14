@@ -17,6 +17,7 @@ public class SearchDAO {
 	public List<ProductBean> searchProductList(String searchName) 
 			throws ClassNotFoundException, SQLException {
 		
+		//検索の結果、複数ヒットした場合のためにListで格納
 		List<ProductBean> productList = new ArrayList<>();
 		
 		//product_name用のsql文
