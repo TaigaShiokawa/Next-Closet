@@ -50,13 +50,7 @@ public class AdminProductListServlet extends HttpServlet {
 		
 		try {
 			request.setAttribute("categoryList", dao.categoryList());
-			System.out.println( "前------------");
 			List<CategoryBean> cb = dao.categoryList();
-			
-			for ( CategoryBean a : cb ) {
-				System.out.println( "------------");
-				System.out.println( a.getCategoryName());
-			}
 			
 //			if (searchName != null && !searchName.isEmpty()) {
 //				//検索がある場合、検索機能を使用
@@ -68,17 +62,17 @@ public class AdminProductListServlet extends HttpServlet {
 			
 			if( categoryId == -1 ) {
 				request.setAttribute("title","ALL / 商品一覧");
-				request.setAttribute("productList",dao.allProductList());
+				request.setAttribute("productList",dao.allStatusProductList());
 				
 			} else {
 				
 				if(  gender == -1 ){
 					request.setAttribute("title",  " ALL / " + categoryName + "/ 商品一覧");
-					request.setAttribute("productList",dao.allCategoryProductList(categoryId));
+					request.setAttribute("productList",dao.allStatusCategoryProductList(categoryId));
 					
 				}else {
 					request.setAttribute("title", genderStr + "/" + categoryName + "/ 商品一覧");
-					request.setAttribute("productList",dao.categoryProductList(categoryId , gender));
+					request.setAttribute("productList",dao.categoryStatusProductList(categoryId , gender));
 				}
 			}
 			// }
