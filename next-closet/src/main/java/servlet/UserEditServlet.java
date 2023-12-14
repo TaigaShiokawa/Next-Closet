@@ -85,7 +85,7 @@ public class UserEditServlet extends HttpServlet {
 			response.sendRedirect("mypage-edit.jsp");
 	        return;
 		}
-		//住所のデータを統一(全角を半角にする)
+		//住所の数値を統一(全角を半角にする)
 		String normalizedAddress = AddressValidator.normalizeAddress(address);
 		
 		//電話番号チェック 全角を半角に置換
