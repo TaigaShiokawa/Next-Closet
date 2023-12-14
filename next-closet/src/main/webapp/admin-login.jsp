@@ -10,6 +10,7 @@
 <title>next closet...</title>
 </head>
 <body>
+ <%@ include file="includes/navbar.jsp" %>  
 <h2>管理者ログイン</h2>
 <form action="AdminLoginServelt" method="post">
 <input type="text" name="email" placeholder="メールアドレス"><br>
