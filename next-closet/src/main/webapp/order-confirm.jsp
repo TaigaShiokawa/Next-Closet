@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.* , java.util.ArrayList, model.bean.* , java.util.List , model.SizeText" %>
@@ -62,71 +61,70 @@
 					    <input type="hidden" name="quantity" value="<%= quantity %>">
 					    <input type="hidden" name="totalAmount" value='<%= totalAmount %>'>　
 			  		</div>	
-			</div>
-			 <% } %>
-		  <% } %>	
+					</div>
+				 <% } %>
+		  <% } else if(order.equals("singleCartItem")){ //カートのうち一つの商品のみ購入%>
+					  <% CartItemBean cartItem = (CartItemBean)request.getAttribute("cartItem");%>
+					  <% List <ProductBean> productList = (List <ProductBean>)request.getAttribute("productList"); %>
+					  <% int cartItemId = Integer.parseInt(request.getParameter("cartItemId"));%>
 
-		
-		
-		
-		
-		
-		
-		
-<%-- 
-<% if( order.equals("allCartItems") ){ //　カート内全て
-	List <CartItemBean> cartAllItemList = ( ArrayList <CartItemBean> )request.getAttribute("cartAllItemList"); %> 
-		for(CartItemsBean columns : cartAllItemList) { %>
+				<div class="flex">		
+					<% for(ProductBean pl : productList ) { %>
+					
+						<% int price = pl.getPrice(); %>
+						<% int sizeId = cartItem.getSizeId(); %>
+						<% int quantity = cartItem.getQuantity(); %>
+						<% totalAmount = price * quantity; %>
+					<div class="right">
+						<figure class="image"><img src="<%= pl.getImage() %>" alt="商品画像"></figure>
+						 <p class="product">商品名：<%= pl.getProductName() %></p>
+						 <p class="size">サイズ：<%= st.sizeText(sizeId) %></p>
+						 <p class="quantity">数量：<%= quantity %></p>
+						 <input type="hidden" name="productId" value="<%= pl.getProductId() %>">
+					     <input type="hidden" name="sizeId" value="<%= sizeId %>">	
+					     <input type="hidden" name="order" value="singleCartItem">
+					     <input type="hidden" name="quantity" value="<%= quantity %>">
+					     <input type="hidden" name="totalAmount" value='<%= totalAmount %>'>
+					     <input type="hidden" name="cartItemId" value='<%= cartItemId %>'>
+					     <input type="hidden" name="productList" value='<%= productList %>'>
+					 </div>
+				<% } %>
+		  <% } else if(order.equals("allCartItems")) {//もしカート全て購入だったら%>
+		  <% 
+        List <CartItemBean> cartAllItemList = (ArrayList<CartItemBean>) request.getAttribute("cartAllItemList");
+		List <ProductBean> productList = null;
+		int allCartProductId = -1;
+		ProductDAO dao = new ProductDAO();
+		int getProductId = 1;
 
-
-		<div class="flex">
-		 	<figure class="image"><img src="<%= columns.getImage() %>" alt="商品画像"></figure>
-		  	<div class="right">
-			    <p class="product">商品名：<%= columns.getProductName() %></p>
-			    <p class="size">サイズ：<%= st.sizeText(columns.getSizeId() %>)</p>
-			    <p class="quantity">数量：<%= columns.getQuantity() %></p>
-			    <p class="price">金額：<%= columns.getPrice() %></p>
-			    <% totalAmount += columns.getPrice(); %>
-		  	</div>	
-		</div>
-		 <% }
-		
-
-	} else 
- <% } else if(order.equals("allCartItems")){%>
-
-	} else<%  
-	 <% }} %>
- <% } else if(order.equals("cartItems")){%>
-
- <% ProductBean cartItem = (ProductBean)request.getAttribute("cartItem"); %> 
- <% List <ProductBean> productList = (List <ProductBean>)request.getAttribute("productList"); %>
- <%  for(ProductBean columns : productList ) { %>
- <figure class="image"><img src="<%= columns.getImage() %>" alt="商品画像"></figure>
-  		<div class="right">
-		    <p class="product">商品名：<%= columns.getProductName() %></p>
-		    <p class="quantity">サイズ：<%= st.sizeText(columns.getSize() %></p>
-		    <p class="quantity">数量：<%= columns.getQuantity() %></p>
-		    <input type="hidden" name="productId" value="<%= columns.getProductId() %>">
-		    <input type="hidden" name="sizeId" value="<%= columns.getSize() %>">
-		    <input type="hidden" name="quantity" value="<%= columns.getQuantity() %>">
-  		</div>	
-	</div>
-  <% } %>
-
- <% } %>
-</div>
-
-　--%>
-
-
-<div class=delivery>
+       		 for (CartItemBean item : cartAllItemList) {  
+       			 
+      			     int price =  item.getProduct().getPrice();
+		  		     int sizeId = item.getSizeId();
+		  		     int quantity = item.getQuantity(); 
+		  		     totalAmount += (price * quantity); %>
+		  		    
+		      	  <div class="right">
+		      	  
+  						 <figure class="image"><img src="<%=item.getProduct().getImage() %>" alt="商品画像"></figure>
+  						 <p class="product">商品名： <%= item.getProduct().getProductName() %></p>
+  						 <p class="size">サイズ：<%= st.sizeText(sizeId) %></p>
+  						 <p class="quantity">数量：<%= quantity %></p>	
+  					     <input type="hidden" name="order" value="allCartItems"> 
+  					     <input type="hidden" name="totalAmount" value='<%= totalAmount %>'>
+       				
+			        	
+			        <% } %>	        
+     		 <% }  %>  
+ 
+    	  
+    	  
+    	  </div>
+    	  
+	<div class=delivery>
 	<% AddressBean address = (AddressBean)request.getAttribute("address");//メイン住所 %>
 	<span>配送先</span><br>
-
-	
 	<input type="radio" name="address" value="<%= (address.getPrefectures() + address.getAddress()) %>"　checked><label><%= (address.getPrefectures() + address.getAddress())%></label>	
-	<% System.out.println(address.getPrefectures() + address.getAddress());%>
 </div>
 
 	
