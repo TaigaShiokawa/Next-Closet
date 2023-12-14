@@ -124,7 +124,7 @@ public class RegisterServlet extends HttpServlet {
 			return;
 			
 			//パスワードの文字数と空文字チェック
-		} else if((password.length() < 8) && (password.trim().isEmpty())) { 
+		} else if((password.length() < 8) || (password.trim().isEmpty())) { 
 			request.getSession().setAttribute("passError", "8文字以上で設定してください");
 			response.sendRedirect("register.jsp");
 			return;

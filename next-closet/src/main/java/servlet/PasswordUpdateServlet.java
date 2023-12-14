@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import hashedPassword.HashPW;
 import model.dao.UserDAO;
+import regexp.PasswordValidator;
 
 /**
  * Servlet implementation class PasswordUpdateServlet
@@ -31,16 +32,18 @@ public class PasswordUpdateServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		
-		String userIdStr = (String)request.getAttribute("userId");
-		if(userIdStr == null) {
-			request.getSession().setAttribute("userNotFound", "ユーザーが存在しません。");
-			response.sendRedirect("error.jsp");
-			return;
-		}
+		int userId = Integer.parseInt(request.getParameter("userId"));
 		
 		String password = request.getParameter("password");
-		
-		int userId = Integer.parseInt(request.getParameter("userId"));
+		if(!PasswordValidator.isHalfWidth(password)) {
+			request.getSession().setAttribute("passError", "パスワードが不正です。正しく入力してください");
+			response.sendRedirect("mypage-edit.jsp");
+			return;
+		} else if((password.length() < 8) || (password.trim().isEmpty())) { 
+			request.getSession().setAttribute("passError", "8文字以上で設定してください");
+			response.sendRedirect("mypage-edit.jsp");
+			return;
+		}
 		
 		String hashedPass = null;
 		try {

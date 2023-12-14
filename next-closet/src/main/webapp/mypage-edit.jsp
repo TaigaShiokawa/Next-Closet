@@ -82,7 +82,11 @@
 			<button type="submit">更新する</button>			
 		</form>
 
-
+		<% String passError = (String)request.getSession().getAttribute("passError"); %>
+		<% if(passError != null) { %>
+		<p><%=passError %></p>
+		<% session.removeAttribute("passError"); %>
+		<% } %>
 		<form action="PasswordUpdateServlet" method="post">
 		<label for="pass">パスワードの変更</label>
 		<input type="password" id="pass" name="password" placeholder="8文字以上">
