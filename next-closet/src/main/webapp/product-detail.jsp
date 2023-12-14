@@ -32,7 +32,7 @@
 			<p><%= columns.getDescruption() %></p>
 			<p>&yen; <%= columns.getPrice() %><span>税込</span></p>
 			<form id="form" name="form" action="AddToCartServlet" method="post">
-				<input type="hidden" name="order" value="いますぐ買う" >
+				<input type="hidden" name="order" value="order" >
 				<input type="hidden" name="productId" value="<%= columns.getProductId() %>" >
 				<input type="radio" name="sizeId" value="1" checked ><label>S</label>
 				<input type="radio" name="sizeId" value="2"  ><label>M</label>

@@ -18,7 +18,7 @@
 <h1>買い物かご</h1>
 
    <!-- cartitemの全て情報をorderとorder_itemsに送る -->
-   <form action="purchaseAll" method="post">
+   <form action="OrderConfilmServlet" method="get">
         <input type="submit" value="カート内のものを全て購入">
     </form>
 
