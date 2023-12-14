@@ -20,7 +20,12 @@ public class AddToCartServlet extends HttpServlet  {
 			throws ServletException, IOException {
 		
 		int userId = (int)request.getSession().getAttribute("userId");
-		
+		if(userId < 1) {
+			request.getSession().setAttribute("userNotFound", "ユーザーが見つかりませんでした。"
+					+ "再度お試しいただくか、お問い合わせより管理者にご連絡ください。");
+			response.sendRedirect("error.jsp");
+			return;
+		}
 
 		CartDAO cartDao = new CartDAO();
         List<CartItemBean> cartItems = null;
@@ -54,8 +59,16 @@ public class AddToCartServlet extends HttpServlet  {
 		CartDAO cartDao = new CartDAO();
 		try {
 			cartDao.addCartItem( userId,  productId, sizeId, quantity);
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch(ClassNotFoundException e) {
 			e.printStackTrace();
+			request.getSession().setAttribute("errorMessage", "内部の設定エラーが発生しました。"
+					+ "お問い合わせよ管理者に連絡して、解決の支援を受けてください。");
+	        response.sendRedirect("error.jsp");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			request.getSession().setAttribute("errorMessage", "現在データベースにアクセスできません。後ほど再度お試しください。"
+					+ "問題が続く場合は、お問い合わせより管理者にご連絡ください。");
+			response.sendRedirect("error.jsp");
 		}
 		
 		CartDAO cartDao2 = new CartDAO();
