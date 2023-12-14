@@ -9,6 +9,35 @@
 <title>next closet...</title>
 </head>
 <body>
+
+ <%@ include file="includes/navbar.jsp" %>  
+
+			<% String adminNameError = (String)request.getSession().getAttribute("adminNameError"); %>
+			<% String kanaNameError = (String)request.getSession().getAttribute("kanaNameError"); %>
+			<% String passError = (String)request.getSession().getAttribute("passError"); %>
+			<% String emailError = (String)request.getSession().getAttribute("emailError"); %>
+			<% String success = (String)request.getSession().getAttribute("success"); %>
+			<% String failure = (String)request.getSession().getAttribute("failure"); %>
+			
+			<% if(success != null) { %>
+			<p><%=success %></p>
+			<% session.removeAttribute("success"); %>
+			<% } else if(failure != null) { %>
+			<p><%=failure %></p>
+			<% session.getAttribute("failure"); %>
+			<% }  else if(userNameError != null){ %>
+			<p><%=userNameError %></p>
+			<% session.removeAttribute("adminNameError"); %>
+			<% } else if(kanaNameError != null) { %>
+			<p><%=kanaNameError %></p>
+			<% session.removeAttribute("kanaNameError"); %>
+			<% } else if(passError != null) {%>
+			<p><%=passError %></p>
+			<% session.removeAttribute("passError"); %>
+			<% } else if(emailError != null) { %>
+			<p><%=emailError %></p>
+			<% session.removeAttribute("emailError"); %>
+			<% } %>
 <form action="AdminRegisterServlet" method="post">
 
 					<label>お名前</label><input type="text" name="adminname" placeholder="例) テスト　太郎" required><br>
