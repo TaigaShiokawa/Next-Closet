@@ -80,7 +80,7 @@ public class CartDAO {
 			}
 			
 
-	
+	//ユーザーIDを基に商品の詳細情報を取得
 	public List<CartItemBean> getCartItems(int userId) 
 	        throws ClassNotFoundException, SQLException {
 	    List<CartItemBean> cartItems = new ArrayList<>();
@@ -96,6 +96,8 @@ public class CartDAO {
 	        pstmt.setInt(1, userId);
 	        try (ResultSet res = pstmt.executeQuery()) {
 	            while (res.next()) {
+	            	
+	            	//下記、3つのインスタンス化しているオブジェクトは、Beanファイルでそれぞれを継承させたら少し短くなるかも
 	                CartItemBean cartItem = new CartItemBean();
 	                cartItem.setCartItemId(res.getInt("cart_item_id"));
 	                cartItem.setQuantity(res.getInt("quantity"));
