@@ -1,0 +1,49 @@
+.center{
+    text-align: center; /* 中央に配置 */
+  }
+
+
+input, select, textarea{
+    width: 50%;
+    height: 50px;
+    margin:0 auto;
+    margin-top: 16px;
+    padding-left:5px;
+}
+
+label{
+    padding-left: 30px;
+    display:inline-block;
+    width: 150px;
+}
+
+button{
+    width: 300px;
+    height: 60px;
+    border: none;
+    margin-top: 40px;
+    display: block;
+    margin: 40px auto;
+    border-radius: 8px;
+     background-color: grey; /* 背景色をグレーに設定 */
+  color: white; /* 文字色を白に設定 */
+}
+
+.container{
+	display:flex ;
+}
+
+.split {
+  width: 50%;
+  height: 100%;
+}
+.left-box {
+  left: 0;
+    overflow-y: scroll;
+      border-right: 1px solid black;
+}
+.right-box {
+  right: 0;
+  overflow-y: scroll;
+
+}
