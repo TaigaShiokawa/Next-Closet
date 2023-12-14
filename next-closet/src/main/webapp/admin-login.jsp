@@ -2,12 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@ page import="model.bean.*" %>
 <%@ page import="model.dao.*" %>
-<% UserBean loginUser = (UserBean)request.getSession().getAttribute("user"); %>
+<% AdminBean loginAdmin = (AdminBean)request.getSession().getAttribute("Admin"); %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>next closet...</title>
 </head>
 <body>
 <h2>管理者ログイン</h2>
