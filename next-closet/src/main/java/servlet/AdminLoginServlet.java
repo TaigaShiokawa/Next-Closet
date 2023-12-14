@@ -38,6 +38,7 @@ public class AdminLoginServlet extends HttpServlet {
 			e.printStackTrace();
 			request.getSession().setAttribute("errorMessageToAdmin", "不正なパスワードです。再度、入力してください。");
 			response.sendRedirect("errorToAdmin.jsp");
+			return;
 		}
         
         String errmessege = "";
@@ -69,15 +70,18 @@ public class AdminLoginServlet extends HttpServlet {
 				request.getSession().setAttribute("errorMessageToAdmin", "内部の設定エラーが発生しました。"
 						+ "早急に対応してください。");
 		        response.sendRedirect("errorToAdmin.jsp");
+		        return;
 			} catch (SQLException e) {
 				e.printStackTrace();
 				request.getSession().setAttribute("errorMessageToAdmin", "データベースにアクセスできません。"
 						+ "早急に対応してください。");
 				response.sendRedirect("errorToAdmin.jsp");
+				return;
 			} catch(Exception e) {
 			  e.printStackTrace();
 			  request.getSession().setAttribute("errorMessageToAdmin", "システムエラーが発生しました。早急に対応してください。");
 			  response.sendRedirect("errorToAdmin.jsp");
+			  return;
 		  }
       }
 	}
