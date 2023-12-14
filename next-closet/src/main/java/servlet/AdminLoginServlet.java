@@ -19,9 +19,8 @@ public class AdminLoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	String view = "/WEB-INF/view/admin-login.jsp";
+    	String view = "admin-login.jsp";
     	request.getRequestDispatcher(view).forward(request, response);
-    	
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("email");
@@ -32,7 +31,7 @@ public class AdminLoginServlet extends HttpServlet {
   	  if (email == null || email.isEmpty() || password == null || password.isEmpty()) {
 		    errmessege = "※メールアドレスまたはパスワードが正しくありません";
 		    request.setAttribute("errmessge", errmessege);
-          String view = "/WEB-INF/view/admin-login.jsp";
+          String view = "admin-login.jsp";
           request.getRequestDispatcher(view).forward(request, response);
           return; 
   	  }
@@ -52,10 +51,10 @@ public class AdminLoginServlet extends HttpServlet {
           
           try {
 			  if(adminDao.validate(email, hashpass)) {
-					String view ="/WEB-INF/view/admin-product-list.jsp";
+					String view ="Admin";
 				    request.getRequestDispatcher(view).forward(request, response);
 			  }else {
-					String view ="/WEB-INF/view/admin-login.jsp";
+					String view ="admin-login.jsp";
 				    request.getRequestDispatcher(view).forward(request, response);
 			  }
 		  } catch(Exception e) {
