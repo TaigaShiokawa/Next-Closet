@@ -60,8 +60,7 @@ public class AdminLoginServlet extends HttpServlet {
           try {
 
 			  if(adminDao.validate(email, hashedPass)) {
-					String view ="admin-product-list.jsp";
-				    request.getRequestDispatcher(view).forward(request, response);
+				  response.sendRedirect("AdminProductListServlet");
 			  }else {
 					String view ="admin-login.jsp";
 				    request.getRequestDispatcher(view).forward(request, response);
