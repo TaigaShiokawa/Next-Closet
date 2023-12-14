@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,16 +9,64 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import hashedPassword.HashPW;
+import model.dao.AdminDAO;
+import regexp.EmailValidator;
+import regexp.KanaNameValidator;
+
 @WebServlet("/AdminEditServlet")
 public class AdminEditServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		request.getRequestDispatcher("admin-edit.jsp").forward(request, response);
 	}
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String adminName = request.getParameter("adminname");
+		String kanaName = request.getParameter("kananame");
+		String email = request.getParameter("email");
+		String password = request.getParameter("password");
+		
+		//名前の入力チェック
+		if(!adminName.isEmpty()) {
+			request.getSession().setAttribute("userNameError", "名前の入力が正しくありません");
+			response.sendRedirect("admin-edit.jsp");
+			return;
+		}
+		
+		//フリガナの入力チェック
+		if(!KanaNameValidator.validate(kanaName)) {
+			request.getSession().setAttribute("kanaNameError", "フリガナの入力が正しくありません");
+			response.sendRedirect("admin-edit.jsp");
+	        return;
+		}
+		
+		if (!EmailValidator.validate(email)) { //正規表現を含んだEmailValidatorクラスを使用.
+	        // Eメールが無効な形式の場合の処理
+	        request.getSession().setAttribute("emailError", "無効なEメールアドレスです");
+	        response.sendRedirect("register.jsp");
+	        return;
+		}
+		
+		//パスワードの文字数チェック
+		if((password.length() < 8) && (password.trim().isEmpty())) { //8文字以上かつ空文字を許可しない
+			request.getSession().setAttribute("passError", "8文字以上で設定してください");
+			response.sendRedirect("register.jsp");
+			return;
+		}
+		
+		String hashedPass = null;
+		try {
+			hashedPass = HashPW.hashPass(password); //パスワードハッシュ化
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		
+		AdminDAO aDao = new AdminDAO();
 	}
 
 }
