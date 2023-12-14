@@ -115,6 +115,9 @@ public class StockManager {
 				 buyQuantity = item.getQuantity();
 				 price = item.getProduct().getPrice();
 				 totalAmount += (buyQuantity * price);
+				 
+				 System.out.println(productId);
+				 System.out.println(sizeId);
 					
 					try {
 						 dao.orderRegistration(productId , sizeId , buyQuantity , userId ,totalAmount , delivery_address);
