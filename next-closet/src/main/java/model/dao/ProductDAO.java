@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import connection.DBConnection;
+import model.bean.CartItemBean;
 import model.bean.CategoryBean;
 import model.bean.ProductBean;
 
@@ -194,38 +195,40 @@ public class ProductDAO {
 //				     }	
 //				return stock;		
 //		}
+		
+		//カート内の全ての商品の在庫と購入数を比較するメソッド
 		public boolean cartProductStock(int userId ) throws SQLException , ClassNotFoundException{
 			
-		        boolean stock = true;
+			    CartDAO dao = new CartDAO();
+			    List <CartItemBean> cartList = dao.getCartItems(userId);
+			    boolean stock = true;
 			    int product_id = -1;
 			    int size_id = -1;
 			    int quantity = -1;
 		        int stock_quantity = -1;
-		        
-		        String sql = "SELECT ci.product_id, ci.size_id, ci.quantity, inv.stock_quantity "
-			               + "FROM cart_items ci "
-			               + "INNER JOIN inventory inv ON ci.product_id = inv.product_id "
-			               + "WHERE ci.user_id = ?";
-		        
-				        try(Connection con = DBConnection.getConnection();  //データベースに接続する
-				   			 PreparedStatement pstmt = con.prepareStatement(sql)){ //引数で指定されたSQLをデータベースで実行するメソッド
-				         
-				   			 pstmt.setInt(1, userId);
-				           	  ResultSet res = pstmt.executeQuery(); //引数で指定されたSQLをデータベースで実行するメソッド
-				           	
-		        		
-				            while (res.next()){ 
-				            	
-				            	product_id		= res.getInt("product_id");
-				            	size_id			= res.getInt("size_id");
-				            	quantity		= res.getInt("quantity");
-				            	stock_quantity  = res.getInt("stock_quantity");
-				            	
-			    	        	if( stock_quantity  - quantity < 0  ) {
-			    	        		stock = false;
-			    	        	} 
-					    	 }
-				            
+		        String sql = "";
+			    
+			    for ( CartItemBean list : cartList ) {
+			    	
+			    	size_id = list.getSizeId();
+			    	product_id = list.getProductId();
+			    	
+			    	 sql = "SELECT stock_quantity FROM inventory WHERE size_id = ? AND product_id = ? ";
+			    	   try(Connection con = DBConnection.getConnection();  //データベースに接続する
+					   			 PreparedStatement pstmt = con.prepareStatement(sql)){ //引数で指定されたSQLをデータベースで実行するメソッド
+					         
+					   			 pstmt.setInt(1, size_id);
+					   			 pstmt.setInt(2, product_id);
+					           	 ResultSet res = pstmt.executeQuery(); //引数で指定されたSQLをデータベースで実行するメソッド
+					             while (res.next()){ 
+					            	 stock_quantity  = res.getInt("stock_quantity");
+					             }
+					             
+					             if( stock_quantity  - quantity < 0  ) {
+				    	        		stock = false;
+				    	        } 
+			    
+			    	   	}      
 				     }	
 				return stock;		
 		}
