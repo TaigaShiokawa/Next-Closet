@@ -27,6 +27,12 @@
         		                    </a>
                       		  </li>
 								<li><a class="nav_text" href="LogoutServlet">logout</a></li>
+								<div class="search">
+				                    	<form action="ProductListServlet" method="get">
+				                        <input type="text" name="searchName" class="search_box" placeholder="キーワードで商品名を検索">
+				                        <input class="sarch_btn" type="submit" value="検索">
+				                    </form>
+				                </div>
 			
 								<!-- ログインしていない -->
 								 <% } else { %> 
@@ -34,12 +40,7 @@
 		                            <a class="nav_text" href="login.jsp" class="nav_text">login</a>
 		                            <a href="#" class="nav_text">お問い合わせ</a> <!-- jsで処理するためどこにも遷移しない -->
 		                        </li>
-								 <div class="search">
-				                    	<form action="/search" method="post">
-				                        <input type="text" class="search_box" placeholder="キーワードで商品名を検索">
-				                        <input class="sarch_btn" type="submit" value="検索">
-				                    </form>
-				                </div>
+								 
 						 <% } %>
 					</ul>
 				</nav>               

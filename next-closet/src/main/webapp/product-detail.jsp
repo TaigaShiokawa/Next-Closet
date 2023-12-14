@@ -11,11 +11,17 @@
 	   <% UserBean loginUser = (UserBean)request.getSession().getAttribute("user"); %>
 		 <%
 	   		 List <ProductBean> productList = (ArrayList <ProductBean>)request.getAttribute("productList");
+		 	 if(productList == null) {
+				request.getSession().setAttribute("productNotFound", productList);
+				response.sendRedirect("ProductDetailServlet");
+				return;
+			 }
 	     %>
 	</head>
 	<body>
 	
 　　 <%@ include file="includes/navbar.jsp" %> 
+	
 	<div class="img">
 	<% for ( ProductBean columns : productList){ 
 		 String img =  columns.getImage();

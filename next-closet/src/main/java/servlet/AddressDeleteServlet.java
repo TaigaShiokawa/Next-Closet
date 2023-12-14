@@ -37,9 +37,19 @@ public class AddressDeleteServlet extends HttpServlet {
 	            int addAddressId = Integer.parseInt(addressId); //文字列型で受け取ったからInt型に変換.
 	            try {
 	                uDao.deleteSubAddress(addAddressId);
-	            } catch (ClassNotFoundException | SQLException e) {
-	                e.printStackTrace();
-	            }
+	            } catch(ClassNotFoundException e) {
+		        	e.printStackTrace();
+		        	request.getSession().setAttribute("errorMessage", "内部の設定エラーが発生しました。"
+							+ "お問い合わせよ管理者に連絡して、解決の支援を受けてください。");
+			        response.sendRedirect("error.jsp");
+			        return;
+		        } catch(SQLException e) {
+		        	e.printStackTrace();
+		        	request.getSession().setAttribute("errorMessage", "現在データベースにアクセスできません。後ほど再度お試しください。"
+							+ "問題が続く場合は、お問い合わせより管理者にご連絡ください。");
+					response.sendRedirect("error.jsp");
+					return;
+		        }
 	        }
 
 	        // 削除後に最新のアドレスリストを取得
@@ -52,16 +62,19 @@ public class AddressDeleteServlet extends HttpServlet {
 	        	request.getSession().setAttribute("errorMessage", "内部の設定エラーが発生しました。"
 						+ "お問い合わせよ管理者に連絡して、解決の支援を受けてください。");
 		        response.sendRedirect("error.jsp");
+		        return;
 	        } catch(SQLException e) {
 	        	e.printStackTrace();
 	        	request.getSession().setAttribute("errorMessage", "現在データベースにアクセスできません。後ほど再度お試しください。"
 						+ "問題が続く場合は、お問い合わせより管理者にご連絡ください。");
 				response.sendRedirect("error.jsp");
+				return;
 	        } catch (Exception e) {
 	            e.printStackTrace();
 	            request.getSession().setAttribute("errorMessage", "申し訳ありませんが、システムエラーが発生しました。"
 						+ "もう一度お試しいただくか、お問い合わせより管理者にお問い合わせください。");
 				response.sendRedirect("error.jsp");
+				return;
 	        }
 	    }
 

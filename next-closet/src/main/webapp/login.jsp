@@ -36,5 +36,6 @@
 					<a href="register.jsp">申し込み</a>
 				</div>
 		</main>
+		<%@ include file="includes/footer.jsp" %>
 </body>
 </html>
