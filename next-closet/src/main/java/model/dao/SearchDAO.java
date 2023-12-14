@@ -14,7 +14,7 @@ import model.bean.ProductBean;
 public class SearchDAO {
 	
 	//　商品をproduct_nameの文字列で検索する機能
-	public List<ProductBean> searchProductList(String nameSearch) 
+	public List<ProductBean> searchProductList(String searchName) 
 			throws ClassNotFoundException, SQLException {
 		
 		List<ProductBean> productList = new ArrayList<>();
@@ -24,7 +24,7 @@ public class SearchDAO {
 		
 		try (Connection con = DBConnection.getConnection();
 			PreparedStatement pstmt = con.prepareStatement(sql)) {
-			pstmt.setString(1, "%" + nameSearch + "%");
+			pstmt.setString(1, "%" + searchName + "%");
 			ResultSet res = pstmt.executeQuery();
 			
 			while (res.next()) {

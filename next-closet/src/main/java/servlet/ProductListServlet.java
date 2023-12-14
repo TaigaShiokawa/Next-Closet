@@ -2,6 +2,8 @@ package servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,7 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.bean.ProductBean;
 import model.dao.ProductDAO;
+import model.dao.SearchDAO;
 
 @WebServlet("/ProductListServlet")
 public class ProductListServlet extends HttpServlet {
@@ -20,6 +24,7 @@ public class ProductListServlet extends HttpServlet {
 		int gender = 0;
 		String categoryIdStr = request.getParameter("categoryId");
 		String genderStr =  request.getParameter("gender");
+		String searchName = request.getParameter("searchName");
 		
 		if( categoryIdStr != null ) {
 			categoryId = Integer.parseInt(request.getParameter("categoryId"));
@@ -40,9 +45,18 @@ public class ProductListServlet extends HttpServlet {
 		String categoryName = request.getParameter("categoryName");		
 		ProductDAO dao = new ProductDAO();
 		
+		List<ProductBean> searchProducts = new ArrayList<>();
+		
 		try {
-			
 			request.setAttribute("categoryList", dao.categoryList());
+			
+			if (searchName != null && !searchName.isEmpty()) {
+				//検索がある場合、検索機能を使用
+				SearchDAO searchDao = new SearchDAO();
+				searchProducts = searchDao.searchProductList(searchName);
+				System.out.println(searchProducts);
+				request.setAttribute("searchProducts", searchProducts);
+			} else {
 			
 			if( categoryId == -1 ) {
 				request.setAttribute("title","ALL / 商品一覧");
@@ -59,7 +73,7 @@ public class ProductListServlet extends HttpServlet {
 					request.setAttribute("productList",dao.categoryProductList(categoryId , gender));
 				}
 			}
-		
+			}
 			} catch (SQLException | ClassNotFoundException e) {
 				e.printStackTrace();
 			}
