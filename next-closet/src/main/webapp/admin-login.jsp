@@ -15,7 +15,7 @@
 
 <!-- 管理者用のナビゲーションバーが必要かも -->
    <%@ include file="includes/navbar.jsp" %>  
-	<h2>管理者ログイン</h2>
+	<h2>管理者ログインテスト</h2>
 		<% String errorMessageToAdmin = (String)request.getSession().getAttribute("errorMessageToAdmin"); %>
 		<% if(errorMessageToAdmin != null) { %>
 		<p><%=errorMessageToAdmin %></p>
