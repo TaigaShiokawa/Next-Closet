@@ -6,7 +6,7 @@ import java.sql.Date;
 public class ProductBean implements Serializable{
 	
 	private int productId;
-	private int categoryid;
+	private int categoryId;
 	private int gender;
 	private String productName;
 	private int price;
@@ -17,11 +17,11 @@ public class ProductBean implements Serializable{
 	
 	public ProductBean() {}
 
-	public ProductBean(int productId, int categoryid, int gender, String productName, int price, String descruption,
+	public ProductBean(int productId, int categoryId, int gender, String productName, int price, String descruption,
 			boolean status, String image, Date registrationDate) {
 		super();
 		this.productId = productId;
-		this.categoryid = categoryid;
+		this.categoryId = categoryId;
 		this.gender = gender;
 		this.productName = productName;
 		this.price = price;
@@ -39,12 +39,12 @@ public class ProductBean implements Serializable{
 		this.productId = productId;
 	}
 
-	public int getCategoryid() {
-		return categoryid;
+	public int getCategoryId() {
+		return categoryId;
 	}
 
-	public void setCategoryid(int categoryid) {
-		this.categoryid = categoryid;
+	public void setCategoryid(int categoryId) {
+		this.categoryId = categoryId;
 	}
 
 	public int getGender() {
