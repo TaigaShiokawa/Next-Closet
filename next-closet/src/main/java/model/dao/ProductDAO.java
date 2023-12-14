@@ -15,7 +15,7 @@ import model.bean.ProductBean;
 
 public class ProductDAO {
 	
-	//一覧表示(productsテーブル)
+	//販売中の一覧表示(productsテーブル)
 	public List <ProductBean>  allProductList() throws SQLException , ClassNotFoundException{
 		List <ProductBean> productList = new ArrayList<>();
 		String sql = "SELECT * FROM products WHERE status = 1";
@@ -39,7 +39,31 @@ public class ProductDAO {
 		return productList;		
 	}
 	
-	//一覧表示(productsテーブル) カテゴリー別の商品一覧
+	//販売ステータス関係なしの一覧表示(productsテーブル)
+		public List <ProductBean>  allStatusProductList() throws SQLException , ClassNotFoundException{
+			List <ProductBean> productList = new ArrayList<>();
+			String sql = "SELECT * FROM products";
+	        try(Connection con = DBConnection.getConnection();  //データベースに接続する
+	        PreparedStatement statement = con.prepareStatement(sql); //発行したいSQLを生成
+	        ResultSet res = statement.executeQuery()){ //引数で指定されたSQLをデータベースで実行するメソッド
+	        		         
+			            while (res.next()){ 
+			            	int product_id	    	 	= res.getInt("product_id");
+			            	int category_id	     		= res.getInt("category_id");
+			            	int gender        		    = res.getInt("gender");	
+			            	String product_name  		= res.getString("product_name");
+			            	int price            		= res.getInt("price");
+			            	String description   		= res.getString("description");
+			            	boolean status       		= res.getBoolean("status");
+			            	String image         		= res.getString("image");
+			            	Date registration_date      = res.getDate("registration_date");
+			            	productList.add(new ProductBean (product_id, category_id,  gender, product_name, price , description , status , image , registration_date));
+			            }
+			     }	
+			return productList;		
+		}
+	
+	//一覧表示(productsテーブル) 販売中のカテゴリー別の商品一覧
 		public List <ProductBean>  allCategoryProductList(int categoryId) throws SQLException , ClassNotFoundException{
 			
 			List <ProductBean> productList = new ArrayList<>();
@@ -64,10 +88,35 @@ public class ProductDAO {
 			     }	
 			return productList;		
 		}
+		
+		//一覧表示(productsテーブル) カテゴリー別の商品一覧
+				public List <ProductBean>  allStatusCategoryProductList(int categoryId) throws SQLException , ClassNotFoundException{
+					
+					List <ProductBean> productList = new ArrayList<>();
+					String sql = "SELECT * FROM products WHERE category_id = ?";
+			        try(Connection con = DBConnection.getConnection();  //データベースに接続する
+			        PreparedStatement pstmt = con.prepareStatement(sql)){ //引数で指定されたSQLをデータベースで実行するメソッド
+			        	pstmt.setInt(1, categoryId);
+			        	ResultSet res = pstmt.executeQuery();
+			        		         
+					            while (res.next()){ 
+					            	int product_id	    	 	= res.getInt("product_id");
+					            	int category_id	     		= res.getInt("category_id");
+					            	int gender        		    = res.getInt("gender");	
+					            	String product_name  		= res.getString("product_name");
+					            	int price            		= res.getInt("price");
+					            	String description   		= res.getString("description");
+					            	boolean status       		= res.getBoolean("status");
+					            	String image         		= res.getString("image");
+					            	Date registration_date      = res.getDate("registration_date");
+					            	productList.add(new ProductBean (product_id, category_id,  gender, product_name, price , description , status , image , registration_date));
+					            }
+					     }	
+					return productList;		
+				}
 	
 	
-	
-	//genderごとのカテゴリー別商品一覧
+	//genderごとの販売中カテゴリー別商品一覧
 	public List <ProductBean>  categoryProductList(int categoryId , int genderNo) throws SQLException , ClassNotFoundException{
 		
 		List <ProductBean> productList = new ArrayList<>();
@@ -97,6 +146,37 @@ public class ProductDAO {
 		     }	
 		return productList;		
 	}
+	
+	//genderごとの全ての販売ステータスのカテゴリー別商品一覧
+		public List <ProductBean>  categoryStatusProductList(int categoryId , int genderNo) throws SQLException , ClassNotFoundException{
+			
+			List <ProductBean> productList = new ArrayList<>();
+	       
+			String sql = "SELECT * FROM products WHERE  category_id = ? AND gender = ?";
+			 try(Connection con = DBConnection.getConnection();  //データベースに接続する
+				 PreparedStatement pstmt = con.prepareStatement(sql)){ //引数で指定されたSQLをデータベースで実行するメソッド
+	      
+				 pstmt.setInt(1, categoryId);
+				 pstmt.setInt(2, genderNo);
+	        	
+	        	  ResultSet res = pstmt.executeQuery(); //引数で指定されたSQLをデータベースで実行するメソッド
+	        		         
+			            while (res.next()){ 
+			            	
+			            	int product_id	    	 	= res.getInt("product_id");
+			            	int category_id	     		= res.getInt("category_id");
+			            	int gender        		    = res.getInt("gender");	
+			            	String product_name  		= res.getString("product_name");
+			            	int price            		= res.getInt("price");
+			            	String description   		= res.getString("description");
+			            	boolean status       		= res.getBoolean("status");
+			            	String image         		= res.getString("image");
+			            	Date registration_date      = res.getDate("registration_date");
+			            	productList.add(new ProductBean (product_id, category_id,  gender, product_name, price , description , status , image , registration_date));
+			            }
+			     }	
+			return productList;		
+		}
 	
 	//商品詳細用　（一つの商品の情報を持ってくる）
 	public List <ProductBean>  detailProductList(int productId ) throws SQLException , ClassNotFoundException{
