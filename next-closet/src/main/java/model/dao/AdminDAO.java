@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 import connection.DBConnection;
 
-public class NakaDAO {
+public class AdminDAO {
 
 	public boolean validate(String email,String password) throws ClassNotFoundException, SQLException {
 		
