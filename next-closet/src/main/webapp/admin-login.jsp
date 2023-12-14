@@ -16,14 +16,14 @@
 <body>
 
 <!-- 管理者用のナビゲーションバーが必要かも -->
-   <%@ include file="includes/navbar.jsp" %>  
+  <%--  <%@ include file="includes/navbar.jsp" %>   --%>
 	<h2>管理者ログイン</h2>
 		<% String errorMessageToAdmin = (String)request.getSession().getAttribute("errorMessageToAdmin"); %>
 		<% if(errorMessageToAdmin != null) { %>
 		<p><%=errorMessageToAdmin %></p>
 		<% session.removeAttribute("errorMessageToAdmin"); %>
 		<% } %>
-		<form action="AdminLoginServelt" method="post">
+		<form action="AdminLoginServlet" method="post">
 			<input type="text" name="email" placeholder="メールアドレス"><br>
 			<input type="password" name="password" placeholder="パスワード"><br>
 			<button type="submit">login</button>
