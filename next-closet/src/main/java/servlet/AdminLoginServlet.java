@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import hashedPassword.HashPW;
 import model.bean.AdminBean;
-import model.dao.AdminDao;
+import model.dao.AdminDAO;
 
 
 @WebServlet("/AdminLoginServlet")
@@ -51,7 +51,7 @@ public class AdminLoginServlet extends HttpServlet {
           return; 
   	  }
           
-          AdminDao adminDao = new AdminDao();
+          AdminDAO adminDao = new AdminDAO();
           AdminBean adminBean = new AdminBean();
           
           adminBean.setEmail(email);
