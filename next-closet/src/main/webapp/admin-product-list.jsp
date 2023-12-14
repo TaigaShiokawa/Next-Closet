@@ -2,12 +2,24 @@
 <%@ page import="model.bean.*" %>
 <%@ page import="model.dao.*" %>
 <%@ page import="java.util.*" %>
+<%@ page import="model.StatusText" %>
  <% List<ProductBean> productList = (ArrayList <ProductBean>)request.getAttribute("productList");
  List<CategoryBean> categoryList = (ArrayList <CategoryBean>)request.getAttribute("categoryList");
  List<ProductBean> searchProducts = (ArrayList<ProductBean>)request.getAttribute("searchProducts");
  String  title = (String)request.getAttribute("title");
  String img = ""; 
- boolean status = true;
+ StatusText st = new StatusText();
+/*  String genderStr = (String)request.getAttribute("gender");
+ int gender = Integer.parseInt(genderStr);
+ String categoryIdStr = (String)request.getAttribute("categoryId");
+ int categoryId = Integer.parseInt(categoryIdStr); */
+ boolean status = false;
+ int targetProductId = -1;
+ int sarchProductId = -1;
+ /* 
+ int targetGender = -1;
+ int targetCategoryId = -1; */
+ 
  %>
 <!-- 管理者のセッション設定が必要 -->
 <!DOCTYPE html>
@@ -24,7 +36,7 @@
                 <ul id="category_list">
                     <li class="gender list_top"><span>ALL</span>
                         <ul class="category">
-                            <li><a href='ProductListServlet'>全ての商品</a></li>
+                            <li><a href='AdminProductListServlet'>全ての商品</a></li>
                             <% for ( CategoryBean columns : categoryList){ %>
                              <li><a href='AdminProductListServlet?categoryId=<%= columns.getCategoryId() %>&gender=-1&categoryName=<%= columns.getCategoryName() %>'><%= columns.getCategoryName() %></a></li>
                              <% } %>
@@ -58,52 +70,220 @@
 				      <li class="tab__menu-item" data-tab="02">販売中</li>
 				      <li class="tab__menu-item" data-tab="03">削除済み</li>
 			    </ul> 
+			    
 			    <div class="tab__panel">
                     <div class="tab__panel-box tab__panel-box001 is-show" data-panel="01"> <!-- 全表示 -->
+                    	<div class="search">
+				              <form action="AdminProductListServlet" method="get">
+				                   <input type="text" name="searchName" class="search_box" placeholder="キーワードで商品名を検索">
+				                   <input class="sarch_btn" type="submit" value="検索">
+				               </form>
+				        </div>
+				                
                      	<ul class="product-list">
-	                       	 <% for (ProductBean columns : productList) {%>
-			            	 <li>
-		                         <a href="AdminProductDetailServlet?productId=<%= columns.getProductId() %>">
-			                         
-			                          <p><%= columns.getProductName() %></p>
-			                          <p>&yen; <%= columns.getPrice() %></p>
-		                         </a>
-	                    	 </li>
-                  			 <%  } %>
+                     	 
+                     	 <% if (searchProducts != null ){
+                     		
+                     		   	for (ProductBean columns : productList) { 
+                     		   		for (ProductBean sarch : searchProducts) {
+	                     			   		targetProductId = columns.getProductId();
+	                     			 		sarchProductId = sarch.getProductId();
+                     		    		 	if (targetProductId == sarchProductId){ %>
+                     		     
+	                     		   				<li>
+	                     		   					 <ul>
+	                     		   					   <li>商品番号:<%= columns.getProductId() %></li>
+	                     		   					   <li>商品名:<%= columns.getProductName()  %></li>
+	                     		   					   <li><%= st.statusText(columns.getStatus()) %></li>
+	                     		   					   <li><a href="AdminProductDetailServlet?productId=<%= columns.getProductId() %>">詳細を見る</a></li>
+	                     		   					 </ul>
+					                       			
+								                         <p><%= columns.getProductName() %></p>
+								                          <p>&yen; <%= columns.getPrice() %></p>
+							                         </a>
+				                    			 </li>
+			                    			 
+			                    		  <% } } } %>
+                     		 
+    	 
+                     			 <%  } else {	%>
+  
+				                         <%   for (ProductBean columns : productList){%>
+					                    		     <ul>
+	                     		   					   <li>商品番号:<%= columns.getProductId() %></li>
+	                     		   					   <li>商品名:<%= columns.getProductName()  %></li>
+	                     		   					   <li><%= st.statusText(columns.getStatus()) %></li>
+	                     		   					   <li><a href="AdminProductDetailServlet?productId=<%= columns.getProductId() %>">詳細を見る</a></li>
+	                     		   					 </ul>
+			                    			<% }%>
+			                    
+			                 	  <% }%>
+			                  
+			                  
+			                  </ul>
+	                    
+	                       	<%--  ギブアップです、、
+			                       	  <% if(searchProducts != null){ %>
+			                       	   for(ProductBean sarch : searchProducts){
+						                       	  			targetProductId = sarch.getProductId();
+						                       	  			sarchProductId = columns.getProductId();
+						                       	  			targetGender = sarch.getGender();
+						                       	  			targetCategoryId = sarch.getCategoryId();
+			                       	  							if(targetProductId == sarchProductId ){
+			                       	  			
+					                       	  							if(gender == -1 ){  //性別のくくりはなし
+					                       	  									if (categoryId == -1){ //全表示%> 
+					                       	  				
+												                       	  				<li>
+													                       			  		<a href="AdminProductDetailServlet?productId=<%= columns.getProductId() %>">
+																                         		 <p><%= columns.getProductName() %></p>
+																                                 <p>&yen; <%= columns.getPrice() %></p>
+															                       			 </a>
+												                    					</li>
+					                    					
+					                       	  										<% } else if( categoryId.equals(targetCategoryId)){ %>
+															                       	  				 <li>
+																                       			  		<a href="AdminProductDetailServlet?productId=<%= columns.getProductId() %>">
+																			                         		 <p><%= columns.getProductName() %></p>
+																			                                 <p>&yen; <%= columns.getPrice() %></p>
+																		                       			 </a>
+															                    					</li>
+						                       	  									<% } %>
+						                       	  											
+						                       	  											
+						                       	  											
+					                       	  						<% } else if(gender.equals(targetGender)) //性別のくくりがあるパターン{
+					                       	  									if (categoryId == -1){ //カテゴリー別ではない %> 
+												                       	  				<li>
+													                       			  		<a href="AdminProductDetailServlet?productId=<%= columns.getProductId() %>">
+																                         		 <p><%= columns.getProductName() %></p>
+																                                 <p>&yen; <%= columns.getPrice() %></p>
+															                       			 </a>
+												                    					</li>
+					                    					
+					                       	  									<% } else if(categoryId.equals(targetCategoryId)){ %>
+													                       	  				 <li>
+														                       			  		<a href="AdminProductDetailServlet?productId=<%= columns.getProductId() %>">
+																	                         		 <p><%= columns.getProductName() %></p>
+																	                                 <p>&yen; <%= columns.getPrice() %></p>
+																                       			 </a>
+													                    					</li>
+						                       	  								<% } %>
+					                       	  						<% }//サーチ終わり%>
+				                       	  				 <% } //サーチのfor文%>
+			                       	  				<% } else { //サーチ関係ない一覧表示 %>
+				                       	  				<li>
+					                       			  		<a href="AdminProductDetailServlet?productId=<%= columns.getProductId() %>">
+								                         		 <p><%= columns.getProductName() %></p>
+								                                 <p>&yen; <%= columns.getPrice() %></p>
+							                       			 </a>
+				                    					</li>
+			                       	  				<% } //ステータス関係なく表示終了%>
+			                       	  	　 		
+		                       	  				 <% } //productのfor文%>
+		                       	  		<% } //productのfor文%> --%>
+			                       	  				　　
+		                    			
+			            	 
+	                    	
+                  	
                     	 </ul>
+                    	 <button><a href="#">商品追加</a></button>
+                    	 <button><a href="#">カテゴリ追加・削除</a></button>
                      </div>
                      
                      
                      <div class="tab__panel-box tab__panel-box002 " data-panel="02"> <!-- 販売中 -->
+                    	 <div class="search">
+				              <form action="AdminProductListServlet" method="get">
+				                   <input type="text" name="searchName" class="search_box" placeholder="キーワードで商品名を検索">
+				                   <input class="sarch_btn" type="submit" value="検索">
+				               </form>
+				        </div>
                      		<ul class="product-list">
-                       	 	<% for (ProductBean columns : productList) {
-                       			 status = columns.getStatus();
-                       			 if(status){ %>
-		            			 <li>
-	                       			  <a href="AdminProductDetailServlet?productId=<%= columns.getProductId() %>">
-				                          <p><%= columns.getProductName() %></p>
-				                          <p>&yen; <%= columns.getPrice() %></p>
-			                         </a>
-                    			 </li>
-                  			 <% } } %>
+                     		
+		                      <% if (searchProducts != null ){
+		                     		for (ProductBean columns : productList) { 
+		                     		   	for (ProductBean sarch : searchProducts) {
+		                     			   		targetProductId = columns.getProductId();
+		                     			 		sarchProductId = sarch.getProductId();
+		                     		    		 if (targetProductId == sarchProductId){ 
+		                     		    		 		 status = sarch.getStatus();
+		                     		    		 			 if(status){ %>
+		                     		     
+						                     		   				 <ul>
+					                     		   					   <li>商品番号:<%= columns.getProductId() %></li>
+					                     		   					   <li>商品名:<%= columns.getProductName()  %></li>
+					                     		   					   <li><%= st.statusText(columns.getStatus()) %></li>
+					                     		   					   <li><a href="AdminProductDetailServlet?productId=<%= columns.getProductId() %>">詳細を見る</a></li>
+					                     		   					 </ul>
+					                    			 
+					                    		  <%} } } } %>
+		                     		 
+		    	 
+		                     	 <%  } else {//サーチ関係なし	%>
+		  
+						                        <% for (ProductBean columns : productList) {
+		                       						 status = columns.getStatus();
+		                       						 if(status){ %>
+							            			  <ul>
+	                     		   					   <li>商品番号:<%= columns.getProductId() %></li>
+	                     		   					   <li>商品名:<%= columns.getProductName()  %></li>
+	                     		   					   <li><%= st.statusText(columns.getStatus()) %></li>
+	                     		   					   <li><a href="AdminProductDetailServlet?productId=<%= columns.getProductId() %>">詳細を見る</a></li>
+	                     		   					 </ul>
+		                  					 <% } } %>
+					                    
+					                   <% }%>
                    		  </ul>
                     </div>
                      
                      
                      
                      <div class="tab__panel-box tab__panel-box003" data-panel="03"> <!-- 削除済み -->
+                     	<div class="search">
+				              <form action="AdminProductListServlet" method="get">
+				                   <input type="text" name="searchName" class="search_box" placeholder="キーワードで商品名を検索">
+				                   <input class="sarch_btn" type="submit" value="検索">
+				               </form>
+				        </div>
 	                     <ul class="product-list">
-	                    	  <%  for (ProductBean columns : productList) {
-	                 		     status = columns.getStatus();
-	                       		   if( status == false ){
-			                       %>
-					            	 <li>
-				                         <a href="AdminProductDetailServlet?productId=<%= columns.getProductId() %>">
-					                          <p><%= columns.getProductName() %></p>
-					                          <p>&yen; <%= columns.getPrice() %></p>
-				                         </a>
-			                    	 </li>
-	                  		 <%}} %>
+	                     <% if (searchProducts != null ){
+                     		for (ProductBean columns : productList) { 
+                     		   	for (ProductBean sarch : searchProducts) {
+                     			   		targetProductId = columns.getProductId();
+                     			 		sarchProductId = sarch.getProductId();
+                     		    		 if (targetProductId == sarchProductId){ 
+                     		    		 		 status = columns.getStatus();
+                     		    		 
+                     		    		 			 if(status != true){ %>
+                     		     
+				                     		   				 <ul>
+			                     		   					   <li>商品番号:<%= columns.getProductId() %></li>
+			                     		   					   <li>商品名:<%= columns.getProductName()  %></li>
+			                     		   					   <li><%= st.statusText(columns.getStatus()) %></li>
+			                     		   					   <li><a href="AdminProductDetailServlet?productId=<%= columns.getProductId() %>">詳細を見る</a></li>
+			                     		   					 </ul>
+			                    			 
+			                    		  <%} } } } %>
+                     		 
+    	 
+                     	 <%  } else {//サーチ関係なし	%>
+  
+				                        <% for (ProductBean columns : productList) {
+                       						 status = columns.getStatus();
+                       						
+                       						 if(status != true){ %>
+					            					 <ul>
+	                     		   					   <li>商品番号:<%= columns.getProductId() %></li>
+	                     		   					   <li>商品名:<%= columns.getProductName()  %></li>
+	                     		   					   <li><%= st.statusText(columns.getStatus()) %></li>
+	                     		   					   <li><a href="AdminProductDetailServlet?productId=<%= columns.getProductId() %>">詳細を見る</a></li>
+	                     		   					 </ul>
+                  					 <% } } %>
+			                    
+			                   <% }%>
+	                     
 	                     </ul>
 	                  </div>
 	                  

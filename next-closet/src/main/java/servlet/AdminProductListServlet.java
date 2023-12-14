@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -11,8 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.bean.CategoryBean;
+import model.bean.ProductBean;
 import model.dao.ProductDAO;
+import model.dao.SearchDAO;
 
 
 @WebServlet("/AdminProductListServlet")
@@ -25,7 +27,7 @@ public class AdminProductListServlet extends HttpServlet {
 		int gender = 0;
 		String categoryIdStr = request.getParameter("categoryId");
 		String genderStr =  request.getParameter("gender");
-		// String searchName = request.getParameter("searchName");
+		String searchName = request.getParameter("searchName");
 		
 		if( categoryIdStr != null ) {
 			categoryId = Integer.parseInt(request.getParameter("categoryId"));
@@ -46,43 +48,52 @@ public class AdminProductListServlet extends HttpServlet {
 		String categoryName = request.getParameter("categoryName");		
 		ProductDAO dao = new ProductDAO();
 		
-		//List<ProductBean> searchProducts = new ArrayList<>();
+		List<ProductBean> searchProducts = new ArrayList<>();
 		
 		try {
 			request.setAttribute("categoryList", dao.categoryList());
-			List<CategoryBean> cb = dao.categoryList();
 			
-//			if (searchName != null && !searchName.isEmpty()) {
-//				//検索がある場合、検索機能を使用
-//				SearchDAO searchDao = new SearchDAO();
-//				searchProducts = searchDao.searchProductList(searchName);
-//				request.setAttribute("searchProducts", searchProducts);
-//				request.setAttribute("title", searchName + "の検索結果");
-//			} else {
-			
-			if( categoryId == -1 ) {
-				request.setAttribute("title","ALL / 商品一覧");
+			 if (searchName != null && !searchName.isEmpty()) {
+				//検索がある場合、検索機能を使用
+				SearchDAO searchDao = new SearchDAO();
+				searchProducts = searchDao.searchStatusProductList(searchName);
+				request.setAttribute("searchProducts", searchProducts);
 				request.setAttribute("productList",dao.allStatusProductList());
+				request.setAttribute("title", searchName + "の検索結果");				
 				
 			} else {
-				
-				if(  gender == -1 ){
-					request.setAttribute("title",  " ALL / " + categoryName + "/ 商品一覧");
-					request.setAttribute("productList",dao.allStatusCategoryProductList(categoryId));
+			
+					if( categoryId == -1 ) {
+						request.setAttribute("title","ALL / 商品一覧");
+						request.setAttribute("productList",dao.allStatusProductList());
 					
-				}else {
-					request.setAttribute("title", genderStr + "/" + categoryName + "/ 商品一覧");
-					request.setAttribute("productList",dao.categoryStatusProductList(categoryId , gender));
-				}
+						
+						
+					} else {
+						
+									if(  gender == -1 ){
+										request.setAttribute("title",  " ALL / " + categoryName + "/ 商品一覧");
+										request.setAttribute("productList",dao.allStatusCategoryProductList(categoryId));
+									
+										
+									}else {
+										request.setAttribute("title", genderStr + "/" + categoryName + "/ 商品一覧");
+										request.setAttribute("productList",dao.categoryStatusProductList(categoryId , gender));
+									
+									}
+					}
 			}
-			// }
-			} catch (SQLException | ClassNotFoundException e) {
-				e.printStackTrace();
-				System.out.println( "-----キャッチ-------");
-			}
+		} catch (SQLException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		request.setAttribute("gender", gender);
+		request.setAttribute("categoryId",categoryId);
 
 		 RequestDispatcher dispatcher = request.getRequestDispatcher("admin-product-list.jsp");
    	     dispatcher.forward(request, response);	
     	
     	}
-	}
+    
+  
+}
