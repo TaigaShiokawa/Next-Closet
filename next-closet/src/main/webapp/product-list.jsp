@@ -11,8 +11,9 @@
     <link rel="stylesheet" href="css/product-list.css">
 	<link rel = "stylesheet" href = "css/navbar.css">
     <%
-    List <ProductBean> productList = (ArrayList <ProductBean>)request.getAttribute("productList");
-    List <CategoryBean> categoryList = (ArrayList <CategoryBean>)request.getAttribute("categoryList");
+    List<ProductBean> productList = (ArrayList <ProductBean>)request.getAttribute("productList");
+    List<CategoryBean> categoryList = (ArrayList <CategoryBean>)request.getAttribute("categoryList");
+    List<ProductBean> searchProducts = (ArrayList<ProductBean>)request.getAttribute("searchProducts");
     String  title = (String)request.getAttribute("title");
     %>
 </head>
@@ -51,13 +52,13 @@
                 <div class="content wrapper">
                     <h1 class="page-title"><%= title %></h1>
                      <ul class="product-list">
-                    <% if ( productList != null ){
-	                     for ( ProductBean columns : productList){ 
-	                    	 	 String img =  columns.getImage();
-	                    	  	 if( img == null ){
-	                    		 	 img = "https://placehold.jp/480x640.png";
-	                    	  	 }
-                    %>  
+                          <% 
+                          if (searchProducts != null && !searchProducts.isEmpty()) {
+                          // 検索結果の表示
+                          for (ProductBean columns : searchProducts) {
+                               String img = columns.getImage();
+                               img = (img == null) ? "https://placehold.jp/480x640.png" : img;
+                          %>  
                    		  <li>
 	                         <a href="ProductDetailServlet?productId=<%= columns.getProductId() %>">
 		                          <img src="<%= img %>">
@@ -65,10 +66,27 @@
 		                          <p>&yen; <%= columns.getPrice() %></p>
 	                         </a>
                     	  </li>
-		                 <% } 
-		               } else { %>  
-                  			  <p>当該商品がありません</p>
-                  	 <% } %>
+		                 <% 
+		                     } 
+		                 } else if (productList != null && !productList.isEmpty()) {
+		            	     //通常の商品リスト表示
+		            	     for (ProductBean columns : productList) {
+		                          String img = columns.getImage();
+		                          img = (img == null) ? "https://placehold.jp/480x640.png" : img;
+		            	 %>
+		            	 <li>
+	                         <a href="ProductDetailServlet?productId=<%= columns.getProductId() %>">
+		                          <img src="<%= img %>">
+		                          <p><%= columns.getProductName() %></p>
+		                          <p>&yen; <%= columns.getPrice() %></p>
+	                         </a>
+                    	 </li>
+                  		 <%  
+		            	     }
+		                 } else {
+                  		 %>
+                  		 <p>該当する商品がありません</p>
+                  		 <% } %>
                     
                       <!-- ダミーの商品一覧
                       <li>

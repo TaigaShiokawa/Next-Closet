@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="css/mypage.css">
 <link rel="stylesheet" href="css/navbar.css">
 <meta charset="UTF-8">
-<title>フォーム</title>
+<title>マイページ</title>
 
 </head>
 <body>
@@ -53,7 +53,7 @@
 
         <p>
             <a href="mypage-edit.jsp"><button type="submit" class="one-button">変更</button></a>
-            <a href="order-history.jsp"><button type="submit" class="twe-button">購入履歴</button></a>
+            <a href="OrderHistoryServlet"><button type="submit" class="twe-button">購入履歴</button></a>
         </p>
         
         <a href="product-list.jsp" class="one-a">商品一覧へ戻る</a>

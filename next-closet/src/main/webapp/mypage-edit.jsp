@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="css/mypage-edit.css">
 <link rel="stylesheet" href="css/navbar.css">
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>個人情報編集</title>
 </head>
 <body>
 <%@ include file="includes/navbar.jsp" %>

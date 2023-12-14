@@ -23,8 +23,8 @@
  
  <div class="link">
  	<ul>
- 	<li class="product"><a href="商品一覧jsp">商品一覧</a></li>
-  	<li class="history"><a href="購入履歴jsp">購入履歴</a></li>
+ 	<li class="product"><a href="ProductListServlet">商品一覧</a></li>
+  	<li class="history"><a href="OrderHistoryServlet">購入履歴</a></li>
   </ul>
  </div>
 </div>
