@@ -20,12 +20,33 @@ public class CartDeleteServlet extends HttpServlet {
 			throws ServletException, IOException {
 		
 		int cartItemId = Integer.parseInt(request.getParameter("cartItemId"));
+		try {
+			if(cartItemId < 1) {
+				request.getSession().setAttribute("cartItemNotFound", "削除する商品が見つかりませんでした。"
+						+ "再度お試しいただくか、お問い合わせより管理者にご連絡ください。");
+				response.sendRedirect("error.jsp");
+				return;
+			}
+		} catch(NumberFormatException e) { //文字列が適切な数値形式になっていない場合. 例えば, 文字や記号が含まれているなど.
+			e.printStackTrace();
+			request.getSession().setAttribute("cartItemNotFound", "削除する商品が見つかりませんでした。"
+					+ "再度お試しいただくか、お問い合わせより管理者にご連絡ください。");
+			response.sendRedirect("error.jsp");
+			return;
+		}
 		
 		CartDAO cartDao = new CartDAO();
 		
 		try {
 			cartDao.destroyCartItem(cartItemId);
 			int userId = (int)request.getSession().getAttribute("userId");
+			//ログインユーザーのセッション確認
+			if(userId < 1) {
+				request.getSession().setAttribute("userNotFound", "ユーザーが見つかりませんでした。"
+						+ "再度お試しいただくか、お問い合わせより管理者にご連絡ください。");
+				response.sendRedirect("error.jsp");
+				return;
+			}
 			List<CartItemBean> cartItems = cartDao.getCartItems(userId);
 			request.setAttribute("cartItems", cartItems);
 		} catch(ClassNotFoundException e) {

@@ -10,10 +10,18 @@
 </head>
 <body>
 <%@ include file="includes/navbar.jsp" %>
-<% String errorMessage = (String)session.getAttribute("errorMessage"); %> <!-- 新規登録の際の例外処理 -->
+<% String errorMessage = (String)session.getAttribute("errorMessage"); %>
+<% String userNotFound = (String)session.getAttribute("userNotFound"); %>
+<% String cartItemNotFound = (String)session.getAttribute("cartItemNotFound"); %>
 <% if(errorMessage != null && !errorMessage.isEmpty()) { %>
 <p><%= errorMessage %></p>
 <% session.removeAttribute("errorMessage"); %>
+<% } else if(userNotFound != null) { %>
+<p><%=userNotFound %></p>
+<% session.removeAttribute("userNotFound"); %>
+<% } else if(cartItemNotFound != null) { %>
+<p><%=cartItemNotFound %></p>
+<% session.removeAttribute("cartItemNotFound"); %>
 <% } %>
 </body>
 </html>
