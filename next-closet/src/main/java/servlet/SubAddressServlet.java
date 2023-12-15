@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.bean.AddressBean;
 import model.dao.UserDAO;
+import regexp.AddressValidator;
 import regexp.PostCodeValidator;
 
 /**
@@ -69,14 +70,22 @@ public class SubAddressServlet extends HttpServlet {
 		//郵便番号の入力に対してハイフン無しの形式を要
 		if(!PostCodeValidator.validate(convertPostCode)) {
 			request.getSession().setAttribute("postCodeError", "郵便番号が正しくありません");
-//			request.getSession().setAttribute("postCodeError", "郵便番号が正しくありません");
 			response.sendRedirect("SubAddressServlet");
 	    	return;
 		}
 		
+		//住所の空文字チェック
+		if(address.isEmpty()) {
+			request.getSession().setAttribute("addressError", "住所が正しくありません");
+			response.sendRedirect("SubAddressServlet");
+	        return;
+		}
+		//住所のデータを統一(全角を半角にする)
+		String normalizedAddress = AddressValidator.normalizeAddress(address);
+		
 		UserDAO uDao = new UserDAO();
 		try {
-			int res = uDao.setSubAddress(userId, convertPostCode, address, prefectures);
+			int res = uDao.setSubAddress(userId, convertPostCode, normalizedAddress, prefectures);
 			if(res == 1) {
 				List<AddressBean> addressList = uDao.getSubAddress(userId);
 		        request.setAttribute("addressList", addressList);

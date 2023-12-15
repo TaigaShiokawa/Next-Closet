@@ -6,7 +6,7 @@ public class AddressValidator {
 		StringBuilder converted = new StringBuilder();
 		for(char c : input.toCharArray()) {
 			if(c >= '０' && c <= '９') {
-				converted.append((char) (c - '０' + '０'));
+				converted.append((char) (c - '０' + '0'));
 			} else {
 				converted.append(c);
 			}
