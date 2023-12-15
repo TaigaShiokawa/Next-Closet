@@ -1,12 +1,16 @@
 package model.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import connection.DBConnection;
+import model.bean.ProductBean;
 
 public class AdminProductDAO {
 	
@@ -86,5 +90,48 @@ public class AdminProductDAO {
 			processingNum = pstmt.executeUpdate();
 		}
 		return processingNum;
+	}
+	
+	//商品詳細管理者用　（一つの商品の情報と商品の在庫情報を持ってくる）
+	public List <ProductBean>  detailAdminProductList(int productId ) 
+			throws SQLException , ClassNotFoundException{
+   		List <ProductBean> productList = new ArrayList<>();
+				       
+		String sql = "SELECT p.*, i.inventory_id, i.size_id, i.stock_quantity "
+				   + "FROM products p "
+				   + "LEFT JOIN inventory i ON p.product_id = i.product_id "
+				   + "WHERE p.product_id = ?";
+				
+		 try(Connection con = DBConnection.getConnection();  //データベースに接続する
+			 PreparedStatement pstmt = con.prepareStatement(sql)){ //引数で指定されたSQLをデータベースで実行するメソッド
+					 
+			 pstmt.setInt(1, productId);
+					 
+	      	 ResultSet res = pstmt.executeQuery(); //引数で指定されたSQLをデータベースで実行するメソッド 
+			       	 
+		     while (res.next()){ 
+				int product_id = res.getInt("product_id");
+				int category_id = res.getInt("category_id");
+				int gender = res.getInt("gender");	
+				String product_name = res.getString("product_name");
+				int price = res.getInt("price");
+				String description = res.getString("description");
+				boolean status = res.getBoolean("status");
+				String image = res.getString("image");
+				Date registration_date = res.getDate("registration_date");
+						
+				int inventoryId =res.getInt("inventory_id");
+				int sizeId = res.getInt("size_id");
+				int stockQuantity = res.getInt("stock_quantity");
+						
+				ProductBean product = new ProductBean(product_id, category_id,  gender, product_name, price , description , status , image , registration_date);
+				product.setInventoryId(inventoryId);
+				product.setSizeId(sizeId);
+				product.setStockQuantity(stockQuantity);
+						
+				productList.add(product);
+			}
+		}	
+		return productList;		
 	}
 }
