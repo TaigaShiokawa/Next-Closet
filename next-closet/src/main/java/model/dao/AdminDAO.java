@@ -75,4 +75,50 @@ public class AdminDAO {
 	
 	
 
+	
+	public int updateAdmin(String adminName, String kanaName, String email, String password,int adminId)
+	        throws SQLException, ClassNotFoundException {
+	    String sql = "UPDATE admins SET admin_name = ?, admin_kana_name = ?, email = ?, hash_pass = ? WHERE admin_id = ?";
+
+	    try (Connection con = DBConnection.getConnection();
+	         PreparedStatement preparedStatement = con.prepareStatement(sql)) {
+
+	        // Set parameters for the PreparedStatement
+	        preparedStatement.setString(1, adminName);
+	        preparedStatement.setString(2, kanaName);
+	        preparedStatement.setString(3, email);
+	        preparedStatement.setString(4, password);
+	        preparedStatement.setInt(5, adminId);
+
+	        // Execute the update
+	        int rowsAffected = preparedStatement.executeUpdate();
+
+	        // Check if the update was successful
+	        return rowsAffected;
+
+	    } catch (SQLException | ClassNotFoundException e) {
+	        // Log or print the exception for debugging
+	        e.printStackTrace();
+	        // Re-throw the exception to be handled by the calling code
+	        throw e;
+	    }
+	}
+	
+	//ユーザIDを取得
+	public int getAdminId(String email)throws ClassNotFoundException, SQLException {
+
+		int AdminId = -1;
+		String sql = "SELECT Admin_id FROM admins WHERE email = ?";
+		try (Connection con = DBConnection.getConnection(); 
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setString(1, email);
+			
+			ResultSet res = pstmt.executeQuery();
+			if(res.next()) {
+				AdminId = res.getInt("user_id");
+			}
+		}
+		return AdminId;
+	}
+
 }
