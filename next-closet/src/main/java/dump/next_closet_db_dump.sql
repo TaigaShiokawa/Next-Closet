@@ -85,6 +85,7 @@ CREATE TABLE `admins` (
   `email` varchar(100) NOT NULL,
   `hash_pass` varchar(250) NOT NULL,
   `admin_status` tinyint(1) DEFAULT '1',
+  `registration_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`admin_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;

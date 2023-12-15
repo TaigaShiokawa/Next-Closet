@@ -2,6 +2,9 @@
 <%@ page import="model.bean.*" %>
 <%@ page import="model.dao.*" %>
 <% UserBean loginUser = (UserBean)request.getSession().getAttribute("user"); %>
+<% if(loginUser != null) { %>
+<% response.sendRedirect("ProductListServlet"); %>
+<% } %>
 <!DOCTYPE html>
 <html>
 	<head>
