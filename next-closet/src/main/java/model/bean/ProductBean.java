@@ -3,7 +3,7 @@ package model.bean;
 import java.io.Serializable;
 import java.sql.Date;
 
-public class ProductBean implements Serializable{
+public class ProductBean extends InventoryBean implements Serializable{
 	
 	private int productId;
 	private int categoryId;

@@ -20,10 +20,22 @@ public String userStatusText ( boolean status ) {
     	String text = "";
 
     	if ( status == true) {
-    		text = "既存";
+    		text = "";
     	}else if( status == false) {
     		text = "削除済み";
     	}
     	return text;
     }
+
+public String adminStatusText ( boolean status ) {
+	
+	String text = "";
+
+	if ( status == true) {
+		text = "既存";
+	}else if( status == false) {
+		text = "削除済み";
+	}
+	return text;
+}
 }

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import connection.DBConnection;
+import model.bean.AdminBean;
 import model.bean.ProductBean;
 import model.bean.UserBean;
 
@@ -97,6 +98,35 @@ public class SearchDAO {
 		            	String tel_number   		= res.getString("tel_number");
 		            	boolean status       		= res.getBoolean("user_status");
 		            	list.add(new UserBean (user_id, user_name,  kana_name, email, hash_pass , registration_date ,tel_number , status ));
+		            }
+				}
+			
+			return list;
+		}
+		
+		
+
+		//検索した管理者の情報取得
+		public List< AdminBean > searchStatusAdminList(String searchName) throws ClassNotFoundException, SQLException {
+			
+			 List< AdminBean > list = new  ArrayList <AdminBean>();
+			
+			String sql = "SELECT * FROM admins WHERE admin_name LIKE ? ";
+			try (Connection con = DBConnection.getConnection(); 
+					PreparedStatement pstmt = con.prepareStatement(sql)) { 
+				    pstmt.setString(1, "%" + searchName + "%");
+			    	ResultSet res = pstmt.executeQuery();
+					
+					while (res.next()){ 
+		            	int admin_id	    	 	= res.getInt("admin_id");
+		            	String admin_name	     	= res.getString("admin_name");
+		            	String kana_name       	    = res.getString("admin_kana_name");
+		            	String email  				= res.getString("email");
+		            	String hash_pass            = res.getString("hash_pass");
+		            	boolean status       		= res.getBoolean("admin_status");
+		            	Date registration_date      = res.getDate("registration_date"); 
+
+		            	list.add(new AdminBean (admin_id, admin_name,  kana_name, email, hash_pass , status , registration_date ));
 		            }
 				}
 			

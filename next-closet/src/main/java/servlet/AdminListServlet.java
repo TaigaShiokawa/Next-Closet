@@ -10,38 +10,37 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.dao.AdminDAO;
 import model.dao.SearchDAO;
-import model.dao.UserDAO;
 
 
-@WebServlet("/AdminUserListServlet")
-public class AdminUserListServlet extends HttpServlet {
+@WebServlet("/AdminListServlet")
+public class AdminListServlet extends HttpServlet {
 	
 	
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     
 		String searchName = request.getParameter("searchName");
 		SearchDAO searchDao = new SearchDAO();
-		UserDAO userDao = new UserDAO();
+		AdminDAO adminDao = new AdminDAO();
 		
 		try {
-					request.setAttribute("userList",userDao.getAllStatusUserList()); //ユーザー一覧
+					request.setAttribute("adminList",adminDao.getAllStatusAdminList()); //ユーザー一覧
 					
 					 if (searchName != null && !searchName.isEmpty()) {
-						 System.out.println(searchName);
 						//検索がある場合、検索機能を使用
-						request.setAttribute("searchUsers", searchDao.searchStatusUserList(searchName));
-						request.setAttribute("title", "ユーザー一覧 / " + searchName + "の検索結果");				
+				        request.setAttribute("searchAdmins", searchDao.searchStatusAdminList(searchName));
+						request.setAttribute("title", "管理者一覧 / " + searchName + "の検索結果");				
 						
 					} else {
-								request.setAttribute("title","ユーザー一覧表示");
+								request.setAttribute("title","管理者一覧表示");
 					}
 			 
 		} catch (SQLException | ClassNotFoundException e ) {
 			e.printStackTrace();
 		}
 		
-		 RequestDispatcher dispatcher = request.getRequestDispatcher("admin-user-list.jsp");
+		 RequestDispatcher dispatcher = request.getRequestDispatcher("admin-list.jsp");
    	     dispatcher.forward(request, response);	
     	
     	}

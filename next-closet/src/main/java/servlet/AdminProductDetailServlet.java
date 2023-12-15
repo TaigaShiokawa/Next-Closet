@@ -22,12 +22,10 @@ public class AdminProductDetailServlet {
 		
 		ProductDAO productDao = new ProductDAO();
 		
-		List<ProductBean> productList = productDao.detailProductList(productId);
+		List<ProductBean> productList = productDao.detailAdminProductList(productId);
 		request.setAttribute("productList", productList);
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/admin-product-detail.jsp");
 		dispatcher.forward(request, response);
-		
 	}
-
 }

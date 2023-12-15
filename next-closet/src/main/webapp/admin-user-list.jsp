@@ -23,6 +23,7 @@
 </head>
 
 <body>
+<%@ include file="includes/admin-navbar.jsp" %>
 <div class="content wrapper">
 
 						<div class="search">
@@ -31,6 +32,8 @@
 				                   <input class="sarch_btn" type="submit" value="検索">
 				               </form>
 				        </div>
+				        
+				        <button><a href="AdminUserListServlet">一覧表示</a></button>
             
   		<div class="tab">
  				 <h1 class="page-title"><%= title %></h1>	
@@ -65,7 +68,7 @@
 	                     		   					 <ul>
 	                     		   					   <li><%= columns.getUserName() %></li>
 	                     		   					   <li><%= columns.getEmail() %></li>
-	                     		   					   <li><%= st.userStatusText(columns.isUserStatus()) %></li>ステータスメソッド作成
+	                     		   					   <li><%= st.userStatusText(columns.isUserStatus()) %></li>
 	                     		   					   <li><a href="AdminUserDetailServlet?userId=<%= columns.getUserId() %>">詳細を見る</a></li>
 	                     		   					 </ul>
 				                    			 </li>
@@ -79,7 +82,7 @@
 					                    		    <ul>
 	                     		   					   <li><%= columns.getUserName()  %></li>
 	                     		   					   <li><%= columns.getEmail() %></li>
-	                     		   					   <li><%= st.userStatusText(columns.isUserStatus()) %></li>ステータスメソッド作成
+	                     		   					   <li><%= st.userStatusText(columns.isUserStatus()) %></li>
 	                     		   					   <li><a href="AdminUserDetailServlet?userId=<%= columns.getUserId() %>">詳細を見る</a></li>
 	                     		   					 </ul>
 			                    			<% }%>
@@ -89,17 +92,12 @@
 			                  
 			                  </ul>
 	                    
-                    	 <button><a href="AdminRegisterServlet">ユーザー新規登録</a></button>
+                    	 <button><a href="AdminUserRegisterServlet">ユーザー新規登録</a></button>
                      </div>
                      
                      
                      <div class="tab__panel-box tab__panel-box002 " data-panel="02"> <!-- 販売中 -->
-                    	 <div class="search">
-				              <form action="AdminProductListServlet" method="get">
-				                   <input type="text" name="searchName" class="search_box" placeholder="キーワードで商品名を検索">
-				                   <input class="sarch_btn" type="submit" value="検索">
-				               </form>
-				        </div>
+                    	 
                      		<ul class="product-list">
                      		
 		                      <% if (searchUsers != null ){
@@ -114,7 +112,7 @@
 						                     		   				 <ul>
 					                     		   					   <li><%= columns.getUserName()  %></li>
 					                     		   					   <li><%= columns.getEmail() %></li>
-					                     		   					   <li><%= st.userStatusText(columns.isUserStatus()) %></li>ステータスメソッド作成
+					                     		   					   <li><%= st.userStatusText(columns.isUserStatus()) %></li>
 					                     		   					   <li><a href="AdminUserDetailServlet?userId=<%= columns.getUserId() %>">詳細を見る</a></li>
 					                     		   					 </ul>
 					                    			 
@@ -141,12 +139,8 @@
                      
                      
                      <div class="tab__panel-box tab__panel-box003" data-panel="03"> <!-- 削除済み -->
-                     	<div class="search">
-				              <form action="AdminProductListServlet" method="get">
-				                   <input type="text" name="searchName" class="search_box" placeholder="キーワードで商品名を検索">
-				                   <input class="sarch_btn" type="submit" value="検索">
-				               </form>
-				        </div>
+                     	
+
 	                     <ul class="product-list">
 	                     <% if (searchUsers != null ){
                      		for (UserBean columns : userList) { 
@@ -161,7 +155,7 @@
 				                     		   				<ul>
 			                     		   					   <li><%= columns.getUserName()  %></li>
 			                     		   					   <li><%= columns.getEmail() %></li>
-			                     		   					   <li><%= st.userStatusText(columns.isUserStatus()) %></li>ステータスメソッド作成
+			                     		   					   <li><%= st.userStatusText(columns.isUserStatus()) %></li>
 			                     		   					   <li><a href="AdminUserDetailServlet?userId=<%= columns.getUserId() %>">詳細を見る</a></li>
 			                     		   					 </ul>
 			                    			 
