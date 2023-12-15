@@ -273,7 +273,7 @@ public class UserDAO {
 	}
 	
 		
-
+      //全ユーザーの情報取得
 		public List< UserBean > getAllStatusUserList() throws ClassNotFoundException, SQLException {
 			 List< UserBean > list = new  ArrayList <UserBean>();
 			
