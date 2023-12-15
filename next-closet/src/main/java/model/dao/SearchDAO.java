@@ -10,6 +10,7 @@ import java.util.List;
 
 import connection.DBConnection;
 import model.bean.ProductBean;
+import model.bean.UserBean;
 
 public class SearchDAO {
 	
@@ -73,5 +74,36 @@ public class SearchDAO {
 			}
 			return productList;
 		}
+		
+		
+		
+		//ユーザーの検索機能
+		public List< UserBean > searchStatusUserList(String searchName) throws ClassNotFoundException, SQLException {
+			 List< UserBean > list = new  ArrayList <UserBean>();
+			
+			String sql = "SELECT * FROM users WHERE user_name LIKE ?";
+			try (Connection con = DBConnection.getConnection(); 
+					PreparedStatement pstmt = con.prepareStatement(sql)) { 
+					pstmt.setString(1, "%" + searchName + "%");
+					ResultSet res = pstmt.executeQuery();
+					
+					while (res.next()){ 
+		            	int user_id	    	 	  	= res.getInt("user_id");
+		            	String user_name	     	= res.getString("user_name");
+		            	String kana_name       	    = res.getString("kana_name");
+		            	String email  				= res.getString("email");
+		            	String hash_pass            = res.getString("hash_pass");
+		            	Date registration_date    = res.getDate("registration_date");
+		            	String tel_number   		= res.getString("tel_number");
+		            	boolean status       		= res.getBoolean("user_status");
+		            	list.add(new UserBean (user_id, user_name,  kana_name, email, hash_pass , registration_date ,tel_number , status ));
+		            }
+				}
+			
+			return list;
+		}
+		
+		
+		
 	}
 

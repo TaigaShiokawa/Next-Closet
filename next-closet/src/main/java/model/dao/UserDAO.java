@@ -1,6 +1,7 @@
 package model.dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -270,4 +271,34 @@ public class UserDAO {
 		}
 		return processingNum;
 	}
+	
+		
+
+		public List< UserBean > getAllStatusUserList() throws ClassNotFoundException, SQLException {
+			 List< UserBean > list = new  ArrayList <UserBean>();
+			
+			
+			String sql = "SELECT * FROM users ";
+			try (Connection con = DBConnection.getConnection(); 
+					PreparedStatement pstmt = con.prepareStatement(sql)) { 
+			    	ResultSet res = pstmt.executeQuery();
+					
+					while (res.next()){ 
+		            	int user_id	    	 	  	= res.getInt("user_id");
+		            	String user_name	     	= res.getString("user_name");
+		            	String kana_name       	    = res.getString("kana_name");
+		            	String email  				= res.getString("email");
+		            	String hash_pass            = res.getString("hash_pass");
+		            	Date register_date          = res.getDate("registration_date"); 
+		            	String tel_number   		= res.getString("tel_number");
+		            	boolean status       		= res.getBoolean("user_status");
+		            	list.add(new UserBean (user_id, user_name,  kana_name, email, hash_pass ,  register_date ,tel_number , status ));
+		            }
+					
+					
+				}
+			
+			return list;
+		}
+		
 }
