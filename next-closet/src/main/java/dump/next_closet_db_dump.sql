@@ -84,6 +84,7 @@ CREATE TABLE `admins` (
   `admin_kana_name` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `hash_pass` varchar(250) NOT NULL,
+  `admin_status` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`admin_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;

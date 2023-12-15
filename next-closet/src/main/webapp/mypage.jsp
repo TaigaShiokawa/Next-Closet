@@ -58,7 +58,9 @@
         
         <a href="ProductListServlet" class="one-a">商品一覧へ戻る</a>
         
-         <a href="WithdrawalServlet?userId=<%=loginUser.getUserId()%>">退会はこちら</a>
+        <form action="WithdrawalServlet" method="post">
+        <input type="submit" value="退会する">
+        </form>
 
 
 </body>

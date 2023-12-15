@@ -38,8 +38,18 @@ public class OrderConfilmServlet extends HttpServlet {
 			request.setAttribute("user" , userDao.getUpdateUser(userId));				//user情報
 			request.setAttribute("address" , userDao.getUserAddressId(userId));			//メイン住所
 			request.setAttribute("addAddresses" , userDao.getSubAddress(userId));	    //サブ住所
-		}catch(SQLException | ClassNotFoundException e) {
+		} catch(ClassNotFoundException e) {
 			e.printStackTrace();
+			request.getSession().setAttribute("errorMessage", "内部の設定エラーが発生しました。"
+					+ "お問い合わせよ管理者に連絡して、解決の支援を受けてください。");
+	        response.sendRedirect("error.jsp");
+	        return;
+		} catch(SQLException e) {
+			e.printStackTrace();
+			request.getSession().setAttribute("errorMessage", "現在データベースにアクセスできません。後ほど再度お試しください"
+					+ "。問題が続く場合は、お問い合わせより管理者にご連絡ください。");
+	        response.sendRedirect("error.jsp");
+	        return;
 		}
 		
 		if(order != null ) { //商品詳細 → 今すぐ購入の場合
@@ -49,12 +59,23 @@ public class OrderConfilmServlet extends HttpServlet {
 					int productId = Integer.parseInt(request.getParameter("productId"));
 					int sizeId = Integer.parseInt(request.getParameter("sizeId"));
 					int quantity = Integer.parseInt(request.getParameter("quantity"));
+					
 					request.setAttribute("productList", productDao.detailProductList(productId)); //商品の詳細情報　商品名やらお金やら
 					request.setAttribute("order", "order");//今回のオーダーが今すぐ購入から購入であることを証明
 					request.setAttribute("sizeId", sizeId);
 					request.setAttribute("quantity", quantity);
-				} catch (SQLException | ClassNotFoundException e){
+				} catch(ClassNotFoundException e) {
 					e.printStackTrace();
+					request.getSession().setAttribute("errorMessage", "内部の設定エラーが発生しました。"
+							+ "お問い合わせよ管理者に連絡して、解決の支援を受けてください。");
+			        response.sendRedirect("error.jsp");
+			        return;
+				} catch(SQLException e) {
+					e.printStackTrace();
+					request.getSession().setAttribute("errorMessage", "現在データベースにアクセスできません。後ほど再度お試しください"
+							+ "。問題が続く場合は、お問い合わせより管理者にご連絡ください。");
+			        response.sendRedirect("error.jsp");
+			        return;
 				}
 			
 		} else {
@@ -69,16 +90,36 @@ public class OrderConfilmServlet extends HttpServlet {
 						request.setAttribute( "cartItemId",cartItemId );
 						int productId = Item.getProductId(); //cartItemのproductIdを受け取る
 						request.setAttribute("productList", productDao.detailProductList(productId));  //商品の詳細をjspに渡す
-						} catch (SQLException | ClassNotFoundException e) {
+						} catch(ClassNotFoundException e) {
 							e.printStackTrace();
+							request.getSession().setAttribute("errorMessage", "内部の設定エラーが発生しました。"
+									+ "お問い合わせよ管理者に連絡して、解決の支援を受けてください。");
+					        response.sendRedirect("error.jsp");
+					        return;
+						} catch(SQLException e) {
+							e.printStackTrace();
+							request.getSession().setAttribute("errorMessage", "現在データベースにアクセスできません。後ほど再度お試しください"
+									+ "。問題が続く場合は、お問い合わせより管理者にご連絡ください。");
+					        response.sendRedirect("error.jsp");
+					        return;
 						}
 					
 				} else { //もしカートの中身全部だったら
 				
 						try {
 							request.setAttribute("cartAllItemList", cartDao.getCartItems(userId));
-						} catch ( SQLException | ClassNotFoundException e) {
+						} catch(ClassNotFoundException e) {
 							e.printStackTrace();
+							request.getSession().setAttribute("errorMessage", "内部の設定エラーが発生しました。"
+									+ "お問い合わせよ管理者に連絡して、解決の支援を受けてください。");
+					        response.sendRedirect("error.jsp");
+					        return;
+						} catch(SQLException e) {
+							e.printStackTrace();
+							request.getSession().setAttribute("errorMessage", "現在データベースにアクセスできません。後ほど再度お試しください"
+									+ "。問題が続く場合は、お問い合わせより管理者にご連絡ください。");
+					        response.sendRedirect("error.jsp");
+					        return;
 						}
 							request.setAttribute("order", "allCartItems");//今回のオーダーがカートの中身を全て購入であることを証明
 			
@@ -108,8 +149,18 @@ public class OrderConfilmServlet extends HttpServlet {
 			request.setAttribute("user" , userDao.getUpdateUser(userId));				//user情報
 			request.setAttribute("address" , userDao.getUserAddressId(userId));			//メイン住所
 			request.setAttribute("addAddresses" , userDao.getSubAddress(userId));	//サブ住所
-		}catch(SQLException | ClassNotFoundException e) {
+		} catch(ClassNotFoundException e) {
 			e.printStackTrace();
+			request.getSession().setAttribute("errorMessage", "内部の設定エラーが発生しました。"
+					+ "お問い合わせよ管理者に連絡して、解決の支援を受けてください。");
+	        response.sendRedirect("error.jsp");
+	        return;
+		} catch(SQLException e) {
+			e.printStackTrace();
+			request.getSession().setAttribute("errorMessage", "現在データベースにアクセスできません。後ほど再度お試しください"
+					+ "。問題が続く場合は、お問い合わせより管理者にご連絡ください。");
+	        response.sendRedirect("error.jsp");
+	        return;
 		}
 		
 		String delivery_address = (String)request.getParameter("address");
@@ -142,8 +193,18 @@ public class OrderConfilmServlet extends HttpServlet {
 				
 					try {
 						request.setAttribute("productList", productDao.detailProductList(productId)); //商品の詳細情報を渡す
-					} catch (SQLException | ClassNotFoundException e) {
+					} catch(ClassNotFoundException e) {
 						e.printStackTrace();
+						request.getSession().setAttribute("errorMessage", "内部の設定エラーが発生しました。"
+								+ "お問い合わせよ管理者に連絡して、解決の支援を受けてください。");
+				        response.sendRedirect("error.jsp");
+				        return;
+					} catch(SQLException e) {
+						e.printStackTrace();
+						request.getSession().setAttribute("errorMessage", "現在データベースにアクセスできません。後ほど再度お試しください"
+								+ "。問題が続く場合は、お問い合わせより管理者にご連絡ください。");
+				        response.sendRedirect("error.jsp");
+				        return;
 					}
 				
 				request.setAttribute("order", "order");
@@ -167,8 +228,18 @@ public class OrderConfilmServlet extends HttpServlet {
 						//カートから削除
 							try {
 								cartDao.destroyCartItem(cartItemId); //cartから削除
-							} catch (SQLException | ClassNotFoundException e) {
+							} catch(ClassNotFoundException e) {
 								e.printStackTrace();
+								request.getSession().setAttribute("errorMessage", "内部の設定エラーが発生しました。"
+										+ "お問い合わせよ管理者に連絡して、解決の支援を受けてください。");
+						        response.sendRedirect("error.jsp");
+						        return;
+							} catch(SQLException e) {
+								e.printStackTrace();
+								request.getSession().setAttribute("errorMessage", "現在データベースにアクセスできません。後ほど再度お試しください"
+										+ "。問題が続く場合は、お問い合わせより管理者にご連絡ください。");
+						        response.sendRedirect("error.jsp");
+						        return;
 							}
 						
 						//ご購入いただきましてありがとうございました。に飛ばす
@@ -185,8 +256,18 @@ public class OrderConfilmServlet extends HttpServlet {
 								request.setAttribute( "cartItem" , Item ); //CartItemBeanのリストでくる
 								request.setAttribute( "cartItemId",cartItemId );
 								request.setAttribute("productList", productDao.detailProductList(productId));  //商品の詳細をjspに渡す
-								} catch (SQLException | ClassNotFoundException e) {
+								} catch(ClassNotFoundException e) {
 									e.printStackTrace();
+									request.getSession().setAttribute("errorMessage", "内部の設定エラーが発生しました。"
+											+ "お問い合わせよ管理者に連絡して、解決の支援を受けてください。");
+							        response.sendRedirect("error.jsp");
+							        return;
+								} catch(SQLException e) {
+									e.printStackTrace();
+									request.getSession().setAttribute("errorMessage", "現在データベースにアクセスできません。後ほど再度お試しください"
+											+ "。問題が続く場合は、お問い合わせより管理者にご連絡ください。");
+							        response.sendRedirect("error.jsp");
+							        return;
 								}
 					
 						sizeId = Integer.parseInt(request.getParameter("sizeId"));		 //もう一度サイズ渡す
@@ -215,8 +296,18 @@ public class OrderConfilmServlet extends HttpServlet {
 					//カートから削除
 						try {
 							cartDao.destroyAllCartItem(userId); //cartから削除
-						} catch (SQLException | ClassNotFoundException e) {
+						} catch(ClassNotFoundException e) {
 							e.printStackTrace();
+							request.getSession().setAttribute("errorMessage", "内部の設定エラーが発生しました。"
+									+ "お問い合わせよ管理者に連絡して、解決の支援を受けてください。");
+					        response.sendRedirect("error.jsp");
+					        return;
+						} catch(SQLException e) {
+							e.printStackTrace();
+							request.getSession().setAttribute("errorMessage", "現在データベースにアクセスできません。後ほど再度お試しください"
+									+ "。問題が続く場合は、お問い合わせより管理者にご連絡ください。");
+					        response.sendRedirect("error.jsp");
+					        return;
 						}
 					
 
