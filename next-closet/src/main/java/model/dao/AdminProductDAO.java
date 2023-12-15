@@ -13,10 +13,10 @@ public class AdminProductDAO {
 	//商品の新規登録
 	public int addProduct(int categoryId, int gender, String productName, String description, int price, String image) 
 	        throws ClassNotFoundException, SQLException {
-	    int productId = 0; // 変更: 生成されたキーを保存するための変数
+	    int productId = 0; // 生成されたキーを保存するための変数
 	    String sql = "INSERT INTO products (category_id, gender, product_name, description, price, image) VALUES (?, ?, ?, ?, ?, ?)";
 	    try (Connection con = DBConnection.getConnection(); 
-	            PreparedStatement pstmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) { // 変更: キーを返すように指定
+	            PreparedStatement pstmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) { // キーを返すように指定
 	        
 	        pstmt.setInt(1, categoryId);
 	        pstmt.setInt(2, gender);
@@ -26,15 +26,15 @@ public class AdminProductDAO {
 	        pstmt.setString(6, image);
 	        
 	        int affectedRows = pstmt.executeUpdate();
-	        if (affectedRows > 0) { // 変更: 実際に行が挿入されたか確認
+	        if (affectedRows > 0) { // 実際に行が挿入されたか確認
 	            try (ResultSet rs = pstmt.getGeneratedKeys()) {
 	                if (rs.next()) {
-	                    productId = rs.getInt(1); // 変更: 生成されたキーを取得
+	                    productId = rs.getInt(1); // 生成されたキーを取得
 	                }
 	            }
 	        }
 	    }
-	    return productId; // 変更: 生成された商品IDを返す
+	    return productId; // 生成された商品IDを返す
 	}
 
 	

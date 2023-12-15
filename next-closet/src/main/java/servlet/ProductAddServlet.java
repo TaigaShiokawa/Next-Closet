@@ -50,7 +50,7 @@ public class ProductAddServlet extends HttpServlet {
         String fileName = "";
         Part filePart = request.getPart("image"); // inputタグのname="image"から取得
         if (filePart != null) {
-            // MS IEではファイルパスが送信されるため、ファイル名のみを取得する
+            // ファイル名のみを取得する
             fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
             if (fileName != null && !fileName.isEmpty()) {
                 filePart.write(savePath + File.separator + fileName);
@@ -95,11 +95,13 @@ public class ProductAddServlet extends HttpServlet {
 			                response.sendRedirect("product-add.jsp"); 
 			            } else {
 			                // 在庫挿入が失敗した場合の処理
-			                response.sendRedirect("error.html");
+			            	request.getSession().setAttribute("productError", "商品の登録に失敗しました。");
+			                response.sendRedirect("errorToAdmin.jsp");
 			            }
 			        } else {
 			            // 商品挿入が失敗した場合の処理
-			            response.sendRedirect("error.html"); 
+			        	request.getSession().setAttribute("productError", "商品の登録に失敗しました。");
+			            response.sendRedirect("errorToAdmin.jsp"); 
 			        }
 			    }
 			} catch (ClassNotFoundException | SQLException e) {
