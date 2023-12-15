@@ -27,15 +27,6 @@
 
 <div class="border">
 
-<!-- this.orderItemId = ordeeItemId;
-		this.productId = productId;
-		this.quantity = quantity;
-		this.sizeId = sizeId;
-		this.userId = userId;
-		this.totalAmount = totalAmount;
-		this.orderDate = orderDate;
-		this.deliveryAddress = deliveryAddress;
-	} -->
 
   <div class="container">
   	<figure class="image"><img src="https://placehold.jp/150x150.png" alt=""></figure>
