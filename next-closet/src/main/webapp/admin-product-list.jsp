@@ -126,8 +126,8 @@
 			                  </ul>
 	  
                     	 </ul>
-                    	 <button><a href="#">商品追加</a></button>
-                    	 <button><a href="#">カテゴリ追加・削除</a></button>
+                    	 <button><a href="ProductAddServlet">商品追加</a></button>
+                    	 <button><a href="ProductCategoriesSevlet">カテゴリ追加・削除</a></button>
                      </div>
                      
                      
