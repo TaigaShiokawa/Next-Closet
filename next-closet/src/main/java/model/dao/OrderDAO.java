@@ -49,6 +49,7 @@ public class OrderDAO {
 		return orderList;
 	}
 	
+	//productIdからproductNameを取得
 	public String getProductName (int productId)  {
 		
 		String productName= null;
@@ -67,6 +68,26 @@ public class OrderDAO {
      
 		return productName;
 	}
+	
+	//userIdからuserNameを取得
+		public String getUserName (int userId)  {
+			
+			String userName= null;
+			String sql = "SELECT product_name FROM users WHERE user_id = ?";
+			
+			try (Connection con = DBConnection.getConnection();
+					PreparedStatement pstmt = con.prepareStatement(sql)) {
+					pstmt.setInt(1, userId);
+					ResultSet res = pstmt.executeQuery();
+					while (res.next()) {
+						userName = res.getString("user_name");
+					}	
+			} catch (SQLException | ClassNotFoundException e){
+			 e.printStackTrace();
+		 }
+	     
+			return userName;
+		}
 	
 	
 	//オーダー全て取得
