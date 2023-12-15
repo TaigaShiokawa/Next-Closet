@@ -1,5 +1,7 @@
 package model.bean;
 
+import java.sql.Date;
+
 public class UserBean extends AddressBean{
 	
 	private int userId;
@@ -7,13 +9,13 @@ public class UserBean extends AddressBean{
 	private String kanaName;
 	private String email;
 	private String hashPass;
-	private String registerDate;
+	private Date registerDate;
 	private String telNumber;
 	private boolean userStatus;
 	
 	public UserBean() {}
 
-	public UserBean(int userId, String userName, String kanaName, String email, String hashPass, String registerDate,
+	public UserBean(int userId, String userName, String kanaName, String email, String hashPass, Date registerDate,
 			String telNumber, boolean userStatus) {
 		super();
 		this.userId = userId;
@@ -66,11 +68,11 @@ public class UserBean extends AddressBean{
 		this.hashPass = hashPass;
 	}
 
-	public String getRegisterDate() {
+	public Date getRegisterDate() {
 		return registerDate;
 	}
 
-	public void setRegisterDate(String registerDate) {
+	public void setRegisterDate(Date registerDate) {
 		this.registerDate = registerDate;
 	}
 
