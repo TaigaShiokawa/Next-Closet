@@ -69,8 +69,9 @@ public class SubAddressServlet extends HttpServlet {
 		//郵便番号の入力に対してハイフン無しの形式を要
 		if(!PostCodeValidator.validate(convertPostCode)) {
 			request.getSession().setAttribute("postCodeError", "郵便番号が正しくありません");
-	        response.sendRedirect("sub-address.jsp");
-	        return;
+//			request.getSession().setAttribute("postCodeError", "郵便番号が正しくありません");
+			response.sendRedirect("SubAddressServlet");
+	    	return;
 		}
 		
 		UserDAO uDao = new UserDAO();
