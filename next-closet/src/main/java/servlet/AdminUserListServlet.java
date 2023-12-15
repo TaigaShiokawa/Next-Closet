@@ -28,9 +28,10 @@ public class AdminUserListServlet extends HttpServlet {
 					request.setAttribute("userList",userDao.getAllStatusUserList()); //ユーザー一覧
 					
 					 if (searchName != null && !searchName.isEmpty()) {
+						 System.out.println(searchName);
 						//検索がある場合、検索機能を使用
 						request.setAttribute("searchUsers", searchDao.searchStatusUserList(searchName));
-						request.setAttribute("title", searchName + "の検索結果");				
+						request.setAttribute("title", "ユーザー一覧 / " + searchName + "の検索結果");				
 						
 					} else {
 								request.setAttribute("title","ユーザー一覧表示");

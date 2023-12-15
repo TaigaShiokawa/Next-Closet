@@ -31,6 +31,7 @@
 </head>
 
 <body>
+<%@ include file="includes/admin-navbar.jsp" %>
 <div class="content wrapper">
 		<div class="side_bar">
                 <ul id="category_list">

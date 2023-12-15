@@ -14,7 +14,7 @@ import model.dao.AdminDAO;
 import model.dao.SearchDAO;
 
 
-@WebServlet("/AdminrListServlet")
+@WebServlet("/AdminListServlet")
 public class AdminListServlet extends HttpServlet {
 	
 	
@@ -29,8 +29,8 @@ public class AdminListServlet extends HttpServlet {
 					
 					 if (searchName != null && !searchName.isEmpty()) {
 						//検索がある場合、検索機能を使用
-						request.setAttribute("searchAdmins", searchDao.searchStatusAdminList(searchName));
-						request.setAttribute("title", searchName + "の検索結果");				
+				        request.setAttribute("searchAdmins", searchDao.searchStatusAdminList(searchName));
+						request.setAttribute("title", "管理者一覧 / " + searchName + "の検索結果");				
 						
 					} else {
 								request.setAttribute("title","管理者一覧表示");

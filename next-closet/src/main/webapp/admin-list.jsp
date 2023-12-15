@@ -4,7 +4,7 @@
 <%@ page import="java.util.*" %>
 <%@ page import="model.StatusText" %>
  <%  StatusText st = new StatusText(); %>
- <% List<AdminBean> userList = (ArrayList <AdminBean>)request.getAttribute("adminList");
+ <% List<AdminBean> adminList = (ArrayList <AdminBean>)request.getAttribute("adminList");
  List <AdminBean> searchAdmins = (ArrayList<AdminBean>)request.getAttribute("searchAdmins");
  String  title = (String)request.getAttribute("title");
  
@@ -23,13 +23,16 @@
 </head>
 
 <body>
+<%@ include file="includes/admin-navbar.jsp" %>
 <div class="content wrapper">
 
 						<div class="search">
-				              <form action="AdminUserListServlet" method="get">
+				               <form action="AdminListServlet" method="get">
 				                   <input type="text" name="searchName" class="search_box" placeholder="キーワードで商品名を検索">
 				                   <input class="sarch_btn" type="submit" value="検索">
 				               </form>
+				               
+				               <button><a href="AdminListServlet">一覧表示</a></button>
 				        </div>
             
 			  		<div class="tab">
@@ -68,7 +71,7 @@
 				                     		   					   <li><%= st.adminStatusText(columns.isAdminStatus()) %></li>
 				                     		   					   <li><a href="AdminDetailServlet?adminId=<%= columns.getAdminId() %>">詳細を見る</a></li>
 				                     		   					 </ul>
-							                    			 <
+							                    			 
 						                    			 
 						                    		  <% } } } %>
 			                     		 
@@ -94,15 +97,10 @@
 			                     
 			                     
 			                     <div class="tab__panel-box tab__panel-box002 " data-panel="02"> <!-- 販売中 -->
-			                    	 <div class="search">
-							              <form action="AdminProductListServlet" method="get">
-							                   <input type="text" name="searchName" class="search_box" placeholder="キーワードで商品名を検索">
-							                   <input class="sarch_btn" type="submit" value="検索">
-							               </form>
-							        </div>
+			                    
 			                     		<ul class="admin-list">
 			                     		
-					                      <% if (searchUsers != null ){
+					                      <% if (searchAdmins != null ){
 					                     		for (AdminBean columns : adminList) { 
 					                     		   	for (AdminBean sarch : searchAdmins) {
 					                     			   		targetAdminId = columns.getAdminId();
@@ -141,13 +139,8 @@
 			                     
 			                     
 			                     <div class="tab__panel-box tab__panel-box003" data-panel="03"> <!-- 削除済み -->
-			                     	<div class="search">
-							              <form action="AdminServlet" method="get">
-							                   <input type="text" name="searchName" class="search_box" placeholder="キーワードで商品名を検索">
-							                   <input class="sarch_btn" type="submit" value="検索">
-							               </form>
-							        </div>
-				                     <ul class="product-list">
+			                     	
+				                     <ul class="admin-list">
 				                     <% if (searchAdmins != null ){
 			                     		for (AdminBean columns : adminList) { 
 			                     		   	for (AdminBean sarch : searchAdmins) {
