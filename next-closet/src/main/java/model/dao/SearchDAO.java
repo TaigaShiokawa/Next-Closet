@@ -103,12 +103,15 @@ public class SearchDAO {
 			
 			return list;
 		}
+		
+		
 
 		//検索した管理者の情報取得
 		public List< AdminBean > searchStatusAdminList(String searchName) throws ClassNotFoundException, SQLException {
+			
 			 List< AdminBean > list = new  ArrayList <AdminBean>();
 			
-			String sql = "SELECT * FROM admin　WHERE admin_name LIKE ? ";
+			String sql = "SELECT * FROM admins WHERE admin_name LIKE ? ";
 			try (Connection con = DBConnection.getConnection(); 
 					PreparedStatement pstmt = con.prepareStatement(sql)) { 
 				    pstmt.setString(1, "%" + searchName + "%");

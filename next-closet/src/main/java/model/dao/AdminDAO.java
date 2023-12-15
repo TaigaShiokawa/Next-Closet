@@ -52,7 +52,7 @@ public class AdminDAO {
 			public List< AdminBean > getAllStatusAdminList() throws ClassNotFoundException, SQLException {
 				 List< AdminBean > list = new  ArrayList <AdminBean>();
 				
-				String sql = "SELECT * FROM admin ";
+				String sql = "SELECT * FROM admins ";
 				try (Connection con = DBConnection.getConnection(); 
 						PreparedStatement pstmt = con.prepareStatement(sql)) { 
 				    	ResultSet res = pstmt.executeQuery();
