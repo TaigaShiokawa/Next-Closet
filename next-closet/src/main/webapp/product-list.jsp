@@ -62,7 +62,12 @@
                           // 検索結果の表示
                           for (ProductBean columns : searchProducts) {
                                String img = columns.getImage();
-                               img = (img == null) ? "https://placehold.jp/480x640.png" : img;
+                               if ( img == null ){
+                            	   img = "https://placehold.jp/480x640.png";
+                               } else {
+                            	   img = "image/" + img;
+                               }
+                            
                           %>  
                    		  <li>
 	                         <a href="ProductDetailServlet?productId=<%= columns.getProductId() %>">
@@ -77,7 +82,11 @@
 		            	     //通常の商品リスト表示
 		            	     for (ProductBean columns : productList) {
 		                          String img = columns.getImage();
-		                          img = (img == null) ? "https://placehold.jp/480x640.png" : img;
+		                          if ( img == null ){
+	                            	   img = "https://placehold.jp/480x640.png";
+	                               } else {
+	                            	   img = "image/" + img;
+	                               }
 		            	 %>
 		            	 <li>
 	                         <a href="ProductDetailServlet?productId=<%= columns.getProductId() %>">
