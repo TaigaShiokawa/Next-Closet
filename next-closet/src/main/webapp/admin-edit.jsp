@@ -9,12 +9,12 @@
 <title>next closet...</title>
 </head>
 <body>
- <%@ include file="includes/navbar.jsp" %>  
- <form method="post" action="">
+<%@ include file="includes/navbar.jsp" %>
+ <form method="post" action="AdminEditServlet">
 	<label>お名前：</label><input type="text" name="adminname" value="<%=loginAdmin.getAdminName() %>"><br>
 	<label>フリガナ：</label><input type="text" name="kananame" value="<%=loginAdmin.getAdminKanaName() %>"><br>
-	<label>メールアドレス：</label><input type="text" name="email" value="<%=loginAdmin.getEmail() %>"><br>
-	<label>パスワード：</label><input type="text" name="password" value="<%=loginAdmin.getPassword() %>"><br>
+	<label>メールアドレス：</label><input type="email" name="email" value="<%=loginAdmin.getEmail() %>"><br>
+	<label>パスワード：</label><input type="password" name="password" value="<%=loginAdmin.getPassword() %>"><br>
 	<button type="submit">更新</button>
  </form>
 </body>
