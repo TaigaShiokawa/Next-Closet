@@ -42,7 +42,7 @@
                   						</li>                  						
                   						<li>
                   							  <p>数量</p>
-                  							  <p><%= list.getQuanty() %></p>
+                  							  <p><%= list.getQuantity() %></p>
                   						</li>
                   						<li>
                   							  <p>サイズ</p>
