@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.bean.ProductBean;
-import model.dao.ProductDAO;
+import model.dao.AdminProductDAO;
 
 @WebServlet("/AdminProductDetailServlet")
 public class AdminProductDetailServlet extends HttpServlet {
@@ -21,7 +21,7 @@ public class AdminProductDetailServlet extends HttpServlet {
         try {
             int productId = Integer.parseInt(request.getParameter("productId"));
 
-            ProductDAO productDao = new ProductDAO();
+            AdminProductDAO productDao = new AdminProductDAO();
             List<ProductBean> productList = productDao.detailAdminProductList(productId);
             request.setAttribute("productList", productList);
 
