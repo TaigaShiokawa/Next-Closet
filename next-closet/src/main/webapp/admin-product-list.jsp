@@ -61,6 +61,13 @@
                     
                 </ul>
           </div><!--  side_barの閉じタグ -->
+          
+          <div class="search">
+				              <form action="AdminProductListServlet" method="get">
+				                   <input type="text" name="searchName" class="search_box" placeholder="キーワードで商品名を検索">
+				                   <input class="sarch_btn" type="submit" value="検索">
+				               </form>
+				        </div>
             
   		<div class="tab">
  				 <h1 class="page-title"><%= title %></h1>	
@@ -73,12 +80,7 @@
 			    
 			    <div class="tab__panel">
                     <div class="tab__panel-box tab__panel-box001 is-show" data-panel="01"> <!-- 全表示 -->
-                    	<div class="search">
-				              <form action="AdminProductListServlet" method="get">
-				                   <input type="text" name="searchName" class="search_box" placeholder="キーワードで商品名を検索">
-				                   <input class="sarch_btn" type="submit" value="検索">
-				               </form>
-				        </div>
+                    	
 				                
                      	<ul class="product-list">
                      	 
@@ -94,7 +96,7 @@
 	                     		   					 <ul>
 	                     		   					   <li>商品番号:<%= columns.getProductId() %></li>
 	                     		   					   <li>商品名:<%= columns.getProductName()  %></li>
-	                     		   					   <li><%= st.productStatusText(columns.getStatus()) %></li>
+	                     		   					   <li><%= st.productStatusText(columns.isStatus()) %></li>
 	                     		   					   <li><a href="AdminProductDetailServlet?productId=<%= columns.getProductId() %>">詳細を見る</a></li>
 	                     		   					 </ul>
 					                       			
@@ -112,7 +114,7 @@
 					                    		     <ul>
 	                     		   					   <li>商品番号:<%= columns.getProductId() %></li>
 	                     		   					   <li>商品名:<%= columns.getProductName()  %></li>
-	                     		   					   <li><%= st.productStatusText(columns.getStatus()) %></li>
+	                     		   					   <li><%= st.productStatusText(columns.isStatus()) %></li>
 	                     		   					   <li><a href="AdminProductDetailServlet?productId=<%= columns.getProductId() %>">詳細を見る</a></li>
 	                     		   					 </ul>
 			                    			<% }%>
@@ -129,12 +131,7 @@
                      
                      
                      <div class="tab__panel-box tab__panel-box002 " data-panel="02"> <!-- 販売中 -->
-                    	 <div class="search">
-				              <form action="AdminProductListServlet" method="get">
-				                   <input type="text" name="searchName" class="search_box" placeholder="キーワードで商品名を検索">
-				                   <input class="sarch_btn" type="submit" value="検索">
-				               </form>
-				        </div>
+                    	
                      		<ul class="product-list">
                      		
 		                      <% if (searchProducts != null ){
@@ -176,12 +173,7 @@
                      
                      
                      <div class="tab__panel-box tab__panel-box003" data-panel="03"> <!-- 削除済み -->
-                     	<div class="search">
-				              <form action="AdminProductListServlet" method="get">
-				                   <input type="text" name="searchName" class="search_box" placeholder="キーワードで商品名を検索">
-				                   <input class="sarch_btn" type="submit" value="検索">
-				               </form>
-				        </div>
+                     	
 	                     <ul class="product-list">
 	                     <% if (searchProducts != null ){
                      		for (ProductBean columns : productList) { 
