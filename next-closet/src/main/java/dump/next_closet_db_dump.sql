@@ -27,6 +27,7 @@ CREATE TABLE `add_addresses` (
   `user_id` int(11) NOT NULL,
   `post_code` varchar(20) NOT NULL,
   `address` varchar(100) NOT NULL,
+  `prefectures` varchar(100) NOT NULL,
   PRIMARY KEY (`add_address_id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `add_addresses_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
@@ -54,10 +55,11 @@ CREATE TABLE `addresses` (
   `user_id` int(11) NOT NULL,
   `post_code` varchar(20) NOT NULL,
   `address` varchar(100) NOT NULL,
+  `prefectures` varchar(100) NOT NULL,
   PRIMARY KEY (`address_id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `addresses_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -66,7 +68,6 @@ CREATE TABLE `addresses` (
 
 LOCK TABLES `addresses` WRITE;
 /*!40000 ALTER TABLE `addresses` DISABLE KEYS */;
-INSERT INTO `addresses` VALUES (1,1,'0000000','東京都新宿区1-1');
 /*!40000 ALTER TABLE `addresses` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -80,6 +81,7 @@ DROP TABLE IF EXISTS `admins`;
 CREATE TABLE `admins` (
   `admin_id` int(11) NOT NULL AUTO_INCREMENT,
   `admin_name` varchar(100) NOT NULL,
+  `admin_kana_name` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `hash_pass` varchar(250) NOT NULL,
   PRIMARY KEY (`admin_id`)
@@ -104,13 +106,17 @@ DROP TABLE IF EXISTS `cart_items`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `cart_items` (
   `cart_item_id` int(11) NOT NULL AUTO_INCREMENT,
-  `cart_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
+  `size_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
   PRIMARY KEY (`cart_item_id`),
-  KEY `cart_id` (`cart_id`),
+  KEY `user_id` (`user_id`),
   KEY `product_id` (`product_id`),
-  CONSTRAINT `cart_items_ibfk_1` FOREIGN KEY (`cart_id`) REFERENCES `carts` (`cart_id`),
-  CONSTRAINT `cart_items_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`)
+  KEY `size_id` (`size_id`),
+  CONSTRAINT `cart_items_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`),
+  CONSTRAINT `cart_items_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`),
+  CONSTRAINT `cart_items_ibfk_3` FOREIGN KEY (`size_id`) REFERENCES `sizes` (`size_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -121,31 +127,6 @@ CREATE TABLE `cart_items` (
 LOCK TABLES `cart_items` WRITE;
 /*!40000 ALTER TABLE `cart_items` DISABLE KEYS */;
 /*!40000 ALTER TABLE `cart_items` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `carts`
---
-
-DROP TABLE IF EXISTS `carts`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `carts` (
-  `cart_id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
-  PRIMARY KEY (`cart_id`),
-  KEY `user_id` (`user_id`),
-  CONSTRAINT `carts_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `carts`
---
-
-LOCK TABLES `carts` WRITE;
-/*!40000 ALTER TABLE `carts` DISABLE KEYS */;
-/*!40000 ALTER TABLE `carts` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -209,14 +190,20 @@ DROP TABLE IF EXISTS `order_items`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `order_items` (
   `order_item_id` int(11) NOT NULL AUTO_INCREMENT,
-  `order_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL,
+  `size_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `total_amount` int(11) NOT NULL,
+  `order_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `delivery_address` varchar(100) NOT NULL,
   PRIMARY KEY (`order_item_id`),
-  KEY `order_id` (`order_id`),
   KEY `product_id` (`product_id`),
-  CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`),
-  CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`)
+  KEY `size_id` (`size_id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`),
+  CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`size_id`) REFERENCES `sizes` (`size_id`),
+  CONSTRAINT `order_items_ibfk_3` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -227,33 +214,6 @@ CREATE TABLE `order_items` (
 LOCK TABLES `order_items` WRITE;
 /*!40000 ALTER TABLE `order_items` DISABLE KEYS */;
 /*!40000 ALTER TABLE `order_items` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `orders`
---
-
-DROP TABLE IF EXISTS `orders`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `orders` (
-  `order_id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
-  `total_amount` int(11) NOT NULL,
-  `orders_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`order_id`),
-  KEY `user_id` (`user_id`),
-  CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `orders`
---
-
-LOCK TABLES `orders` WRITE;
-/*!40000 ALTER TABLE `orders` DISABLE KEYS */;
-/*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -328,7 +288,7 @@ CREATE TABLE `users` (
   `tel_number` varchar(20) NOT NULL,
   `user_status` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -337,7 +297,6 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'山田 太郎','taro@mail.com','1a10ed5bc594509c20501196f68de6bbc84a7f169e66a4573007c84af2950674','2023-12-10 15:50:02','00000000000',1,'ヤマダ タロウ');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -350,4 +309,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-11  0:52:03
+-- Dump completed on 2023-12-15 10:11:59

@@ -42,5 +42,7 @@ public class AdminDAO {
 		}
 		return processingNum;
 	}
+	
+	
 
 }

@@ -11,10 +11,10 @@
     <link rel="stylesheet" href="css/product-list.css">
 	<link rel = "stylesheet" href = "css/navbar.css">
     <%
-    List<ProductBean> productList = (ArrayList <ProductBean>)request.getAttribute("productList");
-    List<CategoryBean> categoryList = (ArrayList <CategoryBean>)request.getAttribute("categoryList");
-    List<ProductBean> searchProducts = (ArrayList<ProductBean>)request.getAttribute("searchProducts");
-    String  title = (String)request.getAttribute("title");
+	    List<ProductBean> productList = (ArrayList <ProductBean>)request.getAttribute("productList");
+	    List<CategoryBean> categoryList = (ArrayList <CategoryBean>)request.getAttribute("categoryList");
+	    List<ProductBean> searchProducts = (ArrayList<ProductBean>)request.getAttribute("searchProducts");
+	    String  title = (String)request.getAttribute("title");
     %>
 </head>
 <body>
