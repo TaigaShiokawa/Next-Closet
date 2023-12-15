@@ -40,7 +40,7 @@ public class ProductDAO {
 	}
 	
 	//販売ステータス関係なしの一覧表示(productsテーブル)
-		public List <ProductBean>  allStatusProductList() throws SQLException , ClassNotFoundException{
+		public List <ProductBean> allStatusProductList() throws SQLException , ClassNotFoundException{
 			List <ProductBean> productList = new ArrayList<>();
 			String sql = "SELECT * FROM products";
 	        try(Connection con = DBConnection.getConnection();  //データベースに接続する
@@ -57,6 +57,7 @@ public class ProductDAO {
 			            	boolean status       		= res.getBoolean("status");
 			            	String image         		= res.getString("image");
 			            	Date registration_date      = res.getDate("registration_date");
+			            	
 			            	productList.add(new ProductBean (product_id, category_id,  gender, product_name, price , description , status , image , registration_date));
 			            }
 			     }	
