@@ -17,7 +17,11 @@
   <div class="split left-box">
 <!-- add_addressテーブルに追加する --> 
 <h2>新しい住所を追加</h2>
-
+<% String postCodeError = (String)request.getSession().getAttribute("postCodeError"); %>
+<% if(postCodeError != null) { %>
+<p><%=postCodeError %></p>
+<% session.removeAttribute("postCodeError"); %>
+<% } %>
 <form action="SubAddressServlet" method="post">
 	<label>郵便番号：</label><input type="text" name="postcode" placeholder="例) 0000000" required><br> 
 
@@ -81,13 +85,22 @@
 <div class="split right-box">
 <!-- Listをfor文で回して追加した住所を表示 -->
 <h2>追加した住所</h2>
+<% String deleteAddressNotFound = (String)request.getSession().getAttribute("deleteAddressNotFound"); %>
 <% List<AddressBean> addressList = (List<AddressBean>)request.getAttribute("addressList"); %>
-<% for(AddressBean addresses : addressList) { %>
-<form action="AddressDeleteServlet" method="post">
-	<div>
-    	<input type="checkbox" name="addAddressId" value="<%=addresses.getAddAddressId()%>"> <!-- サブ住所のIDを値として返す -->
-    	<label><%=addresses.getPrefectures()%><%=addresses.getAddress()%>；</label>
-    </div>
+<% if(deleteAddressNotFound != null) { %>
+<p><%=deleteAddressNotFound %></p>
+<% session.removeAttribute("deleteAddressNotFound"); %>
+<% } %>
+<% if(addressList == null) { %>
+	<% response.sendRedirect("SubAddressServlet"); %>
+	<% } else { %> 
+	<% for(AddressBean addresses : addressList) { %>
+		<form action="AddressDeleteServlet" method="post">
+			<div>
+		    	<input type="checkbox" name="addAddressId" value="<%=addresses.getAddAddressId()%>"> <!-- サブ住所のIDを値として返す -->
+		    	<label><%=addresses.getPrefectures()%><%=addresses.getAddress()%></label>
+		    </div>
+	<% } %>
 	<button type="submit">削除</button>
 </form>
 <% } %>

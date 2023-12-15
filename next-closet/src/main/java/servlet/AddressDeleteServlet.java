@@ -31,6 +31,11 @@ public class AddressDeleteServlet extends HttpServlet {
 	    UserDAO uDao = new UserDAO();
 
 	    String[] addAddressIds = request.getParameterValues("addAddressId"); 
+	    if(addAddressIds == null) {
+	    	request.getSession().setAttribute("deleteAddressNotFound", "削除する住所にチェックを入れてください。");
+	    	response.sendRedirect("SubAddressServlet");
+	    	return;
+	    }
 	    //削除するサブ住所のIDを全て配列に格納.getParameterValuesを使用しているのは, 同じ名前のパラメータが複数存在するため.
 	    if(addAddressIds != null) {
 	        for(String addressId : addAddressIds) {
@@ -55,7 +60,12 @@ public class AddressDeleteServlet extends HttpServlet {
 	        // 削除後に最新のアドレスリストを取得
 	        int userId = (int) request.getSession().getAttribute("userId");
 	        try {
-	            List<AddressBean> addressList = uDao.getSubAddress(userId); //更新されたサブ住所の取得.
+	            List<AddressBean> addressList = uDao.getSubAddress(userId); //更新されたサブ住所の取得
+	            if(addressList == null) {
+	    	    	request.getSession().setAttribute("deleteAddressNotFound", "削除する住所にチェックを入れてください。");
+	    	    	response.sendRedirect("SubAddressServlet");
+	    	    	return;
+	    	    }
 	            request.setAttribute("addressList", addressList);
 	        } catch(ClassNotFoundException e) {
 	        	e.printStackTrace();
