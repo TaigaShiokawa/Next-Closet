@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.dao.CategoryDAO;
 
-@WebServlet("/ProductCategoriesSevlet")
+@WebServlet("/ProductCategoriesServlet")
 public class ProductCategoriesSevlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -36,27 +36,26 @@ public class ProductCategoriesSevlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		request.setCharacterEncoding("UTF-8");
+		
 		CategoryDAO categoryDao = new CategoryDAO();
 		String delete = request.getParameter("delete");
 		String add = request.getParameter("add");
 		String addCategoryName = request.getParameter("AddCategoryName");
 		
-		try {
-			request.setAttribute("categoryList", categoryDao.getCategoryList());
-		} catch ( SQLException | ClassNotFoundException e ) {
-			e.printStackTrace();
-		}
+		System.out.println(addCategoryName);
 		
 		try {
 			if( delete != null ) {
-				if(categoryDao.getNoProductCategory(delete)) {  // もし今このカテゴリーに属する商品がなければ
-					categoryDao.deleteCategory(delete); //削除
+				int categoryId = Integer.parseInt(delete);
+				System.out.println(categoryId);
+				if(categoryDao.getNoProductCategory(categoryId)) {  // もし今このカテゴリーに属する商品がなければ
+					categoryDao.deleteCategory(categoryId); //削除
 				} else {
 					request.setAttribute("message","このカテゴリーに属する商品があるので削除できません");
 				}
-
-	
 			}
+			
 		} catch ( SQLException | ClassNotFoundException e ) {
 			e.printStackTrace();
 		}
@@ -66,19 +65,22 @@ public class ProductCategoriesSevlet extends HttpServlet {
 			try {
 				if(categoryDao.getCategory(addCategoryName)){
 					categoryDao.addCategory(addCategoryName);
-					request.setAttribute("message","カテゴリーに" + addCategoryName + "を追加しました");
-					
+					request.setAttribute("message","カテゴリーに" + addCategoryName + "を追加しました");	
 				} else {
-					
 					request.setAttribute("message","既に存在しているカテゴリー名です");
-					
-				}
-				
+				}			
 			}catch(SQLException | ClassNotFoundException e) {
 				e.printStackTrace();
 			}
 			
 		} //新規登録終了
+		
+		try {
+			request.setAttribute("categoryList", categoryDao.getCategoryList());
+		} catch ( SQLException | ClassNotFoundException e ) {
+			e.printStackTrace();
+		}
+		
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("product-categories.jsp");
    	    dispatcher.forward(request, response);

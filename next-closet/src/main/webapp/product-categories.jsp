@@ -23,15 +23,15 @@ if(message == null){
     				<ul>
 	    				<li><%= columns.getCategoryName() %></li>
 				    	<li>
-				    	  <form action="ProductCategoriesServlet">
-				    	  	<input type="hidden" name="delete" value="<%= columns.getCategoryName() %>">
+				    	  <form action="ProductCategoriesServlet" method="post">
+				    	  	<input type="hidden" name="delete" value='<%= columns.getCategoryId() %>'>
 				    	  	<input type="submit" value="削除">
 				    	  </form>
 				    	</li>
     				</ul>
 	      　<% } %>
 	    </ul>
-		<form action="ProductCategoryServlet" method="post">
+		<form action="ProductCategoriesServlet" method="post">
 			<input type="text" name="AddCategoryName"> 
 			<input type="hidden" name="add" value="add">
 			<input type="submit" value="新規登録">

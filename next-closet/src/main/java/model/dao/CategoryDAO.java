@@ -35,18 +35,23 @@ public List <CategoryBean> getCategoryList() throws ClassNotFoundException, SQLE
 	//カテゴリーが今あるかどうか
 	public boolean getCategory(String categoryName) throws ClassNotFoundException, SQLException {
 			
-	        String sql = "SELECT COUNT( category_id ) FROM categories WHERE category_name = ? "; //postsテーブルの全データをsqlに格納
+	        String sql = "SELECT COUNT(category_name = ? ) AS c FROM categories WHERE category_name = ?"; //postsテーブルの全データをsqlに格納
 	        int count = 0;
 	        boolean category = false;
+	        
+	        System.out.println(count +"と"+ categoryName);
 	       
 	        try(Connection con = DBConnection.getConnection(); //データベースに接続する
-	        PreparedStatement statement = con.prepareStatement(sql)){
-	        statement.setString(1, categoryName);
-	        ResultSet res = statement.executeQuery(); //引数で指定されたSQLをデータベースで実行するメソッド
+	        PreparedStatement pstmt = con.prepareStatement(sql)){
+	        	pstmt.setString(1,categoryName);
+				pstmt.setString(2,categoryName);
+				ResultSet res = pstmt.executeQuery(); //引数で指定されたSQLをデータベースで実行するメソッド
 	        		         
 			            while (res.next()){ 
-			            	 count	= res.getInt("count");
+			            	 count	= res.getInt("c");
 			            }
+			            
+			            System.out.println(count);
 			            
 			            if( count == 0 ) {
 			            	category = true;
@@ -61,45 +66,41 @@ public List <CategoryBean> getCategoryList() throws ClassNotFoundException, SQLE
 	
 		String sql = "INSERT INTO categories (category_name) VALUES (?)";
 		try (Connection con = DBConnection.getConnection(); 
-				PreparedStatement pstmt = con.prepareStatement(sql)) {
+			PreparedStatement pstmt = con.prepareStatement(sql)){
 			pstmt.setString(1, categoryName);
 			pstmt.executeUpdate();
 		}
 	}
 	
 	//このカテゴリーを選択している商品が今あるかどうか
-		public boolean getNoProductCategory( String categoryName ) throws ClassNotFoundException, SQLException {
-				
-		        String sql = "SELECT COUNT( product_id ) FROM products WHERE category_name = ? "; //postsテーブルの全データをsqlに格納
+		public boolean getNoProductCategory( int categoryId ) throws ClassNotFoundException, SQLException {
+		        String sql = "SELECT COUNT(category_id = ? )AS c FROM products WHERE category_id = ? ";//postsテーブルの全データをsqlに格納
 		        int count = -1;
 		        boolean category = false;
 		       
 		        try(Connection con = DBConnection.getConnection(); //データベースに接続する
 		        PreparedStatement statement = con.prepareStatement(sql)){
-		        statement.setString(1, categoryName);
+		        statement.setInt(1, categoryId);
+		        statement.setInt(2, categoryId);
 		        ResultSet res = statement.executeQuery(); //引数で指定されたSQLをデータベースで実行するメソッド
 		        		         
 				            while (res.next()){ 
-				            	 count	= res.getInt("count");
+				            	 count	= res.getInt("c");
 				            }
 				            
 				            if( count == 0 ) {
 				            	category = true;
-				            }     
+				            } 
 		        }
-			     	
 		        return category;		
 		}
 		
-	
-		
 		//カテゴリー追加
-		public void deleteCategory(String categoryName) throws ClassNotFoundException, SQLException {
-		
-			String sql = "DELETE * FROM categories WHERE category_name = ";
+		public void deleteCategory( int categoryId ) throws ClassNotFoundException, SQLException {
+			String sql = "DELETE FROM categories WHERE category_id = ?";
 			try (Connection con = DBConnection.getConnection(); 
 					PreparedStatement pstmt = con.prepareStatement(sql)) {
-				pstmt.setString(1, categoryName);
+				pstmt.setInt(1, categoryId);
 				pstmt.executeUpdate();
 			}
 		}
