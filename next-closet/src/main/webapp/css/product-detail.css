@@ -5,9 +5,6 @@
     margin: 0;
 }
 
-/* 共通 */
-
-
 img{
 	width:500px;
 	height:500px;
@@ -19,7 +16,11 @@ img{
 	width: 100%;
 	max-width:1200px;
 	margin: 0 auto;
-	padding : 60px;
+	padding : 70px;
+}
+
+.product_contents{
+	margin: 0 auto;
 }
 
 p{
@@ -29,4 +30,87 @@ p{
 
 #product_name{
 	font-size:32px;
+}
+
+#goLogin , .submit{
+	background-color: transparent;
+	border: none;
+}
+
+.submit{
+	width:160px;
+	padding:20px;
+	margin-top:60px;
+	margin-right:50px;
+	display: inline-block;
+	text-decoration: none;
+	border-radius:5px ;
+	background-color: rgb(56, 56, 56);
+	color : #fff;
+}
+
+#goLogin a , .submit a{
+	padding:20px;
+	margin-top:60px;
+	display: inline-block;
+	text-decoration: none;
+	border-radius:5px ;
+	background-color: rgb(56, 56, 56);
+	color : #fff;
+}
+
+#goLogin a:hover , .submit:hover{
+	opacity:.7;
+	}
+	
+#product-detail{
+	padding-left:100px;
+}
+
+.tax_in{
+	font-size: 10px;
+	padding-left:5px;
+}
+
+.text{
+	margin-bottom:20px;
+}
+
+.product_contents{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* ラジオボタン装飾 */
+
+input[type=radio] {
+display: none; /* ラジオボタンを非表示にする */
+}
+
+input[type=radio]:checked + label {
+background: rgb(119, 120, 122);/* マウス選択時の背景色を指定する */
+color: rgb(15, 15, 15); /* マウス選択時のフォント色を指定する */
+}
+.radio_label:hover {
+background-color: rgb(192, 195, 197); /* マウスオーバー時の背景色を指定する */
+}
+
+input[type=radio]:checked + label {
+background: rgb(52, 53, 55);/* マウス選択時の背景色を指定する */
+color: #c7c7c7; /* マウス選択時のフォント色を指定する */
+}
+
+.radio_label {
+display: block; /* ブロックレベル要素化する */
+float: left;
+margin: 5px; /* ボックス外側の余白を指定する */
+width: 50px; /* ボックスの横幅を指定する */
+height: 50px; /* ボックスの高さを指定する */
+color: rgb(43, 43, 46); /* フォントの色を指定 */
+border: 1px solid #c7c7c7;/* ボックスの境界線を実線で指定する */
+line-height: 50px;
+border-radius: 50%;
+color: rgb(34, 34, 34);/* チェックされていないラベル*/
+text-align: center;
 }
