@@ -10,7 +10,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>next closet ...</title>
+<link rel="stylesheet" href="css/navbar.css">
 </head>
 <body>
 <%@ include file="includes/navbar.jsp" %>

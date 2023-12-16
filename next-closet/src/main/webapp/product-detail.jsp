@@ -46,6 +46,7 @@
 				<label>数量</label><input type="number" name = "quantity"　required>
 				<input type="submit" value="カートに入れる" >
 				<input type="submit" value="いますぐ買う" onclick="goOrder()">
+				<!-- ログインしてなかったらログインに飛ばす -->
 			</form>
 		</div>
 		<% } %>
