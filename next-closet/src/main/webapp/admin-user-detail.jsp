@@ -1,51 +1,51 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="model.bean.*" %>
 <%@ page import="model.dao.*" %>
-<% UserBean loginUser = (UserBean)request.getSession().getAttribute("user"); %>
-<% AddressBean loginUserAddress = (AddressBean)request.getSession().getAttribute("userAddress"); %>
-<% if(loginUser == null) { %>
-<% response.sendRedirect("LoginServlet"); %>
-<% } %>  
+<%@ page import="java.util.* , java.util.ArrayList, java.util.List" %>
 <!DOCTYPE html>
 <html>
 <head>
 <!-- <link rel="stylesheet" href="css/mypage.css"> -->
-<link rel="stylesheet" href="css/navbar.css">
+<!-- <link rel="stylesheet" href="css/navbar.css"> -->
 <meta charset="UTF-8">
 <title>登録ユーザー情報編集</title>
 
 </head>
 <body>
- <%@ include file="includes/navbar.jsp" %>  
+<%--  <%@ include file="includes/navbar.jsp" %>   --%>
+ <%
+ List<UserBean> userList = (List<UserBean>)request.getAttribute("userList"); 
+ for (UserBean user : userList) {
+ %>
 
         <table>
     <tr>
         <td><label for="name">お名前</label></td>
-      <td><%=userDao.getUserName() %></td> 
+      <td><%=user.getUserName() %></td> 
     </tr>
     <tr>
         <td><label for="furigana">フリガナ</label></td>
-        <td><%=userDao.getKanaName() %></td>
+        <td><%=user.getKanaName() %></td>
     </tr>
     <tr>
         <td><label for="postalcode">郵便番号</label></td>
-        <td><%=loginUserAddress.getPostCode() %></td>
+        <td><%=user.getPostCode() %></td>
     </tr>
     <tr>
         <td><label for="address">都道府県</label></td>
-        <td><%=loginUserAddress.getPrefectures() %></td>
+        <td><%=user.getPrefectures() %></td>
     </tr>
     <tr>
         <td><label for="city">住所</label></td>
-        <td><%=loginUserAddress.getAddress() %></td>
+        <td><%=user.getAddress() %></td>
     </tr>
     <tr>
         <td><label for="phone">電話番号</label></td>
-        <td><%=userDao.getTelNumber() %></td>
+        <td><%=user.getTelNumber() %></td>
     </tr>
     <tr>
         <td><label for="email">メールアドレス</label></td>
-        <td><%=userDao.getEmail() %></td>
+        <td><%=user.getEmail() %></td>
     </tr>
 </table>
 
@@ -55,7 +55,9 @@
         </p>
         
        
-
+<% 
+ }
+%>
 
 </body>
 </html>
