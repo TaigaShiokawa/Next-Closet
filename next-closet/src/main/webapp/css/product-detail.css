@@ -1,0 +1,32 @@
+@charset "UTF-8";
+
+*{
+    padding: 0;
+    margin: 0;
+}
+
+/* 共通 */
+
+
+img{
+	width:500px;
+	height:500px;
+	object-fit: cover;
+}
+
+.wrapper{
+	display: flex;
+	width: 100%;
+	max-width:1200px;
+	margin: 0 auto;
+	padding : 60px;
+}
+
+p{
+	font-family: 'Noto Sans JP', sans-serif;
+	letter-spacing: 1px;
+}
+
+#product_name{
+	font-size:32px;
+}

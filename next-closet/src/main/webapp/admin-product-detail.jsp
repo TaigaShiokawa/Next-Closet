@@ -20,7 +20,7 @@
         <p><img src="<%= product.getImage() %>" alt="Product Image"></p>
         <p>ID: <%= product.getProductId() %></p>
         <p>商品名: <%= product.getProductName() %></p>
-        <p>説明: <%= product.getDescruption() %></p>
+        <p>説明: <%= product.getDescription() %></p>
         <p>価格: <%= product.getPrice() %>円</p>
         <p>在庫数: <%= product.getStockQuantity() %></p>
         <p>登録日: <%= product.getRegistrationDate() %></p>

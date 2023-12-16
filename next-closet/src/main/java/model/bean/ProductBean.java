@@ -10,14 +10,14 @@ public class ProductBean extends InventoryBean implements Serializable{
 	private int gender;
 	private String productName;
 	private int price;
-	private String descruption;
+	private String description;
 	private boolean status;
 	private String image;
 	private Date registrationDate;
 	
 	public ProductBean() {}
 
-	public ProductBean(int productId, int categoryId, int gender, String productName, int price, String descruption,
+	public ProductBean(int productId, int categoryId, int gender, String productName, int price, String description,
 			boolean status, String image, Date registrationDate) {
 		super();
 		this.productId = productId;
@@ -25,7 +25,7 @@ public class ProductBean extends InventoryBean implements Serializable{
 		this.gender = gender;
 		this.productName = productName;
 		this.price = price;
-		this.descruption = descruption;
+		this.description = description;
 		this.status = status;
 		this.image = image;
 		this.registrationDate = registrationDate;
@@ -71,12 +71,12 @@ public class ProductBean extends InventoryBean implements Serializable{
 		this.price = price;
 	}
 
-	public String getDescruption() {
-		return descruption;
+	public String getDescription() {
+		return description;
 	}
 
-	public void setDescruption(String descruption) {
-		this.descruption = descruption;
+	public void setDescruption(String description) {
+		this.description = description;
 	}
 
 	public boolean isStatus() {
