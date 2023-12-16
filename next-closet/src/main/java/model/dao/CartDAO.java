@@ -165,22 +165,21 @@ public class CartDAO {
 	}
 	
 	//オーダーに登録する前にカートおの情報をとってくるユーザーIDを基に商品の詳細情報を取得
-		public List<CartItemBean> getAllCartItems(int userId) 
+	public List<CartItemBean> getAllCartItems(int userId) 
 		        throws ClassNotFoundException, SQLException {
-		    List<CartItemBean> cartItems = new ArrayList<>();
+		   List<CartItemBean> cartItems = new ArrayList<>();
 		    
-		    String sql = "SELECT ci.cart_item_id, ci.quantity, p.product_id, p.price, p.image, s.size_id "
-		               + "FROM cart_items ci "
-		               + "INNER JOIN products p ON ci.product_id = p.product_id "
-		               + "INNER JOIN sizes s ON ci.size_id = s.size_id "
-		               + "WHERE ci.user_id = ?";
+		   String sql = "SELECT ci.cart_item_id, ci.quantity, p.product_id, p.price, p.image, s.size_id "
+		              + "FROM cart_items ci "
+		              + "INNER JOIN products p ON ci.product_id = p.product_id "
+		              + "INNER JOIN sizes s ON ci.size_id = s.size_id "
+		              + "WHERE ci.user_id = ?";
 
-		    try (Connection con = DBConnection.getConnection();
+		   try (Connection con = DBConnection.getConnection();
 		         PreparedStatement pstmt = con.prepareStatement(sql)) {
 		        pstmt.setInt(1, userId);
 		        try (ResultSet res = pstmt.executeQuery()) {
 		            while (res.next()) {
-		            	
 		            	//下記、3つのインスタンス化しているオブジェクトは、Beanファイルでそれぞれを継承させたら少し短くなるかも
 		                CartItemBean cartItem = new CartItemBean();
 		                cartItem.setCartItemId(res.getInt("cart_item_id"));
@@ -191,11 +190,9 @@ public class CartDAO {
 		                product.setPrice(res.getInt("price"));
 		                product.setImage(res.getString("image"));
 		                
-		            
 		                cartItem.setSizeId(res.getInt("size_id"));
 		                
 		                cartItem.setProduct(product);
-		             
 		                
 		                cartItems.add(cartItem);
 		            }
@@ -203,6 +200,5 @@ public class CartDAO {
 		    }
 		    return cartItems;
 		}
-	
 
 }
