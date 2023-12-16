@@ -20,7 +20,7 @@ maxFileSize = 1024 * 1024 * 10,      // 10MB
 maxRequestSize = 1024 * 1024 * 50)   // 50MB
 public class ProductAddServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-//	private static final String UPLOAD_DIRECTORY = "image"; 
+//	private static final String UPLOAD_DIRECTORY = "image";
 	// 保存するディレクトリ
        
     
