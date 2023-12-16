@@ -37,7 +37,9 @@
 								<!-- ログインしていない -->
 								 <% } else { %> 
 								<li>
-		                            <a class="nav_text" href="login.jsp" class="nav_text">login</a>
+									<a class="nav_text" href="login.jsp" class="nav_text">login</a>
+								</li>
+								<li>
 		                            <a href="#" class="nav_text">お問い合わせ</a> <!-- jsで処理するためどこにも遷移しない -->
 		                        </li>
 						 <% } %>

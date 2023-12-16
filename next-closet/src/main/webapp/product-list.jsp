@@ -8,6 +8,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>next closet ...</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Tangerine&display=swap" rel="stylesheet">	
     <link rel="stylesheet" href="css/product-list.css">
 	<link rel = "stylesheet" href = "css/navbar.css">
     <%
@@ -24,38 +27,51 @@
 <p><%=productNotFound %></p>
 <% session.removeAttribute("productNotFound"); %>
 <% } %>
-    <main>
-        <div class = "container" >
+    <main> 
+        <div class = "container product_list_main" >
             <div class="side_bar">
                 <ul id="category_list">
-                    <li class="gender list_top"><span>ALL</span>
-                        <ul class="category">
-                            <li><a href='ProductListServlet'>全ての商品</a></li>
-                            <% for ( CategoryBean columns : categoryList){ %>
-                             <li><a href='ProductListServlet?categoryId=<%= columns.getCategoryId() %>&gender=-1&categoryName=<%= columns.getCategoryName() %>'><%= columns.getCategoryName() %></a></li>
-                             <% } %>
-                            
- 
-                        </ul>
-                    </li>
-                    <li class="gender"><span>MAN</span>
-                        <ul class="category">
-                             <% for ( CategoryBean columns : categoryList){ %>
-                            <li><a href='ProductListServlet?categoryId=<%= columns.getCategoryId() %>&gender=0&categoryName=<%= columns.getCategoryName() %>'><%= columns.getCategoryName() %></a></li>
-                             <% } %>
-                        </ul>
-                    </li>
-                    <li class="gender"><span>WOMAN</span>
-                        <ul class="category">
- 							<% for ( CategoryBean columns : categoryList){ %>
-                            <li><a href='ProductListServlet?categoryId=<%= columns.getCategoryId() %>&gender=1&categoryName=<%= columns.getCategoryName() %>'><%= columns.getCategoryName() %></a></li>
-                            <% } %>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-                <div class="content wrapper">
-                    <h1 class="page-title"><%= title %></h1>
+                	<div class="accordion">
+							<div class="option">
+								<input type="checkbox" id="toggle1" class="toggle">
+								<label class="category_title" for="toggle1">ALL</label>
+								<div class="category_content">
+			                        <ul class="category">
+			                            <li><a href='ProductListServlet'>全ての商品</a></li>
+			                            <% for ( CategoryBean columns : categoryList){ %>
+			                             <li><a href='ProductListServlet?categoryId=<%= columns.getCategoryId() %>&gender=-1&categoryName=<%= columns.getCategoryName() %>'><%= columns.getCategoryName() %></a></li>
+			                             <% } %>
+			                        </ul>
+								</div>
+							</div>
+						<div class="option">
+							<input type="checkbox" id="toggle2" class="toggle">
+							<label class="category_title" for="toggle2">MAN</label>
+							<div class="category_content">
+	                      		<ul class="category">
+	                            		<% for ( CategoryBean columns : categoryList){ %>
+	                           				<li><a href='ProductListServlet?categoryId=<%= columns.getCategoryId() %>&gender=0&categoryName=<%= columns.getCategoryName() %>'><%= columns.getCategoryName() %></a></li>
+	                           			<% } %>
+	                       		</ul>      			 
+							</div>
+						</div>
+						<div class="option">
+							<input type="checkbox" id="toggle3" class="toggle">
+							<label class="category_title" for="toggle3">WOMAN</label>
+							<div class="category_content">
+	                      		<ul class="category">
+								<% for ( CategoryBean columns : categoryList){ %>
+	                         		<li><a href='ProductListServlet?categoryId=<%= columns.getCategoryId() %>&gender=1&categoryName=<%= columns.getCategoryName() %>'><%= columns.getCategoryName() %></a></li>
+	                         	<% } %>
+	                     		</ul>
+							</div>
+						</div>
+					</div>	
+                </ul><!-- category_listここまで -->
+            </div> <!-- sidebarここまで -->
+                <div class="wrapper">
+                	<h1 id="section_title">Product List</h1>
+                    <h2 class="page-title"><%= title %></h1>
                      <ul class="product-list">
                           <% 
                           if (searchProducts != null && !searchProducts.isEmpty()) {
@@ -67,7 +83,6 @@
                                } else {
                             	   img = "image/" + img;
                                }
-                            
                           %>  
                    		  <li>
 	                         <a href="ProductDetailServlet?productId=<%= columns.getProductId() %>">
@@ -101,21 +116,10 @@
                   		 %>
                   		 <p>該当する商品がありません</p>
                   		 <% } %>
-                    
-                      <!-- ダミーの商品一覧
-                      <li>
-                      	<a href="#">
-                        	<img src="../img/2.jpg" alt="">
-                         	<p>プロダクトタイトルプロダクトタイトル</p>
-                          	<p>&yen;99,999 +tax</p>
-                        </a>
-                      </li>
-                      <l
-                      -->
                   </ul>
             </div>
         </div>
     </main>
-
+<%@ include file="includes/footer.jsp" %>
 </body>
 </html>
