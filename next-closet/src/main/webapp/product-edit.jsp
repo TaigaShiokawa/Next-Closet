@@ -25,13 +25,13 @@
 
     <%
       if(!productList.isEmpty()) {
-    	  ProductBean firstProduct = productLisr.get(0)
+    	  ProductBean firstProduct = productList.get(0);
     %>
       <form action="UpdateProductServlet" method="post" enctype="multipart/form-data">
           <input type="hidden" name="productId" value="<%= firstProduct.getProductId() %>">
-          <p>商品名 <input type="text" name="productName" value="<%= firstProduct.getProductName() %>"</p>
+          <p>商品名 <input type="text" name="productName" value="<%= firstProduct.getProductName() %>"></p>
           <p>商品説明 <textarea name="description"> <%= firstProduct.getDescription() %></textarea></p>
-          <p>金額 <input type="number" name="price" value="<%= firstProduct.getPrice() %>"</p>
+          <p>金額 <input type="number" name="price" value="<%= firstProduct.getPrice() %>"></p>
           <p>画像
               <img id="imagePreview" src="<%= firstProduct.getImage() %>" alt="Image preview"/>
               <input type="file" name="image" id="imageUpload" onchange="previewImage();">
