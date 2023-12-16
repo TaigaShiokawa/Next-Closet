@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import model.bean.ProductBean;
 import model.dao.AdminProductDAO;
 
-@WebServlet("/AdminProductDetailServlet")
+@WebServlet("/AdminProductEditlServlet")
 public class AdminProductEditServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServlet response) 
 			throws ServletException, IOException {
