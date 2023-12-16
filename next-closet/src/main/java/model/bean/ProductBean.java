@@ -43,7 +43,7 @@ public class ProductBean extends InventoryBean implements Serializable{
 		return categoryId;
 	}
 
-	public void setCategoryd(int categoryId) {
+	public void setCategoryId(int categoryId) {
 		this.categoryId = categoryId;
 	}
 
