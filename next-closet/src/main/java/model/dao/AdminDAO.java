@@ -104,7 +104,7 @@ public class AdminDAO {
 	    }
 	}
 	
-	//ユーザIDを取得
+	//管理者IDを取得
 	public int getAdminId(String email)throws ClassNotFoundException, SQLException {
 
 		int AdminId = -1;
