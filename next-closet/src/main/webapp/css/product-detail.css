@@ -40,16 +40,15 @@ p{
 .submit{
 	width:160px;
 	padding:20px;
-	margin-top:60px;
+	margin-top:30px;
 	margin-right:50px;
 	display: inline-block;
 	text-decoration: none;
-	border-radius:5px ;
 	background-color: rgb(56, 56, 56);
 	color : #fff;
 }
 
-#goLogin a , .submit a{
+#goLogin a , .submit a {
 	padding:20px;
 	margin-top:60px;
 	display: inline-block;
@@ -59,7 +58,16 @@ p{
 	color : #fff;
 }
 
-#goLogin a:hover , .submit:hover{
+ .back{
+	text-decoration: none;
+	display: inline-block;
+	padding-top: 30px;
+	padding-left:130px;
+	font-size: 12px;
+	color:rgb(56, 56, 56);
+ }
+
+#goLogin a:hover , .submit:hover , .back:hover{
 	opacity:.7;
 	}
 	
@@ -67,7 +75,7 @@ p{
 	padding-left:100px;
 }
 
-.tax_in{
+.tax_in , .quantity_max{
 	font-size: 10px;
 	padding-left:5px;
 }
@@ -101,9 +109,9 @@ background: rgb(52, 53, 55);/* マウス選択時の背景色を指定する */
 color: #c7c7c7; /* マウス選択時のフォント色を指定する */
 }
 
-.radio_label {
-display: block; /* ブロックレベル要素化する */
-float: left;
+
+.radio_label{
+display: inline-block; /* ブロックレベル要素化する */
 margin: 5px; /* ボックス外側の余白を指定する */
 width: 50px; /* ボックスの横幅を指定する */
 height: 50px; /* ボックスの高さを指定する */
@@ -114,3 +122,50 @@ border-radius: 50%;
 color: rgb(34, 34, 34);/* チェックされていないラベル*/
 text-align: center;
 }
+
+.size_box{
+	padding-bottom:20px;
+}
+
+.tax_in , .quantity{
+	font-size: 14px;
+	padding-left:5px;
+}
+
+.number_input{
+	margin-top: 5px ;
+
+	text-align: center;
+	width:100px;
+	height: 40px;
+}
+
+/* スピンボタン */
+
+/** スピンボタン要素 **/
+.number-spinner-wrap .spinner{
+  margin:0;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  line-height: 40px;
+  border-radius:50%;
+  display: inline-block;
+  font-size: 16px;
+  text-align: center;
+  background: lightgray;
+}
+
+.spinner:hover{
+	opacity: .7;
+}
+
+/* Chrome, Safari, Edge */
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  margin: 0;
+  -webkit-appearance: none;
+}
+
+
+

@@ -58,7 +58,7 @@
 			<% session.removeAttribute("emailError"); %>
 			<% } %>
 				<form action="RegisterServlet" method="post">
-
+					<div class="form_container">
 					<label>お名前</label><input type="text" name="username" placeholder="例) テスト　太郎" required><br>
 					<label>フリガナ</label><input type="text" name="kananame" placeholder="例) テスト　タロウ" required><br>
 
@@ -120,8 +120,10 @@
 					<label>メールアドレス</label><input type="email" name="email" placeholder="例) 〇〇@〇〇.com" required><br> 
 					<label>パスワード</label><input type="password" name="password" placeholder="8文字以上" required><br> 
 					<button type="submit">新規登録する</button>
+					</div>
 				</form>
 			</div>
 		</main>
+		<%@ include file="includes/footer.jsp" %>
 	</body>
 </html>
