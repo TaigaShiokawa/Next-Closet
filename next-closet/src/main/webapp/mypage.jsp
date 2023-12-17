@@ -62,6 +62,5 @@
         <input type="submit" value="退会する">
         </form>
 
-
 </body>
 </html>
