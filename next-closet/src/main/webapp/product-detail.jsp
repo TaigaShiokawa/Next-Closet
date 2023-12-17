@@ -49,18 +49,29 @@
 				<form id="form" name="form" action="AddToCartServlet" method="post">
 					<input type="hidden" name="order" value="order" >
 					<input type="hidden" name="productId" value="<%= product_id %>" >
-					<input type="radio" name="sizeId" value="1" id="S" checked ><label for="S" class="radio_label">S</label>
-					<input type="radio" name="sizeId" value="2" id="M" ><label for="M" class="radio_label">M</label>
-					<input type="radio" name="sizeId" value="3" id="L" ><label for="L" class="radio_label">L</label><br><br>
+					<div class="size_box">
+						<input type="radio" name="sizeId" value="1" id="S" checked ><label for="S" class="radio_label">S</label>
+						<input type="radio" name="sizeId" value="2" id="M" ><label for="M" class="radio_label">M</label>
+						<input type="radio" name="sizeId" value="3" id="L" ><label for="L" class="radio_label">L</label>
+					</div>
 					
-					<span>数量</span><input type="number" name = "quantity"　required>
-					<input class="submit" type="submit" value="カートに入れる" >
-					<input class="submit" type="submit" value="いますぐ買う" onclick="goOrder()">
+					
+  
+					<label class="quantity">数 量</label><span class="quantity_max">※10点まで購入可能</span><br>
+					<label class="number-spinner-wrap">
+						<span class="spinner spinner-down">-</span>
+						<input class="number_input" type="number" name = "quantity" min="1" max="10"  step="1" value="1" required>
+						<span class="spinner spinner-up">+</span>
+					</label><br>
+					<input class="submit" type="submit" value="ADD TO CART">
+					<input class="submit" type="submit" value="BUY NOW" onclick="goOrder()">
 					<!-- ログインしてなかったらログインに飛ばす -->
 				</form>
 				<% } else { %>
 						<button id="goLogin"><a href="login.jsp">ログイン または新規登録して購入する</a></button>	
 				<% } %>
+				
+				<a class="back" href="ProductListServlet">商品一覧へ戻る</a>
 			</div>
 		</div>
 	</div>
@@ -71,6 +82,16 @@
 			function goOrder(){
 				document.getElementById('form').method = 'get';
 				document.getElementById('form').action = 'OrderConfilmServlet';
+			}
+
+			const $wrap = document.querySelector('.number-spinner-wrap')
+			const $input = $wrap.querySelector('input')
+			
+			$wrap.querySelector('.spinner-down').onclick = ()=>{
+			  $input.stepDown()
+			}
+			$wrap.querySelector('.spinner-up').onclick = ()=>{
+			  $input.stepUp()
 			}
 		</script>
 	</body>
