@@ -5,43 +5,44 @@
     margin: 0;
 }
  
+ 
  main{
     display:flex;
     justify-content: center;
     align-items: center;
+    height:650px;
 }
 
 .container {
 	width: 100%;
 	max-width: 800px;
-	padding-top: 100px;
 	text-align: center;
-	
+}
+
+img{
+	width:100%;
+	max-width:600px;
 }
 
 
-li{
-	display: inline-block;
- 	 list-style: none;
-}
-
-h3{
+h2{
 	font-size: 25px;
-	padding-bottom: 100px;
+	letter-spacing: 1px;
+	margin:30px;
 }
 
-.link {
+.link > ul {
 	display: flex;
-	text-align: center;
+	justify-content: space-between;
 	width: 100%;
+	max-width: 200px;
+	margin:0 auto;
 }
 
-li.product {
-	padding-right: 40px;
-}
-
-li.history{
-	padding-left: 40px;
+.link ul li{
+	display: inline-block;
+ 	list-style: none;
+ 	 
 }
 
 a {
@@ -50,8 +51,4 @@ a {
 
 a:hover{
 	color: lightgrey;
-}
-
-ul{
-	margin : 0 auto;
 }
