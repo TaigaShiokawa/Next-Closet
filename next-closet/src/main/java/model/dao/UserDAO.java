@@ -11,8 +11,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import connection.DBConnection;
-import logFile.LogFileDelete;
-import logFile.LogToFile;
 import model.bean.AddressBean;
 import model.bean.UserBean;
 
@@ -31,14 +29,29 @@ public class UserDAO {
 			pstmt.setString(5, telNumber);
 			processingNum = pstmt.executeUpdate();
 		} catch(SQLException e) {
-			Logger logger = LogToFile.getLogger();
-	        logger.log(Level.SEVERE, "SQL Error: " + e.getMessage(), e);
-	        long delay = 60 * 1000; // 24時間後
-	        LogFileDelete.deleteLogFileAfter("/Users/shiokawa.taiga/Desktop/nextClosetLog.txt", delay);
+			String errorMessage = "SQL [" + sql + "] の実行中にエラーが発生しました: userName=" + userName + 
+                    ", kanaName=" + kanaName + ", email=" + email + ", telNumber=" + telNumber + 
+                    ". Error: " + e.getMessage();
+			// エラーメッセージをログに記録する
+			Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, errorMessage, e);
+			throw new RuntimeException("SQL実行中にエラーが発生しました.", e);
+			
+			//以下、自分のデスクトップにLogを出力するためのコードなので無視でOK
+//			Logger logger = LogToFile.getLogger();
+//	        logger.log(Level.SEVERE, "SQL Error: " + e.getMessage(), e);
+//	        long delay = 60 * 1000; 
+//	        LogFileDelete.deleteLogFileAfter("/Users/shiokawa.taiga/Desktop/nextClosetLogger.txt", delay);
 		} catch(ClassNotFoundException e) {
-			Logger logger = LogToFile.getLogger();
-			logger.log(Level.SEVERE, "DBドライバーが見つかりませんでした." + e);
-			throw new RuntimeException("DBドライバーが見つかりませんでした.", e);
+			// DB接続ドライバが見つからない場合にスローされる例外
+	        Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, "DB driver not found", e);
+	        throw new RuntimeException("DBドライバーが見つかりませんでした.", e);
+	        
+	        //以下、自分のデスクトップにLogを出力するためのコードなので無視でOK
+//			Logger logger = LogToFile.getLogger();
+//			logger.log(Level.SEVERE, "DBドライバーが見つかりませんでした." + e);
+//			long delay = 60 * 1000; 
+//	        LogFileDelete.deleteLogFileAfter("/Users/shiokawa.taiga/Desktop/nextClosetLogger.txt", delay);
+//			throw new RuntimeException("DBドライバーが見つかりませんでした.", e);
 		}
 		return processingNum;
 	}

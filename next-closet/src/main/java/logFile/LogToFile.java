@@ -6,13 +6,12 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 public class LogToFile {
-	private static Logger logger = Logger.getLogger("NextCloset-Log");
-	
-	static {
+	private static Logger logger = Logger.getLogger("MyLog");
+
+    static {
         try {
             // ファイルハンドラーの設定
-        	FileHandler fh = new FileHandler("/Users/shiokawa.taiga/Desktop/nextClosetLog.txt", true);
-
+            FileHandler fh = new FileHandler("/Users/shiokawa.taiga/Desktop/nextClosetLogger.txt", true);
             logger.addHandler(fh);
             logger.setLevel(Level.ALL);
             SimpleFormatter formatter = new SimpleFormatter();
