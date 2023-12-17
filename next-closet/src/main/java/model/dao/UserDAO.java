@@ -73,7 +73,7 @@ public class UserDAO {
 		return processingNum;
 	}
 	//ユーザIDを取得
-	public int getUserId(String email)throws ClassNotFoundException, SQLException {
+	public int getUserId(String email) throws ClassNotFoundException, SQLException {
 
 		int userId = -1;
 		String sql = "SELECT user_id FROM users WHERE email = ?";

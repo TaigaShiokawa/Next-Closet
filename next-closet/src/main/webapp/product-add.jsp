@@ -11,9 +11,11 @@
 	<form action="ProductAddServlet" method="post" enctype="multipart/form-data">
 	<label for="p_name">商品名</label>
 		<input type="text" id="p_name" name="productName" placeholder="商品名" required><br>
+		<span id="p_name_count">0/65</span><br>
 		
 		<label for="p_description">商品説明</label>
 		<textarea id="p_description" name="description" placeholder="商品説明" required></textarea><br>
+		<span id="p_description_count">0/1000</span><br>
 		
 		<label for="p_category">カテゴリー</label>
 		<select id="p_category" name="category">
@@ -45,5 +47,18 @@
 		
 		<input type="submit" value="登録">
 		</form>
+		
+		<script>
+		document.getElementById('p_name').addEventListener('input', function() {
+	        var textLength = this.value.length;
+	        document.getElementById('p_name_count').textContent = textLength + '/65'; 
+	    });
+
+	    // 商品説明フィールドの文字数を追跡
+	    document.getElementById('p_description').addEventListener('input', function() {
+	        var textLength = this.value.length;
+	        document.getElementById('p_description_count').textContent = textLength + '/1000';
+	    });
+		</script>
 </body>
 </html>

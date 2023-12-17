@@ -118,12 +118,31 @@
 					<label>住所</label><textarea type="text" name="address" placeholder="例) 〇〇市〇〇区〇丁目" required></textarea><br>
 					<label>電話番号</label><input type="text" name="telnumber" placeholder="例) 00000000000" required><br> 
 					<label>メールアドレス</label><input type="email" name="email" placeholder="例) 〇〇@〇〇.com" required><br> 
-					<label>パスワード</label><input type="password" name="password" placeholder="8文字以上" required><br> 
+					<label>パスワード</label><input type="password" name="password" placeholder="8文字以上" required>
+					<small><span id="password_count">0/100</span><small><br> 
 					<button type="submit">新規登録する</button>
 					</div>
 				</form>
 			</div>
 		</main>
 		<%@ include file="includes/footer.jsp" %>
+		
+		<script>
+		    // パスワード入力フィールドの要素を取得
+		    var passwordInput = document.querySelector('input[name="password"]');
+		    var passwordCount = document.getElementById('password_count');
+		
+		    // パスワード入力フィールドの入力イベントにリスナーを追加
+		    passwordInput.addEventListener('input', function() {
+		        var textLength = this.value.length;
+		        passwordCount.textContent = textLength + '/100'; 
+
+		        if(textLength > 100) {
+			        passwordCount.style.color = 'red';
+			    } else {
+				    passwordCount.style.color = 'initial';
+				}
+		    });
+		</script>
 	</body>
 </html>

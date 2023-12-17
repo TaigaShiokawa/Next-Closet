@@ -16,10 +16,16 @@ import model.dao.AdminProductDAO;
 
 @WebServlet("/AdminProductDetailServlet")
 public class AdminProductDetailServlet extends HttpServlet {
+	
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
+    	
         try {
             int productId = Integer.parseInt(request.getParameter("productId"));
+            if(productId < 1) {
+            	request.getSession().setAttribute("productIdNotFound", "商品IDが見つかりませんでした.");
+            	return;
+            }
 
             AdminProductDAO productDao = new AdminProductDAO();
             List<ProductBean> productList = productDao.detailAdminProductList(productId);
@@ -27,8 +33,24 @@ public class AdminProductDetailServlet extends HttpServlet {
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("/admin-product-detail.jsp");
             dispatcher.forward(request, response);
-        } catch (NumberFormatException | SQLException | ClassNotFoundException e) {
-            throw new ServletException("Error retrieving product details", e);
-        }
+            
+        } catch(ClassNotFoundException e) {
+			e.printStackTrace();
+			request.getSession().setAttribute("errorMessageToAdmin", "内部の設定エラーが発生しました。"
+					+ "早急に対応してください。");
+	        response.sendRedirect("errorToAdmin.jsp");
+	        return;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			request.getSession().setAttribute("errorMessageToAdmin", "データベースにアクセスできません。"
+					+ "早急に対応してください。");
+			response.sendRedirect("errorToAdmin.jsp");
+			return;
+		} catch(Exception e) {
+		  e.printStackTrace();
+		  request.getSession().setAttribute("errorMessageToAdmin", "システムエラーが発生しました。早急に対応してください。");
+		  response.sendRedirect("errorToAdmin.jsp");
+		  return;
+	  }
     }
 }

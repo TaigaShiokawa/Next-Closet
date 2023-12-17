@@ -21,7 +21,8 @@ import model.dao.SearchDAO;
 public class AdminProductListServlet extends HttpServlet {
 	
 	
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+    		throws ServletException, IOException {
     	
     	int categoryId = -1;
 		int gender = 0;
@@ -30,11 +31,19 @@ public class AdminProductListServlet extends HttpServlet {
 		String searchName = request.getParameter("searchName");
 		
 		if( categoryIdStr != null ) {
-			categoryId = Integer.parseInt(request.getParameter("categoryId"));
+			try {
+				categoryId = Integer.parseInt(request.getParameter("categoryId"));
+			} catch (NumberFormatException e) {
+				System.err.println("カテゴリーIDの解析に失敗しました: " + categoryIdStr);
+			}
 		}
 		
 		if( genderStr != null ) {
-			gender = Integer.parseInt(request.getParameter("gender"));
+			try {
+				gender = Integer.parseInt(request.getParameter("gender"));
+			} catch(NumberFormatException e) { 
+				System.out.println("性別番号の解析に失敗しました: " + genderStr);
+			}
 		}
 		
 		if (gender == 0 ) {
@@ -83,9 +92,24 @@ public class AdminProductListServlet extends HttpServlet {
 									}
 					}
 			}
-		} catch (SQLException | ClassNotFoundException e) {
+		} catch(ClassNotFoundException e) {
 			e.printStackTrace();
-		}
+			request.getSession().setAttribute("errorMessageToAdmin", "内部の設定エラーが発生しました。"
+					+ "早急に対応してください。");
+	        response.sendRedirect("errorToAdmin.jsp");
+	        return;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			request.getSession().setAttribute("errorMessageToAdmin", "データベースにアクセスできません。"
+					+ "早急に対応してください。");
+			response.sendRedirect("errorToAdmin.jsp");
+			return;
+		} catch(Exception e) {
+		  e.printStackTrace();
+		  request.getSession().setAttribute("errorMessageToAdmin", "システムエラーが発生しました。早急に対応してください。");
+		  response.sendRedirect("errorToAdmin.jsp");
+		  return;
+	  }
 		
 		request.setAttribute("gender", gender);
 		request.setAttribute("categoryId",categoryId);

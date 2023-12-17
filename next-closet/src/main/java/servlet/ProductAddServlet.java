@@ -69,6 +69,16 @@ public class ProductAddServlet extends HttpServlet {
 		int mSizeInventory = Integer.parseInt(request.getParameter("m_size_inventory"));
 		int lSizeInventory = Integer.parseInt(request.getParameter("l_size_inventory"));
 		
+		if(pName.length() > 65) {
+			request.setAttribute("productNameError", "商品名が長すぎます。65文字以内でお願いします。");
+			return;
+		}
+		
+		if(description.length() > 1000) {
+			request.setAttribute("descriptionError", "商品説明が長すぎます。1000文字以内でお願いします。");
+			return;
+		}
+		
 		
 		AdminProductDAO aDao = new AdminProductDAO();
 		try {
@@ -103,12 +113,25 @@ public class ProductAddServlet extends HttpServlet {
 			            response.sendRedirect("errorToAdmin.jsp"); 
 			        }
 			    }
-			} catch (ClassNotFoundException | SQLException e) {
+			} catch(ClassNotFoundException e) {
 				e.printStackTrace();
+				request.getSession().setAttribute("errorMessageToAdmin", "内部の設定エラーが発生しました。"
+						+ "早急に対応してください。");
+		        response.sendRedirect("errorToAdmin.jsp");
+		        return;
+			} catch (SQLException e) {
+				e.printStackTrace();
+				request.getSession().setAttribute("errorMessageToAdmin", "データベースにアクセスできません。"
+						+ "早急に対応してください。");
+				response.sendRedirect("errorToAdmin.jsp");
+				return;
 			}
 		
 		} catch(Exception e) {
-			e.printStackTrace();
-		}
+			  e.printStackTrace();
+			  request.getSession().setAttribute("errorMessageToAdmin", "システムエラーが発生しました。早急に対応してください。");
+			  response.sendRedirect("errorToAdmin.jsp");
+			  return;
+		  }
 	}
 }
