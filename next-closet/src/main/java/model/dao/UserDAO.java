@@ -7,18 +7,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import connection.DBConnection;
+import logFile.LogFileDelete;
+import logFile.LogToFile;
 import model.bean.AddressBean;
 import model.bean.UserBean;
 
 public class UserDAO {
 	
 	//新規登録 (usersテーブル)
-	public int registerUser(String userName, String kanaName, String email, String password, String telNumber) 
-			throws ClassNotFoundException, SQLException {
+	public int registerUser(String userName, String kanaName, String email, String password, String telNumber) {
 		int processingNum = 0;
-		String sql = "INSERT INTO users (user_name, kana_name, email, hash_pass, tel_number) VALUES (?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO users (user_name, kana_name, email, hash_pass, tel_numbe) VALUES (?, ?, ?, ?, ?)";
 		try (Connection con = DBConnection.getConnection(); 
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setString(1, userName);
@@ -27,6 +30,15 @@ public class UserDAO {
 			pstmt.setString(4, password);
 			pstmt.setString(5, telNumber);
 			processingNum = pstmt.executeUpdate();
+		} catch(SQLException e) {
+			Logger logger = LogToFile.getLogger();
+	        logger.log(Level.SEVERE, "SQL Error: " + e.getMessage(), e);
+	        long delay = 60 * 1000; // 24時間後
+	        LogFileDelete.deleteLogFileAfter("/Users/shiokawa.taiga/Desktop/nextClosetLog.txt", delay);
+		} catch(ClassNotFoundException e) {
+			Logger logger = LogToFile.getLogger();
+			logger.log(Level.SEVERE, "DBドライバーが見つかりませんでした." + e);
+			throw new RuntimeException("DBドライバーが見つかりませんでした.", e);
 		}
 		return processingNum;
 	}
