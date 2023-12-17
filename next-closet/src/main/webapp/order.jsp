@@ -8,25 +8,27 @@
 <% } %>
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="css/order.css">
-</head>
-<body>
-<%@ include file="includes/navbar.jsp" %>
-<div class="container">
-<!-- ここに画像入れる -->
-
-<h3><strong>ご注文ありがとうございました</strong></h3>
- 
- 
- <div class="link">
- 	<ul>
- 	<li class="product"><a href="ProductListServlet">商品一覧</a></li>
-  	<li class="history"><a href="OrderHistoryServlet">購入履歴</a></li>
-  </ul>
- </div>
-</div>
-</body>
+	<head>
+		<meta charset="UTF-8">
+		<title>next closet...</title>
+		<link rel="stylesheet" href="css/order.css">
+		<link rel = "stylesheet" href = "css/navbar.css">
+	</head>
+	<body>
+		<%@ include file="includes/navbar.jsp" %>
+		<main>
+			<div class="container">
+			<img src="image/decoration/step2.jpg">
+			
+			<h2><strong>ご注文ありがとうございました</strong></h2>
+			 <div class="link">
+			 	<ul>
+				 	<li><a href="ProductListServlet">商品一覧</a></li>
+				  	<li><a href="OrderHistoryServlet">購入履歴</a></li>
+			 	</ul>
+			 </div>
+		</div>
+		</main>
+		<%@ include file="includes/footer.jsp" %>
+	</body>
 </html>
