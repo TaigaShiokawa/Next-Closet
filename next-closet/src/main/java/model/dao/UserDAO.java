@@ -21,7 +21,7 @@ public class UserDAO {
 	//新規登録 (usersテーブル)
 	public int registerUser(String userName, String kanaName, String email, String password, String telNumber) {
 		int processingNum = 0;
-		String sql = "INSERT INTO users (user_name, kana_name, email, hash_pass, tel_numbe) VALUES (?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO users (user_name, kana_name, email, hash_pass, tel_number) VALUES (?, ?, ?, ?, ?)";
 		try (Connection con = DBConnection.getConnection(); 
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setString(1, userName);
