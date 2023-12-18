@@ -28,8 +28,13 @@ public class AdminUserDetailServlet extends HttpServlet {
 			UserDAO userDao = new UserDAO();
 			
 			List<UserBean> userList  = userDao.getUserDetail(userId);
+			if(userList != null) {
+				request.setAttribute("userList", userList);
+			} else {
+				request.getSession().setAttribute("userNotFound", "該当するユーザーが見つかりませんでした。");
+				return;
+			}
 			
-			request.setAttribute("userList", userList);
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("admin-user-detail.jsp");
 			dispatcher.forward(request, response);
