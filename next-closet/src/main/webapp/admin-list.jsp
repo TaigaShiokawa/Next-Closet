@@ -37,7 +37,6 @@
             
 			  		<div class="tab">
 			 				 <h1 class="page-title"><%= title %></h1>	
-			  
 						    <ul class="tab__menu">
 							      <li class="tab__menu-item is-active" data-tab="01">全管理者一覧表</li>
 							      <li class="tab__menu-item" data-tab="02">管理者一覧表</li>
