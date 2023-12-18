@@ -5,58 +5,75 @@
     margin: 0;
 }
 
- main{
+.wrapper{
     width: 100%;
-    max-width: 800px;
+    max-width: 1000px;
     padding-top: 100px;
+    margin : 0 auto;
 }
 
-h3 {
-	font-size: 20px;
-	margin-bottom: 10px;
-	margin-left: 120px;
+.container{
+	width: 100%;
+    max-width: 1000px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 }
+
+#section_title{ /* product listの字体変更*/
+	font-family: 'Tangerine', cursive;
+	font-size:50px;
+	letter-spacing: 2px;
+	margin-bottom: 10px;
+}
+
+.page-title {
+  font-size: 0.875rem;
+  font-weight: normal;
+  padding-bottom: 30px;
+  border-bottom : 1px solid lightslategray;
+}
+
 
 .border{
-	border: 1px solid lightslategray;
-	margin-left: 80px;
-	margin-right: 80px;
-	border-left: none;
-	border-right: none;
+	border-bottom: 1px solid lightslategray;
 	padding-bottom: 30px;
 	padding-top: 30px;
 }
 
-.image{
-	margin: 10px;
-	width: 150px;
-	margin:0;
-	padding: 0;
-	overflow: hidden;
-	position: absolute;
+img{
+	height:150px;
+	width :150px;
+	object-fit:cover;
+	padding-left:20px;
+	padding-right:20px;
 }
 
 .right {
-padding-left: 160px;
+display: flex;
 padding-top: 20px;
 }
 
-.radius{
-	border-radius: 30px;
-	padding: 5px 10px;
-	background-color: grey;
-	color: white;
-	border: 1px solid grey;
-	box-shadow: 4px 4px 2px lightgrey;
+button{
+    border: none;
+    border-radius: 8px;
+    background-color: grey; /* 背景色をグレーに設定 */
+    display: flex;
+    text-align: center;  
+    justify-content: center;
+    width: 150px;
+    height: 50px;
 }
 
-.radius:hover{
-	box-shadow: none;
-	color: dimgrey;
-	background-color: darkgrey;
-	border: 1px solid darkgrey;
+button a{
+	width: 150px;
+    height: 50px;
+    line-height: 50px;
+    display: block;
+	text-decoration: none;
+	color: white; /* 文字色を白に設定 */
 }
 
-.button{
-	padding-left: 300px;
+button a:hover{
+	opacity: .7;
 }

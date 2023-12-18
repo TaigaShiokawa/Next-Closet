@@ -31,6 +31,19 @@ public class SizeBean implements Serializable{
 		this.sizeName = sizeName;
 	}
 	
+	
+	private int stockQuantity; // 在庫数量
+
+    // stockQuantity のゲッターとセッター
+    public int getStockQuantity() {
+        return stockQuantity;
+    }
+
+    public void setStockQuantity(int stockQuantity) {
+        this.stockQuantity = stockQuantity;
+    }
+
+	
 	@Override
     public String toString() {
         return "SizeBean{" +

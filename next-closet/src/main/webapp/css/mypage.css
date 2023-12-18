@@ -24,6 +24,14 @@ p{
 	margin:30px auto;
 }
 
+
+#section_title{ /* product listの字体変更*/
+	font-family: 'Tangerine', cursive;
+	font-size:50px;
+	letter-spacing: 2px;
+	margin-bottom: 10px;
+}
+
 .page-title {
   font-size: 0.875rem;
   font-weight: normal;
@@ -45,12 +53,6 @@ a:hover{
 	opacity: .7;
 }
 
-#section_title{ /* product listの字体変更*/
-	font-family: 'Tangerine', cursive;
-	font-size:50px;
-	letter-spacing: 2px;
-	margin-bottom: 10px;
-}
 
 th{
   padding: 10px;

@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import= "java.util.List" %>
 <%@ page import="model.bean.ProductBean" %>
+<%@ page import="model.bean.SizeBean" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +16,7 @@
         var oFReader = new FileReader();
         oFReader.readAsDataURL(document.getElementById("imageUpload").files[0]);
 
-        oFReader.onload = functtoin (oFREvent) {
+        oFReader.onload = functoin (oFREvent) {
              document.getElementById("imagePreview").src = oFREvent.target.result;
         };
     }
@@ -37,14 +38,12 @@
               <input type="file" name="image" id="imageUpload" onchange="previewImage();">
           </p>
           
-          <%
-            for (ProductBean product : productList) {
-          %>
-          
-             <p>サイズ <%= product.getSizeName() %>
-                <input type="number" name="stockQuantity_<%= product.getSizeName() %>" value="<%= product.getStockQuantity() %>">
-             </p>
-          
+         <% for (ProductBean product : productList) { %>
+              <% for (SizeBean size : product.getSizes()) { %>
+                  <p>サイズ <%= size.getSizeName() %>
+                     <input type="number" name="stockQuantity_<%= size.getSizeName() %>" value="<%= size.getStockQuantity() %>">
+                  </p>
+              <% } %>
           <% } %>
           
           <input type="submit" value="更新">

@@ -9,7 +9,7 @@
 <title>next closet...</title>
 </head>
 <body>
-<%@ include file="includes/navbar.jsp" %>
+<%-- <%@ include file="includes/navbar.jsp" %> --%>
  <form method="post" action="AdminEditServlet">
 	<label>お名前：</label><input type="text" name="adminname" value="<%=loginAdmin.getAdminName() %>"><br>
 	<label>フリガナ：</label><input type="text" name="kananame" value="<%=loginAdmin.getAdminKanaName() %>"><br>
