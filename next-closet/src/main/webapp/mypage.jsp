@@ -8,16 +8,14 @@
 <% } %>  
 <!DOCTYPE html>
 <html>
-<head>
-<link rel="stylesheet" href="css/mypage.css">
-<link rel="stylesheet" href="css/navbar.css">
-<meta charset="UTF-8">
-<title>マイページ</title>
-
-</head>
+		<head>
+		<link rel="stylesheet" href="css/mypage.css">
+		<link rel="stylesheet" href="css/navbar.css">
+		<meta charset="UTF-8">
+		<title>マイページ</title>
+	</head>
 <body>
  <%@ include file="includes/navbar.jsp" %>  
- 
  <main>
 
 		<div class="title">
