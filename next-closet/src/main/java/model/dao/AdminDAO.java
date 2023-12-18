@@ -17,7 +17,7 @@ public class AdminDAO {
 		
 		AdminBean admin = new AdminBean();
 		//管理者ログイン用
-		String sql ="SELECT * FROM admins WHERE email = ? and hash_pass = ?";
+		String sql ="SELECT * FROM admins WHERE email = ? and hash_pass = ? and admin_status = true";
 		try(Connection con = DBConnection.getConnection();
 			PreparedStatement stmt = con.prepareStatement(sql)){
 			stmt.setString(1, email);
@@ -31,7 +31,7 @@ public class AdminDAO {
 				admin.setAdminKanaName(rs.getString("admin_kana_name"));
 				admin.setEmail(rs.getString("email"));
 				admin.setPassword(rs.getString("hash_pass"));
-				admin.setStatus(rs.getBoolean("admin_status"));
+				admin.setAdminStatus(rs.getBoolean("admin_status"));
 			}
 		}
 		return admin;
@@ -120,7 +120,7 @@ public class AdminDAO {
 			
 			ResultSet res = pstmt.executeQuery();
 			if(res.next()) {
-				AdminId = res.getInt("user_id");
+				AdminId = res.getInt("admin_id");
 			}
 		}
 		return AdminId;
