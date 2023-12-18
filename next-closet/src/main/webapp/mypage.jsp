@@ -17,14 +17,19 @@
 </head>
 <body>
  <%@ include file="includes/navbar.jsp" %>  
+ 
+ <main>
+		<div class="title">
+			 <h2 id="section_title">My Page</h2>
+		    <h3 class="page-title">マイページ</h3>
+		    <% Integer passwordStrength = (Integer)request.getSession().getAttribute("passwordStrength"); %>
+			<% if(passwordStrength != null) { %>
+			<p>※変更後のパスワード強度は<%=passwordStrength %> レベルです</p>
+			<% session.removeAttribute("passwordStrength"); %>
+			<% } %>
+		</div>
+   
 
-     <h2 id="section_title">My Page</h2>
-    <h3 class="page-title">マイページ</h3>
-    <% Integer passwordStrength = (Integer)request.getSession().getAttribute("passwordStrength"); %>
-	<% if(passwordStrength != null) { %>
-	<p>※変更後のパスワード強度は<%=passwordStrength %> レベルです</p>
-	<% session.removeAttribute("passwordStrength"); %>
-	<% } %>
         <table>
 		    <tr>
 		        <td><label for="name">お名前</label></td>
@@ -58,14 +63,18 @@
 	</table>
 
 
-            <button type="submit"><a href="mypage-edit.jsp">変更</a></button>
-            <button type="submit"><a href="OrderHistoryServlet">購入履歴</a></button>
+            <div class="button_nav">
+					<button type="submit"><a href="mypage-edit.jsp">変更</a></button>
+		            <button type="submit"><a href="OrderHistoryServlet">購入履歴</a></button>
+				</div>
         
         <a href="ProductListServlet" class="back">商品一覧へ戻る</a>
         
         <form action="WithdrawalServlet" method="post">
         	<input type="submit" value="退会する">
         </form>
+        </main>
+		<%@ include file="includes/footer.jsp" %>  
 
 </body>
 </html>
