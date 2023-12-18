@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.* , java.util.ArrayList, model.bean.* , java.util.List , model.SizeText" %>
-<%@ page import="model.dao.*" %>
+<%@ page import="junit.model.dao.*" %>
 <%@ page import="model.bean.*" %>
 
-<%@ page import="model.dao.*" %>
+<%@ page import="junit.model.dao.*" %>
 <% UserBean loginUser = (UserBean)request.getSession().getAttribute("user"); %>
 <% if(loginUser == null) { %>
 <% response.sendRedirect("productListServlet"); %>
