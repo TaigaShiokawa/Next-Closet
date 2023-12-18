@@ -19,8 +19,9 @@
  <%@ include file="includes/navbar.jsp" %>  
  
  <main>
+
 		<div class="title">
-			 <h2 id="section_title">My Page</h2>
+			<h2 id="section_title">MyPage</h2>
 		    <h3 class="page-title">マイページ</h3>
 		    <% Integer passwordStrength = (Integer)request.getSession().getAttribute("passwordStrength"); %>
 			<% if(passwordStrength != null) { %>
@@ -29,7 +30,7 @@
 			<% } %>
 		</div>
    
-
+ <div class="container">
         <table>
 		    <tr>
 		        <td><label for="name">お名前</label></td>
@@ -68,13 +69,54 @@
 		            <button type="submit"><a href="OrderHistoryServlet">購入履歴</a></button>
 				</div>
         
-        <a href="ProductListServlet" class="back">商品一覧へ戻る</a>
-        
-        <form action="WithdrawalServlet" method="post">
-        	<input type="submit" value="退会する">
-        </form>
+        <p><a href="ProductListServlet" class="back">商品一覧へ戻る</a></p>
+
+        <div class="delete_box">
+        	<button id="modalOpen" class="delete_button">▶︎ 退会する</button>
+        </div>
+						  <div id="easyModal" class="modal">
+						    <div class="modal-content">
+						      <div class="modal-header">
+						        <h1 class="check">最終確認画面</h1>
+						        <span class="modalClose">×</span>
+						      </div>
+						      <div class="modal-body">
+						        <p>一度退会するとアカウントの復元はできません<br>本当に削除しますか？</p>
+						        <form action="WithdrawalServlet" method="post">
+						           <input class="delete" type="submit" value="本当に退会する">
+						        </form>
+						      </div>
+						    </div>
+						  </diV>
+        	
+  
+        </div>
         </main>
 		<%@ include file="includes/footer.jsp" %>  
-
+<script>
+		const buttonOpen = document.getElementById('modalOpen');
+		const modal = document.getElementById('easyModal');
+		const buttonClose = document.getElementsByClassName('modalClose')[0];
+	
+		// ボタンがクリックされた時
+		buttonOpen.addEventListener('click', modalOpen);
+		function modalOpen() {
+		  modal.style.display = 'block';
+		}
+	
+		// バツ印がクリックされた時
+		buttonClose.addEventListener('click', modalClose);
+		function modalClose() {
+		  modal.style.display = 'none';
+		}
+	
+		// モーダルコンテンツ以外がクリックされた時
+		addEventListener('click', outsideClose);
+		function outsideClose(e) {
+		  if (e.target == modal) {
+		    modal.style.display = 'none';
+		  }
+		}
+	</script>
 </body>
 </html>
