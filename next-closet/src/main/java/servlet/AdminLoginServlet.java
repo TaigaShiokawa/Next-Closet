@@ -61,7 +61,7 @@ public class AdminLoginServlet extends HttpServlet {
 
 			  if(adminDao.validate(email, hashedPass)) {
 				  response.sendRedirect("AdminProductListServlet");
-			  }else {
+			  } else {
 					String view ="admin-login.jsp";
 				    request.getRequestDispatcher(view).forward(request, response);
 			  }

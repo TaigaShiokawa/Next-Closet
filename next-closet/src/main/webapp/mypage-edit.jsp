@@ -90,11 +90,53 @@
 		<form action="PasswordUpdateServlet" method="post">
 		<label for="pass">パスワードの変更</label>
 		<input type="password" id="pass" name="password" placeholder="8文字以上">
+		<small><span id="password_count">0/100</span></small><br>
+		<div id="password_strength"></div><br>
 		<input type="hidden" name="userId" value="<%=loginUser.getUserId()%>">
 		<button type="submit">変更する</button>
 		</form>
 		</div>
 </main>
+
+<script>
+//パスワード入力フィールドの要素を取得
+var passwordInput = document.querySelector('input[name="password"]');
+var passwordCount = document.getElementById('password_count');
+
+// パスワード入力フィールドの入力イベントにリスナーを追加
+passwordInput.addEventListener('input', function() {
+    var textLength = this.value.length;
+    passwordCount.textContent = textLength + '/100'; 
+
+    if(textLength > 100) {
+        passwordCount.style.color = 'red';
+    } else {
+	    passwordCount.style.color = 'initial';
+	}
+});
+
+function checkPasswordStrength(password) {
+    var strength = 0;
+    if (password.length >= 8) strength += 1; // 長さのチェック
+    if (password.match(/[a-z]/)) strength += 1; // 小文字の存在
+    if (password.match(/[A-Z]/)) strength += 1; // 大文字の存在
+    if (password.match(/[0-9]/)) strength += 1; // 数字の存在
+    if (password.match(/[^a-zA-Z0-9]/)) strength += 1; // 特殊文字の存在
+
+    return strength;
+}
+
+// パスワード入力フィールドのイベントリスナー
+passwordInput.addEventListener('input', function() {
+    var textLength = this.value.length;
+    passwordCount.textContent = textLength + '/100'; 
+
+    var strength = checkPasswordStrength(this.value);
+    var strengthDisplay = document.getElementById('password_strength');
+    strengthDisplay.textContent = 'パスワード強度: レベル ' + strength + ' / 5';
+    // 色もつける？
+});
+</script>
 		
 </body>
 </html>

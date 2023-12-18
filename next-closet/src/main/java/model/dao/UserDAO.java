@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import connection.DBConnection;
 import model.bean.AddressBean;
@@ -15,8 +17,7 @@ import model.bean.UserBean;
 public class UserDAO {
 	
 	//新規登録 (usersテーブル)
-	public int registerUser(String userName, String kanaName, String email, String password, String telNumber) 
-			throws ClassNotFoundException, SQLException {
+	public int registerUser(String userName, String kanaName, String email, String password, String telNumber) {
 		int processingNum = 0;
 		String sql = "INSERT INTO users (user_name, kana_name, email, hash_pass, tel_number) VALUES (?, ?, ?, ?, ?)";
 		try (Connection con = DBConnection.getConnection(); 
@@ -27,6 +28,30 @@ public class UserDAO {
 			pstmt.setString(4, password);
 			pstmt.setString(5, telNumber);
 			processingNum = pstmt.executeUpdate();
+		} catch(SQLException e) {
+			String errorMessage = "SQL [" + sql + "] の実行中にエラーが発生しました: userName=" + userName + 
+                    ", kanaName=" + kanaName + ", email=" + email + ", telNumber=" + telNumber + 
+                    ". Error: " + e.getMessage();
+			// エラーメッセージをログに記録する
+			Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, errorMessage, e);
+			throw new RuntimeException("SQL実行中にエラーが発生しました.", e);
+			
+			//以下、自分のデスクトップにLogを出力するためのコードなので無視でOK
+//			Logger logger = LogToFile.getLogger();
+//	        logger.log(Level.SEVERE, "SQL Error: " + e.getMessage(), e);
+//	        long delay = 60 * 1000; 
+//	        LogFileDelete.deleteLogFileAfter("/Users/shiokawa.taiga/Desktop/nextClosetLogger.txt", delay);
+		} catch(ClassNotFoundException e) {
+			// DB接続ドライバが見つからない場合にスローされる例外
+	        Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, "DB driver not found", e);
+	        throw new RuntimeException("DBドライバーが見つかりませんでした.", e);
+	        
+	        //以下、自分のデスクトップにLogを出力するためのコードなので無視でOK
+//			Logger logger = LogToFile.getLogger();
+//			logger.log(Level.SEVERE, "DBドライバーが見つかりませんでした." + e);
+//			long delay = 60 * 1000; 
+//	        LogFileDelete.deleteLogFileAfter("/Users/shiokawa.taiga/Desktop/nextClosetLogger.txt", delay);
+//			throw new RuntimeException("DBドライバーが見つかりませんでした.", e);
 		}
 		return processingNum;
 	}
@@ -48,7 +73,7 @@ public class UserDAO {
 		return processingNum;
 	}
 	//ユーザIDを取得
-	public int getUserId(String email)throws ClassNotFoundException, SQLException {
+	public int getUserId(String email) throws ClassNotFoundException, SQLException {
 
 		int userId = -1;
 		String sql = "SELECT user_id FROM users WHERE email = ?";
@@ -299,32 +324,49 @@ public class UserDAO {
 			return list;
 		}
 		//ユーザーidからユーザーの情報を取得（アドミン用ユーザー詳細情報用）
-		public List<UserBean> getUserDetail(int userId) throws ClassNotFoundException, SQLException {
-			List< UserBean > userList = new ArrayList<UserBean>();
-			
-			String sql = "SELECT * FROM users WHERE user_id= ?";
-			//sql実行
-			try (Connection con = DBConnection.getConnection();
-										PreparedStatement pstmt = con.prepareStatement(sql)){
-				
-				pstmt.setInt(1, userId);
-				
-				ResultSet res = pstmt.executeQuery();
-				
-				while (res.next()) {
-				
-				int user_id = res.getInt("user_id"); 
-				String user_name = res.getString("user_name");
-				String kana_name = res.getString("kana_name");
-				String email = res.getString("email");
-				String hash_pass = res.getString("hash_pass");
-				Date register_date = res.getDate("registration_date");
-				String tel_number = res.getString("tel_number");
-				boolean user_status = res.getBoolean("user_status");
-				userList.add(new UserBean(user_id, user_name, kana_name, email, hash_pass, register_date, tel_number ,user_status));
+				public List<UserBean> getUserDetail(int userId) throws ClassNotFoundException, SQLException {
+					List< UserBean > userList = new ArrayList<UserBean>();
+					
+					String sql = "SELECT * FROM users JOIN addresses ON users.user_id = addresses.user_id WHERE users.user_id = ?";
+					//sql実行
+					try (Connection con = DBConnection.getConnection();
+												PreparedStatement pstmt = con.prepareStatement(sql)){
+						
+						pstmt.setInt(1, userId);
+						
+						ResultSet res = pstmt.executeQuery();
+						
+						while (res.next()) {
+						
+						int user_id = res.getInt("user_id"); 
+						String user_name = res.getString("user_name");
+						String kana_name = res.getString("kana_name");
+						String email = res.getString("email");
+						String hash_pass = res.getString("hash_pass");
+						Date register_date = res.getDate("registration_date");
+						String tel_number = res.getString("tel_number");
+						boolean user_status = res.getBoolean("user_status");
+						
+						int address_id = res.getInt("address_id");
+						int useradd_id = res.getInt("user_id");
+						String post_code = res.getString("post_code");
+						String address = res.getString("address");
+						String prefectures = res.getString("prefectures");
+						
+						UserBean userLists = new UserBean(user_id, user_name, kana_name, email,hash_pass, register_date,  tel_number, user_status);
+						
+						userLists.setAddressId(address_id);
+						userLists.setUserId(useradd_id);
+						userLists.setPostCode(post_code);
+						userLists.setAddress(address);
+						userLists.setPrefectures(prefectures);
+						
+						userList.add(userLists);
+						
+						}
+					}
+					return userList;
 				}
-			}
-			return userList;
-		}
+				
 }
 

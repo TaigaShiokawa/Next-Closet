@@ -24,8 +24,11 @@
         <p>価格: <%= product.getPrice() %>円</p>
         <p>在庫数: <%= product.getStockQuantity() %></p>
         <p>登録日: <%= product.getRegistrationDate() %></p>
+        
+        <a href="AdminProductEditServlet?productId=<%= product.getProductId() %>">編集</a>
     <%
       }
     %>
+    
 </body>
 </html>

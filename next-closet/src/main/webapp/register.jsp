@@ -57,6 +57,11 @@
 			<p><%=emailError %></p>
 			<% session.removeAttribute("emailError"); %>
 			<% } %>
+			<% Integer passwordStrength = (Integer)request.getSession().getAttribute("passwordStrength"); %>
+			<% if(passwordStrength != null) { %>
+			<p>※パスワード強度は<%=passwordStrength %> レベルです</p>
+			<% session.removeAttribute("passwordStrength"); %>
+			<% } %>
 				<form action="RegisterServlet" method="post">
 					<div class="form_container">
 					<label>お名前</label><input type="text" name="username" placeholder="例) テスト　太郎" required><br>
@@ -118,12 +123,54 @@
 					<label>住所</label><textarea type="text" name="address" placeholder="例) 〇〇市〇〇区〇丁目" required></textarea><br>
 					<label>電話番号</label><input type="text" name="telnumber" placeholder="例) 00000000000" required><br> 
 					<label>メールアドレス</label><input type="email" name="email" placeholder="例) 〇〇@〇〇.com" required><br> 
-					<label>パスワード</label><input type="password" name="password" placeholder="8文字以上" required><br> 
+					<label>パスワード</label><input type="password" name="password" placeholder="8文字以上" required>
+					<small><span id="password_count">0/100</span><small><br> 
+					<div id="password_strength"></div><br>
 					<button type="submit">新規登録する</button>
 					</div>
 				</form>
 			</div>
 		</main>
 		<%@ include file="includes/footer.jsp" %>
+		
+		<script>
+		    // パスワード入力フィールドの要素を取得
+		    var passwordInput = document.querySelector('input[name="password"]');
+		    var passwordCount = document.getElementById('password_count');
+		
+		    // パスワード入力フィールドの入力イベントにリスナーを追加
+		    passwordInput.addEventListener('input', function() {
+		        var textLength = this.value.length;
+		        passwordCount.textContent = textLength + '/100'; 
+
+		        if(textLength > 100) {
+			        passwordCount.style.color = 'red';
+			    } else {
+				    passwordCount.style.color = 'initial';
+				}
+		    });
+
+		    function checkPasswordStrength(password) {
+		        var strength = 0;
+		        if (password.length >= 8) strength += 1; // 長さのチェック
+		        if (password.match(/[a-z]/)) strength += 1; // 小文字の存在
+		        if (password.match(/[A-Z]/)) strength += 1; // 大文字の存在
+		        if (password.match(/[0-9]/)) strength += 1; // 数字の存在
+		        if (password.match(/[^a-zA-Z0-9]/)) strength += 1; // 特殊文字の存在
+
+		        return strength;
+		    }
+
+		    // パスワード入力フィールドのイベントリスナー
+		    passwordInput.addEventListener('input', function() {
+		        var textLength = this.value.length;
+		        passwordCount.textContent = textLength + '/100'; 
+
+		        var strength = checkPasswordStrength(this.value);
+		        var strengthDisplay = document.getElementById('password_strength');
+		        strengthDisplay.textContent = 'パスワード強度: レベル ' + strength + ' / 5';
+		        // 色もつける？
+		    });
+		</script>
 	</body>
 </html>

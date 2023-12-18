@@ -29,6 +29,7 @@
 			<% } %>
 		</div>
    
+
         <table>
 		    <tr>
 		        <td><label for="name">お名前</label></td>
@@ -74,7 +75,6 @@
         </form>
         </main>
 		<%@ include file="includes/footer.jsp" %>  
-
 
 </body>
 </html>

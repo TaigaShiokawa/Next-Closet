@@ -15,6 +15,7 @@ import model.dao.UserDAO;
 import regexp.AddressValidator;
 import regexp.EmailValidator;
 import regexp.KanaNameValidator;
+import regexp.PasswordStrengthChecker;
 import regexp.PasswordValidator;
 import regexp.PostCodeValidator;
 import regexp.TelNumberValidator;
@@ -129,6 +130,10 @@ public class RegisterServlet extends HttpServlet {
 			response.sendRedirect("register.jsp");
 			return;
 		} 
+		
+		int passwordStrength =  PasswordStrengthChecker.calculatePasswordStrength(password);
+		request.getSession().setAttribute("passwordStrength", passwordStrength);
+		
 		//パスワードハッシュ化
 		String hashedPass = null;
 		try {

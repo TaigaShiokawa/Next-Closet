@@ -24,6 +24,7 @@ public class ProductListServlet extends HttpServlet {
 		int gender = 0;
 		String categoryIdStr = request.getParameter("categoryId");
 		String genderStr =  request.getParameter("gender");
+		
 		String searchName = request.getParameter("searchName");
 		
 		if( categoryIdStr != null ) {
@@ -42,7 +43,7 @@ public class ProductListServlet extends HttpServlet {
 			genderStr = "ALL";
 		}
 		
-		String categoryName = request.getParameter("categoryName");		
+		String categoryName = request.getParameter("categoryName");
 		ProductDAO dao = new ProductDAO();
 		
 		List<ProductBean> searchProducts = new ArrayList<>();
@@ -74,8 +75,24 @@ public class ProductListServlet extends HttpServlet {
 				}
 			}
 			}
-			} catch (SQLException | ClassNotFoundException e) {
+			} catch(ClassNotFoundException e) {
 				e.printStackTrace();
+				request.getSession().setAttribute("errorMessage", "内部の設定エラーが発生しました。"
+						+ "お問い合わせよ管理者に連絡して、解決の支援を受けてください。");
+		        response.sendRedirect("error.jsp");
+		        return;
+			} catch(SQLException e) {
+				e.printStackTrace();
+				request.getSession().setAttribute("errorMessage", "現在データベースにアクセスできません。後ほど再度お試しください"
+						+ "。問題が続く場合は、お問い合わせより管理者にご連絡ください。");
+		        response.sendRedirect("error.jsp");
+		        return;
+			} catch(Exception e) {
+				e.printStackTrace();
+				request.getSession().setAttribute("errorMessage", "申し訳ありませんが、システムエラーが発生しました。"
+						+ "もう一度お試しいただくか、お問い合わせより管理者にお問い合わせください。");
+		        response.sendRedirect("error.jsp");
+		        return;
 			}
 
 		 RequestDispatcher dispatcher = request.getRequestDispatcher("product-list.jsp");

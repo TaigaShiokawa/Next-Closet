@@ -31,7 +31,7 @@
 				                    	<form action="ProductListServlet" method="get">
 				                        <input type="text" name="searchName" class="search_box" placeholder="キーワードで商品名を検索">
 				                        <input class="sarch_btn" type="submit" value="検索">
-				                    </form>
+				                    	</form>
 				                </div>
 			
 								<!-- ログインしていない -->

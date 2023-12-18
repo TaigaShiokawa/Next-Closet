@@ -1,6 +1,5 @@
 package servlet;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.sql.SQLException;
@@ -21,7 +20,7 @@ maxFileSize = 1024 * 1024 * 10,      // 10MB
 maxRequestSize = 1024 * 1024 * 50)   // 50MB
 public class ProductAddServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String UPLOAD_DIRECTORY = "uploads"; 
+//	private static final String UPLOAD_DIRECTORY = "image";
 	// 保存するディレクトリ
        
     
@@ -37,14 +36,14 @@ public class ProductAddServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
         
         // アップロードファイルを保存するパスを取得
-        String appPath = request.getServletContext().getRealPath("");
-        String savePath = appPath + File.separator + UPLOAD_DIRECTORY;
+//        String appPath = request.getServletContext().getRealPath("");
+//        String savePath =  UPLOAD_DIRECTORY;
 
         // ディレクトリが存在しない場合は作成
-        File fileSaveDir = new File(savePath);
-        if (!fileSaveDir.exists()) {
-            fileSaveDir.mkdir();
-        }
+//        File fileSaveDir = new File(savePath);
+//        if (!fileSaveDir.exists()) {
+//            fileSaveDir.mkdir();
+//        }
 
         // ファイル名を取得し、サーバーに保存
         String fileName = "";
@@ -53,12 +52,12 @@ public class ProductAddServlet extends HttpServlet {
             // ファイル名のみを取得する
             fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
             if (fileName != null && !fileName.isEmpty()) {
-                filePart.write(savePath + File.separator + fileName);
+                filePart.write(fileName);
             }
         }
         
         // imagePathは保存されたファイルのパス
-        String imagePath = savePath + File.separator + fileName;
+        String imagePath = fileName;
 		
 		//各種パラメータ取得
 		String pName = request.getParameter("productName");
@@ -69,6 +68,16 @@ public class ProductAddServlet extends HttpServlet {
 		int sSizeInventory = Integer.parseInt(request.getParameter("s_size_inventory"));
 		int mSizeInventory = Integer.parseInt(request.getParameter("m_size_inventory"));
 		int lSizeInventory = Integer.parseInt(request.getParameter("l_size_inventory"));
+		
+		if(pName.length() > 65) {
+			request.setAttribute("productNameError", "商品名が長すぎます。65文字以内でお願いします。");
+			return;
+		}
+		
+		if(description.length() > 1000) {
+			request.setAttribute("descriptionError", "商品説明が長すぎます。1000文字以内でお願いします。");
+			return;
+		}
 		
 		
 		AdminProductDAO aDao = new AdminProductDAO();
@@ -104,12 +113,25 @@ public class ProductAddServlet extends HttpServlet {
 			            response.sendRedirect("errorToAdmin.jsp"); 
 			        }
 			    }
-			} catch (ClassNotFoundException | SQLException e) {
+			} catch(ClassNotFoundException e) {
 				e.printStackTrace();
+				request.getSession().setAttribute("errorMessageToAdmin", "内部の設定エラーが発生しました。"
+						+ "早急に対応してください。");
+		        response.sendRedirect("errorToAdmin.jsp");
+		        return;
+			} catch (SQLException e) {
+				e.printStackTrace();
+				request.getSession().setAttribute("errorMessageToAdmin", "データベースにアクセスできません。"
+						+ "早急に対応してください。");
+				response.sendRedirect("errorToAdmin.jsp");
+				return;
 			}
 		
 		} catch(Exception e) {
-			e.printStackTrace();
-		}
+			  e.printStackTrace();
+			  request.getSession().setAttribute("errorMessageToAdmin", "システムエラーが発生しました。早急に対応してください。");
+			  response.sendRedirect("errorToAdmin.jsp");
+			  return;
+		  }
 	}
 }
