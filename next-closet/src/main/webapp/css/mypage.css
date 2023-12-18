@@ -6,6 +6,29 @@
     margin: 0;
 }
 
+.title{
+	padding-top: 40px;
+	width:100%;
+	max-width:600px;
+	margin:0 auto;
+}
+
+.container{
+	width:100%;
+	max-width:500px;
+	margin:40px auto;
+}
+
+.page-title {
+  font-size: 0.875rem;
+  font-weight: normal;
+  margin-bottom: 30px;
+}
+
+table{
+	width: 80%;
+	margin:0 auto;
+}
 a{
 	font-size: 12px;
 	color:rgb(56, 56, 56);
@@ -20,10 +43,6 @@ a:hover{
 	font-family: 'Tangerine', cursive;
 	font-size:50px;
 	letter-spacing: 2px;
-}
-	
-table {
-  width: 45%;
 }
 
 th{
@@ -55,8 +74,15 @@ button a{
 	color : #fff;
 }
 
+.button_nav{
+	display: flex;
+	justify-content: space-between;	
+	padding: 20px 40px;
+}
+
 
 .back{
-	margin-right: 200px;
-	line-height: 50px; 
-	}
+	text-align: center;
+	width: 200px;
+	display: inline-block;
+}
