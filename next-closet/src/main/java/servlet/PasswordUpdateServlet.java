@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import hashedPassword.HashPW;
 import model.dao.UserDAO;
+import regexp.PasswordStrengthChecker;
 import regexp.PasswordValidator;
 
 /**
@@ -44,6 +45,8 @@ public class PasswordUpdateServlet extends HttpServlet {
 			response.sendRedirect("mypage-edit.jsp");
 			return;
 		}
+		int passwordStrength = PasswordStrengthChecker.calculatePasswordStrength(password);
+		request.getSession().setAttribute("passwordStrength", passwordStrength);
 		
 		String hashedPass = null;
 		try {

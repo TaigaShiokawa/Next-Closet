@@ -20,6 +20,11 @@
 
      <h2 id="section_title">My Page</h2>
     <h3 class="page-title">マイページ</h3>
+    <% Integer passwordStrength = (Integer)request.getSession().getAttribute("passwordStrength"); %>
+	<% if(passwordStrength != null) { %>
+	<p>※変更後のパスワード強度は<%=passwordStrength %> レベルです</p>
+	<% session.removeAttribute("passwordStrength"); %>
+	<% } %>
         <table>
 		    <tr>
 		        <td><label for="name">お名前</label></td>
