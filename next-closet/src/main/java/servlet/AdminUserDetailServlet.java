@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -33,9 +34,24 @@ public class AdminUserDetailServlet extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("admin-user-detail.jsp");
 			dispatcher.forward(request, response);
 			
-		} catch (Exception e) {
+		} catch(ClassNotFoundException e) {
 			e.printStackTrace();
-		}
+			request.getSession().setAttribute("errorMessageToAdmin", "内部の設定エラーが発生しました。"
+					+ "早急に対応してください。");
+	        response.sendRedirect("errorToAdmin.jsp");
+	        return;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			request.getSession().setAttribute("errorMessageToAdmin", "データベースにアクセスできません。"
+					+ "早急に対応してください。");
+			response.sendRedirect("errorToAdmin.jsp");
+			return;
+		} catch(Exception e) {
+			  e.printStackTrace();
+			  request.getSession().setAttribute("errorMessageToAdmin", "システムエラーが発生しました。早急に対応してください。");
+			  response.sendRedirect("errorToAdmin.jsp");
+			  return;
+		 }
 		
 	}
 

@@ -24,8 +24,18 @@ public class ProductCategoriesSevlet extends HttpServlet {
 		
 		try {
 			request.setAttribute("categoryList", categoryDao.getCategoryList()); //カテゴリーの全て
-		} catch ( SQLException | ClassNotFoundException e ) {
+		} catch(ClassNotFoundException e) {
 			e.printStackTrace();
+			request.getSession().setAttribute("errorMessageToAdmin", "内部の設定エラーが発生しました。"
+					+ "早急に対応してください。");
+	        response.sendRedirect("errorToAdmin.jsp");
+	        return;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			request.getSession().setAttribute("errorMessageToAdmin", "データベースにアクセスできません。"
+					+ "早急に対応してください。");
+			response.sendRedirect("errorToAdmin.jsp");
+			return;
 		}
 		
 		 RequestDispatcher dispatcher = request.getRequestDispatcher("product-categories.jsp");
@@ -56,8 +66,18 @@ public class ProductCategoriesSevlet extends HttpServlet {
 				}
 			}
 			
-		} catch ( SQLException | ClassNotFoundException e ) {
+		} catch(ClassNotFoundException e) {
 			e.printStackTrace();
+			request.getSession().setAttribute("errorMessageToAdmin", "内部の設定エラーが発生しました。"
+					+ "早急に対応してください。");
+	        response.sendRedirect("errorToAdmin.jsp");
+	        return;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			request.getSession().setAttribute("errorMessageToAdmin", "データベースにアクセスできません。"
+					+ "早急に対応してください。");
+			response.sendRedirect("errorToAdmin.jsp");
+			return;
 		}
 		
 		if( add != null ) { //新規登録していたら
@@ -69,16 +89,36 @@ public class ProductCategoriesSevlet extends HttpServlet {
 				} else {
 					request.setAttribute("message","既に存在しているカテゴリー名です");
 				}			
-			}catch(SQLException | ClassNotFoundException e) {
+			} catch(ClassNotFoundException e) {
 				e.printStackTrace();
+				request.getSession().setAttribute("errorMessageToAdmin", "内部の設定エラーが発生しました。"
+						+ "早急に対応してください。");
+		        response.sendRedirect("errorToAdmin.jsp");
+		        return;
+			} catch (SQLException e) {
+				e.printStackTrace();
+				request.getSession().setAttribute("errorMessageToAdmin", "データベースにアクセスできません。"
+						+ "早急に対応してください。");
+				response.sendRedirect("errorToAdmin.jsp");
+				return;
 			}
 			
 		} //新規登録終了
 		
 		try {
 			request.setAttribute("categoryList", categoryDao.getCategoryList());
-		} catch ( SQLException | ClassNotFoundException e ) {
+		} catch(ClassNotFoundException e) {
 			e.printStackTrace();
+			request.getSession().setAttribute("errorMessageToAdmin", "内部の設定エラーが発生しました。"
+					+ "早急に対応してください。");
+	        response.sendRedirect("errorToAdmin.jsp");
+	        return;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			request.getSession().setAttribute("errorMessageToAdmin", "データベースにアクセスできません。"
+					+ "早急に対応してください。");
+			response.sendRedirect("errorToAdmin.jsp");
+			return;
 		}
 		
 		
