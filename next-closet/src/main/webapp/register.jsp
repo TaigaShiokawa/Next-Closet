@@ -57,6 +57,11 @@
 			<p><%=emailError %></p>
 			<% session.removeAttribute("emailError"); %>
 			<% } %>
+			<% Integer passwordStrength = (Integer)request.getSession().getAttribute("passwordStrength"); %>
+			<% if(passwordStrength != null) { %>
+			<p>※パスワード強度は<%=passwordStrength %> レベルです</p>
+			<% session.removeAttribute("passwordStrength"); %>
+			<% } %>
 				<form action="RegisterServlet" method="post">
 					<div class="form_container">
 					<label>お名前</label><input type="text" name="username" placeholder="例) テスト　太郎" required><br>

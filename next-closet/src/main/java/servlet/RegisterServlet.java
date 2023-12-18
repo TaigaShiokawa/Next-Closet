@@ -130,8 +130,9 @@ public class RegisterServlet extends HttpServlet {
 			response.sendRedirect("register.jsp");
 			return;
 		} 
-			int passwordStrength =  PasswordStrengthChecker.calculatePasswordStrength(password);
-			request.setAttribute("passCheck", passwordStrength);
+		
+		int passwordStrength =  PasswordStrengthChecker.calculatePasswordStrength(password);
+		request.getSession().setAttribute("passwordStrength", passwordStrength);
 		
 		//パスワードハッシュ化
 		String hashedPass = null;
