@@ -35,6 +35,12 @@
 	letter-spacing: 2px;
 	}
 	
+	.container .page-title {
+	  font-size: 0.875rem;
+	  font-weight: normal;
+	  margin-bottom: 30px;
+	}
+	
 /* 商品一覧*/
 
 
@@ -47,11 +53,7 @@
   padding-bottom: 40px;
 }
 
-.container .page-title {
-  font-size: 0.875rem;
-  font-weight: normal;
-  margin-bottom: 30px;
-}
+
 
 .container .product-list {
   display: flex;
