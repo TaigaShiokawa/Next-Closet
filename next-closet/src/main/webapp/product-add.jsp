@@ -7,6 +7,13 @@
 </head>
 <body>
 	<h1>新規登録</h1>
+	<% String productNameError = (String)request.getAttribute("productNameError"); %>
+	<% String descriptionError = (String)request.getAttribute("descriptionError"); %>
+	<% if(productNameError != null) { %>
+	<p><%=productNameError %></p>
+	<% } else if(descriptionError != null) { %>
+	<p><%=descriptionError %></p>
+	<% } %>
 	<form action="ProductAddServlet" method="post" enctype="multipart/form-data">
 	<label for="p_name">商品名</label>
 		<input type="text" id="p_name" name="productName" placeholder="商品名" required>
