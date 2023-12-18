@@ -13,23 +13,28 @@ import model.bean.AdminBean;
 
 public class AdminDAO {
 
-	public boolean validate(String email,String password) throws ClassNotFoundException, SQLException {
+	public AdminBean validate(String email,String password) throws ClassNotFoundException, SQLException {
 		
-		boolean status = false;
+		AdminBean admin = new AdminBean();
 		//管理者ログイン用
 		String sql ="SELECT * FROM admins WHERE email = ? and hash_pass = ?";
-
-
-		try
-		   (Connection con = DBConnection.getConnection();
+		try(Connection con = DBConnection.getConnection();
 			PreparedStatement stmt = con.prepareStatement(sql)){
 			stmt.setString(1, email);
 			stmt.setString(2, password);
 			
 			ResultSet rs = stmt.executeQuery();
-			status = rs.next();
+			while(rs.next()) {
+				admin = new AdminBean();
+				admin.setAdminId(rs.getInt("admin_id"));
+				admin.setAdminName(rs.getString("admin_name"));
+				admin.setAdminKanaName(rs.getString("admin_kana_name"));
+				admin.setEmail(rs.getString("email"));
+				admin.setPassword(rs.getString("hash_pass"));
+				admin.setStatus(rs.getBoolean("admin_status"));
+			}
 		}
-		return status;
+		return admin;
 	}
 	//管理者新規登録用
 	public int registerAdmin(String adminName, String kanaName, String email, String password) 
