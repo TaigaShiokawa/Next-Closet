@@ -90,11 +90,30 @@
 		<form action="PasswordUpdateServlet" method="post">
 		<label for="pass">パスワードの変更</label>
 		<input type="password" id="pass" name="password" placeholder="8文字以上">
+		<small><span id="password_count">0/100</span></small>
 		<input type="hidden" name="userId" value="<%=loginUser.getUserId()%>">
 		<button type="submit">変更する</button>
 		</form>
 		</div>
 </main>
+
+<script>
+//パスワード入力フィールドの要素を取得
+var passwordInput = document.querySelector('input[name="password"]');
+var passwordCount = document.getElementById('password_count');
+
+// パスワード入力フィールドの入力イベントにリスナーを追加
+passwordInput.addEventListener('input', function() {
+    var textLength = this.value.length;
+    passwordCount.textContent = textLength + '/100'; 
+
+    if(textLength > 100) {
+        passwordCount.style.color = 'red';
+    } else {
+	    passwordCount.style.color = 'initial';
+	}
+});
+</script>
 		
 </body>
 </html>

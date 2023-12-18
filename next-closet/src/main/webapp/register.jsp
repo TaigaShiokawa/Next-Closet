@@ -120,6 +120,7 @@
 					<label>メールアドレス</label><input type="email" name="email" placeholder="例) 〇〇@〇〇.com" required><br> 
 					<label>パスワード</label><input type="password" name="password" placeholder="8文字以上" required>
 					<small><span id="password_count">0/100</span><small><br> 
+					<div id="password_strength"></div><br>
 					<button type="submit">新規登録する</button>
 					</div>
 				</form>
@@ -142,6 +143,28 @@
 			    } else {
 				    passwordCount.style.color = 'initial';
 				}
+		    });
+
+		    function checkPasswordStrength(password) {
+		        var strength = 0;
+		        if (password.length >= 8) strength += 1; // 長さのチェック
+		        if (password.match(/[a-z]/)) strength += 1; // 小文字の存在
+		        if (password.match(/[A-Z]/)) strength += 1; // 大文字の存在
+		        if (password.match(/[0-9]/)) strength += 1; // 数字の存在
+		        if (password.match(/[^a-zA-Z0-9]/)) strength += 1; // 特殊文字の存在
+
+		        return strength;
+		    }
+
+		    // パスワード入力フィールドのイベントリスナー
+		    passwordInput.addEventListener('input', function() {
+		        var textLength = this.value.length;
+		        passwordCount.textContent = textLength + '/100'; 
+
+		        var strength = checkPasswordStrength(this.value);
+		        var strengthDisplay = document.getElementById('password_strength');
+		        strengthDisplay.textContent = 'パスワード強度: レベル ' + strength + ' / 5';
+		        // 色もつける？
 		    });
 		</script>
 	</body>
