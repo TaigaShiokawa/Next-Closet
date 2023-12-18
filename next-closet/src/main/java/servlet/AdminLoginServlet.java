@@ -52,20 +52,19 @@ public class AdminLoginServlet extends HttpServlet {
   	  }
           
           AdminDAO adminDao = new AdminDAO();
-          AdminBean adminBean = new AdminBean();
-          
-          adminBean.setEmail(email);
-          adminBean.setPassword(hashedPass);
           
           try {
-
-			  if(adminDao.validate(email, hashedPass)) {
-				  response.sendRedirect("AdminProductListServlet");
-			  } else {
-					String view ="admin-login.jsp";
-				    request.getRequestDispatcher(view).forward(request, response);
-			  }
-			  
+  			AdminBean loginAdmin = adminDao.validate(email, hashedPass);
+  			int adminId = adminDao.getAdminId(email);
+  			if((loginAdmin != null) && (loginAdmin.isAdminStatus() == true)) { //logout済みのチェック
+  				request.getSession().setAttribute("admin", loginAdmin);
+  				request.getSession().setAttribute("adminId", adminId);
+  				response.sendRedirect("AdminProductListServlet");
+  			} else {
+  				request.getSession().setAttribute("loginError", "ログインに失敗しました...");
+  				response.sendRedirect("admin-login.jsp");
+  				return;
+  				}
 		  } catch(ClassNotFoundException e) {
 				e.printStackTrace();
 				request.getSession().setAttribute("errorMessageToAdmin", "内部の設定エラーが発生しました。"

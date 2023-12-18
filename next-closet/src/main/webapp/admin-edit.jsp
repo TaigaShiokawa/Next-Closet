@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"    pageEncoding="UTF-8"%>
 <%@ page import="model.bean.*" %>
 <%@ page import="model.dao.*" %>
-<% AdminBean loginAdmin = (AdminBean)request.getSession().getAttribute("Admin"); %>
+<% AdminBean loginAdmin = (AdminBean)request.getSession().getAttribute("admin"); %>
 <!DOCTYPE html>
 <html>
 <head>
