@@ -151,6 +151,32 @@ public List<OrderBean> getOrderDetailList( int orderItemId) throws ClassNotFound
 		}
 		return orderList;
 	}
+
+   //productIdからimgの情報を返信
+   public String getProductImage(int productId) {
+	   
+	   System.out.println(productId);
+	   
+	   String sql = "SELECT image FROM products WHERE product_id = ?";
+	   String img = null;
+		
+		try (Connection con = DBConnection.getConnection();
+			PreparedStatement pstmt = con.prepareStatement(sql)) {
+			
+			pstmt.setInt(1, productId);
+			ResultSet res = pstmt.executeQuery();
+			
+			while (res.next()) {
+				img = res.getString("image");
+			}
+			
+		}catch(Exception e ) {
+			e.printStackTrace();
+		}
+		
+		return img;
+	   
+   }
 	
 	
 	
