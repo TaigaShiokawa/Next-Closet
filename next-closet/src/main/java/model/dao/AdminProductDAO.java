@@ -7,10 +7,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import connection.DBConnection;
 import model.bean.ProductBean;
+import model.bean.SizeBean;
 
 public class AdminProductDAO {
 	
@@ -138,6 +141,7 @@ public class AdminProductDAO {
 	//　商品編集の情報を取得する
 	public List<ProductBean> editAdminProductList(int productId) throws ClassNotFoundException, SQLException {
 	    List<ProductBean> products = new ArrayList<>();
+	    Map<Integer, ProductBean> productMap = new HashMap<>();
 
 	    String sql = "SELECT p.product_id, p.category_id, p.gender, p.product_name, p.price, p.description, p.status, p.image, p.registration_date, "
 	               + "i.inventory_id, s.size_id, s.size_name, i.stock_quantity "
@@ -165,18 +169,22 @@ public class AdminProductDAO {
 	            Date registration_date = res.getDate("registration_date");
 	                    
 	            int inventoryId = res.getInt("inventory_id");
-	            int sizeId = res.getInt("size_id");
 	            int stockQuantity = res.getInt("stock_quantity");
 	                    
-	            ProductBean product = new ProductBean(product_id, category_id, gender, product_name, price, description, status, image, registration_date);
-	            product.setInventoryId(inventoryId);
-	            product.setSizeId(sizeId);
-	            product.setStockQuantity(stockQuantity);
-	                    
-	            products.add(product);
+	            SizeBean size = new SizeBean();
+	            size.setSizeId(res.getInt("size_id"));
+	            size.setSizeName(res.getString("size_name"));
+	            size.setStockQuantity(res.getInt("stock_quantity"));
+	            
+	            ProductBean product = productMap.get(product_id);
+	            if (product == null) {
+	            	product = new ProductBean(product_id, category_id, gender, product_name, price, description, status, image, registration_date);
+	            	productMap.put(product_id, product);
+	            }
+	            product.addSize(size);
 	        }
 	    }
-	    return products;
+	    return new ArrayList<>(productMap.values());
 	}
 
 	
