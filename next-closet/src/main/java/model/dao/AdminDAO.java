@@ -23,7 +23,12 @@ public class AdminDAO {
 			ResultSet rs = stmt.executeQuery();
 			while(rs.next()) {
 				admin = new AdminBean();
-				admin.setAdminName(rs.getInt("admin_id"));
+				admin.setAdminId(rs.getInt("admin_id"));
+				admin.setAdminName(rs.getString("admin_name"));
+				admin.setAdminKanaName(rs.getString("admin_kana_name"));
+				admin.setEmail(rs.getString("email"));
+				admin.setPassword(rs.getString("hash_pass"));
+				admin.setStatus(rs.getBoolean("admin_status"));
 			}
 		}
 		return admin;
