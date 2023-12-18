@@ -13,16 +13,18 @@ main{
 
 .container{
     width: 100%;
-    max-width:800px;
+    max-width:600px;
     padding-top: 100px ;
+    margin: 0 auto;
 }
 
 h2{
     font-size: 20px;
 }
 
-input, select, textarea{
-    width: 50%;
+.container input, .container select, .container textarea{
+    max-width: 350px;
+    width:100%;
     height: 50px;
     margin:0 auto;
     margin-top: 16px;
@@ -33,11 +35,7 @@ textarea{
     padding-top:5px; 
 }
 
-select{
-    padding-left: 0 ;
-}
-
-label{
+.container label{
     padding-left: 30px;
     display:inline-block;
     width: 150px;
@@ -61,4 +59,48 @@ button:hover{
 
 span{
     padding-right: 10px;
+}
+
+.pass_title{
+	display: flex;
+	flex-direction: column;
+}
+
+.pass{
+	display: flex;
+}
+
+.pass_count{
+	padding-left:30px;
+}
+
+/* パスカウント　*/
+.pass_count_box{
+	display: flex;
+}
+.pb{
+	height: 3px;
+	width:30px;
+	margin-left:10px;
+	background-color: gray;
+}
+
+#pass{
+	margin: 0;
+}
+
+.green{
+	background-color: rgb(59, 114, 55);
+}
+
+.yellow{
+	background-color: rgb(222, 216, 115);
+}
+
+.red{
+	background-color: rgb(215, 77, 46);
+}
+
+.gray{
+	background-color: gray;
 }
