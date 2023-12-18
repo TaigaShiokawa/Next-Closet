@@ -43,7 +43,7 @@
 		    </tr>
 		    <tr>
 		        <td><label for="postalcode">郵便番号</label></td>
-		        <td><%=loginUserAddress.getPostCode() %></td>
+		        <td>&#12306; <%=loginUserAddress.getPostCode() %></td>
 		    </tr>
 		    <tr>
 		        <td><label for="address">都道府県</label></td>
