@@ -16,6 +16,7 @@
 	width: 100%;
     max-width: 1000px;
 	display: flex;
+	align-items: center;
 	justify-content: space-between;
 }
 
@@ -55,16 +56,21 @@ padding-top: 20px;
 
 button{
     border: none;
-    margin-top: 400px;
     border-radius: 8px;
     background-color: grey; /* 背景色をグレーに設定 */
+    display: flex;
+    text-align: center;  
+    justify-content: center;
+    width: 150px;
+    height: 50px;
 }
 
 button a{
 	width: 150px;
-    height: 60px;
+    height: 50px;
+    line-height: 50px;
+    display: block;
 	text-decoration: none;
-	display:block;
 	color: white; /* 文字色を白に設定 */
 }
 
