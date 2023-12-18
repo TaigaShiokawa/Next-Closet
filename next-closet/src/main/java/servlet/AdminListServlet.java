@@ -36,9 +36,19 @@ public class AdminListServlet extends HttpServlet {
 								request.setAttribute("title","管理者一覧表示");
 					}
 			 
-		} catch (SQLException | ClassNotFoundException e ) {
+		} catch(ClassNotFoundException e) {
 			e.printStackTrace();
-		}
+			request.getSession().setAttribute("errorMessageToAdmin", "内部の設定エラーが発生しました。"
+					+ "早急に対応してください。");
+	        response.sendRedirect("errorToAdmin.jsp");
+	        return;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			request.getSession().setAttribute("errorMessageToAdmin", "データベースにアクセスできません。"
+					+ "早急に対応してください。");
+			response.sendRedirect("errorToAdmin.jsp");
+			return;
+		} 
 		
 		 RequestDispatcher dispatcher = request.getRequestDispatcher("admin-list.jsp");
    	     dispatcher.forward(request, response);	
