@@ -155,8 +155,6 @@ public List<OrderBean> getOrderDetailList( int orderItemId) throws ClassNotFound
    //productIdからimgの情報を返信
    public String getProductImage(int productId) {
 	   
-	   System.out.println(productId);
-	   
 	   String sql = "SELECT image FROM products WHERE product_id = ?";
 	   String img = null;
 		

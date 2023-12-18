@@ -5,41 +5,54 @@
     margin: 0;
 }
 
-main {
-	display:flex;
-    justify-content: center;
-    align-items: center;
+.container{
+	width:100%;
+	max-width:1000px;
+	margin : 0 auto;
+	padding-top:40px;
+	text-align: center;
+}
+
+.step_image{
+	width:100%;
+	max-width:600px;
+}
+
+.order_box{
+	width:100%;
+	max-width:800px;
+	margin : 0 auto;
+	display: flex;
+	padding-bottom:30px;
+	border-bottom: 1px solid lightslategray;
 }
 
 .order{
 	width: 100%;
 	max-width: 800px;
 	text-align: center;
+	border-bottom: 1px solid lightslategray;
+	padding-bottom: 0px;
+	padding-top: 20px;
+}
+
+.text{
+	padding-left:50px;
 }
 
 h3{
 	font-size: 15px;
 }
 
-.border{
-	border: 1px solid lightslategray;
-	border-left: none;
-	border-right: none;
-	padding-bottom: 0px;
-	padding-top: 20px;
-}
 
-.image{
-	margin: 10px;
-	width: 150px;
-	margin:0;
-	padding: 0;
-	overflow: hidden;
-	position: absolute;
+
+.image img{
+	width:150px;
+	height:150px;
+	object-fit: cover;
 }
 
 .right {
-	padding-left: 160px;
 	padding-top: 60px;
 }
 
@@ -62,9 +75,12 @@ h3{
  	 padding: 0;
 }
 
-.delivery{
-	margin-bottom: 15px;
+.delivery , .changeDelivery{
+	width: 100%;
+	max-width:500px;
+	margin: 15px auto;
 }
+
 
 .add{
 	padding-left: 30px;
@@ -83,8 +99,7 @@ h3{
 }
 
 .total{
-	text-align: center;
-	margin-top: 15px;
+	margin-top: 30px;
 }
 
 .back{
@@ -94,9 +109,46 @@ h3{
 
 a{
 	text-decoration: none;
- 	 color: darkslategray;
+	color: darkslategray;
+	font-size: 12px;
+	font-weight:bold;
 }
 
 a:hover{
 	color:lightgray;
+}
+
+
+.check{
+	margin-bottom:10px;
+}
+
+.submit{
+	width:160px;
+	padding:20px;
+	margin-top:30px;
+	text-decoration: none;
+	background-color: rgb(56, 56, 56);
+	color : #fff;
+	display: inline-block;
+	margin: 0 auto;
+	border:none;
+}
+
+.submit_box{
+	margin-top:40px;
+	text-align: center;
+}
+
+.submit:hover{
+	opacity: .7;
+}
+
+.back{
+	display: inline-block;
+	margin-bottom:40px;
+}
+
+.bold{
+	font-weight: bold;
 }
