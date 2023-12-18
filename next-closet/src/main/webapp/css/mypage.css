@@ -1,8 +1,29 @@
+
+@charset "UTF-8";
+
+*{
+    padding: 0;
+    margin: 0;
+}
+
+a{
+	font-size: 12px;
+	color:rgb(56, 56, 56);
+	text-decoration: none;
+}
+
+a:hover{
+	opacity: .7;
+}
+
+#section_title{ /* product listの字体変更*/
+	font-family: 'Tangerine', cursive;
+	font-size:50px;
+	letter-spacing: 2px;
+}
+	
 table {
-  border-collapse: collapse;
   width: 45%;
-  border: 1px solid black;
-  table-layout: fixed; /* セルの幅を指定した幅に固定 */
 }
 
 th{
@@ -18,45 +39,24 @@ height: 50px;
  table-layout: fixed; /* セルの幅を指定した幅に固定 */
 }
 
-
-body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 85vh;
-  margin: 10;
-}
-button {
-  font-size: 18px; /* ボタンのテキストのサイズを変更 */
-  padding: 10px 20px; /* ボタンの上下左右の余白を変更 */
-   border-radius: 10px; /* 丸みの半径を設定 */
-      width: 200px; 
-}
-
-
-.one-button{
-    margin: 0px 50px;
-    background-color: grey; /* 背景色をグレーに設定 */
-  color: white; /* 文字色を白に設定 */
-}
-.twe-button{
+button{
+	width:160px;
+	text-decoration: none;
 	background-color: grey; /* 背景色をグレーに設定 */
-  color: white; /* 文字色を白に設定 */
+	font-size: 16px; /* ボタンのテキストのサイズを変更 */
+    border:none;
 }
 
-p{
-	margin-right: 225px; /* 例えば、左に20px動かす */
+
+button a{
+	padding:20px;
+	display: block;
+	border-radius:5px ;
+	color : #fff;
 }
 
-a {
-  text-decoration: none; /* 下線をなしに設定 */
-}
-h2{
-  margin-right: 500px; /* 例えば、左に20px動かす */
-}
 
-.one-a{
+.back{
 	margin-right: 200px;
 	line-height: 50px; 
 	}

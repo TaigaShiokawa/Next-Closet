@@ -70,8 +70,8 @@
                 </ul><!-- category_listここまで -->
             </div> <!-- sidebarここまで -->
                 <div class="wrapper">
-                	<h1 id="section_title">Product List</h1>
-                    <h2 class="page-title"><%= title %></h1>
+                	<h2 id="section_title">Product List</h2>
+                    <h3 class="page-title"><%= title %></h3>
                      <ul class="product-list">
                           <% 
                           if (searchProducts != null && !searchProducts.isEmpty()) {

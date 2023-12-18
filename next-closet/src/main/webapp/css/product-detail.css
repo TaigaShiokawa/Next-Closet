@@ -42,7 +42,6 @@ p{
 	padding:20px;
 	margin-top:30px;
 	margin-right:50px;
-	display: inline-block;
 	text-decoration: none;
 	background-color: rgb(56, 56, 56);
 	color : #fff;
@@ -54,8 +53,6 @@ p{
 	display: inline-block;
 	text-decoration: none;
 	border-radius:5px ;
-	background-color: rgb(56, 56, 56);
-	color : #fff;
 }
 
  .back{
