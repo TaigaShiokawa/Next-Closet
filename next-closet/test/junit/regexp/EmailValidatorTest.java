@@ -6,11 +6,11 @@ import org.junit.jupiter.api.Test;
 
 import regexp.EmailValidator;
 
-class EmailValidatorTest {
+public class EmailValidatorTest {
 
 	@Test
 	//ドメインの第二部分がない失敗ケース
-	void testValidate1() {
+	public void testValidate1() {
 		String input = "taro@mail";
 		boolean actual = EmailValidator.validate(input);
 		assertFalse(actual);
@@ -18,30 +18,49 @@ class EmailValidatorTest {
 	
 	@Test
 	//ユーザー名が無いケース
-	void testValidate2() {
+	public void testValidate2() {
 		String input = "@mail.com";
 		boolean actual = EmailValidator.validate(input);
 		assertFalse(actual);
 	}
+	
 	@Test
 	//ドメインの第二部分が一文字のみのケース
-	void testValidate3() {
+	public void testValidate3() {
 		String input = "taro@mail.c";
 		boolean actual = EmailValidator.validate(input);
 		assertFalse(actual);
 	}
+	
 	@Test
 	//ドメイン名にピリオドが連続しているケース
-	void testValidate4() {
+	public void testValidate4() {
 		String input = "taro@mail..c";
 		boolean actual = EmailValidator.validate(input);
 		assertFalse(actual);
 	}
+	
 	@Test
 	//ユーザー名にスペースが含まれるケース
-	void testValidate5() {
+	public void testValidate5() {
 		String input = "taro yamada@mail.c";
 		boolean actual = EmailValidator.validate(input);
 		assertFalse(actual);
+	}
+	
+	@Test
+	//成功ケース
+	public void testValidateSuccess1() {
+		String input = "taro.yamada@mail.com";
+		boolean actual = EmailValidator.validate(input);
+		assertTrue(actual);
+	}
+	
+	@Test
+	//成功ケース
+	public void testValidateSuccess2() {
+		String input = "taro@mail.co.jp";
+		boolean actual = EmailValidator.validate(input);
+		assertTrue(actual);
 	}
 }

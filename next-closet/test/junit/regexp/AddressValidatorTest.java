@@ -9,6 +9,7 @@ import regexp.AddressValidator;
 public class AddressValidatorTest {
 
 	@Test
+	//半角が入力されたケース
 	public void testConvertFullWidthNumbersToHalfwidth() {
 		String input = "１２３４５";
 		
@@ -22,6 +23,7 @@ public class AddressValidatorTest {
 	}
 
 	@Test
+	//スペースが混入したケース
 	public void testRemoveUnnecessarySpaces() {
 	    String input = "   不要な   スペース  ";
 	    
@@ -35,6 +37,7 @@ public class AddressValidatorTest {
 	}
 
 	@Test
+	//全角とスペースのケース
 	public void testNormalizeAddress() {
 	    String input = "１２３   ４５  ";
 	    
