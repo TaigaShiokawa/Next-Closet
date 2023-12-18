@@ -11,18 +11,40 @@
 	padding-top: 150px;
 	text-align: center;
 	font-size: 20px;
+	margin: 0 auto;
 }
 
 .reason{
 	padding-top: 50px;
-	padding-bottom: 50px;
+	padding-bottom: 30px;
 }
 
-a:hover{
-  color : lightgray;
+a:hover , .submit:hover{
+  opacity: .7;
 }
 
 a{
   text-decoration: none;
   color: darkslategray;
+  font-size: 14px;
+  margin-bottom:60px;
+  display: inline-block;
+  ;
 }
+
+p , label {
+	font-size: 16px;
+}
+
+.submit{
+	width:200px;
+	height: 40px;
+	color: #fff;
+	display: inline-block;
+	text-decoration: none;
+	background-color: grey; /* 背景色をグレーに設定 */
+	font-size: 16px; /* ボタンのテキストのサイズを変更 */
+    border:none;
+    margin-top:40px;
+}
+
