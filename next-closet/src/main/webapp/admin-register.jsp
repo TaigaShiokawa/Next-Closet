@@ -10,9 +10,11 @@
 </head>
 <body>
 
+
   <%@ include file="includes/admin-navbar.jsp" %>
 
  			<% String adminNameError = (String)request.getSession().getAttribute("adminNameError"); %>
+
 			<% String kanaNameError = (String)request.getSession().getAttribute("kanaNameError"); %>
 			<% String passError = (String)request.getSession().getAttribute("passError"); %>
 			<% String emailError = (String)request.getSession().getAttribute("emailError"); %>
@@ -37,7 +39,7 @@
 			<% } else if(emailError != null) { %>
 			<p><%=emailError %></p>
 			<% session.removeAttribute("emailError"); %>
-			<% } %>
+			<% } %> --%>
 <form action="AdminRegisterServlet" method="post">
 
 					<label>お名前：</label><input type="text" name="adminname" placeholder="例) テスト　太郎" required><br>

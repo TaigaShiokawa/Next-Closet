@@ -65,8 +65,10 @@
 				<form action="RegisterServlet" method="post">
 					<div class="form_container">
 					<label>お名前</label><input type="text" name="username" placeholder="例) テスト　太郎" required><br>
+					<p class="caption">*姓と名のスペースは全角にしてください</p>
 					<label>フリガナ</label><input type="text" name="kananame" placeholder="例) テスト　タロウ" required><br>
-
+					<p class="caption">*姓と名のスペースは全角にしてください</p>
+					<p class="caption">*カタカナのみで入力してください</p>
 					<label>郵便番号</label><input type="text" name="postcode" placeholder="例) 0000000" required><br> 
 					<label>都道府県</label>
 					<select name="prefectures" required>
@@ -125,7 +127,8 @@
 					<label>メールアドレス</label><input type="email" name="email" placeholder="例) 〇〇@〇〇.com" required><br> 
 					<label>パスワード</label><input type="password" name="password" placeholder="8文字以上" required>
 					<small><span id="password_count">0/100</span><small><br> 
-					<div id="password_strength"></div><br>
+					<p class="caption">*8文字以上で入力してください</p>
+					<div id="password_strength"></div>
 					<div class="pass_count_box">
 							<div id="pass1" class="pass1 pb red"></div>
 							<div id="pass2" class="pass2 pb"></div>
@@ -133,6 +136,8 @@
 							<div id="pass4" class="pass4 pb"></div>
 							<div id="pass5" class="pass5 pb"></div>
 						</div>
+						
+					
 					<button type="submit">新規登録する</button>
 					</div>
 				</form>

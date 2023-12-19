@@ -1,5 +1,10 @@
 @charset "UTF-8";
 
+*{
+	padding : 0;
+	margin : 0;
+}
+
 .tab {
   max-width: 800px;
   margin: 0 auto;
@@ -72,7 +77,7 @@
 }
 
 
-content{
+container{
 	display: flex;
 }
 
@@ -83,4 +88,41 @@ side_bar{
 
 tab {
 	width:70%;
+}
+
+li{
+	list-style: none;
+}
+
+/* サイドバー */
+
+.side_bar{
+	padding-top:120px;
+    width: 15%;
+}
+
+#category_list{
+    margin-left:10px;
+}
+
+.side_bar > a{
+    padding: 15px 30px;
+    display: block;
+    font-size: 12px;
+    letter-spacing: .2em;
+}
+
+.category_content .category li{
+    display: block;
+}
+
+.category li a{
+	display: inline-block;
+    color: #444;
+    width:100px;
+    padding:5px;
+}
+
+.category li a:hover{
+    border-bottom: 1px solid #ccc;
 }
