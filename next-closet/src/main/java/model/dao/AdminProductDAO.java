@@ -96,47 +96,49 @@ public class AdminProductDAO {
 	}
 	
 	//商品詳細管理者用　（一つの商品の情報と商品の在庫情報を持ってくる）
-	public List <ProductBean>  detailAdminProductList(int productId ) 
-			throws SQLException , ClassNotFoundException{
-   		List <ProductBean> productList = new ArrayList<>();
-				       
-		String sql = "SELECT p.*, i.inventory_id, i.size_id, i.stock_quantity "
-				   + "FROM products p "
-				   + "LEFT JOIN inventory i ON p.product_id = i.product_id "
-				   + "WHERE p.product_id = ?";
-				
-		 try(Connection con = DBConnection.getConnection();  //データベースに接続する
-			 PreparedStatement pstmt = con.prepareStatement(sql)){ //引数で指定されたSQLをデータベースで実行するメソッド
-					 
-			 pstmt.setInt(1, productId);
-					 
-	      	 ResultSet res = pstmt.executeQuery(); //引数で指定されたSQLをデータベースで実行するメソッド 
-			       	 
-		     while (res.next()){ 
-				int product_id = res.getInt("product_id");
-				int category_id = res.getInt("category_id");
-				int gender = res.getInt("gender");	
-				String product_name = res.getString("product_name");
-				int price = res.getInt("price");
-				String description = res.getString("description");
-				boolean status = res.getBoolean("status");
-				String image = res.getString("image");
-				Date registration_date = res.getDate("registration_date");
-						
-				int inventoryId =res.getInt("inventory_id");
-				int sizeId = res.getInt("size_id");
-				int stockQuantity = res.getInt("stock_quantity");
-						
-				ProductBean product = new ProductBean(product_id, category_id,  gender, product_name, price , description , status , image , registration_date);
-				product.setInventoryId(inventoryId);
-				product.setSizeId(sizeId);
-				product.setStockQuantity(stockQuantity);
-						
-				productList.add(product);
-			}
-		}	
-		return productList;		
+	public List<ProductBean> detailAdminProductList(int productId) throws SQLException, ClassNotFoundException {
+	    Map<Integer, ProductBean> productMap = new HashMap<>();
+	    List<ProductBean> productList = new ArrayList<>();
+
+	    String sql = "SELECT p.*, i.inventory_id, i.size_id, s.size_name, i.stock_quantity "
+	               + "FROM products p "
+	               + "LEFT JOIN inventory i ON p.product_id = i.product_id "
+	               + "LEFT JOIN sizes s ON i.size_id = s.size_id "
+	               + "WHERE p.product_id = ?";
+
+	    try (Connection con = DBConnection.getConnection();
+	         PreparedStatement pstmt = con.prepareStatement(sql)) {
+
+	        pstmt.setInt(1, productId);
+	        ResultSet res = pstmt.executeQuery();
+
+	        while (res.next()) {
+	            int prodId = res.getInt("product_id");
+	            ProductBean product = productMap.get(prodId);
+	            if (product == null) {
+	                product = new ProductBean();
+	                // 商品情報の設定
+	                product.setProductId(prodId);
+	                product.setProductName(res.getString("product_name"));
+	                product.setPrice(res.getInt("price"));
+	                product.setDescription(res.getString("description"));
+	                product.setImage(res.getString("image"));
+	                product.setRegistrationDate(res.getDate("registration_date"));
+	                productMap.put(prodId, product);
+	            }
+
+	            SizeBean size = new SizeBean();
+	            size.setSizeId(res.getInt("size_id"));
+	            size.setSizeName(res.getString("size_name"));
+	            size.setStockQuantity(res.getInt("stock_quantity"));
+
+	            product.addSize(size);
+	        }
+	    }
+
+	    return new ArrayList<>(productMap.values());
 	}
+
 	
 	//　商品編集の情報を取得する
 	public List<ProductBean> editAdminProductList(int productId) throws ClassNotFoundException, SQLException {
@@ -217,6 +219,20 @@ public class AdminProductDAO {
 	            pstmtInventory.setString(3, sizeName);
 	            pstmtInventory.executeUpdate();
 	        }
+		}
+	}
+	
+	
+	public void updateProductStatus(int productId, boolean newStatus) 
+			throws ClassNotFoundException, SQLException {
+		String sql = "UPDATE products SET status = ? WHERE product_id = ?;";
+		
+		try (Connection con = DBConnection.getConnection();
+			 PreparedStatement pstmt = con.prepareStatement(sql)) {
+			
+			pstmt.setBoolean(1, newStatus);
+			pstmt.setInt(2, productId);
+			pstmt.executeUpdate();
 		}
 	}
 	
