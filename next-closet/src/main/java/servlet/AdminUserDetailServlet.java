@@ -38,5 +38,27 @@ public class AdminUserDetailServlet extends HttpServlet {
 		}
 		
 	}
+	
+protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
+		
+		try {
+			int userId = Integer.parseInt(request.getParameter("userId"));
+			
+			UserDAO userDao = new UserDAO();
+			
+			List<UserBean> userList  = userDao.getUserDetail(userId);
+			
+			request.setAttribute("userList", userList);
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher("admin-user-detail.jsp");
+			dispatcher.forward(request, response);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
 
 }

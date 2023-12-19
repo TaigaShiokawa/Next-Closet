@@ -18,7 +18,7 @@
  for (UserBean user : userList) {
  %>
 
-        <table>
+<table>
     <tr>
         <td><label for="name">お名前</label></td>
       <td><%=user.getUserName() %></td> 
@@ -50,7 +50,7 @@
 </table>
 
         <p>
-            <a href="admin-user-edit.jsp"><button type="submit" class="update">更新</button></a>
+            <a href="AdminUserUpdateServlet?userId=<%= user.getUserId() %>">更新</a>
             <a href="<!-- デリート先 -->"><button type="submit" class="delete">削除</button></a>
         </p>
         

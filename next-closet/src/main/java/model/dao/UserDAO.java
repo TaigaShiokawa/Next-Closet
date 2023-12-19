@@ -299,49 +299,49 @@ public class UserDAO {
 			return list;
 		}
 		//ユーザーidからユーザーの情報を取得（アドミン用ユーザー詳細情報用）
-				public List<UserBean> getUserDetail(int userId) throws ClassNotFoundException, SQLException {
-					List< UserBean > userList = new ArrayList<UserBean>();
-					
-					String sql = "SELECT * FROM users JOIN addresses ON users.user_id = addresses.user_id WHERE users.user_id = ?";
-					//sql実行
-					try (Connection con = DBConnection.getConnection();
-												PreparedStatement pstmt = con.prepareStatement(sql)){
-						
-						pstmt.setInt(1, userId);
-						
-						ResultSet res = pstmt.executeQuery();
-						
-						while (res.next()) {
-						
-						int user_id = res.getInt("user_id"); 
-						String user_name = res.getString("user_name");
-						String kana_name = res.getString("kana_name");
-						String email = res.getString("email");
-						String hash_pass = res.getString("hash_pass");
-						Date register_date = res.getDate("registration_date");
-						String tel_number = res.getString("tel_number");
-						boolean user_status = res.getBoolean("user_status");
-						
-						int address_id = res.getInt("address_id");
-						int useradd_id = res.getInt("user_id");
-						String post_code = res.getString("post_code");
-						String address = res.getString("address");
-						String prefectures = res.getString("prefectures");
-						
-						UserBean userLists = new UserBean(user_id, user_name, kana_name, email,hash_pass, register_date,  tel_number, user_status);
-						
-						userLists.setAddressId(address_id);
-						userLists.setUserId(useradd_id);
-						userLists.setPostCode(post_code);
-						userLists.setAddress(address);
-						userLists.setPrefectures(prefectures);
-						
-						userList.add(userLists);
-						
-						}
-					}
-					return userList;
-				}
+		public List<UserBean> getUserDetail(int userId) throws ClassNotFoundException, SQLException {
+			List< UserBean > userList = new ArrayList<UserBean>();
+			
+			String sql = "SELECT * FROM users JOIN addresses ON users.user_id = addresses.user_id WHERE users.user_id = ?";
+			//sql実行
+			try (Connection con = DBConnection.getConnection();
+										PreparedStatement pstmt = con.prepareStatement(sql)){
 				
+				pstmt.setInt(1, userId);
+				
+				ResultSet res = pstmt.executeQuery();
+				
+				while (res.next()) {
+				
+				int user_id = res.getInt("user_id"); 
+				String user_name = res.getString("user_name");
+				String kana_name = res.getString("kana_name");
+				String email = res.getString("email");
+				String hash_pass = res.getString("hash_pass");
+				Date register_date = res.getDate("registration_date");
+				String tel_number = res.getString("tel_number");
+				boolean user_status = res.getBoolean("user_status");
+				
+				int address_id = res.getInt("address_id");
+				int useradd_id = res.getInt("user_id");
+				String post_code = res.getString("post_code");
+				String address = res.getString("address");
+				String prefectures = res.getString("prefectures");
+				
+				UserBean userLists = new UserBean(user_id, user_name, kana_name, email,hash_pass, register_date,  tel_number, user_status);
+				
+				userLists.setAddressId(address_id);
+				userLists.setUserId(useradd_id);
+				userLists.setPostCode(post_code);
+				userLists.setAddress(address);
+				userLists.setPrefectures(prefectures);
+				
+				userList.add(userLists);
+				
+				}
+			}
+			return userList;
+		}
+
 }
 
