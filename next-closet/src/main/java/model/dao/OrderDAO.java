@@ -175,12 +175,7 @@ public List<OrderBean> getOrderDetailList( int orderItemId) throws ClassNotFound
 		return img;
 	   
    }
-	
-	
-	
-	
-	
-	
+
 }
 
 
