@@ -18,7 +18,7 @@ public class ProductDAO {
 	//販売中の一覧表示(productsテーブル)
 	public List <ProductBean>  allProductList() throws SQLException , ClassNotFoundException{
 		List <ProductBean> productList = new ArrayList<>();
-		String sql = "SELECT * FROM products WHERE status = 1";
+		String sql = "SELECT * FROM products WHERE status = 1 LIMIT 16 OFFSET 1";
         try(Connection con = DBConnection.getConnection();  //データベースに接続する
         PreparedStatement statement = con.prepareStatement(sql); //発行したいSQLを生成
         ResultSet res = statement.executeQuery()){ //引数で指定されたSQLをデータベースで実行するメソッド
@@ -383,5 +383,53 @@ public class ProductDAO {
 				   			pstmt.executeUpdate(); 
 				   			System.out.println("オーダー登録完了---------------------------");
 			        }
+				}
+				
+				//商品一覧 2ページ目移行
+				public List<ProductBean> getPagenation() throws ClassNotFoundException, SQLException {
+					List<ProductBean> productList = new ArrayList<>();
+					String sql = "SELECT * FROM products WHERE status = 1 LIMIT 16 OFFSET 17"; //LIMIT → 行数 OFFSET → 開始位置
+					try (Connection con = DBConnection.getConnection(); 
+							PreparedStatement pstmt = con.prepareStatement(sql)) {
+						ResultSet res = pstmt.executeQuery();
+						while (res.next()){ 
+			            	int product_id	    	 	= res.getInt("product_id");
+			            	int category_id	     		= res.getInt("category_id");
+			            	int gender        		    = res.getInt("gender");	
+			            	String product_name  		= res.getString("product_name");
+			            	int price            		= res.getInt("price");
+			            	String description   		= res.getString("description");
+			            	boolean status       		= res.getBoolean("status");
+			            	String image         		= res.getString("image");
+			            	Date registration_date      = res.getDate("registration_date");
+			            	
+			            	productList.add(new ProductBean (product_id, category_id,  gender, product_name, price , description , status , image , registration_date));
+			            }
+			     }	
+			return productList;	
+				}
+				
+				//商品一覧 3ページ目移行
+				public List<ProductBean> getPagenationLast() throws ClassNotFoundException, SQLException {
+					List<ProductBean> productList = new ArrayList<>();
+					String sql = "SELECT * FROM products WHERE status = 1 LIMIT 16 OFFSET 33"; //LIMIT → 行数 OFFSET → 開始位置
+					try (Connection con = DBConnection.getConnection(); 
+							PreparedStatement pstmt = con.prepareStatement(sql)) {
+						ResultSet res = pstmt.executeQuery();
+						while (res.next()){ 
+							int product_id	    	 	= res.getInt("product_id");
+							int category_id	     		= res.getInt("category_id");
+							int gender        		    = res.getInt("gender");	
+							String product_name  		= res.getString("product_name");
+							int price            		= res.getInt("price");
+							String description   		= res.getString("description");
+							boolean status       		= res.getBoolean("status");
+							String image         		= res.getString("image");
+							Date registration_date      = res.getDate("registration_date");
+							
+							productList.add(new ProductBean (product_id, category_id,  gender, product_name, price , description , status , image , registration_date));
+						}
+					}	
+					return productList;	
 				}
 }
