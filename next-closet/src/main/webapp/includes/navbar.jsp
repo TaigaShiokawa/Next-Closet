@@ -41,7 +41,19 @@
 									<a class="nav_text" href="login.jsp" class="nav_text">login</a>
 								</li>
 								<li>
-		                            <a href="#" class="nav_text">お問い合わせ</a> <!-- jsで処理するためどこにも遷移しない -->
+								　 <!--  <div class="form_box">
+							        	<button id="formModalOpen" class="delete_button">お問い合わせ先</button>
+							        </div>
+									  <div id="formEasyModal" class="modal">
+									    <div class="formModalContent">
+									      <div class="modal-header">
+									        <span class="modalClose">×</span>
+									      </div>
+									      <div class="modal-body">
+									        <p>お問い合わせ先</p>
+									      </div>
+									    </div>
+									  </diV> -->
 		                        </li>
 						 <% } %>
 					</ul>

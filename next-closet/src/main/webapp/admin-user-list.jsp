@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="model.bean.*" %>
-<%@ page import="model.dao.*" %>
+<%@ page import="junit.model.dao.*" %>
 <%@ page import="java.util.*" %>
 <%@ page import="model.StatusText" %>
  <%  StatusText st = new StatusText(); %>

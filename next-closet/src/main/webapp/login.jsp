@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="model.bean.*" %>
-<%@ page import="model.dao.*" %>
+<%@ page import="junit.model.dao.*" %>
 <% UserBean loginUser = (UserBean)request.getSession().getAttribute("user"); %>
 <% if(loginUser != null) { %>
 <% response.sendRedirect("ProductListServlet"); %>
@@ -12,6 +12,7 @@
 	<title>next closet...</title>
 	<link rel="stylesheet" href="css/login.css">
 	<link rel = "stylesheet" href = "css/navbar.css">
+	<!-- <script src=”外部ファイル名”></script> -->
 	</head>
 <body>
 <%@ include file="includes/navbar.jsp" %>

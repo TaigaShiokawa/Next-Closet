@@ -7,10 +7,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import connection.DBConnection;
 import model.bean.ProductBean;
+import model.bean.SizeBean;
 
 public class AdminProductDAO {
 	
@@ -137,7 +140,7 @@ public class AdminProductDAO {
 	
 	//　商品編集の情報を取得する
 	public List<ProductBean> editAdminProductList(int productId) throws ClassNotFoundException, SQLException {
-	    List<ProductBean> products = new ArrayList<>();
+	    Map<Integer, ProductBean> productMap = new HashMap<>();
 
 	    String sql = "SELECT p.product_id, p.category_id, p.gender, p.product_name, p.price, p.description, p.status, p.image, p.registration_date, "
 	               + "i.inventory_id, s.size_id, s.size_name, i.stock_quantity "
@@ -164,23 +167,57 @@ public class AdminProductDAO {
 	            String image = res.getString("image");
 	            Date registration_date = res.getDate("registration_date");
 	                    
-	            int inventoryId = res.getInt("inventory_id");
-	            int sizeId = res.getInt("size_id");
-	            int stockQuantity = res.getInt("stock_quantity");
-	                    
-	            ProductBean product = new ProductBean(product_id, category_id, gender, product_name, price, description, status, image, registration_date);
-	            product.setInventoryId(inventoryId);
-	            product.setSizeId(sizeId);
-	            product.setStockQuantity(stockQuantity);
-	                    
-	            products.add(product);
+	            SizeBean size = new SizeBean();
+	            size.setSizeId(res.getInt("size_id"));
+	            size.setSizeName(res.getString("size_name"));
+	            size.setStockQuantity(res.getInt("stock_quantity"));
+	            
+	            ProductBean product = productMap.get(product_id);
+	            if (product == null) {
+	            	product = new ProductBean(product_id, category_id, gender, product_name, price, description, status, image, registration_date);
+	            	productMap.put(product_id, product);
+	            }
+	            product.addSize(size);
 	        }
 	    }
-	    return products;
+	    return new ArrayList<>(productMap.values());
 	}
+	
+	// 商品を編集する
+	public void updateProduct(ProductBean product, Map<String, Integer> stockQuantities) 
+			throws SQLException, ClassNotFoundException {
+		// 商品情報の更新
+	    String updateProductSql = "UPDATE products SET product_name = ?, price = ?, description = ?, image = ? WHERE product_id IN (SELECT product_id FROM (SELECT product_id FROM products WHERE product_name = (SELECT product_name FROM products WHERE product_id = ?)) AS temp);";
 
-	
-	
-	
+	    // 在庫数量の更新
+	    String updateInventorySql = "UPDATE inventory SET stock_quantity = ? WHERE product_id = ? AND size_id = (SELECT size_id FROM sizes WHERE size_name = ?);";
+		
+		try (Connection con = DBConnection.getConnection();
+			 PreparedStatement pstmtProduct = con.prepareStatement(updateProductSql);
+			 PreparedStatement pstmtInventory = con.prepareStatement(updateInventorySql)) {
+			
+			// 商品情報の更新
+			pstmtProduct.setString(1, product.getProductName());
+			pstmtProduct.setInt(2, product.getPrice());
+			pstmtProduct.setString(3, product.getDescription());
+			pstmtProduct.setString(4, product.getImage());
+			pstmtProduct.setInt(5, product.getProductId());
+			pstmtProduct.executeUpdate();
+			
+			// 在庫数量の更新
+	        for (Map.Entry<String, Integer> entry : stockQuantities.entrySet()) {
+	            String[] parts = entry.getKey().split("_");
+	            String productIdStr = parts[0];
+	            String sizeName = parts[1];
+	            int stockQuantity = entry.getValue();
+
+	            int productId = Integer.parseInt(productIdStr);
+	            pstmtInventory.setInt(1, stockQuantity);
+	            pstmtInventory.setInt(2, productId);
+	            pstmtInventory.setString(3, sizeName);
+	            pstmtInventory.executeUpdate();
+	        }
+		}
+	}
 	
 }

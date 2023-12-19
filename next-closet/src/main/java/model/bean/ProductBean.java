@@ -2,6 +2,8 @@ package model.bean;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProductBean extends InventoryBean implements Serializable{
 	
@@ -75,7 +77,7 @@ public class ProductBean extends InventoryBean implements Serializable{
 		return description;
 	}
 
-	public void setDescruption(String description) {
+	public void setDescription(String description) {
 		this.description = description;
 	}
 
@@ -102,15 +104,23 @@ public class ProductBean extends InventoryBean implements Serializable{
 	public void setRegistrationDate(Date registrationDate) {
 		this.registrationDate = registrationDate;
 	}
-
 	
-	@Override
-    public String toString() {
-        return "ProductBean{" +
-               "productName='" + productName + '\'' +
-               ", price=" + price +
-               ", image='" + image + '\'' +
-               '}';
+	private List<SizeBean> sizes; // 商品のサイズのリスト
+
+    // sizes のゲッターとセッター
+    public List<SizeBean> getSizes() {
+        return sizes;
+    }
+
+    public void setSizes(List<SizeBean> sizes) {
+        this.sizes = sizes;
+    }
+    
+    public void addSize(SizeBean size) {
+        if (this.sizes == null) {
+            this.sizes = new ArrayList<>();
+        }
+        this.sizes.add(size);
     }
 
 	

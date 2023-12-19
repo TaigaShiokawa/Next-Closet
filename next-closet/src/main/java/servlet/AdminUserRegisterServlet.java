@@ -22,45 +22,46 @@ import regexp.TelNumberValidator;
 import regexp.UserNameValidator;
 
 /**
- * Servlet implementation class RegisterServlet
+ * Servlet implementation class AdminUserRegisterServlet
  */
-@WebServlet("/RegisterServlet")
-public class RegisterServlet extends HttpServlet {
+@WebServlet("/AdminUserRegisterServlet")
+public class AdminUserRegisterServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		
-		response.sendRedirect("register.jsp");
+		response.sendRedirect("admin-user-register.jsp");
+		
 	}
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		
-		request.setCharacterEncoding("UTF-8");
+request.setCharacterEncoding("UTF-8");
 		
 		String userName = request.getParameter("username");
 		String kanaName = request.getParameter("kananame");
-		String postCode = request.getParameter("postcode");
+		String postCode = request.getParameter("userPostCode");
 		String prefectures = request.getParameter("prefectures");
-		String address = request.getParameter("address");
-		String telNumber = request.getParameter("telnumber");
+		String address = request.getParameter("userAddress");
+		String telNumber = request.getParameter("telNumber");
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
 		//名前の入力チェック
 		if(!UserNameValidator.validate(userName)) {
 			request.getSession().setAttribute("userNameError", "名前の入力が正しくありません");
-	        response.sendRedirect("register.jsp");
+	        response.sendRedirect("admin-user-register.jsp");
 	        return;
 		}
 		
 		//フリガナの全角チェック (ひらがなは許可せず, カタカナのみ)
 		if(!KanaNameValidator.validate(kanaName)) {
 			request.getSession().setAttribute("kanaNameError", "フリガナの入力が正しくありません");
-	        response.sendRedirect("register.jsp");
+	        response.sendRedirect("admin-user-register.jsp");
 	        return;
 		}
 		
@@ -78,14 +79,14 @@ public class RegisterServlet extends HttpServlet {
 		//郵便番号の入力に対してハイフン無しの形式を要求
 		if(!PostCodeValidator.validate(convertPostCode)) {
 			request.getSession().setAttribute("postCodeError", "郵便番号が正しくありません");
-	        response.sendRedirect("register.jsp");
+	        response.sendRedirect("admin-user-register.jsp");
 	        return;
 		}
 		
 		//住所の空文字チェック
 		if(address.isEmpty()) {
-			request.getSession().setAttribute("addressError", "住所を入力してください");
-	        response.sendRedirect("register.jsp");
+			request.getSession().setAttribute("addressError", "住所が正しくありません");
+	        response.sendRedirect("admin-user-register.jsp");
 	        return;
 		}
 		//住所のデータを統一(全角を半角にする)
@@ -106,7 +107,7 @@ public class RegisterServlet extends HttpServlet {
 		//電話番号の入力に対してハイフン無しの形式を要求
 		if(!TelNumberValidator.validate(convertTelNumber)) {
 			request.getSession().setAttribute("telNumberError", "無効な電話番号です");
-			response.sendRedirect("register.jsp");
+			response.sendRedirect("admin-user-register.jsp");
 			return;
 		}
 		
@@ -114,14 +115,14 @@ public class RegisterServlet extends HttpServlet {
 		if (!EmailValidator.validate(email)) { 
 	        // Eメールが無効な形式の場合の処理
 	        request.getSession().setAttribute("emailError", "無効なEメールアドレスです");
-	        response.sendRedirect("register.jsp");
+	        response.sendRedirect("admin-user-register.jsp");
 	        return;
 		}
 		
 		//パスワード 半角であれば特殊文字を許可
 		if(!PasswordValidator.isHalfWidth(password)) {
 			request.getSession().setAttribute("passError", "パスワードが不正です。正しく入力してください");
-			response.sendRedirect("register.jsp");
+			response.sendRedirect("admin-user-register.jsp");
 			return;
 			
 			//パスワードの文字数と空文字チェック
@@ -150,33 +151,34 @@ public class RegisterServlet extends HttpServlet {
 				try {
 					int setAddress = uDao.registerAddress(userId, convertPostCode, prefectures, normalizedAddress);
 					if(setAddress == 1) { //ユーザーの住所情報が1行追加されたら...
-						request.getSession().setAttribute("success", "登録完了！ ログインへお進みください");
-						response.sendRedirect("register.jsp");
+						request.getSession().setAttribute("success", "正常に登録できました。");
+						response.sendRedirect("admin-user-register.jsp");
 					} else {
-						request.getSession().setAttribute("failure", "登録済みです。ログインへお進みください");
-						response.sendRedirect("register.jsp");
+						request.getSession().setAttribute("failure", "登録に失敗しました。");
+						response.sendRedirect("admin-user-register.jsp");
 						return;
 					}
 				} catch(ClassNotFoundException e) {
 					e.printStackTrace();
-					request.getSession().setAttribute("errorMessage", "内部の設定エラーが発生しました。"
-							+ "お問い合わせよ管理者に連絡して、解決の支援を受けてください。");
-			        response.sendRedirect("error.jsp");
+					request.getSession().setAttribute("errorMessageToAdmin", "内部の設定エラーが発生しました。"
+							+ "早急に対応してください。");
+			        response.sendRedirect("errorToAdmin.jsp");
 			        return;
-				} catch(SQLException e) {
+				} catch (SQLException e) {
 					e.printStackTrace();
-					request.getSession().setAttribute("errorMessage", "現在データベースにアクセスできません。後ほど再度お試しください"
-							+ "。問題が続く場合は、お問い合わせより管理者にご連絡ください。");
-			        response.sendRedirect("error.jsp");
-			        return;
+					request.getSession().setAttribute("errorMessageToAdmin", "データベースにアクセスできません。"
+							+ "早急に対応してください。");
+					response.sendRedirect("errorToAdmin.jsp");
+					return;
 				}
 			}
 		} catch(Exception e) {
-			e.printStackTrace();
-			request.getSession().setAttribute("errorMessage", "申し訳ありませんが、システムエラーが発生しました。"
-					+ "もう一度お試しいただくか、お問い合わせより管理者にお問い合わせください。");
-	        response.sendRedirect("error.jsp");
-	        return;
-		}
+			  e.printStackTrace();
+			  request.getSession().setAttribute("errorMessageToAdmin", "システムエラーが発生しました。早急に対応してください。");
+			  response.sendRedirect("errorToAdmin.jsp");
+			  return;
+		  }
+		
 	}
+
 }

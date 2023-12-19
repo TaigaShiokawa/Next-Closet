@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.* , java.util.ArrayList, model.bean.* , java.util.List" %>
-<%@ page import="model.dao.*" %>
+<%@ page import="junit.model.dao.*" %>
 <% UserBean loginUser = (UserBean)request.getSession().getAttribute("user"); %> 
 <!DOCTYPE html>
 <html>
@@ -120,6 +120,9 @@
             </div>
         </div>
     </main>
+    
+    <a href="ProductListServlet?value=1">1</a>
+    <a href="PagenationServlet?value=2">2</a>
 <%@ include file="includes/footer.jsp" %>
 </body>
 </html>

@@ -71,11 +71,13 @@ public class ProductAddServlet extends HttpServlet {
 		
 		if(pName.length() > 65) {
 			request.setAttribute("productNameError", "商品名が長すぎます。65文字以内でお願いします。");
+			request.getRequestDispatcher("product-add.jsp").forward(request, response);
 			return;
 		}
 		
 		if(description.length() > 1000) {
 			request.setAttribute("descriptionError", "商品説明が長すぎます。1000文字以内でお願いします。");
+			request.getRequestDispatcher("product-add.jsp").forward(request, response);
 			return;
 		}
 		
