@@ -40,17 +40,7 @@ public class AdminLoginServlet extends HttpServlet {
 			response.sendRedirect("errorToAdmin.jsp");
 			return;
 		}
-        
-        String errmessege = "";
-        
-  	  if ((email == null || email.isEmpty()) && (hashedPass == null || hashedPass.isEmpty())) {
-		    errmessege = "※メールアドレスまたはパスワードが正しくありません";
-		    request.setAttribute("errmessge", errmessege);
-          String view = "admin-login.jsp";
-          request.getRequestDispatcher(view).forward(request, response);
-          return; 
-  	  }
-          
+       
           AdminDAO adminDao = new AdminDAO();
           
           try {

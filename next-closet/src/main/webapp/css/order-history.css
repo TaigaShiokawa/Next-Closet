@@ -18,6 +18,20 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	margin: 0 auto;
+}
+
+.no_order_container{
+	width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+   
+}
+
+.no_order{
+	text-align: center;	
+	 line-height: 60px;
 }
 
 #section_title{ /* product listの字体変更*/

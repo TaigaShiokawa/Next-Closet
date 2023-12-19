@@ -40,5 +40,6 @@
 				</div>
 		</main>
 		<%@ include file="includes/footer.jsp" %>
+		<script src="js/form.js"></script>
 </body>
 </html>

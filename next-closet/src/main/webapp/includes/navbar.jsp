@@ -41,19 +41,21 @@
 									<a class="nav_text" href="login.jsp" class="nav_text">login</a>
 								</li>
 								<li>
-								　 <!--  <div class="form_box">
-							        	<button id="formModalOpen" class="delete_button">お問い合わせ先</button>
+								　  <div class="form_box">
+							        	<button id="formModalOpen">お問い合わせ先</button>
 							        </div>
 									  <div id="formEasyModal" class="modal">
 									    <div class="formModalContent">
 									      <div class="modal-header">
-									        <span class="modalClose">×</span>
+									        <span class="formModalClose">×</span>
 									      </div>
 									      <div class="modal-body">
-									        <p>お問い合わせ先</p>
+									        <p>お問い合わせ先</p><br>
+									        <p>078-123-1234</p>
+									        <p>next_closet@co.jp</p>
 									      </div>
 									    </div>
-									  </diV> -->
+									  </diV>
 		                        </li>
 						 <% } %>
 					</ul>
