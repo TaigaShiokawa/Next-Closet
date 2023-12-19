@@ -36,9 +36,9 @@ public class ProductListServlet extends HttpServlet {
 		}
 		
 		if (gender == 0 ) {
-			genderStr = "MENS";
+			genderStr = "MEN";
 		} else if( gender == 1 ) {
-			genderStr = "WOMENS";
+			genderStr = "WOMEN";
 		} else {
 			genderStr = "ALL";
 		}
