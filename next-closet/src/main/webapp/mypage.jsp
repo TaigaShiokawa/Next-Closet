@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="model.bean.*" %>
-<%@ page import="junit.model.dao.*" %>
+<%@ page import="model.dao.*" %>
 <% UserBean loginUser = (UserBean)request.getSession().getAttribute("user"); %>
 <% AddressBean loginUserAddress = (AddressBean)request.getSession().getAttribute("userAddress"); %>
 <% if(loginUser == null) { %>
