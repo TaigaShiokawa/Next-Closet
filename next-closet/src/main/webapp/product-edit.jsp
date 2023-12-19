@@ -16,7 +16,7 @@
         var oFReader = new FileReader();
         oFReader.readAsDataURL(document.getElementById("imageUpload").files[0]);
 
-        oFReader.onload = functoin (oFREvent) {
+        oFReader.onload = function (oFREvent) {
              document.getElementById("imagePreview").src = oFREvent.target.result;
         };
     }
@@ -28,7 +28,7 @@
       if(!productList.isEmpty()) {
     	  ProductBean firstProduct = productList.get(0);
     %>
-      <form action="UpdateProductServlet" method="post" enctype="multipart/form-data">
+      <form action="AdminProductEditServlet" method="post">
           <input type="hidden" name="productId" value="<%= firstProduct.getProductId() %>">
           <p>商品名 <input type="text" name="productName" value="<%= firstProduct.getProductName() %>"></p>
           <p>商品説明 <textarea name="description"> <%= firstProduct.getDescription() %></textarea></p>
