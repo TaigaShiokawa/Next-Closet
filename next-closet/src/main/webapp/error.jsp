@@ -14,7 +14,6 @@
 	<%@ include file="includes/navbar.jsp" %>
 	<div class="container">
 	<img class="error_img" src="image/decoration/error.jpg" alt="error">
-	<p>あ</p>
 		<% String errorMessage = (String)session.getAttribute("errorMessage"); %>
 		<% String userNotFound = (String)session.getAttribute("userNotFound"); %>
 		<% String cartItemNotFound = (String)session.getAttribute("cartItemNotFound"); %>
