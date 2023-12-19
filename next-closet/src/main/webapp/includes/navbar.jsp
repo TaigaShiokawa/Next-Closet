@@ -35,7 +35,8 @@
 				                </div>
 			
 								<!-- ログインしていない -->
-								 <% } else { %> 
+								 <% } else { %>
+								 <li><a class="nav_text" href="ProductListServlet">商品一覧</a></li> 
 								<li>
 									<a class="nav_text" href="login.jsp" class="nav_text">login</a>
 								</li>
