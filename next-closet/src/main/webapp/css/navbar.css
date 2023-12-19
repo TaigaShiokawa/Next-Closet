@@ -55,9 +55,9 @@ header a {
 }
 
 .icon{ /* アイコン */
-  
 	padding-top:15px;
 	padding-bottom:5px;
+	text-align: center;
 }
 
 header a:hover  , .sarch_btn:hover{
@@ -171,10 +171,10 @@ footer{
 #formModalOpen{
 	background-color: transparent;
 	border: none;
-	 color: #333;
-	  text-decoration: none;
-	  transition: all 0.5s;
-	  display: block;
-	  font-size: 12px;
-	  letter-spacing: .2em;
+	color: #333;
+	text-decoration: none;
+	transition: all 0.5s;
+	display: block;
+	font-size: 12px;
+	letter-spacing: .2em;
 }

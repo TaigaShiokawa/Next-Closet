@@ -29,12 +29,13 @@ String img = null;
 			<h2 id="section_title">Order History</h2>
 		    <h3 class="page-title">購入履歴</h3>
 			<% for( OrderBean list : orderList) {
-				      img = dao.getProductImage(list.getProductId());
-                      if ( img == null ){
-                   	   img = "https://placehold.jp/480x640.png";
-                      } else {
-                   	   img = "image/" + img;
-                      }
+				
+				img = dao.getProductImage(list.getProductId());
+                if ( img.isEmpty() ){
+             	   img = "https://placehold.jp/480x640.png";
+                } else {
+             	    img = "image/" + img;
+                }
             %>
 			<div class="border">
 		   		<div class="container">
