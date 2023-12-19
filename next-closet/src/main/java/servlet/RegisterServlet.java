@@ -84,7 +84,7 @@ public class RegisterServlet extends HttpServlet {
 		
 		//住所の空文字チェック
 		if(address.isEmpty()) {
-			request.getSession().setAttribute("addressError", "住所が正しくありません");
+			request.getSession().setAttribute("addressError", "住所を入力してください");
 	        response.sendRedirect("register.jsp");
 	        return;
 		}

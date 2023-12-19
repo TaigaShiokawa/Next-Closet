@@ -26,6 +26,7 @@ public class AddressValidator {
         // 不要なスペースを削除
         return removeUnnecessarySpaces(convertedNumbers);
     }
+    
 	// テスト用のmainメソッド
 //    public static void main(String[] args) {
 //        String address = "　東京都新宿区西新宿２－８－１　";
