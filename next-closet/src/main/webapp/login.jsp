@@ -12,6 +12,7 @@
 	<title>next closet...</title>
 	<link rel="stylesheet" href="css/login.css">
 	<link rel = "stylesheet" href = "css/navbar.css">
+	<!-- <script src=”外部ファイル名”></script> -->
 	</head>
 <body>
 <%@ include file="includes/navbar.jsp" %>
