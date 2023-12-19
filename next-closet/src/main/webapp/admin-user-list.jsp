@@ -171,7 +171,7 @@
 					            					 <ul>
 	                     		   					   <li><%= columns.getUserName()  %></li>
 	                     		   					   <li><%= columns.getEmail() %></li>
-	                     		   					   <li><%= st.userStatusText(columns.isUserStatus()) %></li>ステータスメソッド作成
+	                     		   					   <li><%= st.userStatusText(columns.isUserStatus()) %></li>
 	                     		   					   <li><a href="AdminUserDetailServlet?userId=<%= columns.getUserId() %>">詳細を見る</a></li>
 	                     		   					 </ul>
                   						 <% } } %>

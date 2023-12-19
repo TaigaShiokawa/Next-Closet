@@ -55,7 +55,7 @@
 			                    					 <ul>
 	                     		   					   <li><%= list.getOrderItemId() %></li>
 	                     		   					   <li><%= dao.getProductName(list.getProductId()) %></li>
-	                     		   					   <li><a href="AdminOrderHistoryDetailServlet?orderItemId=<%=list.getOrderItemId()%>">詳細を見る</a></li>
+	                     		   					   <li><a href="AdminOrderHistoryDetailServlet?orderItemId=<%=list.getOrderItemId() %>">詳細を見る</a></li>
 	                     		   					 </ul>
 	                     		   				<% } %>
 	                     		   			<% } %>
