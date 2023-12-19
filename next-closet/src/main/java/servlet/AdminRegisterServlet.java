@@ -14,6 +14,7 @@ import hashedPassword.HashPW;
 import model.dao.AdminDAO;
 import regexp.EmailValidator;
 import regexp.KanaNameValidator;
+import regexp.UserNameValidator;
 
 @WebServlet("/AdminRegisterServlet")
 public class AdminRegisterServlet extends HttpServlet {
@@ -34,7 +35,7 @@ public class AdminRegisterServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		
 		//名前の空文字をチェック
-		if(adminName.isEmpty()) {
+		if(!UserNameValidator.validate(adminName)) {
 			request.getSession().setAttribute("adminNameError", "名前の入力が正しくありません");
 			response.sendRedirect("admin-register.jsp");
 			return;
@@ -71,20 +72,20 @@ public class AdminRegisterServlet extends HttpServlet {
 		try {
 			int setAdmin = aDao.registerAdmin(adminName, kanaName, email, hashedPass);
 			if(setAdmin==1) { //ユーザーの住所情報が1行追加されたら...
-				request.getSession().setAttribute("success", "登録完了！ ログインへお進みください");
+				request.getSession().setAttribute("success", "登録完了！");
 				response.sendRedirect("admin-register.jsp");
 			} else {
-				request.getSession().setAttribute("failure", "登録済みです。ログインへお進みください");
+				request.getSession().setAttribute("failure", "登録済みです");
 				response.sendRedirect("admin-register.jsp");
 			}
 		} catch(ClassNotFoundException e) {
 			e.printStackTrace();
-			request.getSession().setAttribute("errorMessage", "システムエラーが発生しました。管理者に連絡してください");
-	        response.sendRedirect("error.jsp");
+			request.getSession().setAttribute("errorMessage", "システムエラーが発生しました");
+	        response.sendRedirect("errorToAdmin.jsp");
 		} catch(SQLException e) {
 			e.printStackTrace();
 			request.getSession().setAttribute("errorMessage", "データベースエラーが発生しました。しばらくしてから再開してください");
-	        response.sendRedirect("error.jsp");
+	        response.sendRedirect("errorToAdmin.jsp");
 		}
 	}
 

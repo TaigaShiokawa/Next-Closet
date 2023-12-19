@@ -14,6 +14,7 @@ import hashedPassword.HashPW;
 import model.dao.AdminDAO;
 import regexp.EmailValidator;
 import regexp.KanaNameValidator;
+import regexp.UserNameValidator;
 
 @WebServlet("/AdminEditServlet")
 public class AdminEditServlet extends HttpServlet {
@@ -35,8 +36,8 @@ public class AdminEditServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		
 		//名前の入力チェック
-		if(adminName.isEmpty()) {
-			request.getSession().setAttribute("userNameError", "名前の入力が正しくありません");
+		if(!UserNameValidator.validate(adminName)) {
+			request.getSession().setAttribute("adminNameError", "名前の入力が正しくありません");
 			response.sendRedirect("admin-edit.jsp");
 			return;
 		}
@@ -79,6 +80,7 @@ public class AdminEditServlet extends HttpServlet {
 						response.sendRedirect("AdminDetailServlet");
 					}
 				}
+			//ここも今のとこ同じくユーザーと同じ（形だけ）
 		} catch(ClassNotFoundException e) {
 			e.printStackTrace();
 			request.getSession().setAttribute("errorMessage", "内部の設定エラーが発生しました。"
