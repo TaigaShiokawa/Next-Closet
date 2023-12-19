@@ -26,6 +26,8 @@ public class AdminRegisterServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		request.setCharacterEncoding("UTF-8");
+		
 		String adminName = request.getParameter("adminname");
 		String kanaName = request.getParameter("kananame");
 		String email = request.getParameter("email");
@@ -34,27 +36,27 @@ public class AdminRegisterServlet extends HttpServlet {
 		//名前の空文字をチェック
 		if(adminName.isEmpty()) {
 			request.getSession().setAttribute("adminNameError", "名前の入力が正しくありません");
-			response.sendRedirect("register.jsp");
+			response.sendRedirect("admin-register.jsp");
 			return;
 		}
 		//カタカナ以外は進めないようにするやつ
 		if(!KanaNameValidator.validate(kanaName)) {
 			request.getSession().setAttribute("kanaNameError", "フリガナの入力が正しくありません");
-	        response.sendRedirect("register.jsp");
+	        response.sendRedirect("admin-register.jsp");
 	        return;
 		}
 		
 		//パスワードの文字数チェック
 		if((password.length() < 8) && (password.trim().isEmpty())) { //8文字以上かつ空文字を許可しない
 			request.getSession().setAttribute("passError", "8文字以上で設定してください");
-			response.sendRedirect("register.jsp");
+			response.sendRedirect("admin-register.jsp");
 			return;
 		} 
 		
 		if (!EmailValidator.validate(email)) { //正規表現を含んだEmailValidatorクラスを使用.
 	        // Eメールが無効な形式の場合の処理
 	        request.getSession().setAttribute("emailError", "無効なEメールアドレスです");
-	        response.sendRedirect("register.jsp");
+	        response.sendRedirect("admin-register.jsp");
 	        return;
 		}
 		

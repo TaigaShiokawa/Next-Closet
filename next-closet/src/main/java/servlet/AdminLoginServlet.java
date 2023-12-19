@@ -59,6 +59,7 @@ public class AdminLoginServlet extends HttpServlet {
   			if((loginAdmin != null) && (loginAdmin.isAdminStatus() == true)) { //logout済みのチェック
   				request.getSession().setAttribute("admin", loginAdmin);
   				request.getSession().setAttribute("adminId", adminId);
+  				request.getSession().setAttribute("password", password);				
   				response.sendRedirect("AdminProductListServlet");
   			} else {
   				request.getSession().setAttribute("loginError", "ログインに失敗しました...");

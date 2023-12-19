@@ -66,6 +66,10 @@ span{
 	flex-direction: column;
 }
 
+.pass_submit{
+	margin-left: -35px;
+}
+
 .pass{
 	display: flex;
 }

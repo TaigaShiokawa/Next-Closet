@@ -75,6 +75,7 @@ public class AdminEditServlet extends HttpServlet {
 			if(adminId > 0) {
 				int updateAdmin = aDao.updateAdmin(adminName, kanaName,email, hashedPass, adminId);
 				if(updateAdmin == 1) {
+					request.getSession().setAttribute("password", password);
 						response.sendRedirect("AdminDetailServlet");
 					}
 				}

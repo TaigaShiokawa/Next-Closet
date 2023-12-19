@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="model.bean.*" %>
-<%@ page import="junit.model.dao.*" %>
+<%@ page import="model.dao.*" %>
 <% UserBean loginUser = (UserBean)request.getSession().getAttribute("user"); %>
 <% AddressBean loginUserAddress = (AddressBean)request.getSession().getAttribute("userAddress"); %>
 <% if(loginUser == null) { %>
@@ -18,7 +18,7 @@
 		<title>マイページ</title>
 	</head>
 <body>
- <%@ include file="includes/navbar.jsp" %>  
+<%@ include file="includes/navbar.jsp" %> 
  <main>
 
 		<div class="title">
@@ -43,7 +43,7 @@
 		    </tr>
 		    <tr>
 		        <td><label for="postalcode">郵便番号</label></td>
-		        <td>&#12306; <%=loginUserAddress.getPostCode() %></td>
+		        <td><%=loginUserAddress.getPostCode() %></td>
 		    </tr>
 		    <tr>
 		        <td><label for="address">都道府県</label></td>
