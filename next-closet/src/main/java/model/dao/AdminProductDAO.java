@@ -186,8 +186,11 @@ public class AdminProductDAO {
 	// 商品を編集する
 	public void updateProduct(ProductBean product, Map<String, Integer> stockQuantities) 
 			throws SQLException, ClassNotFoundException {
-		String updateProductSql = "UPDATE products SET product_name = ?, price = ?, description = ?, image = ? WHERE product_id IN (SELECT product_id FROM (SELECT product_id FROM products WHERE product_name = (SELECT product_name FROM products WHERE product_id = ?)) AS temp);";
-		String updateInventorySql = "UPDATE inventory SET stock_quantity = ? WHERE product_id = ? AND size_id = (SELECT size_id FROM sizes WHERE size_name = ?);";
+		// 商品情報の更新
+	    String updateProductSql = "UPDATE products SET product_name = ?, price = ?, description = ?, image = ? WHERE product_id IN (SELECT product_id FROM (SELECT product_id FROM products WHERE product_name = (SELECT product_name FROM products WHERE product_id = ?)) AS temp);";
+
+	    // 在庫数量の更新
+	    String updateInventorySql = "UPDATE inventory SET stock_quantity = ? WHERE product_id = ? AND size_id = (SELECT size_id FROM sizes WHERE size_name = ?);";
 		
 		try (Connection con = DBConnection.getConnection();
 			 PreparedStatement pstmtProduct = con.prepareStatement(updateProductSql);
@@ -202,12 +205,18 @@ public class AdminProductDAO {
 			pstmtProduct.executeUpdate();
 			
 			// 在庫数量の更新
-			for (Map.Entry<String, Integer> entry : stockQuantities.entrySet()) {
-				pstmtInventory.setInt(1, entry.getValue());
-				pstmtInventory.setInt(2, product.getProductId());
-				pstmtInventory.setString(3, entry.getKey());
-				pstmtInventory.executeUpdate();
-			}
+	        for (Map.Entry<String, Integer> entry : stockQuantities.entrySet()) {
+	            String[] parts = entry.getKey().split("_");
+	            String productIdStr = parts[0];
+	            String sizeName = parts[1];
+	            int stockQuantity = entry.getValue();
+
+	            int productId = Integer.parseInt(productIdStr);
+	            pstmtInventory.setInt(1, stockQuantity);
+	            pstmtInventory.setInt(2, productId);
+	            pstmtInventory.setString(3, sizeName);
+	            pstmtInventory.executeUpdate();
+	        }
 		}
 	}
 	

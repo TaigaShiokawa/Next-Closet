@@ -88,23 +88,17 @@ public class AdminDAO {
 	    try (Connection con = DBConnection.getConnection();
 	         PreparedStatement preparedStatement = con.prepareStatement(sql)) {
 
-	        // Set parameters for the PreparedStatement
 	        preparedStatement.setString(1, adminName);
 	        preparedStatement.setString(2, kanaName);
 	        preparedStatement.setString(3, email);
 	        preparedStatement.setString(4, password);
 	        preparedStatement.setInt(5, adminId);
 
-	        // Execute the update
 	        int rowsAffected = preparedStatement.executeUpdate();
-
-	        // Check if the update was successful
 	        return rowsAffected;
 
 	    } catch (SQLException | ClassNotFoundException e) {
-	        // Log or print the exception for debugging
 	        e.printStackTrace();
-	        // Re-throw the exception to be handled by the calling code
 	        throw e;
 	    }
 	}
@@ -124,6 +118,24 @@ public class AdminDAO {
 			}
 		}
 		return AdminId;
+	}
+	
+	public AdminBean getUpdateAdmin(int adminId) throws ClassNotFoundException, SQLException {
+		AdminBean admin = new AdminBean();
+		String sql = "SELECT * FROM admins WHERE admin_id = ?";
+		try (Connection con = DBConnection.getConnection(); 
+				PreparedStatement pstmt = con.prepareStatement(sql)) { 
+			pstmt.setInt(1, adminId);
+			ResultSet res = pstmt.executeQuery();
+			while(res.next()) {
+				admin.setAdminId(res.getInt("admin_id"));
+				admin.setAdminName(res.getString("admin_name"));
+				admin.setAdminKanaName(res.getString("admin_kana_name"));
+				admin.setEmail(res.getString("email"));
+				admin.setPassword(res.getString("hash_pass")); //消してもいいかも. 後で確認する.
+			}
+		}
+		return admin;
 	}
 
 }

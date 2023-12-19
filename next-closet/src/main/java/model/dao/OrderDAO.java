@@ -19,7 +19,7 @@ public class OrderDAO {
 		List<OrderBean> orderList = new ArrayList<>();
 		
 		//product_name用のsql文
-		String sql = "SELECT * FROM order_items WHERE user_id = ?";
+		String sql = "SELECT * FROM order_items WHERE user_id = ? ORDER BY order_date DESC";
 		int order_item_id = 0;
 		int product_id = 0;
 		int quantity = 0;
@@ -97,7 +97,7 @@ public class OrderDAO {
 		List<OrderBean> orderList = new ArrayList<>();
 		
 		//product_name用のsql文
-		String sql = "SELECT * FROM order_items";
+		String sql = "SELECT * FROM order_items ORDER BY order_date DESC";
 		
 		
 		try (Connection con = DBConnection.getConnection();
