@@ -124,6 +124,19 @@ span{
 }
 
 
+.non_footer{
+	width:100vw;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.non_footer{
+    position: absolute;/*←絶対位置*/
+    bottom: 0; /*下に固定*/
+}
+
+
 /* スピンボタン */
 
 /** スピンボタン要素 **/
@@ -150,3 +163,11 @@ input[type=number]::-webkit-inner-spin-button {
   margin: 0;
   -webkit-appearance: none;
 }
+
+/* カート内に商品がない時*/
+ .non_container{
+	 width: 100%;
+	 max-width: 1000px;
+	 margin:0 auto;
+	
+ }

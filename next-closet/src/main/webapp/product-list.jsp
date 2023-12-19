@@ -46,7 +46,7 @@
 							</div>
 						<div class="option">
 							<input type="checkbox" id="toggle2" class="toggle">
-							<label class="category_title" for="toggle2">MAN</label>
+							<label class="category_title" for="toggle2">MEN</label>
 							<div class="category_content">
 	                      		<ul class="category">
 	                            		<% for ( CategoryBean columns : categoryList){ %>
@@ -57,7 +57,7 @@
 						</div>
 						<div class="option">
 							<input type="checkbox" id="toggle3" class="toggle">
-							<label class="category_title" for="toggle3">WOMAN</label>
+							<label class="category_title" for="toggle3">WOMEN</label>
 							<div class="category_content">
 	                      		<ul class="category">
 								<% for ( CategoryBean columns : categoryList){ %>
