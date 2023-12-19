@@ -61,11 +61,30 @@ span{
     padding-right: 10px;
 }
 
+.caption{
+	font-size: 10px;
+	text-align: right;
+}
+
+#password_count{
+	display: flex;
+	justify-content: right;
+}
+
 
 /* パスカウント　*/
 .pass_count_box{
+	padding-top:10px;
 	display: flex;
+	justify-content: right;
 }
+
+#password_strength{
+	display: flex;
+	
+	text-align: right;
+}
+
 .pb{
 	height: 3px;
 	width:30px;

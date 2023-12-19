@@ -28,11 +28,12 @@
 <meta charset="UTF-8">
 <title>管理者ログインページ</title>
 <link rel="stylesheet" href="css/admin-product-list.css">
+<link rel="stylesheet" href="css/admin-navbar.css">
 </head>
 
 <body>
 <%@ include file="includes/admin-navbar.jsp" %>
-<div class="content wrapper">
+<div class="container">
 		<div class="side_bar">
                 <ul id="category_list">
                     <li class="gender list_top"><span>ALL</span>
@@ -63,14 +64,15 @@
                 </ul>
           </div><!--  side_barの閉じタグ -->
           
-          <div class="search">
+         
+            
+  		<div class="tab">
+  		 <div class="search">
 				              <form action="AdminProductListServlet" method="get">
 				                   <input type="text" name="searchName" class="search_box" placeholder="キーワードで商品名を検索">
 				                   <input class="sarch_btn" type="submit" value="検索">
 				               </form>
 				        </div>
-            
-  		<div class="tab">
  				 <h1 class="page-title"><%= title %></h1>	
   
 			    <ul class="tab__menu">
@@ -217,8 +219,9 @@
 	                  
 	              </div><!-- tab閉じタグ -->
 			</div>
-                    
+        <%@ include file="includes/footer.jsp" %>       
 	<body>
+	
   <script>
 
   'use strict'; /* 厳格にエラーをチェック */

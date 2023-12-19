@@ -19,7 +19,7 @@ public class AdminDetailServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
-int adminId = (int)request.getSession().getAttribute("adminId");
+		int adminId = (int)request.getSession().getAttribute("adminId");
 		
 		AdminBean loginadmin = new AdminBean();
 		AdminDAO aDao = new AdminDAO();
