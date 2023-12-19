@@ -14,7 +14,7 @@
   <%@ include file="includes/admin-navbar.jsp" %>
 
  			<% String adminNameError = (String)request.getSession().getAttribute("adminNameError"); %>
-
+			<% String userNameError = (String)request.getSession().getAttribute("userNameError"); //エラー出てたから追加した%> 
 			<% String kanaNameError = (String)request.getSession().getAttribute("kanaNameError"); %>
 			<% String passError = (String)request.getSession().getAttribute("passError"); %>
 			<% String emailError = (String)request.getSession().getAttribute("emailError"); %>
@@ -27,8 +27,8 @@
 			<% } else if(failure != null) { %>
 			<p><%=failure %></p>
 			<% session.getAttribute("failure"); %>
-			<% }  else if(userNameError != null){ %>
-			<p><%=userNameError %></p>
+			<% } else if(userNameError != null){ %>
+			<p><%=userNameError%></p>
 			<% session.removeAttribute("adminNameError"); %>
 			<% } else if(kanaNameError != null) { %>
 			<p><%=kanaNameError %></p>
@@ -39,7 +39,7 @@
 			<% } else if(emailError != null) { %>
 			<p><%=emailError %></p>
 			<% session.removeAttribute("emailError"); %>
-			<% } %> --%>
+			<% } %> 
 <form action="AdminRegisterServlet" method="post">
 
 					<label>お名前：</label><input type="text" name="adminname" placeholder="例) テスト　太郎" required><br>

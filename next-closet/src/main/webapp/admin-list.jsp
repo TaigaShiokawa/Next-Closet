@@ -126,7 +126,7 @@
 										            			   <ul>
 				                     		   					   <li><%= columns.getAdminName() %></li>
 				                     		   					   <li><%= columns.getEmail() %></li>
-				                     		   					   <li><%= st.adminStatusText(columns.isAdminStatus()) %></li>ステータスメソッド作成
+				                     		   					   <li><%= st.adminStatusText(columns.isAdminStatus()) %></li>
 				                     		   					   <li><a href="AdminDetailServlet?adminId=<%= columns.getAdminId() %>">詳細を見る</a></li>
 				                     		   					 </ul>
 					                  					 <% } } %>

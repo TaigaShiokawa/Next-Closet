@@ -129,7 +129,8 @@
 	  
                     	 </ul>
                     	 <button><a href="ProductAddServlet">商品追加</a></button>
-                    	 <button><a href="ProductCategoriesSevlet">カテゴリ追加・削除</a></button>
+                    	 <button><a href="ProductCategoriesServlet">カテゴリ追加・削除</a></button>
+                    	 
                      </div>
                      
                      
