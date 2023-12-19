@@ -10,9 +10,11 @@
 </head>
 <body>
 
-<%--  <%@ include file="includes/navbar.jsp" %>   --%>
 
-			<%-- <% String adminNameError = (String)request.getSession().getAttribute("adminNameError"); %>
+  <%@ include file="includes/admin-navbar.jsp" %>
+
+ 			<% String adminNameError = (String)request.getSession().getAttribute("adminNameError"); %>
+
 			<% String kanaNameError = (String)request.getSession().getAttribute("kanaNameError"); %>
 			<% String passError = (String)request.getSession().getAttribute("passError"); %>
 			<% String emailError = (String)request.getSession().getAttribute("emailError"); %>

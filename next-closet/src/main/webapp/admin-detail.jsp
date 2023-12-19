@@ -10,7 +10,7 @@
 <%String password = (String) session.getAttribute("password");%>
 </head>
 <body>
-<%-- <%@ include file="includes/admin-navbar.jsp" %> --%>
+<%@ include file="includes/admin-navbar.jsp" %>
 <form action="AdminEditServlet" method="post">
 	<div>お名前：<%=loginAdmin.getAdminName()%></div>
 	<div>フリガナ：<%=loginAdmin.getAdminKanaName()%></div>
