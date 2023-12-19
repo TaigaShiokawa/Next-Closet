@@ -45,10 +45,13 @@
 <% session.removeAttribute("emailError"); %>
 <% } %>
 <form action="UserEditServlet" method="post" class="center-form">
-			<label>お名前：</label><input type="text" name="username" value="<%=loginUser.getUserName() %>"><br>
-			<label>フリガナ：</label><input type="text" name="kananame" value="<%=loginUser.getKanaName() %>"><br>
-			<label>郵便番号：</label><input type="text" name="postcode" value="<%=loginUserAddress.getPostCode()%>"><br> 
-			<label>都道府県：</label>
+			<label class="label">お名前</label><input type="text" name="username" value="<%=loginUser.getUserName() %>"><br>
+			<label class="caption">*姓と名のスペースは全角にしてください</label><br> 
+			<label class="label">フリガナ</label><input type="text" name="kananame" value="<%=loginUser.getKanaName() %>"><br>
+			<label class="caption">*姓と名のスペースは全角にしてください</label><br> 
+			<label class="caption">*カタカナのみで入力してください</label><br> 
+			<label class="label">郵便番号</label><input type="text" name="postcode" value="<%=loginUserAddress.getPostCode()%>"><br> 
+			<label class="label">都道府県</label>
 			<select name="prefectures">
 			    <option value="<%=loginUserAddress.getPrefectures()%>"><%=loginUserAddress.getPrefectures()%></option>
 			    <option value="北海道">北海道</option>
@@ -100,9 +103,9 @@
 			    <option value="沖縄県">沖縄県</option>
 			</select><br>
 
-			<label>住所：</label><textarea type="text" name="address"><%=loginUserAddress.getAddress() %></textarea><br>
-			<label>電話番号：</label><input type="text" name="telnumber" value="<%=loginUser.getTelNumber()%>"><br> 
-			<label>メールアドレス：</label><input type="email" name="email" value="<%=loginUser.getEmail()%>"><br> 
+			<label class="label">住所</label><textarea type="text" name="address"><%=loginUserAddress.getAddress() %></textarea><br>
+			<label class="label">電話番号</label><input type="text" name="telnumber" value="<%=loginUser.getTelNumber()%>"><br> 
+			<label class="label">メールアドレス</label><input type="email" name="email" value="<%=loginUser.getEmail()%>"><br> 
 			
 			<button type="submit">更新する</button>			
 		</form>
@@ -113,10 +116,17 @@
 		<% session.removeAttribute("passError"); %>
 		<% } %>
 		<form action="PasswordUpdateServlet" method="post">
-		<label for="pass">パスワードの変更</label>
+		<label for="pass" class="label">パスワードの変更</label>
 		<input type="password" id="pass" name="password" placeholder="8文字以上">
-		<small><span id="password_count">0/100</span></small><br>
-		<div id="password_strength"></div><br>
+		<label class="caption">*8文字以上で入力してください　　<div id="password_strength">パスワード強度: レベル 1 / 5 </div></label> 
+		<div class="pass_count_box">
+				<div id="pass1" class="pass1 pb red"></div>
+				<div id="pass2" class="pass2 pb"></div>
+				<div id="pass3" class="pass3 pb"></div>
+				<div id="pass4" class="pass4 pb"></div>
+				<div id="pass5" class="pass5 pb"></div>
+			</div>
+			<small><span id="password_count">0/100</span><small>
 		<input type="hidden" name="userId" value="<%=loginUser.getUserId()%>">
 		<button type="submit">変更する</button>
 		</form>
