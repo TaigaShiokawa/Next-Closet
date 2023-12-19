@@ -39,12 +39,12 @@
           </p>
           
          <% for (ProductBean product : productList) { %>
-              <% for (SizeBean size : product.getSizes()) { %>
-                  <p>サイズ <%= size.getSizeName() %>
-                     <input type="number" name="stockQuantity_<%= size.getSizeName() %>" value="<%= size.getStockQuantity() %>">
-                  </p>
-              <% } %>
-          <% } %>
+           <% for (SizeBean size : product.getSizes()) { %>
+             <p>サイズ <%= size.getSizeName() %>
+                <input type="number" name="stockQuantity_<%= product.getProductId() %>_<%= size.getSizeName() %>" value="<%= size.getStockQuantity() %>">
+             </p>
+           <% } %>
+         <% } %>
           
           <input type="submit" value="更新">
       </form>

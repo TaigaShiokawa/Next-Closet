@@ -34,7 +34,9 @@ public class AdminProductEditServlet extends HttpServlet {
         }
     }
     
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+    		throws ServletException, IOException {
+    	request.setCharacterEncoding("UTF-8");
         try {
             int productId = Integer.parseInt(request.getParameter("productId"));
             String productName = request.getParameter("productName");
@@ -54,14 +56,17 @@ public class AdminProductEditServlet extends HttpServlet {
             productToUpdate.setImage(image);
 
             Map<String, Integer> stockQuantities = new HashMap<>();
-            for (SizeBean size : productToUpdate.getSizes()) {
-                int stockQuantity = Integer.parseInt(request.getParameter("stockQuantity_" + size.getSizeName()));
-                stockQuantities.put(size.getSizeName(), stockQuantity);
+            for (ProductBean product : productList) {
+                for (SizeBean size : product.getSizes()) {
+                    String inputName = "stockQuantity_" + product.getProductId() + "_" + size.getSizeName();
+                    int stockQuantity = Integer.parseInt(request.getParameter(inputName));
+                    stockQuantities.put(product.getProductId() + "_" + size.getSizeName(), stockQuantity);
+                }
             }
 
             AdminProductDAO dao = new AdminProductDAO();
             dao.updateProduct(productToUpdate, stockQuantities);
-
+            
             response.sendRedirect("AdminProductDetailServlet?productId=" + productId);
         } catch (Exception e) {
             e.printStackTrace();
