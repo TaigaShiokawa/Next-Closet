@@ -100,12 +100,7 @@ footer{
 
 
 /* モーダルウィンドウ　削除確認画面　*/
-
 		
-		.button:hover {
-		  background: lightcoral;
-		  cursor: pointer;
-		}
 		
 		.modal {
 		  display: none;
@@ -119,9 +114,8 @@ footer{
 		  background-color: rgba(0,0,0,0.5);
 		}
 		
-		
 		.formModalContent{
-		  background-color: #f4f4f4;
+		  background-color: rgb(251, 253, 253);
 		  margin: 20% auto;
 		  width: 50%;
 		  box-shadow: 0 5px 8px 0 rgba(0,0,0,0.2),0 7px 20px 0 rgba(0,0,0,0.17);
@@ -139,7 +133,7 @@ footer{
 		}
 		
 		.modal-header {
-		  background: #ced6d0;
+		  background: rgb(177, 176, 177);
 		  padding: 3px 15px;
 		  display: flex;
 		  justify-content: space-between;
@@ -173,4 +167,15 @@ footer{
 .non_footer{
     position: absolute;/*←絶対位置*/
     bottom: 0; /*下に固定*/
+}
+
+#formModalOpen{
+	background-color: transparent;
+	border: none;
+	 color: #333;
+	  text-decoration: none;
+	  transition: all 0.5s;
+	  display: block;
+	  font-size: 12px;
+	  letter-spacing: .2em;
 }
