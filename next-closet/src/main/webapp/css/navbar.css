@@ -168,3 +168,9 @@ footer{
 		  text-align:center;
 	  }
 
+
+
+.non_footer{
+    position: absolute;/*←絶対位置*/
+    bottom: 0; /*下に固定*/
+}

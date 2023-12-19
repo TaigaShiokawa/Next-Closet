@@ -56,6 +56,19 @@ String img = null;
 		   <% } %>
 	</div>
 </main>
+ <% if(orderList.isEmpty()){ %>
+ <div class="no_order_container">
+ 	 <p class="no_order">購入履歴はありません</p>
+ </div>
+ <footer class="non_footer">
+	<p>
+		<small>
+			&copy; next closet ...
+		</small>
+	</p>
+</footer>
+<% } else { %>
  <%@ include file="includes/footer.jsp" %>  
+<% } %>
 </body>
 </html>
