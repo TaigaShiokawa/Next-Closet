@@ -1,0 +1,67 @@
+@charset "UTF-8";
+
+/* header関係 */
+
+header , footer{
+	width:100vw;
+	padding :0;
+	margin : 0;
+	background-image:url(../image/decoration/includes_bgi.jpg);
+	height : 70px;
+}
+
+.header_inner{
+    max-width:1200px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.header_right ul{
+    display: flex;
+}
+
+.header_right li{
+	list-style: none;
+	margin-left:10px;
+	 line-height: 70px;
+}
+
+#site_title{
+    font-size: 16px;
+    line-height: 70px;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 100;
+    
+}
+
+header a {
+  color: #333;
+  text-decoration: none;
+  transition: all 0.5s;
+  display: block;
+  font-size: 12px;
+  letter-spacing: .2em;
+}
+
+header a:hover {
+  opacity: .5;
+}
+
+footer{
+	width:100vw;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+
+
+
+
+
+

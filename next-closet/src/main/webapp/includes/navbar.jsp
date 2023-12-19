@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <header>
-        <div class="header_innner">
+        <div class="header_inner">
             <div class="header_left">
                 <h1 id="site-title">
                     <a href = "ProductListServlet" >next closet...</a>
