@@ -117,7 +117,7 @@ String img = null;%>
 					        List <CartItemBean> cartAllItemList = (ArrayList<CartItemBean>) request.getAttribute("cartAllItemList");
 							List <ProductBean> productList = null;
 							int allCartProductId = -1;
-							ProductDAO dao = new ProductDAO();
+							/* ProductDAO dao = new ProductDAO(); */
 							int getProductId = 1;
 					
 					       		 for (CartItemBean item : cartAllItemList) {  
