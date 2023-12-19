@@ -120,6 +120,9 @@
             </div>
         </div>
     </main>
+    
+    <a href="ProductListServlet?value=1">1</a>
+    <a href="PagenationServlet?value=2">2</a>
 <%@ include file="includes/footer.jsp" %>
 </body>
 </html>
