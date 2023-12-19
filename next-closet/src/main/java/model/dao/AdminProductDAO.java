@@ -140,7 +140,6 @@ public class AdminProductDAO {
 	
 	//　商品編集の情報を取得する
 	public List<ProductBean> editAdminProductList(int productId) throws ClassNotFoundException, SQLException {
-	    List<ProductBean> products = new ArrayList<>();
 	    Map<Integer, ProductBean> productMap = new HashMap<>();
 
 	    String sql = "SELECT p.product_id, p.category_id, p.gender, p.product_name, p.price, p.description, p.status, p.image, p.registration_date, "
@@ -168,9 +167,6 @@ public class AdminProductDAO {
 	            String image = res.getString("image");
 	            Date registration_date = res.getDate("registration_date");
 	                    
-	            int inventoryId = res.getInt("inventory_id");
-	            int stockQuantity = res.getInt("stock_quantity");
-	                    
 	            SizeBean size = new SizeBean();
 	            size.setSizeId(res.getInt("size_id"));
 	            size.setSizeName(res.getString("size_name"));
@@ -186,9 +182,33 @@ public class AdminProductDAO {
 	    }
 	    return new ArrayList<>(productMap.values());
 	}
-
 	
-	
-	
+	// 商品を編集する
+	public void updateProduct(ProductBean product, Map<String, Integer> stockQuantities) 
+			throws SQLException, ClassNotFoundException {
+		String updateProductSql = "UPDATE products SET product_name = ?, price = ?, description = ?, image = ? WHERE product_id IN (SELECT product_id FROM (SELECT product_id FROM products WHERE product_name = (SELECT product_name FROM products WHERE product_id = ?)) AS temp);";
+		String updateInventorySql = "UPDATE inventory SET stock_quantity = ? WHERE product_id = ? AND size_id = (SELECT size_id FROM sizes WHERE size_name = ?);";
+		
+		try (Connection con = DBConnection.getConnection();
+			 PreparedStatement pstmtProduct = con.prepareStatement(updateProductSql);
+			 PreparedStatement pstmtInventory = con.prepareStatement(updateInventorySql)) {
+			
+			// 商品情報の更新
+			pstmtProduct.setString(1, product.getProductName());
+			pstmtProduct.setInt(2, product.getPrice());
+			pstmtProduct.setString(3, product.getDescription());
+			pstmtProduct.setString(4, product.getImage());
+			pstmtProduct.setInt(5, product.getProductId());
+			pstmtProduct.executeUpdate();
+			
+			// 在庫数量の更新
+			for (Map.Entry<String, Integer> entry : stockQuantities.entrySet()) {
+				pstmtInventory.setInt(1, entry.getValue());
+				pstmtInventory.setInt(2, product.getProductId());
+				pstmtInventory.setString(3, entry.getKey());
+				pstmtInventory.executeUpdate();
+			}
+		}
+	}
 	
 }
