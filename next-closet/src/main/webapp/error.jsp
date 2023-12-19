@@ -7,10 +7,14 @@
 <head>
 <meta charset="UTF-8">
 <title>エラーページ</title>
+<link rel = "stylesheet" href = "css/error.css">
 <link rel = "stylesheet" href = "css/navbar.css">
 </head>
 <body>
 	<%@ include file="includes/navbar.jsp" %>
+	<div class="container">
+	<img class="error_img" src="image/decoration/error.jpg" alt="error">
+	<p>あ</p>
 		<% String errorMessage = (String)session.getAttribute("errorMessage"); %>
 		<% String userNotFound = (String)session.getAttribute("userNotFound"); %>
 		<% String cartItemNotFound = (String)session.getAttribute("cartItemNotFound"); %>
@@ -28,5 +32,9 @@
 			<p><%=productNotFound %></p>
 			<% session.removeAttribute("productNotFound"); %>
 			<% } %>
+	
+	</div>
+	
+			 <%@ include file="includes/footer.jsp" %> 
 </body>
 </html>

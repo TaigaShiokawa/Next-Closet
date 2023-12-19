@@ -91,7 +91,6 @@
 					<div class="pass_title">
 						<label for="pass">パスワードの変更</label>
 						<small class="pass_count"><span id="password_count">0/100</span></small>
-						
 					</div>
 					<div class="pass_box">
 						<input type="password" id="pass" name="password" placeholder="8文字以上">
@@ -104,7 +103,7 @@
 							<div id="pass5" class="pass5 pb"></div>
 						</div>
 						<input type="hidden" name="userId" value="<%=loginUser.getUserId()%>">
-						<button type="submit">変更する</button>
+						<button class="pass_submit" type="submit">パスワードを変更する</button>
 					</div>
 				</form>
 		</div>
@@ -223,7 +222,6 @@ passwordInput.addEventListener('input', function() {
 			      	btn4.classList.add("green");
 			      	btn5.classList.add("green"); 
 				}
-    
 });
 </script>
 		

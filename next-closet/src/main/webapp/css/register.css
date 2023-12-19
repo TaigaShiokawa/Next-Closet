@@ -61,3 +61,34 @@ span{
     padding-right: 10px;
 }
 
+
+/* パスカウント　*/
+.pass_count_box{
+	display: flex;
+}
+.pb{
+	height: 3px;
+	width:30px;
+	margin-left:10px;
+	background-color: gray;
+}
+
+#pass{
+	margin: 0;
+}
+
+.green{
+	background-color: rgb(59, 114, 55);
+}
+
+.yellow{
+	background-color: rgb(222, 216, 115);
+}
+
+.red{
+	background-color: rgb(215, 77, 46);
+}
+
+.gray{
+	background-color: gray;
+}
