@@ -14,7 +14,7 @@
 	<link rel = "stylesheet" href = "css/navbar.css">
 	</head>
 <body>
-<%@ include file="includes/navbar.jsp" %>
+
 	<main>
 			<div class="container">
 				<h2>ログイン</h2>
