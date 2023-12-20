@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="model.bean.*" %>
+<%@ page import="java.util.*" %>
 <%@ page import="junit.model.dao.*" %>
 <% UserBean loginUser = (UserBean)request.getSession().getAttribute("user"); %>
 <% if(loginUser != null) { %>
@@ -32,16 +33,34 @@
 			<p><%=failure %></p>
 			<% session.getAttribute("failure"); %>
 			<% } %>
+			
+			<%
+    		// セッションからエラーメッセージのリストを取得
+		    List<String> errorMessages = (List<String>) request.getSession().getAttribute("errorMessages");
+		
+		    // エラーメッセージが存在する場合、それらを表示
+		    if(errorMessages != null && !errorMessages.isEmpty()) {
+			%>
+			        <div class="error-messages">
+			            <% for(String errorMessage : errorMessages) { %>
+			                <p><%= errorMessage %></p>
+			            <% } %>
+			        </div>
+			<%
+			        // 表示後、エラーメッセージをセッションから削除
+			        request.getSession().removeAttribute("errorMessages");
+			    }
+			%>
 			<form action="RegisterServlet" method="post">
 					<div class="form_container">
 					<label>お名前</label>
 					<input type="text" name="username" placeholder="例) テスト　太郎" 
 					    value="<%= request.getSession().getAttribute("userName") != null ? request.getSession().getAttribute("userName") : "" %>" required><br>
 					<label class="caption">*姓と名のスペースは全角にしてください</label><br> 
-					<% if(userNameError != null) { %>
+					<%-- <% if(userNameError != null) { %>
 					    <label class="caption"><%= userNameError %></label>
 					    <% session.removeAttribute("userNameError"); %>
-					<% } %>
+					<% } %> --%>
 					<label>フリガナ</label><input type="text" name="kananame" placeholder="例) テスト　タロウ" 
 						value="<%= request.getSession().getAttribute("kanaName") != null ? request.getSession().getAttribute("kanaName") : "" %>" required><br>
 					<label class="caption">*カタカナのみで入力してください</label><br> 
@@ -110,8 +129,7 @@
 					    <option value="沖縄県" <%= "沖縄県".equals(selectedPrefecture) ? "selected" : "" %>>沖縄県</option>
 					</select><br>
 					
-					<label>住所</label><textarea type="text" name="address" placeholder="例) 〇〇市〇〇区〇丁目" required><%= request.getSession().getAttribute("address") != null ? request.getSession().getAttribute("address") : "" %>
-					</textarea><br>
+					<label>住所</label><textarea type="text" name="address" placeholder="例) 〇〇市〇〇区〇丁目" required><%= request.getSession().getAttribute("address") != null ? request.getSession().getAttribute("address") : "" %></textarea><br>
 					<% if(addressError != null) { %>
 					<label class="caption"><%=addressError %></label>
 					<% session.removeAttribute("addressError"); %>
