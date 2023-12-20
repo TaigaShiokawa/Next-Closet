@@ -43,24 +43,24 @@ public class AdminUserEditServlet extends HttpServlet {
          int userUpdate = uDao.loginUserUpdate(userName, kanaName, telNumber, email, userId);
          int addressUpdate = uDao.loginUserAddressUpdate(postCode, prefectures, address, userId);
          
-         request.getSession().setAttribute("user", userUpdate);
-			request.getSession().setAttribute("userAddress", addressUpdate);
+//         request.getSession().setAttribute("user", userUpdate);
+//			request.getSession().setAttribute("userAddress", addressUpdate);
+         
+         request.setAttribute("user", userUpdate);
+			request.setAttribute("userAddress", addressUpdate);
 			
 
          if (userUpdate > 0 || addressUpdate > 0) {
              // 更新成功時は成功ページにリダイレクト
-//             response.sendRedirect("admin-user-detail.jsp"); 
-//        	
-//        	 String forward = "/AdminUserDetaiServlet?userId=" + userId;
         	 String forward = "/AdminUserDetailServlet?userId=" + userId;
              RequestDispatcher dispatcher = request.getRequestDispatcher(forward);
              dispatcher.forward(request, response);
              
-        	 System.out.println("成功");             
+//        	 System.out.println("成功");             
          } else {
              // 更新失敗時はエラーページにリダイレクト
-//             response.sendRedirect("admin-user-edit.jsp");
-        	 System.out.println("失敗");
+             response.sendRedirect("admin-user-edit.jsp");
+//        	 System.out.println("失敗");
 
          }
      } catch (ClassNotFoundException | SQLException e) {
