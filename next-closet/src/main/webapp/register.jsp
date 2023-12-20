@@ -124,8 +124,10 @@
 					<label>住所</label><textarea type="text" name="address" placeholder="例) 〇〇市〇〇区〇丁目" required></textarea><br>
 					<label>電話番号</label><input type="text" name="telnumber" placeholder="例) 00000000000" required><br> 
 					<label>メールアドレス</label><input type="email" name="email" placeholder="例) 〇〇@〇〇.com" required><br> 
+
 					<label>パスワード</label><input id="passwordField" type="password" name="password" placeholder="8文字以上" required>
 					<label class="caption pass_open" id="togglePassword">パスワードを表示</label>
+
 					
 					<label class="caption">*8文字以上で入力してください　　<div id="password_strength">パスワード強度: レベル 1 / 5 </div></label> 
 					<div class="pass_count_box">
@@ -143,6 +145,7 @@
 				</form>
 			</div>
 		</main>
+		<button id="togglePassword">パスワードを表示</button>
 		<%@ include file="includes/footer.jsp" %>
 		
 		<script>
@@ -259,7 +262,6 @@
 				      	btn4.classList.add("green");
 				      	btn5.classList.add("green"); 
 					}
-
 		    });
 
 		    document.getElementById('togglePassword').addEventListener('click', function () {
