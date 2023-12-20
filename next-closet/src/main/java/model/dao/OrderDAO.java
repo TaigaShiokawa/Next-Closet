@@ -73,7 +73,7 @@ public class OrderDAO {
 		public String getUserName (int userId)  {
 			
 			String userName= null;
-			String sql = "SELECT product_name FROM users WHERE user_id = ?";
+			String sql = "SELECT user_name FROM users WHERE user_id = ?";
 			
 			try (Connection con = DBConnection.getConnection();
 					PreparedStatement pstmt = con.prepareStatement(sql)) {
