@@ -52,7 +52,10 @@
 
         <p>
             <a href="AdminUserUpdateServlet?userId=<%= user.getUserId() %>">更新</a>
-            <a href="AdminUserWithdrawalServlet?userId=<%= user.getUserId() %>">削除</button></a>
+          <%--   <a href="AdminUserWithdrawalServlet?userId=<%= user.getUserId() %>">削除</button></a> --%>
+          <form action="AdminUserWithdrawServlet" method="get">
+            <input type="hidden" name="userId" value="<%= user.getUserId() %>" />
+            <input type="submit" value="削除" />
         </p>
         
        
