@@ -268,6 +268,8 @@
 		        // ボタンのラベルを切り替える
 		        this.textContent = type === 'password' ? 'パスワードを表示' : 'パスワードを隠す';
 		    });
+		    
+		
 			
 		</script>
 		<script src="js/form.js"></script>
