@@ -18,6 +18,7 @@
  for (UserBean user : userList) {
  %>
 
+
 <table>
     <tr>
         <td><label for="name">お名前</label></td>
@@ -51,7 +52,7 @@
 
         <p>
             <a href="AdminUserUpdateServlet?userId=<%= user.getUserId() %>">更新</a>
-            <a href="<!-- デリート先 -->"><button type="submit" class="delete">削除</button></a>
+            <a href="AdminUserWithdrawalServlet?userId=<%= user.getUserId() %>">削除</button></a>
         </p>
         
        
