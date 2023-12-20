@@ -180,9 +180,8 @@
 		        var strength = checkPasswordStrength(this.value);
 		        var strengthDisplay = document.getElementById('password_strength');
 		        strengthDisplay.textContent = 'パスワード強度: レベル ' + strength + ' / 5';
-		        // 色もつける？
-		   
-
+		        
+		     // パスワードレベルの色
 		    const btn1 = document.getElementById('pass1');
 		    const btn2 = document.getElementById('pass2');
 		    const btn3 = document.getElementById('pass3');

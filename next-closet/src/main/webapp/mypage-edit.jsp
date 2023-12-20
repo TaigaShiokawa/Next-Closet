@@ -170,6 +170,82 @@ passwordInput.addEventListener('input', function() {
     var strengthDisplay = document.getElementById('password_strength');
     strengthDisplay.textContent = 'パスワード強度: レベル ' + strength + ' / 5';
     // 色もつける？
+    // パスワードレベルの色
+    const btn1 = document.getElementById('pass1');
+    const btn2 = document.getElementById('pass2');
+    const btn3 = document.getElementById('pass3');
+    const btn4 = document.getElementById('pass4');
+    const btn5 = document.getElementById('pass5');
+
+    if(strength == 1 ){
+       	btn1.classList.remove("green" , "red" , "yellow" ,"gray");
+       	btn2.classList.remove("green" , "red" , "yellow" ,"gray");
+       	btn3.classList.remove("green" , "red" , "yellow" ,"gray");
+       	btn4.classList.remove("green" , "red" , "yellow" ,"gray");
+       	btn5.classList.remove("green" , "red" , "yellow" ,"gray");
+
+    	btn1.classList.add("red");
+       	btn2.classList.add("gray");
+       	btn3.classList.add("gray");
+       	btn4.classList.add("gray");
+       	btn5.classList.add("gray");
+       	 
+   } else if(strength == 2 ){
+	   
+	   btn1.classList.remove("green" , "red" , "yellow" ,"gray");
+      	btn2.classList.remove("green" , "red" , "yellow" ,"gray");
+      	btn3.classList.remove("green" , "red" , "yellow" ,"gray");
+      	btn4.classList.remove("green" , "red" , "yellow" ,"gray");
+      	btn5.classList.remove("green" , "red" , "yellow" ,"gray");
+
+   		btn1.classList.add("red");
+      	btn2.classList.add("red");
+      	btn3.classList.add("gray");
+      	btn4.classList.add("gray");
+      	btn5.classList.add("gray"); 
+      	
+	} else if(strength == 3 ){
+		
+		   btn1.classList.remove("green" , "red" , "yellow" ,"gray");
+	      	btn2.classList.remove("green" , "red" , "yellow" ,"gray");
+	      	btn3.classList.remove("green" , "red" , "yellow" ,"gray");
+	      	btn4.classList.remove("green" , "red" , "yellow" ,"gray");
+	      	btn5.classList.remove("green" , "red" , "yellow" ,"gray");
+
+	   		btn1.classList.add("yellow");
+	      	btn2.classList.add("yellow");
+	      	btn3.classList.add("yellow");
+	      	btn4.classList.add("gray");
+	      	btn5.classList.add("gray"); 
+	      	
+		}else if(strength == 4 ){
+			
+			   btn1.classList.remove("green" , "red" , "yellow" ,"gray");
+		      	btn2.classList.remove("green" , "red" , "yellow" ,"gray");
+		      	btn3.classList.remove("green" , "red" , "yellow" ,"gray");
+		      	btn4.classList.remove("green" , "red" , "yellow" ,"gray");
+		      	btn5.classList.remove("green" , "red" , "yellow" ,"gray");
+
+		   		btn1.classList.add("yellow");
+		      	btn2.classList.add("yellow");
+		      	btn3.classList.add("yellow");
+		      	btn4.classList.add("yellow");
+		      	btn5.classList.add("gray"); 
+		      	
+			}else if(strength == 5 ){
+				
+			   btn1.classList.remove("green" , "red" , "yellow" ,"gray");
+		      	btn2.classList.remove("green" , "red" , "yellow" ,"gray");
+		      	btn3.classList.remove("green" , "red" , "yellow" ,"gray");
+		      	btn4.classList.remove("green" , "red" , "yellow" ,"gray");
+		      	btn5.classList.remove("green" , "red" , "yellow" ,"gray");
+
+		   		btn1.classList.add("green");
+		      	btn2.classList.add("green");
+		      	btn3.classList.add("green");
+		      	btn4.classList.add("green");
+		      	btn5.classList.add("green"); 
+			}
 });
 </script>
 		
