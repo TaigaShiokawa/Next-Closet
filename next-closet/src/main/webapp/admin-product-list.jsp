@@ -67,7 +67,7 @@
          
             
   		<div class="tab">
-  		 <div class="search">
+  		                <div class="search">
 				              <form action="AdminProductListServlet" method="get">
 				                   <input type="text" name="searchName" class="search_box" placeholder="キーワードで商品名を検索">
 				                   <input class="sarch_btn" type="submit" value="検索">
@@ -220,6 +220,7 @@
 	                  
 	              </div><!-- tab閉じタグ -->
 			</div>
+		</div>
         <%@ include file="includes/footer.jsp" %>       
 	<body>
 	
