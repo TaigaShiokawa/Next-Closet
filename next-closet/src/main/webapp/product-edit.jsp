@@ -38,13 +38,23 @@
               <input type="file" name="image" id="imageUpload" onchange="previewImage();">
           </p>
           
-         <% for (ProductBean product : productList) { %>
-           <% for (SizeBean size : product.getSizes()) { %>
+         <% 
+            int count = 0;
+            for (ProductBean product : productList) { 
+            	if (count<3) {
+            		for (SizeBean size : product.getSizes()) { 
+         %>
              <p>サイズ <%= size.getSizeName() %>
                 <input type="number" name="stockQuantity_<%= product.getProductId() %>_<%= size.getSizeName() %>" value="<%= size.getStockQuantity() %>">
              </p>
-           <% } %>
-         <% } %>
+         <%
+                 }
+                 count++;
+             } else {
+                break;
+             }
+           }
+         %>
           
           <input type="submit" value="更新">
       </form>
