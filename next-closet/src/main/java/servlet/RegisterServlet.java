@@ -82,6 +82,13 @@ public class RegisterServlet extends HttpServlet {
 	        return;
 		}
 		
+		//都道府県のからチェック
+		if(prefectures.isEmpty()) {
+			request.getSession().setAttribute("prefecturesError", "都道府県を選択してください");
+	        response.sendRedirect("register.jsp");
+	        return;
+		}
+		
 		//住所の空文字チェック
 		if(address.isEmpty()) {
 			request.getSession().setAttribute("addressError", "住所を入力してください");
