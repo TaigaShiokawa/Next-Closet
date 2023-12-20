@@ -72,8 +72,7 @@
 					<label>郵便番号</label><input type="text" name="postcode" placeholder="例) 0000000" required><br> 
 					<label>都道府県</label>
 					<select name="prefectures" required>
-					    <option selected>選択してください</option>
-					    <option value="北海道">北海道</option>
+					    <option value="北海道" selected>北海道</option>
 					    <option value="青森県">青森県</option>
 					    <option value="岩手県">岩手県</option>
 					    <option value="宮城県">宮城県</option>
