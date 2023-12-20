@@ -73,6 +73,11 @@ span{
 	justify-content: right;
 }
 
+.pass_open{
+	font-weight: bold;
+	font-size: 12px;
+}
+
 
 /* パスカウント　*/
 .pass_count_box{
