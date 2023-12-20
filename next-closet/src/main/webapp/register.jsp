@@ -124,7 +124,10 @@
 					<label>住所</label><textarea type="text" name="address" placeholder="例) 〇〇市〇〇区〇丁目" required></textarea><br>
 					<label>電話番号</label><input type="text" name="telnumber" placeholder="例) 00000000000" required><br> 
 					<label>メールアドレス</label><input type="email" name="email" placeholder="例) 〇〇@〇〇.com" required><br> 
-					<label>パスワード</label><input type="password" name="password" placeholder="8文字以上" required>
+
+					<label>パスワード</label><input id="passwordField" type="password" name="password" placeholder="8文字以上" required>
+					<label class="caption pass_open" id="togglePassword">パスワードを表示</label>
+
 					
 					<label class="caption">*8文字以上で入力してください　　<div id="password_strength">パスワード強度: レベル 1 / 5 </div></label> 
 					<div class="pass_count_box">
@@ -135,12 +138,14 @@
 							<div id="pass5" class="pass5 pb"></div>
 						</div>
 						<small><span id="password_count">0/100</span><small>
+						
 					
 					<button type="submit">新規登録する</button>
 					</div>
 				</form>
 			</div>
 		</main>
+		<button id="togglePassword">パスワードを表示</button>
 		<%@ include file="includes/footer.jsp" %>
 		
 		<script>
@@ -180,9 +185,8 @@
 		        var strength = checkPasswordStrength(this.value);
 		        var strengthDisplay = document.getElementById('password_strength');
 		        strengthDisplay.textContent = 'パスワード強度: レベル ' + strength + ' / 5';
-		        // 色もつける？
-		   
-
+		        
+		     // パスワードレベルの色
 		    const btn1 = document.getElementById('pass1');
 		    const btn2 = document.getElementById('pass2');
 		    const btn3 = document.getElementById('pass3');
@@ -258,7 +262,15 @@
 				      	btn4.classList.add("green");
 				      	btn5.classList.add("green"); 
 					}
+		    });
 
+		    document.getElementById('togglePassword').addEventListener('click', function () {
+		        const passwordField = document.getElementById('passwordField');
+		        const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+		        passwordField.setAttribute('type', type);
+
+		        // ボタンのラベルを切り替える
+		        this.textContent = type === 'password' ? 'パスワードを表示' : 'パスワードを隠す';
 		    });
 			
 		</script>

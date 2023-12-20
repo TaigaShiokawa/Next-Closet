@@ -50,7 +50,7 @@
                   						</li>
                   						<li>
                   							  <p>購入者</p>
-                  							  <p><%= orderDao.getUserName(list.getUserId()) %>/p>
+                  							  <p><%= orderDao.getUserName(list.getUserId()) %></p>
                   						</li>
                   						<li>
                   							  <p>合計金額</p>

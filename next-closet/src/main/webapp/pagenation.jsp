@@ -121,9 +121,11 @@
         </div>
     </main>
     
-    <a href="ProductListServlet">1</a>
-    <a href="PagenationServlet?value=2">2</a>
-    <a href="PagenationServlet?value=3">3</a>
+    <ul class="page_list">
+    　<li><a href="ProductListServlet">1</a></li>
+    　<li> <a href="PagenationServlet?value=2">2</a></li>
+    　<li><a href="PagenationServlet?value=3">3</a></li>
+    </ul>
 <%@ include file="includes/footer.jsp" %>
 </body>
 </html>
