@@ -128,12 +128,7 @@
 					<label class="caption"><%=emailError %></label>
 					<% session.removeAttribute("emailError"); %>
 					<% } %>
-					<label>パスワード</label><input type="password" id="passwordField" name="password" placeholder="8文字以上" required>
-					
-					<label>住所</label><textarea type="text" name="address" placeholder="例) 〇〇市〇〇区〇丁目" required></textarea><br>
-					<label>電話番号</label><input type="text" name="telnumber" placeholder="例) 00000000000" required><br> 
-					<label>メールアドレス</label><input type="email" name="email" placeholder="例) 〇〇@〇〇.com" required><br> 
-
+			
 					<label>パスワード</label><input id="passwordField" type="password" name="password" placeholder="8文字以上" required>
 					<label class="caption pass_open" id="togglePassword">パスワードを表示</label>
 					
