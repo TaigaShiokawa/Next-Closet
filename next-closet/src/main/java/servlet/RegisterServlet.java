@@ -53,7 +53,7 @@ public class RegisterServlet extends HttpServlet {
 		//名前の入力チェック
 		if(!UserNameValidator.validate(userName)) {
 			request.getSession().setAttribute("userNameError", "名前の入力が正しくありません");
-			saveFormDataInSession(request, userName, kanaName, postCode, address, telNumber, email);
+			saveFormDataInSession(request, userName, kanaName, postCode, prefectures, address, telNumber, email);
 	        response.sendRedirect("register.jsp");
 	        return;
 		} else {
@@ -63,7 +63,7 @@ public class RegisterServlet extends HttpServlet {
 		//フリガナの全角チェック (ひらがなは許可せず, カタカナのみ)
 		if(!KanaNameValidator.validate(kanaName)) {
 			request.getSession().setAttribute("kanaNameError", "フリガナの入力が正しくありません");
-			saveFormDataInSession(request, userName, kanaName, postCode, address, telNumber, email);
+			saveFormDataInSession(request, userName, kanaName, postCode, prefectures, address, telNumber, email);
 	        response.sendRedirect("register.jsp");
 	        return;
 		} else {
@@ -83,8 +83,8 @@ public class RegisterServlet extends HttpServlet {
 								 		 .replaceAll("９", "9");
 		//郵便番号の入力に対してハイフン無しの形式を要求
 		if(!PostCodeValidator.validate(convertPostCode)) {
-			saveFormDataInSession(request, userName, kanaName, convertPostCode, address, telNumber, email);
 			request.getSession().setAttribute("postCodeError", "郵便番号が正しくありません");
+			saveFormDataInSession(request, userName, kanaName, convertPostCode, prefectures, address, telNumber, email);
 	        response.sendRedirect("register.jsp");
 	        return;
 		} else {
@@ -94,7 +94,7 @@ public class RegisterServlet extends HttpServlet {
 		//都道府県の空チェック
 		if(prefectures.isEmpty()) {
 			request.getSession().setAttribute("prefecturesError", "都道府県を選択してください");
-			saveFormDataInSession(request, userName, kanaName, convertPostCode, address, telNumber, email);
+			saveFormDataInSession(request, userName, kanaName, convertPostCode, prefectures, address, telNumber, email);
 	        response.sendRedirect("register.jsp");
 	        return;
 		} else {
@@ -102,16 +102,17 @@ public class RegisterServlet extends HttpServlet {
 		}
 		
 		//住所の空文字チェック
+		String normalizedAddress = null;
 		if(address.isEmpty()) {
 			request.getSession().setAttribute("addressError", "住所を入力してください");
-			saveFormDataInSession(request, userName, kanaName, convertPostCode, address, telNumber, email);
+			saveFormDataInSession(request, userName, kanaName, convertPostCode, prefectures, address, telNumber, email);
 	        response.sendRedirect("register.jsp");
 	        return;
 		} else {
-			request.getSession().setAttribute("address", address);
+			//住所のデータを統一(全角を半角にする)
+			normalizedAddress = AddressValidator.normalizeAddress(address);
+			request.getSession().setAttribute("address", normalizedAddress);
 		}
-		//住所のデータを統一(全角を半角にする)
-		String normalizedAddress = AddressValidator.normalizeAddress(address);
 		
 		//電話番号チェック 全角を半角に置換
 		String convertTelNumber = telNumber.replaceAll("０", "0")
@@ -128,7 +129,7 @@ public class RegisterServlet extends HttpServlet {
 		//電話番号の入力に対してハイフン無しの形式を要求
 		if(!TelNumberValidator.validate(convertTelNumber)) {
 			request.getSession().setAttribute("telNumberError", "無効な電話番号です");
-			saveFormDataInSession(request, userName, kanaName, convertPostCode, address, convertTelNumber, email);
+			saveFormDataInSession(request, userName, kanaName, convertPostCode, prefectures, normalizedAddress, convertTelNumber, email);
 			response.sendRedirect("register.jsp");
 			return;
 		} else {
@@ -139,7 +140,7 @@ public class RegisterServlet extends HttpServlet {
 		if (!EmailValidator.validate(email)) { 
 	        // Eメールが無効な形式の場合の処理
 	        request.getSession().setAttribute("emailError", "無効なEメールアドレスです");
-	        saveFormDataInSession(request, userName, kanaName, convertPostCode, address, convertTelNumber, email);
+	        saveFormDataInSession(request, userName, kanaName, convertPostCode, prefectures, normalizedAddress, convertTelNumber, email);
 	        response.sendRedirect("register.jsp");
 	        return;
 		} else {
@@ -208,10 +209,11 @@ public class RegisterServlet extends HttpServlet {
 		}
 	}
 	
-	private void saveFormDataInSession(HttpServletRequest request, String userName, String kanaName, String postCode, String address, String telNumber, String email) {
+	private void saveFormDataInSession(HttpServletRequest request, String userName, String kanaName, String postCode, String prefectures, String address, String telNumber, String email) {
 	    request.getSession().setAttribute("userName", userName);
 	    request.getSession().setAttribute("kanaName", kanaName);
 	    request.getSession().setAttribute("postCode", postCode);
+	    request.getSession().setAttribute("prefectures", prefectures);
 	    request.getSession().setAttribute("address", address);
 	    request.getSession().setAttribute("telNumber", telNumber);
 	    request.getSession().setAttribute("email", email);
