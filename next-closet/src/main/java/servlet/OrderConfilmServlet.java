@@ -35,7 +35,7 @@ public class OrderConfilmServlet extends HttpServlet {
 		
 		try {	
 			//userIdでUserBeanから情報を持ってくる
-			request.setAttribute("user" , userDao.getUpdateUser(userId));				//user情報
+			request.setAttribute("user" , userDao.getUpdatedUser(userId));				//user情報
 			request.setAttribute("address" , userDao.getUserAddressId(userId));			//メイン住所
 			request.setAttribute("addAddresses" , userDao.getSubAddress(userId));	    //サブ住所
 		} catch(ClassNotFoundException e) {
@@ -146,7 +146,7 @@ public class OrderConfilmServlet extends HttpServlet {
 	
 		try {
 			//userIdでUserBeanから情報を持ってくる
-			request.setAttribute("user" , userDao.getUpdateUser(userId));				//user情報
+			request.setAttribute("user" , userDao.getUpdatedUser(userId));				//user情報
 			request.setAttribute("address" , userDao.getUserAddressId(userId));			//メイン住所
 			request.setAttribute("addAddresses" , userDao.getSubAddress(userId));	//サブ住所
 		} catch(ClassNotFoundException e) {

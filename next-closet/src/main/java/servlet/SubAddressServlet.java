@@ -85,7 +85,7 @@ public class SubAddressServlet extends HttpServlet {
 		
 		UserDAO uDao = new UserDAO();
 		try {
-			int res = uDao.setSubAddress(userId, convertPostCode, normalizedAddress, prefectures);
+			int res = uDao.addSubAddress(userId, convertPostCode, normalizedAddress, prefectures);
 			if(res == 1) {
 				List<AddressBean> addressList = uDao.getSubAddress(userId);
 		        request.setAttribute("addressList", addressList);

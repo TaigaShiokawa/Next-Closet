@@ -26,7 +26,7 @@ public class MypageServlet extends HttpServlet {
 		UserBean loginUser = new UserBean();
 		UserDAO uDao = new UserDAO();
 		try {
-			loginUser = uDao.getUpdateUser(userId);
+			loginUser = uDao.getUpdatedUser(userId);
 			request.setAttribute("user", loginUser);
 			request.getRequestDispatcher("mypage.jsp").forward(request, response);
 		} catch(ClassNotFoundException e) {

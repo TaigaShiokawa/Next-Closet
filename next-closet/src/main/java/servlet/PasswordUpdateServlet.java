@@ -57,7 +57,7 @@ public class PasswordUpdateServlet extends HttpServlet {
 		
 		UserDAO uDao = new UserDAO();
 		try {
-			 int res =uDao.userPasswordUpdate(userId, hashedPass);
+			 int res =uDao.changeUserPassword(userId, hashedPass);
 			 if(res == 1) {
 				 response.sendRedirect("MypageServlet");
 			 }
