@@ -137,7 +137,7 @@ public class UserEditServlet extends HttpServlet {
 				if(updateUser == 1) {
 					int updateUserAddress = uDao.loginUserAddressUpdate(convertPostCode, prefectures, normalizedAddress, userId);
 					if(updateUserAddress == 1) {
-						UserBean updatedUser = uDao.getUpdateUser(userId);
+						UserBean updatedUser = uDao.getUpdatedUser(userId);
 						AddressBean userAddress = uDao.getUserAddressId(userId);
 						request.getSession().setAttribute("user", updatedUser);
 						request.getSession().setAttribute("userAddress", userAddress);

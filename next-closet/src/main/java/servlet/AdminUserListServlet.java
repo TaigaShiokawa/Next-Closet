@@ -24,7 +24,7 @@ public class AdminUserListServlet extends HttpServlet {
 		UserDAO userDao = new UserDAO();
 		
 		try {
-					request.setAttribute("userList",userDao.getAllStatusUserList()); //ユーザー一覧
+					request.setAttribute("userList",userDao.getAllUserInfo()); //ユーザー一覧
 					
 					 if (searchName != null && !searchName.isEmpty()) {
 						 System.out.println(searchName);

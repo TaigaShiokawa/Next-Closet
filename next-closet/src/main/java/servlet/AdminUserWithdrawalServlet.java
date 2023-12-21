@@ -23,7 +23,7 @@ private static final long serialVersionUID = 1L;
 		 UserDAO uDao = new UserDAO();
 		
 		try {
-			int res = uDao.chageUserStatus(userId);
+			int res = uDao.userWithdrawal(userId);
 			
 				
 				response.sendRedirect("AdminUserListServlet");

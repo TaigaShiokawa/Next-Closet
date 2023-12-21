@@ -31,7 +31,7 @@ public class WithdrawalServlet extends HttpServlet {
 		int userId =  (int)request.getSession().getAttribute("userId");
 		UserDAO uDao = new UserDAO();
 		try {
-			int res = uDao.chageUserStatus(userId);
+			int res = uDao.userWithdrawal(userId);
 			if(res == 1) {
 				request.getSession().invalidate();	
 			}
