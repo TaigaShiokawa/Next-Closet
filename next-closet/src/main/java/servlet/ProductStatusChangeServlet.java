@@ -18,7 +18,7 @@ public class ProductStatusChangeServlet extends HttpServlet {
         
         try {
             productDao.updateProductStatus(productId, false);
-            response.sendRedirect("admin-product-detail.jsp?productId=" + productId);
+            response.sendRedirect("AdminProductListServlet");
         } catch (Exception e) {
             e.printStackTrace();
         }

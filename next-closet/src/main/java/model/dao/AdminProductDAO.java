@@ -98,8 +98,7 @@ public class AdminProductDAO {
 	//商品詳細管理者用　（一つの商品の情報と商品の在庫情報を持ってくる）
 	public List<ProductBean> detailAdminProductList(int productId) throws SQLException, ClassNotFoundException {
 	    Map<Integer, ProductBean> productMap = new HashMap<>();
-	    List<ProductBean> productList = new ArrayList<>();
-
+	    
 	    String sql = "SELECT p.*, i.inventory_id, i.size_id, s.size_name, i.stock_quantity "
 	               + "FROM products p "
 	               + "LEFT JOIN inventory i ON p.product_id = i.product_id "
@@ -123,6 +122,7 @@ public class AdminProductDAO {
 	                product.setPrice(res.getInt("price"));
 	                product.setDescription(res.getString("description"));
 	                product.setImage(res.getString("image"));
+	                product.setStatus(res.getBoolean("status"));
 	                product.setRegistrationDate(res.getDate("registration_date"));
 	                productMap.put(prodId, product);
 	            }
