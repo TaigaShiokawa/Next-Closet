@@ -47,7 +47,6 @@
 			            <% } %>
 			        </div>
 			<%
-			        // 表示後、エラーメッセージをセッションから削除
 			        request.getSession().removeAttribute("errorMessages");
 			    }
 			%>
@@ -130,31 +129,18 @@
 					</select><br>
 					
 					<label>住所</label><textarea type="text" name="address" placeholder="例) 〇〇市〇〇区〇丁目" required><%= request.getSession().getAttribute("address") != null ? request.getSession().getAttribute("address") : "" %></textarea><br>
-					<% if(addressError != null) { %>
-					<label class="caption"><%=addressError %></label>
-					<% session.removeAttribute("addressError"); %>
-					<% } %>
+					
 					<label>電話番号</label><input type="text" name="telnumber" placeholder="例) 00000000000" 
 						value="<%= request.getSession().getAttribute("telNumber") != null ? request.getSession().getAttribute("telNumber") : "" %>" required><br> 
-					<% if(telNumberError != null) { %>
-					<label class="caption"><%=telNumberError %></label>
-					<% session.removeAttribute("telNumberError"); %>
-					<% } %>
+						
 					<label>メールアドレス</label><input type="email" name="email" placeholder="例) 〇〇@〇〇.com" 
 						value="<%= request.getSession().getAttribute("email") != null ? request.getSession().getAttribute("email") : "" %>" required><br> 
-					<% if(emailError != null) { %>
-					<label class="caption"><%=emailError %></label>
-					<% session.removeAttribute("emailError"); %>
-					<% } %>
 			
 					<label>パスワード</label><input id="passwordField" type="password" name="password" placeholder="8文字以上" required>
+					
 					<label class="caption pass_open" id="togglePassword">パスワードを表示</label>
 					
 					<label class="caption">*8文字以上で入力してください　　<div id="password_strength">パスワード強度: レベル 1 / 5 </div></label> 
-					<% if(passError != null) {%>
-					<label class="caption"><%=passError %></label> 
-					<% session.removeAttribute("passError"); %>
-					<% } %>
 					<div class="pass_count_box">
 							<div id="pass1" class="pass1 pb red"></div>
 							<div id="pass2" class="pass2 pb"></div>
