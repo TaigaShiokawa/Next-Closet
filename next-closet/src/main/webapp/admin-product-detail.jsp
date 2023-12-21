@@ -31,10 +31,17 @@
         <% } %>
 
         <p><a href="AdminProductEditServlet?productId=<%= firstProduct.getProductId() %>">編集</a></p>
-        <form action="ProductStatusChangeServlet" method="get">
-            <input type="hidden" name="productId" value="<%= firstProduct.getProductId() %>" />
-            <input type="submit" value="削除" />
-        </form>
+        <% if (firstProduct.isStatus()) { %>
+            <form action="ProductStatusChangeServlet" method="get">
+                <input type="hidden" name="productId" value="<%= firstProduct.getProductId() %>" />
+                <input type="submit" value="削除" />
+            </form>
+        <% } else { %>
+            <form action="ProductStatusChangeServlet" method="get">
+                <input type="hidden" name="productId" value="<%= firstProduct.getProductId() %>" />
+                <input type="submit" value="復活" />
+            </form>
+        <% } %>
     
 </body>
 </html>

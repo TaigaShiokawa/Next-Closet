@@ -11,40 +11,40 @@ public class EmailValidatorTest {
 
 	@Nested
 	public class validateTest {
-		@Test
 		//ドメインの第二部分がない失敗ケース
+		@Test
 		public void testValidate1() {
 			String input = "taro@mail";
 			boolean actual = EmailValidator.validate(input);
 			assertFalse(actual);
 		}
 
-		@Test
 		//ユーザー名が無いケース
+		@Test
 		public void testValidate2() {
 			String input = "@mail.com";
 			boolean actual = EmailValidator.validate(input);
 			assertFalse(actual);
 		}
 
-		@Test
 		//ドメインの第二部分が一文字のみのケース
+		@Test
 		public void testValidate3() {
 			String input = "taro@mail.c";
 			boolean actual = EmailValidator.validate(input);
 			assertFalse(actual);
 		}
 
-		@Test
 		//ドメイン名にピリオドが連続しているケース
+		@Test
 		public void testValidate4() {
 			String input = "taro@mail..c";
 			boolean actual = EmailValidator.validate(input);
 			assertFalse(actual);
 		}
 
-		@Test
 		//ユーザー名にスペースが含まれるケース
+		@Test
 		public void testValidate5() {
 			String input = "taro yamada@mail.c";
 			boolean actual = EmailValidator.validate(input);
@@ -54,16 +54,16 @@ public class EmailValidatorTest {
 
 	@Nested
 	public class validateSuccessTest {
-		@Test
 		//成功ケース
+		@Test
 		public void testValidateSuccess1() {
 			String input = "taro.yamada@mail.com";
 			boolean actual = EmailValidator.validate(input);
 			assertTrue(actual);
 		}
 
-		@Test
 		//成功ケース
+		@Test
 		public void testValidateSuccess2() {
 			String input = "taro@mail.co.jp";
 			boolean actual = EmailValidator.validate(input);

@@ -26,8 +26,10 @@ public class AdminUserListServlet extends HttpServlet {
 		
 		
 		try {
+
 			
-			request.setAttribute("userList",userDao.getAllStatusUserList()); //ユーザー一覧
+			//request.setAttribute("userList",userDao.getAllStatusUserList()); ユーザー一覧 dao変わった？
+      request.setAttribute("userList",userDao.getAllUserInfo()); //ユーザー一覧
 			
 			if(status == null) {
 				
@@ -51,6 +53,9 @@ public class AdminUserListServlet extends HttpServlet {
 					//検索がある場合、検索機能を使用
 					request.setAttribute("searchUsers", searchDao.searchStatusUserList(searchName));
 					request.setAttribute("title", "削除済みユーザー一覧 / " + searchName + " \"の検索結果<br><a class=\"list\" href=\"AdminUserListServlet?status=0\">一覧表示する</a>");				
+
+				
+
 					
 				} else {
 							request.setAttribute("title","削除済みユーザー一覧表示");

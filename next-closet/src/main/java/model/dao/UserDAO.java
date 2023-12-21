@@ -72,6 +72,7 @@ public class UserDAO {
 		}
 		return processingNum;
 	}
+	
 	//ユーザIDを取得
 	public int getUserId(String email) throws ClassNotFoundException, SQLException {
 
@@ -110,28 +111,6 @@ public class UserDAO {
 			return address;
 		}
 	}
-	
-
-	//サブの方のアドレス取得
-//		public List < AddressBean > getUserAddAddress(int userId) throws ClassNotFoundException, SQLException {
-//			String sql = "SELECT * FROM add_addresses WHERE user_id = ?";
-//			try (Connection con = DBConnection.getConnection(); 
-//					PreparedStatement pstmt = con.prepareStatement(sql)) {
-//				AddressBean address = new AddressBean();
-//				pstmt.setInt(1, userId);
-//				
-//				ResultSet res = pstmt.executeQuery();
-//				while(res.next()) {
-//					address = new AddressBean();
-//					address.setUserId(res.getInt("user_id"));
-//					address.setPostCode(res.getString("post_code"));
-//					address.setPrefectures(res.getString("prefectures"));
-//					address.setAddress(res.getString("address"));
-//				}
-//				return address;
-//			}
-//		}
-
 
 	//ユーザーログイン
 	public UserBean userLogin(String email, String password) 
@@ -195,7 +174,7 @@ public class UserDAO {
 	}
 	
 	//編集後、ユーザー取得
-	public UserBean getUpdateUser(int userId) throws ClassNotFoundException, SQLException {
+	public UserBean getUpdatedUser(int userId) throws ClassNotFoundException, SQLException {
 		UserBean user = new UserBean();
 		String sql = "SELECT * FROM users WHERE user_id = ?";
 		try (Connection con = DBConnection.getConnection(); 
@@ -215,7 +194,7 @@ public class UserDAO {
 	}
 	
 	//パスワード変更
-	public int userPasswordUpdate(int userId, String password) throws ClassNotFoundException, SQLException {
+	public int changeUserPassword(int userId, String password) throws ClassNotFoundException, SQLException {
 		int processingNum = 0;
 		String sql = "UPDATE users SET hash_pass = ? WHERE user_id = ?";
 		try (Connection con = DBConnection.getConnection(); 
@@ -229,7 +208,7 @@ public class UserDAO {
 	}
 	
 	//サブ住所追加
-	public int setSubAddress(int userId, String postCode, String address, String prefectures) 
+	public int addSubAddress(int userId, String postCode, String address, String prefectures) 
 			throws ClassNotFoundException, SQLException {
 		int processingNum = 0;
 		String sql = "INSERT INTO add_addresses (user_id, post_code, address, prefectures) VALUES (?, ?, ?, ?)";
@@ -285,7 +264,7 @@ public class UserDAO {
 	}
 	
 	//ユーザー退会
-	public int chageUserStatus(int userId) throws ClassNotFoundException, SQLException {
+	public int userWithdrawal(int userId) throws ClassNotFoundException, SQLException {
 		int processingNum = 0;
 		String sql = "UPDATE users SET user_status = false WHERE user_id = ?";
 		try (Connection con = DBConnection.getConnection(); 
@@ -299,7 +278,7 @@ public class UserDAO {
 	
 		
       //全ユーザーの情報取得
-		public List< UserBean > getAllStatusUserList() throws ClassNotFoundException, SQLException {
+		public List< UserBean > getAllUserInfo() throws ClassNotFoundException, SQLException {
 			 List< UserBean > list = new  ArrayList <UserBean>();
 			
 			
@@ -323,6 +302,7 @@ public class UserDAO {
 			
 			return list;
 		}
+		
 		//ユーザーidからユーザーの情報を取得（アドミン用ユーザー詳細情報用）
 		public List<UserBean> getUserDetail(int userId) throws ClassNotFoundException, SQLException {
 			List< UserBean > userList = new ArrayList<UserBean>();

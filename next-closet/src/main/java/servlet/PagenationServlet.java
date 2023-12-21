@@ -50,6 +50,7 @@ public class PagenationServlet extends HttpServlet {
 			genderStr = "ALL";
 		}
 		
+		
 		String categoryName = request.getParameter("categoryName");
 		ProductDAO dao = new ProductDAO();
 		

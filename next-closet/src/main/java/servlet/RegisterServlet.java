@@ -3,6 +3,8 @@ package servlet;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -50,18 +52,26 @@ public class RegisterServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
+		List<String> errorMessages = new ArrayList<>();
+		
 		//名前の入力チェック
 		if(!UserNameValidator.validate(userName)) {
-			request.getSession().setAttribute("userNameError", "名前の入力が正しくありません");
-	        response.sendRedirect("register.jsp");
-	        return;
+			errorMessages.add("名前の入力が正しくありません");
+//			request.getSession().setAttribute("userNameError", "名前の入力が正しくありません");
+			saveFormDataInSession(request, userName, kanaName, postCode, prefectures, address, telNumber, email);
+	        
+		} else {
+			request.getSession().setAttribute("userName", userName);
 		}
 		
 		//フリガナの全角チェック (ひらがなは許可せず, カタカナのみ)
 		if(!KanaNameValidator.validate(kanaName)) {
-			request.getSession().setAttribute("kanaNameError", "フリガナの入力が正しくありません");
-	        response.sendRedirect("register.jsp");
-	        return;
+			errorMessages.add("フリガナの入力が正しくありません");
+//			request.getSession().setAttribute("kanaNameError", "フリガナの入力が正しくありません");
+			saveFormDataInSession(request, userName, kanaName, postCode, prefectures, address, telNumber, email);
+	        
+		} else {
+			request.getSession().setAttribute("kanaName", kanaName);
 		}
 		
 		//郵便番号チェック全角を半角に置換
@@ -77,26 +87,39 @@ public class RegisterServlet extends HttpServlet {
 								 		 .replaceAll("９", "9");
 		//郵便番号の入力に対してハイフン無しの形式を要求
 		if(!PostCodeValidator.validate(convertPostCode)) {
-			request.getSession().setAttribute("postCodeError", "郵便番号が正しくありません");
-	        response.sendRedirect("register.jsp");
-	        return;
+			errorMessages.add("郵便番号が正しくありません");
+//			request.getSession().setAttribute("postCodeError", "郵便番号が正しくありません");
+			saveFormDataInSession(request, userName, kanaName, convertPostCode, prefectures, address, telNumber, email);
+	        
+	        
+		} else {
+			request.getSession().setAttribute("postCode", convertPostCode);
 		}
 		
-		//都道府県のからチェック
+		//都道府県の空チェック
 		if(prefectures.isEmpty()) {
-			request.getSession().setAttribute("prefecturesError", "都道府県を選択してください");
-	        response.sendRedirect("register.jsp");
-	        return;
+			errorMessages.add("都道府県を選択してください");
+//			request.getSession().setAttribute("prefecturesError", "都道府県を選択してください");
+			saveFormDataInSession(request, userName, kanaName, convertPostCode, prefectures, address, telNumber, email);
+	        
+	       
+		} else {
+			request.getSession().setAttribute("prefectures", prefectures);
 		}
 		
 		//住所の空文字チェック
+		String normalizedAddress = null;
 		if(address.isEmpty()) {
-			request.getSession().setAttribute("addressError", "住所を入力してください");
-	        response.sendRedirect("register.jsp");
-	        return;
+			errorMessages.add("住所を入力してください");
+//			request.getSession().setAttribute("addressError", "住所を入力してください");
+			saveFormDataInSession(request, userName, kanaName, convertPostCode, prefectures, address, telNumber, email);
+	        
+	        
+		} else {
+			//住所のデータを統一(全角を半角にする)
+			normalizedAddress = AddressValidator.normalizeAddress(address);
+			request.getSession().setAttribute("address", normalizedAddress);
 		}
-		//住所のデータを統一(全角を半角にする)
-		String normalizedAddress = AddressValidator.normalizeAddress(address);
 		
 		//電話番号チェック 全角を半角に置換
 		String convertTelNumber = telNumber.replaceAll("０", "0")
@@ -112,31 +135,44 @@ public class RegisterServlet extends HttpServlet {
 		
 		//電話番号の入力に対してハイフン無しの形式を要求
 		if(!TelNumberValidator.validate(convertTelNumber)) {
-			request.getSession().setAttribute("telNumberError", "無効な電話番号です");
-			response.sendRedirect("register.jsp");
-			return;
+			errorMessages.add("無効な電話番号です");
+//			request.getSession().setAttribute("telNumberError", "無効な電話番号です");
+			saveFormDataInSession(request, userName, kanaName, convertPostCode, prefectures, normalizedAddress, convertTelNumber, email);
+			
+			
+		} else {
+			request.getSession().setAttribute("telNumber", convertTelNumber);
 		}
 		
 		//メールアドレスチェック(一般的な形式に則っていなければ無効)
 		if (!EmailValidator.validate(email)) { 
 	        // Eメールが無効な形式の場合の処理
-	        request.getSession().setAttribute("emailError", "無効なEメールアドレスです");
-	        response.sendRedirect("register.jsp");
-	        return;
+			errorMessages.add("無効なEメールアドレスです");
+//	        request.getSession().setAttribute("emailError", "無効なEメールアドレスです");
+	        saveFormDataInSession(request, userName, kanaName, convertPostCode, prefectures, normalizedAddress, convertTelNumber, email);
+	       
+		} else {
+			request.getSession().setAttribute("email", email);
 		}
 		
 		//パスワード 半角であれば特殊文字を許可
 		if(!PasswordValidator.isHalfWidth(password)) {
-			request.getSession().setAttribute("passError", "パスワードが不正です。正しく入力してください");
-			response.sendRedirect("register.jsp");
-			return;
+			errorMessages.add("パスワードが不正です。正しく入力してください");
+//			request.getSession().setAttribute("passError", "パスワードが不正です。正しく入力してください");
+//			
 			
 			//パスワードの文字数と空文字チェック
 		} else if((password.length() < 8) || (password.trim().isEmpty())) { 
-			request.getSession().setAttribute("passError", "8文字以上で設定してください");
-			response.sendRedirect("register.jsp");
-			return;
+			errorMessages.add("8文字以上で設定してください");
+//			request.getSession().setAttribute("passError", "8文字以上で設定してください");
+			
 		} 
+		
+		if (!errorMessages.isEmpty()) {
+            request.getSession().setAttribute("errorMessages", errorMessages);
+            response.sendRedirect("register.jsp");
+            return;
+        }
 		
 		int passwordStrength =  PasswordStrengthChecker.calculatePasswordStrength(password);
 		request.getSession().setAttribute("passwordStrength", passwordStrength);
@@ -157,8 +193,8 @@ public class RegisterServlet extends HttpServlet {
 				try {
 					int setAddress = uDao.registerAddress(userId, convertPostCode, prefectures, normalizedAddress);
 					if(setAddress == 1) { //ユーザーの住所情報が1行追加されたら...
-						request.getSession().setAttribute("success", "登録完了！ ログインへお進みください");
-						response.sendRedirect("register.jsp");
+						request.getSession().setAttribute("success", "登録が完了しました");
+						response.sendRedirect("login.jsp");
 					} else {
 						request.getSession().setAttribute("failure", "登録済みです。ログインへお進みください");
 						response.sendRedirect("register.jsp");
@@ -186,4 +222,15 @@ public class RegisterServlet extends HttpServlet {
 	        return;
 		}
 	}
+	
+	private void saveFormDataInSession(HttpServletRequest request, String userName, String kanaName, String postCode, String prefectures, String address, String telNumber, String email) {
+	    request.getSession().setAttribute("userName", userName);
+	    request.getSession().setAttribute("kanaName", kanaName);
+	    request.getSession().setAttribute("postCode", postCode);
+	    request.getSession().setAttribute("prefectures", prefectures);
+	    request.getSession().setAttribute("address", address);
+	    request.getSession().setAttribute("telNumber", telNumber);
+	    request.getSession().setAttribute("email", email);
+	}
+
 }

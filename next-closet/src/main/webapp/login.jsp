@@ -18,14 +18,22 @@
 	<main>
 			<div class="container">
 				<h2>ログイン</h2>
+					<% String success = (String)request.getSession().getAttribute("success"); %>
 					<% String loginError = (String)request.getSession().getAttribute("loginError"); %>
 					<% String notFound = (String)request.getSession().getAttribute("notFound"); %>
-					<% if(loginError != null) { %>
+					<% Integer passwordStrength = (Integer)request.getSession().getAttribute("passwordStrength"); %>
+					<% if(success != null) { %>
+					<p><%=success %></p>
+					<% session.removeAttribute("success"); %>
+					<% } else if(loginError != null) { %>
 					<p><%=loginError %></p>
 					<% session.removeAttribute("loginError"); %>
 					<% } else if(notFound != null) { %>
 					<p><%=notFound %></p>
 					<% session.removeAttribute("notFound"); %>
+					<% } else if(passwordStrength != null) { %>
+					<p>※パスワード強度は<%=passwordStrength %> レベルです</p>
+					<% session.removeAttribute("passwordStrength"); %>
 					<% } %>
 					<div class="form_wrapper">
 						<form action="LoginServlet" method="post">

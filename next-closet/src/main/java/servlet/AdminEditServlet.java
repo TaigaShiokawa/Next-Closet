@@ -1,7 +1,6 @@
 package servlet;
 
 import java.io.IOException;
-import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
@@ -10,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import hashedPassword.HashPW;
+import model.bean.AdminBean;
 import model.dao.AdminDAO;
 import regexp.EmailValidator;
 import regexp.KanaNameValidator;
@@ -20,20 +19,28 @@ import regexp.UserNameValidator;
 public class AdminEditServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		request.getRequestDispatcher("admin-edit.jsp").forward(request, response);
+		int adminId = Integer.parseInt(request.getParameter("adminId"));
+
+	    AdminBean loginadmin = new AdminBean();
+	    AdminDAO aDao = new AdminDAO();
+
+	    try {
+	        loginadmin = aDao.getDetailadmin(adminId);
+	        request.setAttribute("admin", loginadmin);
+	        request.getRequestDispatcher("admin-edit.jsp").forward(request, response);
+	    } catch (ClassNotFoundException | SQLException e) {
+	        e.printStackTrace();
 	}
-
-
+}	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
+	    int adminId = Integer.parseInt(request.getParameter("adminId"));
 		String adminName = request.getParameter("adminname");
 		String kanaName = request.getParameter("kananame");
 		String email = request.getParameter("email");
-		String password = request.getParameter("password");
 		
 		//名前の入力チェック
 		if(!UserNameValidator.validate(adminName)) {
@@ -56,28 +63,15 @@ public class AdminEditServlet extends HttpServlet {
 	        return;
 		}
 		
-		//パスワードの文字数チェック
-		if((password.length() < 8) && (password.trim().isEmpty())) { //8文字以上かつ空文字を許可しない
-			request.getSession().setAttribute("passError", "8文字以上で設定してください");
-			response.sendRedirect("admin-edit.jsp");
-			return;
-		}
 		
-		String hashedPass = null;
-		try {
-			hashedPass = HashPW.hashPass(password); //パスワードハッシュ化
-		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-		}
 		
 		AdminDAO aDao = new AdminDAO();
 		try {
-			int adminId = aDao.getAdminId(email);
 			if(adminId > 0) {
-				int updateAdmin = aDao.updateAdmin(adminName, kanaName,email, hashedPass, adminId);
+				int updateAdmin = aDao.updateAdmin(adminName, kanaName,email,adminId);
 				if(updateAdmin == 1) {
-					request.getSession().setAttribute("password", password);
-						response.sendRedirect("AdminDetailServlet");
+					request.setAttribute("adminId", adminId);
+					request.getRequestDispatcher("AdminDetailServlet").forward(request, response);
 					}
 				}
 			//ここも今のとこ同じくユーザーと同じ（形だけ）
