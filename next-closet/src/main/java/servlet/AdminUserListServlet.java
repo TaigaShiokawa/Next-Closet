@@ -22,20 +22,45 @@ public class AdminUserListServlet extends HttpServlet {
 		String searchName = request.getParameter("searchName");
 		SearchDAO searchDao = new SearchDAO();
 		UserDAO userDao = new UserDAO();
+		String status = request.getParameter("status");
+		
 		
 		try {
-					request.setAttribute("userList",userDao.getAllStatusUserList()); //ユーザー一覧
+			
+			request.setAttribute("userList",userDao.getAllStatusUserList()); //ユーザー一覧
+			
+			if(status == null) {
+				
+				if (searchName != null && !searchName.isEmpty()) {
+					//検索がある場合、検索機能を使用
+					request.setAttribute("searchUsers", searchDao.searchStatusUserList(searchName));
+					request.setAttribute("title", "ユーザー一覧 / " + searchName + " \"の検索結果<br><a class=\"list\" href=\"AdminUserListServlet\">一覧表示する</a>");				
 					
-					 if (searchName != null && !searchName.isEmpty()) {
-						 System.out.println(searchName);
-						//検索がある場合、検索機能を使用
-						request.setAttribute("searchUsers", searchDao.searchStatusUserList(searchName));
-						request.setAttribute("title", "ユーザー一覧 / " + searchName + " \"の検索結果<br><a class=\"list\" href=\"AdminUserListServlet\">一覧表示する</a>");				
-						
-					} else {
-								request.setAttribute("title","ユーザー一覧表示");
-					}
-			 
+				} else {
+							request.setAttribute("title","ユーザー一覧表示");
+				}
+				
+				 RequestDispatcher dispatcher = request.getRequestDispatcher("admin-user-list.jsp");
+			     dispatcher.forward(request, response);	
+				
+				
+				
+			} else if(status.equals("0")) { //削除済み
+				
+				if (searchName != null && !searchName.isEmpty()) {
+					//検索がある場合、検索機能を使用
+					request.setAttribute("searchUsers", searchDao.searchStatusUserList(searchName));
+					request.setAttribute("title", "削除済みユーザー一覧 / " + searchName + " \"の検索結果<br><a class=\"list\" href=\"AdminUserListServlet?status=0\">一覧表示する</a>");				
+					
+				} else {
+							request.setAttribute("title","削除済みユーザー一覧表示");
+				}
+				
+				 RequestDispatcher dispatcher = request.getRequestDispatcher("admin-user-delete-list.jsp");
+			     dispatcher.forward(request, response);	
+			     
+			}
+		 
 		} catch(ClassNotFoundException e) {
 			e.printStackTrace();
 			request.getSession().setAttribute("errorMessageToAdmin", "内部の設定エラーが発生しました。"
@@ -50,8 +75,7 @@ public class AdminUserListServlet extends HttpServlet {
 			return;
 		}
 		
-		 RequestDispatcher dispatcher = request.getRequestDispatcher("admin-user-list.jsp");
-		     dispatcher.forward(request, response);	
+		
 		
 	}    
 }
