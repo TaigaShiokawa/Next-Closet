@@ -23,6 +23,7 @@
 <meta charset="UTF-8">
 <title>管理者ログインページ</title>
 <link rel="stylesheet" href="css/admin-user-list.css">
+<link rel="stylesheet" href="css/admin-navbar.css">
 </head>
 
 <body>
@@ -106,6 +107,7 @@
 			</div>
                     
 	<body>
+	<%@ include file="includes/footer.jsp" %> 
   <script>
 
   'use strict'; /* 厳格にエラーをチェック */

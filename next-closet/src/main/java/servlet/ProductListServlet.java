@@ -46,6 +46,8 @@ public class ProductListServlet extends HttpServlet {
 		String categoryName = request.getParameter("categoryName");
 		ProductDAO dao = new ProductDAO();
 		
+		
+		
 		List<ProductBean> searchProducts = new ArrayList<>();
 		
 		try {

@@ -12,6 +12,7 @@
 }
 
 /* タブメニュー */
+
 .tab__menu {
   display: flex;
   align-items: flex-end; /* メニューを下揃え */

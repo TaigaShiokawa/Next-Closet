@@ -15,9 +15,9 @@ import javax.servlet.http.Part;
 import model.dao.AdminProductDAO;
 
 @WebServlet("/ProductAddServlet")
-@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
-maxFileSize = 1024 * 1024 * 10,      // 10MB
-maxRequestSize = 1024 * 1024 * 50)   // 50MB
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB 
+maxFileSize = 1024 * 1024 * 10,      // 10MB 1アイテムの最大サイズ
+maxRequestSize = 1024 * 1024 * 50)   // 50MB 1回のリクエストで送信できる合計サイズ
 public class ProductAddServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 //	private static final String UPLOAD_DIRECTORY = "image";
