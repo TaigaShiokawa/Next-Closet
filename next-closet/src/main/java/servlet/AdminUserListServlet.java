@@ -30,7 +30,7 @@ public class AdminUserListServlet extends HttpServlet {
 						 System.out.println(searchName);
 						//検索がある場合、検索機能を使用
 						request.setAttribute("searchUsers", searchDao.searchStatusUserList(searchName));
-						request.setAttribute("title", "ユーザー一覧 / " + searchName + "の検索結果");				
+						request.setAttribute("title", "ユーザー一覧 / " + searchName + " \"の検索結果<br><a class=\"list\" href=\"AdminUserListServlet\">一覧表示する</a>");				
 						
 					} else {
 								request.setAttribute("title","ユーザー一覧表示");

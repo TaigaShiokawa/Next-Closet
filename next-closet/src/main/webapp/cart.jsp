@@ -151,7 +151,7 @@
     
     <script>
 					var countrepeat = document.getElementById("count").getAttribute("data-repeat-count");
-					for( let j = 1 ; j <= countrepeat ; j++ ){
+					for( let j = 0 ; j <= countrepeat ; j++ ){
 
 						const $wrap = document.querySelector('.number-spinner-wrap' + j)
 						const $input = $wrap.querySelector('input')
