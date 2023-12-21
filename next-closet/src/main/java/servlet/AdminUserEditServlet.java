@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.dao.UserDAO;
+import regexp.UserNameValidator;
 
 
 @WebServlet("/AdminUserEditServlet")
@@ -36,6 +37,7 @@ public class AdminUserEditServlet extends HttpServlet {
 	String telNumber = request.getParameter("telnumber");
 	String email = request.getParameter("email");
 	 int userId = Integer.parseInt(request.getParameter("userId"));
+	  
 		
 	// データベース内のユーザー情報を更新
      try {
