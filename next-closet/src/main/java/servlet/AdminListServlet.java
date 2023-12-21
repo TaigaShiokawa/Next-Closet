@@ -30,7 +30,7 @@ public class AdminListServlet extends HttpServlet {
 					 if (searchName != null && !searchName.isEmpty()) {
 						//検索がある場合、検索機能を使用
 				        request.setAttribute("searchAdmins", searchDao.searchStatusAdminList(searchName));
-						request.setAttribute("title", "管理者一覧 / " + searchName + "の検索結果");				
+						request.setAttribute("title", "管理者一覧 / " + searchName + "の検索結果<br><a class=\"list\" href=\"AdminListServlet\">一覧表示する</a>");				
 						
 					} else {
 								request.setAttribute("title","管理者一覧表示");
