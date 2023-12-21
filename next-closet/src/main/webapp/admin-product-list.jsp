@@ -96,7 +96,7 @@
                      		    		 	if (targetProductId == sarchProductId){ %>
                      		     
 	                     		   				<li>
-	                     		   					 <ul>
+	                     		   					 <ul class="pro_list">
 	                     		   					   <li>商品番号:<%= columns.getProductId() %></li>
 	                     		   					   <li>商品名:<%= columns.getProductName()  %></li>
 	                     		   					   <li><%= st.productStatusText(columns.isStatus()) %></li>
@@ -114,7 +114,7 @@
                      			 <%  } else {	%>
   
 				                         <%   for (ProductBean columns : productList){%>
-					                    		     <ul>
+					                    		     <ul class="pro_list">
 	                     		   					   <li>商品番号:<%= columns.getProductId() %></li>
 	                     		   					   <li>商品名:<%= columns.getProductName()  %></li>
 	                     		   					   <li><%= st.productStatusText(columns.isStatus()) %></li>
@@ -147,7 +147,7 @@
 		                     		    		 		 status = sarch.isStatus();
 		                     		    		 			 if(status){ %>
 		                     		     
-						                     		   				 <ul>
+						                     		   				 <ul class="pro_list">
 					                     		   					   <li>商品番号:<%= columns.getProductId() %></li>
 					                     		   					   <li>商品名:<%= columns.getProductName()  %></li>
 					                     		   					   <li><%= st.productStatusText(columns.isStatus()) %></li>
@@ -162,7 +162,7 @@
 						                        <% for (ProductBean columns : productList) {
 		                       						 status = columns.isStatus();
 		                       						 if(status){ %>
-							            			  <ul>
+							            			  <ul class="pro_list">
 	                     		   					   <li>商品番号:<%= columns.getProductId() %></li>
 	                     		   					   <li>商品名:<%= columns.getProductName()  %></li>
 	                     		   					   <li><%= st.productStatusText(columns.isStatus()) %></li>
@@ -189,7 +189,7 @@
                      		    		 
                      		    		 			 if(status != true){ %>
                      		     
-				                     		   				 <ul>
+				                     		   				 <ul class="pro_list">
 			                     		   					   <li>商品番号:<%= columns.getProductId() %></li>
 			                     		   					   <li>商品名:<%= columns.getProductName()  %></li>
 			                     		   					   <li><%= st.productStatusText(columns.isStatus()) %></li>
@@ -205,7 +205,7 @@
                        						 status = columns.isStatus();
                        						
                        						 if(status != true){ %>
-					            					 <ul>
+					            					 <ul class="pro_list">
 	                     		   					   <li>商品番号:<%= columns.getProductId() %></li>
 	                     		   					   <li>商品名:<%= columns.getProductName()  %></li>
 	                     		   					   <li><%= st.productStatusText(columns.isStatus()) %></li>

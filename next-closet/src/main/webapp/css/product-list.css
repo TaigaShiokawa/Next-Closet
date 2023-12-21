@@ -192,3 +192,10 @@ transform: rotate(45deg) !important;
 transform: rotate(135deg) !important;
 }
 
+
+/* 商品リスト　横並び */
+
+.pro_list{
+	display: flex;
+}
+

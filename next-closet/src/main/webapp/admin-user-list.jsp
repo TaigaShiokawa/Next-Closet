@@ -20,18 +20,54 @@
 <meta charset="UTF-8">
 <title>管理者ログインページ</title>
 <link rel="stylesheet" href="css/admin-user-list.css">
+<link rel="stylesheet" href="css/admin-navbar.css">
 </head>
 
 <body>
 <%@ include file="includes/admin-navbar.jsp" %>
+<main>
+<div class="container">
+	<div class="sidebar">
+	</div>
+		<div class="list_container">
+				<div class="top_wrapper">
+					<p>商品管理</p>
+					<button>商品を新規登録</button>
+				</div>
+				<div>
+					<div class="sarch_header">
+					
+					</div>
+					<div class="table_list">
+						<table>
+							<thead>
+							</thead>
+							<tbody>
+							<th>
+								<td>
+								</td>
+								<td>
+								</td>
+								<td>
+								</td>
+							</th>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+	</div>
+</main>
+<%@ include file="includes/footer.jsp" %>
+</body>
+</html>
+
+
+--ここからしたは前のぶん（新しいものが完成したら削除）
+
 <div class="content wrapper">
 
-						<div class="search">
-				              <form action="AdminUserListServlet" method="get">
-				                   <input type="text" name="searchName" class="search_box" placeholder="キーワードで商品名を検索">
-				                   <input class="sarch_btn" type="submit" value="検索">
-				               </form>
-				        </div>
+						
 				        
 				        <button><a href="AdminUserListServlet">一覧表示</a></button>
             
@@ -183,8 +219,9 @@
 	                  
 	              </div><!-- tab閉じタグ -->
 			</div>
-                    
+                    <%@ include file="includes/footer.jsp" %> 
 	<body>
+	
   <script>
 
   'use strict'; /* 厳格にエラーをチェック */
@@ -237,8 +274,3 @@
   }
 
   </script>
-
-</body>
-
-</body>
-</html>
