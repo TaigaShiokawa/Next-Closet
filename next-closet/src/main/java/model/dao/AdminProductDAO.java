@@ -222,7 +222,25 @@ public class AdminProductDAO {
 		}
 	}
 	
+	//商品のステータスを取得する
+	public boolean getProductStatus(int productId) 
+	        throws ClassNotFoundException, SQLException {
+	    String sql = "SELECT status FROM products WHERE product_id = ?;";
+	    try (Connection con = DBConnection.getConnection();
+	         PreparedStatement pstmt = con.prepareStatement(sql)) {
+	        
+	        pstmt.setInt(1, productId);  // productId をパラメータとして設定
+	        ResultSet res = pstmt.executeQuery();
+	        
+	        if (res.next()) {
+	            return res.getBoolean("status");
+	        } else {
+	            throw new SQLException("商品IDが見つかりません");
+	        }
+	    }
+	}
 	
+	//商品のステータスを切り替える
 	public void updateProductStatus(int productId, boolean newStatus) 
 			throws ClassNotFoundException, SQLException {
 		String sql = "UPDATE products SET status = ? WHERE product_id = ?;";

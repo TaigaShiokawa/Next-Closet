@@ -36,6 +36,11 @@
                 <input type="hidden" name="productId" value="<%= firstProduct.getProductId() %>" />
                 <input type="submit" value="削除" />
             </form>
+        <% } else { %>
+            <form action="ProductStatusChangeServlet" method="get">
+                <input type="hidden" name="productId" value="<%= firstProduct.getProductId() %>" />
+                <input type="submit" value="復活" />
+            </form>
         <% } %>
     
 </body>
