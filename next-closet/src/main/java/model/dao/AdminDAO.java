@@ -80,10 +80,9 @@ public class AdminDAO {
 	
 	
 
-	
-	public int updateAdmin(String adminName, String kanaName, String email, String password,int adminId)
+		public int updateAdmin(String adminName, String kanaName, String email,int adminId)
 	        throws SQLException, ClassNotFoundException {
-	    String sql = "UPDATE admins SET admin_name = ?, admin_kana_name = ?, email = ?, hash_pass = ? WHERE admin_id = ?";
+	    String sql = "UPDATE admins SET admin_name = ?, admin_kana_name = ?, email = ? WHERE admin_id = ?";
 
 	    try (Connection con = DBConnection.getConnection();
 	         PreparedStatement preparedStatement = con.prepareStatement(sql)) {
@@ -91,8 +90,7 @@ public class AdminDAO {
 	        preparedStatement.setString(1, adminName);
 	        preparedStatement.setString(2, kanaName);
 	        preparedStatement.setString(3, email);
-	        preparedStatement.setString(4, password);
-	        preparedStatement.setInt(5, adminId);
+	        preparedStatement.setInt(4, adminId);
 
 	        int rowsAffected = preparedStatement.executeUpdate();
 	        return rowsAffected;
@@ -119,8 +117,8 @@ public class AdminDAO {
 		}
 		return AdminId;
 	}
-	
-	public AdminBean getUpdateAdmin(int adminId) throws ClassNotFoundException, SQLException {
+	//IDごとに管理者の情報を受け取る
+	public AdminBean getDetailadmin(int adminId) throws ClassNotFoundException, SQLException {
 		AdminBean admin = new AdminBean();
 		String sql = "SELECT * FROM admins WHERE admin_id = ?";
 		try (Connection con = DBConnection.getConnection(); 
@@ -132,7 +130,6 @@ public class AdminDAO {
 				admin.setAdminName(res.getString("admin_name"));
 				admin.setAdminKanaName(res.getString("admin_kana_name"));
 				admin.setEmail(res.getString("email"));
-				admin.setPassword(res.getString("hash_pass")); //消してもいいかも. 後で確認する.
 			}
 		}
 		return admin;
