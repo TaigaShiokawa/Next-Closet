@@ -5,65 +5,68 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- <link rel="stylesheet" href="css/mypage.css"> -->
-<!-- <link rel="stylesheet" href="css/navbar.css"> -->
+<link rel="stylesheet" href="css/admin-user-detail.css">
+<link rel="stylesheet" href="css/admin-navbar.css"> 
 <meta charset="UTF-8">
 <title>登録ユーザー情報編集</title>
 
 </head>
 <body>
 <%@ include file="includes/admin-navbar.jsp" %>
+<main>
  <%
  List<UserBean> userList = (List<UserBean>)request.getAttribute("userList"); 
  for (UserBean user : userList) {
  %>
 
-
-<table>
-    <tr>
-        <td><label for="name">お名前</label></td>
-      <td><%=user.getUserName() %></td> 
-    </tr>
-    <tr>
-        <td><label for="furigana">フリガナ</label></td>
-        <td><%=user.getKanaName() %></td>
-    </tr>
-    <tr>
-        <td><label for="postalcode">郵便番号</label></td>
-        <td><%=user.getPostCode() %></td>
-    </tr>
-    <tr>
-        <td><label for="address">都道府県</label></td>
-        <td><%=user.getPrefectures() %></td>
-    </tr>
-    <tr>
-        <td><label for="city">住所</label></td>
-        <td><%=user.getAddress() %></td>
-    </tr>
-    <tr>
-        <td><label for="phone">電話番号</label></td>
-        <td><%=user.getTelNumber() %></td>
-    </tr>
-    <tr>
-        <td><label for="email">メールアドレス</label></td>
-        <td><%=user.getEmail() %></td>
-    </tr>
-</table>
-
-        <p>
-            <a href="AdminUserUpdateServlet?userId=<%= user.getUserId() %>">更新</a>
-           <a href="AdminUserWithdrawalServlet?userId=<%= user.getUserId() %>">削除</button></a>
-           <a href="AdminUserRestorationServlet?userId=<%= user.getUserId() %>">復活</button></a>
-          <%-- <form action="AdminUserWithdrawServlet" method="get">
-            <input type="hidden" name="userId" value="<%= user.getUserId() %>" />
-            <input type="submit" value="削除" />
-            </form> --%>
-        </p>
+ <div class="wrapper">
+	<table>
+	    <tr>
+	        <td><label for="name">お名前</label></td>
+	      <td><%=user.getUserName() %></td> 
+	    </tr>
+	    <tr>
+	        <td><label for="furigana">フリガナ</label></td>
+	        <td><%=user.getKanaName() %></td>
+	    </tr>
+	    <tr>
+	        <td><label for="postalcode">郵便番号</label></td>
+	        <td><%=user.getPostCode() %></td>
+	    </tr>
+	    <tr>
+	        <td><label for="address">都道府県</label></td>
+	        <td><%=user.getPrefectures() %></td>
+	    </tr>
+	    <tr>
+	        <td><label for="city">住所</label></td>
+	        <td><%=user.getAddress() %></td>
+	    </tr>
+	    <tr>
+	        <td><label for="phone">電話番号</label></td>
+	        <td><%=user.getTelNumber() %></td>
+	    </tr>
+	    <tr>
+	        <td><label for="email">メールアドレス</label></td>
+	        <td><%=user.getEmail() %></td>
+	    </tr>
+	</table>
+	
+	<div class="btn_wrapper">
+	
+	  <button class="btn"><a href="AdminUserUpdateServlet?userId=<%= user.getUserId() %>">更新</a>
+        <% if (user.isUserStatus()) { %>
+             <button class="btn"><a href="AdminUserWithdrawalServlet?userId=<%= user.getUserId() %>">削除</button></a>
+        <% } else { %>
+           <button class="btn"><a href="AdminUserRestorationServlet?userId=<%= user.getUserId() %>">復活</button></a>
+		 <% } %>		      
+		<% 
+		 }
+		%>
         
-       
-<% 
- }
-%>
+	</div>
+</div>
+
+</main>
 <%@ include file="includes/footer.jsp" %>
 </body>
 </html>
