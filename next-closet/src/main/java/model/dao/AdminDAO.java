@@ -134,5 +134,16 @@ public class AdminDAO {
 		}
 		return admin;
 	}
+	
+			//管理者を復元
+			public void adminTrueStatus(int adminId) throws ClassNotFoundException, SQLException {
+
+				String sql = "UPDATE admins SET admin_status = true WHERE admin_id = ?";
+				try (Connection con = DBConnection.getConnection(); 
+						PreparedStatement pstmt = con.prepareStatement(sql)) {
+					pstmt.setInt(1, adminId);
+					pstmt.executeUpdate();
+				}
+			}
 
 }
