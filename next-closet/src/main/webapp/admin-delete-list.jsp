@@ -11,7 +11,6 @@
  boolean status = false;
  int targetAdminId = -1;
  int searchAdminId = -1;
- int i = 0;
 
  %>
 <!-- 管理者のセッション設定が必要 -->
@@ -90,7 +89,7 @@
 													  <path fill-rule="evenodd" d="M6.146 7.146a.5.5 0 0 1 .708 0L8 8.293l1.146-1.147a.5.5 0 1 1 .708.708L8.707 9l1.147 1.146a.5.5 0 0 1-.708.708L8 9.707l-1.146 1.147a.5.5 0 0 1-.708-.708L7.293 9 6.146 7.854a.5.5 0 0 1 0-.708z"/>
 													  <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
 													  <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
-													</svg>　削除データ</label>
+													</svg>　削除データー</label>
 													<div class="category_content">
 								                        <ul class="category">
 								                            <li><a href='AdminProductListServlet?status=0'>削除済み商品一覧</a></li> <!-- アコーディオンの中身のリスト -->
@@ -146,7 +145,7 @@
 																		<td><a href="AdminDetailServlet?adminId=<%= columns.getAdminId() %>"><%= columns.getAdminName() %></a></td>
 																		<td><a href="AdminDetailServlet?adminId=<%= columns.getAdminId() %>"><%= columns.getAdminKanaName() %></a></td>
 																		<td class="mail"><a href="AdminDetailServlet?adminId=<%= columns.getAdminId() %>"><%= columns.getEmail() %></a></td>
-																		<td class="trash">復元</td>
+																		<td class="trash"><a href="AdminRestorationServlet?adminId=<%= columns.getAdminId()%>">復元</a></td>
 																	</tr>
 															 <%} } } } %>
 					                     		 
@@ -162,15 +161,13 @@
 																		<td><a href="AdminDetailServlet?adminId=<%= columns.getAdminId() %>"><%= columns.getAdminName() %></a></td>
 																		<td><a href="AdminDetailServlet?adminId=<%= columns.getAdminId() %>"><%= columns.getAdminKanaName() %></a></td>
 																		<td class="mail"><a href="AdminDetailServlet?adminId=<%= columns.getAdminId() %>"><%= columns.getEmail() %></a></td>
-																		<td class="trash">復元</td>
+																		<td class="trash"><a href="AdminRestorationServlet?adminId=<%= columns.getAdminId()%>">復元</a></td>
 																	</tr>
 		                  					                   <% } } %>				                    
 					                                        <% }%>
 															</tbody>
 														</table>
 
-
-						    <div id="count" data-repeat-count=<%= i %>></div>  
 				</div>
 			</div><!-- wrapper_container -->
 		</div> <!-- list_container -->
@@ -178,45 +175,6 @@
 </main>
 <%@ include file="includes/footer.jsp" %>    
 
-	<script>
-
-
-	    var countrepeat = document.getElementById("count").getAttribute("data-repeat-count");
-	    
-
-		for( let j = 0 ; j < countrepeat ; j++ ){
-
-			const buttonOpen = document.getElementById("modalOpen" + j);
-			const modal = document.getElementById("easyModal" + j);
-			const buttonClose = document.getElementsByClassName('modalClose')[0];
-
-			console.log(buttonOpen);
-		
-			// ボタンがクリックされた時
-			buttonOpen.addEventListener('click', modalOpen);
-			function modalOpen() {
-			  modal.style.display = 'block';
-			}
-		
-			// バツ印がクリックされた時
-			buttonClose.addEventListener('click', modalClose);
-			function modalClose() {
-			  modal.style.display = 'none';
-			}
-		
-			// モーダルコンテンツ以外がクリックされた時
-			addEventListener('click', outsideClose);
-			function outsideClose(e) {
-			  if (e.target == modal) {
-			    modal.style.display = 'none';
-			  }
-
-			}} 
-
-			
-
-	</script>
-	
 </body>
 </html>
 
