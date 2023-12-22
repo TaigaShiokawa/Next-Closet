@@ -24,14 +24,12 @@ public class AdminProductDAO {
 	    String sql = "INSERT INTO products (category_id, gender, product_name, description, price, image) VALUES (?, ?, ?, ?, ?, ?)";
 	    try (Connection con = DBConnection.getConnection(); 
 	            PreparedStatement pstmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) { // キーを返すように指定
-	        
 	        pstmt.setInt(1, categoryId);
 	        pstmt.setInt(2, gender);
 	        pstmt.setString(3, productName);
 	        pstmt.setString(4, description);
 	        pstmt.setInt(5, price);
 	        pstmt.setString(6, image);
-	        
 	        int affectedRows = pstmt.executeUpdate();
 	        if (affectedRows > 0) { // 実際に行が挿入されたか確認
 	            try (ResultSet rs = pstmt.getGeneratedKeys()) {
@@ -43,7 +41,6 @@ public class AdminProductDAO {
 	    }
 	    return productId; // 生成された商品IDを返す
 	}
-
 	
 	//カテゴリーIDの取得
 	public int getCategoryId(String categoryName) 
@@ -56,8 +53,7 @@ public class AdminProductDAO {
 	        if (res.next()) {
 	            return res.getInt("category_id");
 	        } else {
-	            // カテゴリが見つからなかった場合は-1を返し、IDを無効とする
-	            return -1;
+	            return -1; // カテゴリが見つからなかった場合は-1を返し、IDを無効とする
 	        }
 	    }
 	}
@@ -73,8 +69,7 @@ public class AdminProductDAO {
 			if(res.next()) {
 				return res.getInt("size_id");
 			} else {
-				// サイズが見つからなかった場合は-1を返し、IDを無効とする
-				return -1;
+				return -1; // サイズが見つからなかった場合は-1を返し、IDを無効とする
 			}
 		}
 	}
@@ -96,23 +91,20 @@ public class AdminProductDAO {
 	}
 	
 	//商品詳細管理者用　（一つの商品の情報と商品の在庫情報を持ってくる）
-	public List<ProductBean> detailAdminProductList(int productId) throws SQLException, ClassNotFoundException {
+	public List<ProductBean> detailAdminProductList(int productId)
+			throws SQLException, ClassNotFoundException {
 	    Map<Integer, ProductBean> productMap = new HashMap<>();
-	    
 	    String sql = "SELECT p.*, i.inventory_id, i.size_id, s.size_name, i.stock_quantity "
 	               + "FROM products p "
 	               + "LEFT JOIN inventory i ON p.product_id = i.product_id "
 	               + "LEFT JOIN sizes s ON i.size_id = s.size_id "
 	               + "WHERE p.product_id = ?";
-
 	    try (Connection con = DBConnection.getConnection();
-	         PreparedStatement pstmt = con.prepareStatement(sql)) {
-
-	        pstmt.setInt(1, productId);
+	    		PreparedStatement pstmt = con.prepareStatement(sql)) {
+	    	pstmt.setInt(1, productId);
 	        ResultSet res = pstmt.executeQuery();
-
 	        while (res.next()) {
-	            int prodId = res.getInt("product_id");
+	        	int prodId = res.getInt("product_id");
 	            ProductBean product = productMap.get(prodId);
 	            if (product == null) {
 	                product = new ProductBean();
@@ -126,7 +118,7 @@ public class AdminProductDAO {
 	                product.setRegistrationDate(res.getDate("registration_date"));
 	                productMap.put(prodId, product);
 	            }
-
+	            
 	            SizeBean size = new SizeBean();
 	            size.setSizeId(res.getInt("size_id"));
 	            size.setSizeName(res.getString("size_name"));
@@ -135,15 +127,14 @@ public class AdminProductDAO {
 	            product.addSize(size);
 	        }
 	    }
-
 	    return new ArrayList<>(productMap.values());
 	}
 
 	
-	//　商品編集の情報を取得する
-	public List<ProductBean> editAdminProductList(int productId) throws ClassNotFoundException, SQLException {
+	// 商品編集の情報を取得する
+	public List<ProductBean> editAdminProductList(int productId)
+			throws ClassNotFoundException, SQLException {
 	    Map<Integer, ProductBean> productMap = new HashMap<>();
-
 	    String sql = "SELECT p.product_id, p.category_id, p.gender, p.product_name, p.price, p.description, p.status, p.image, p.registration_date, "
 	               + "i.inventory_id, s.size_id, s.size_name, i.stock_quantity "
 	               + "FROM products p "
@@ -151,15 +142,12 @@ public class AdminProductDAO {
 	               + "JOIN sizes s ON i.size_id = s.size_id "
 	               + "WHERE p.product_name = (SELECT product_name FROM products WHERE product_id = ?) "
 	               + "ORDER BY s.size_id;";
-
 	    try (Connection con = DBConnection.getConnection();
-	         PreparedStatement pstmt = con.prepareStatement(sql)) {
-	        
+	    		PreparedStatement pstmt = con.prepareStatement(sql)) {
 	        pstmt.setInt(1, productId);
 	        ResultSet res = pstmt.executeQuery();
-
 	        while (res.next()) {
-	            int product_id = res.getInt("product_id");
+	        	int product_id = res.getInt("product_id");
 	            int category_id = res.getInt("category_id");
 	            int gender = res.getInt("gender");  
 	            String product_name = res.getString("product_name");
@@ -190,14 +178,11 @@ public class AdminProductDAO {
 			throws SQLException, ClassNotFoundException {
 		// 商品情報の更新
 	    String updateProductSql = "UPDATE products SET product_name = ?, price = ?, description = ?, image = ? WHERE product_id IN (SELECT product_id FROM (SELECT product_id FROM products WHERE product_name = (SELECT product_name FROM products WHERE product_id = ?)) AS temp);";
-
 	    // 在庫数量の更新
 	    String updateInventorySql = "UPDATE inventory SET stock_quantity = ? WHERE product_id = ? AND size_id = (SELECT size_id FROM sizes WHERE size_name = ?);";
-		
 		try (Connection con = DBConnection.getConnection();
-			 PreparedStatement pstmtProduct = con.prepareStatement(updateProductSql);
-			 PreparedStatement pstmtInventory = con.prepareStatement(updateInventorySql)) {
-			
+				PreparedStatement pstmtProduct = con.prepareStatement(updateProductSql);
+				PreparedStatement pstmtInventory = con.prepareStatement(updateInventorySql)) {
 			// 商品情報の更新
 			pstmtProduct.setString(1, product.getProductName());
 			pstmtProduct.setInt(2, product.getPrice());
@@ -205,7 +190,6 @@ public class AdminProductDAO {
 			pstmtProduct.setString(4, product.getImage());
 			pstmtProduct.setInt(5, product.getProductId());
 			pstmtProduct.executeUpdate();
-			
 			// 在庫数量の更新
 	        for (Map.Entry<String, Integer> entry : stockQuantities.entrySet()) {
 	            String[] parts = entry.getKey().split("_");
@@ -217,6 +201,7 @@ public class AdminProductDAO {
 	            pstmtInventory.setInt(1, stockQuantity);
 	            pstmtInventory.setInt(2, productId);
 	            pstmtInventory.setString(3, sizeName);
+	            
 	            pstmtInventory.executeUpdate();
 	        }
 		}
@@ -227,11 +212,9 @@ public class AdminProductDAO {
 	        throws ClassNotFoundException, SQLException {
 	    String sql = "SELECT status FROM products WHERE product_id = ?;";
 	    try (Connection con = DBConnection.getConnection();
-	         PreparedStatement pstmt = con.prepareStatement(sql)) {
-	        
+	    		PreparedStatement pstmt = con.prepareStatement(sql)) {
 	        pstmt.setInt(1, productId);  // productId をパラメータとして設定
 	        ResultSet res = pstmt.executeQuery();
-	        
 	        if (res.next()) {
 	            return res.getBoolean("status");
 	        } else {
@@ -244,10 +227,8 @@ public class AdminProductDAO {
 	public void updateProductStatus(int productId, boolean newStatus) 
 			throws ClassNotFoundException, SQLException {
 		String sql = "UPDATE products SET status = ? WHERE product_id = ?;";
-		
 		try (Connection con = DBConnection.getConnection();
-			 PreparedStatement pstmt = con.prepareStatement(sql)) {
-			
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setBoolean(1, newStatus);
 			pstmt.setInt(2, productId);
 			pstmt.executeUpdate();
