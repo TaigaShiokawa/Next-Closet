@@ -51,6 +51,7 @@ thead tr{
 tr{
 	border-bottom:1px solid gray ;
 	height:60px;
+	max-height: 60px;
 }
 
 td{
@@ -86,11 +87,20 @@ td{
 }
 
 /* レイアウト　*/
+
+
 .sidebar{
 	width: 20%;
     position: fixed;
     top: 160px; 
     left:30px;
+}
+
+.product_category{
+	width: 20%;
+    position: fixed;
+    top: 250px; 
+    left:530px;
 }
 
 .list_container{
@@ -253,7 +263,7 @@ transform: rotate(135deg) !important;
 		  margin: 20% auto;
 		  border-radius:5px ;
 		  padding:30px;
-		  width: 30%;
+		  width: 70%;
 		  height:250px;
 		  box-shadow: 0 5px 8px 0 rgba(0,0,0,0.2),0 7px 20px 0 rgba(0,0,0,0.17);
 		  animation-name: modalopen;
@@ -347,6 +357,10 @@ li{
 	list-style: none;
 }
 
+
+
+
+
 /* サイドバー */
 
 .side_bar{
@@ -359,7 +373,7 @@ li{
 }
 
 .side_bar > a{
-    padding: 15px 30px;
+    
     display: block;
     font-size: 12px;
     letter-spacing: .2em;
@@ -372,7 +386,7 @@ li{
 .category li a{
 	display: inline-block;
     color: #444;
-    width:80%;
+    width:100%;
     padding:5px;
 }
 
@@ -381,14 +395,19 @@ li{
 }
 
 .category li{
-	width: 100px;
-	}
+	width: 100%;
+}
 	
 	
 .table_list{
-	display: flex;
+	padding-left:250px;
+	padding-bottom:400px;
 }
 
 .product_category{
 	padding-top:60px;
+}
+
+.product_category {
+	width:150px;
 }

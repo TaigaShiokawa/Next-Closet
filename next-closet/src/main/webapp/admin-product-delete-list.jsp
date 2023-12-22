@@ -3,16 +3,23 @@
 <%@ page import="junit.model.dao.*" %>
 <%@ page import="java.util.*" %>
 <%@ page import="model.StatusText" %>
- <%  StatusText st = new StatusText(); %>
- <% List<UserBean> userList = (ArrayList <UserBean>)request.getAttribute("userList");
- List <UserBean> searchUsers = (ArrayList<UserBean>)request.getAttribute("searchUsers");
+ <% List<ProductBean> productList = (ArrayList <ProductBean>)request.getAttribute("productList");
+ List<CategoryBean> categoryList = (ArrayList <CategoryBean>)request.getAttribute("categoryList");
+ List<ProductBean> searchProducts = (ArrayList<ProductBean>)request.getAttribute("searchProducts");
  String  title = (String)request.getAttribute("title");
- 
+ String img = ""; 
+ StatusText st = new StatusText();
+/*  String genderStr = (String)request.getAttribute("gender");
+ int gender = Integer.parseInt(genderStr);
+ String categoryIdStr = (String)request.getAttribute("categoryId");
+ int categoryId = Integer.parseInt(categoryIdStr); */
  boolean status = false;
- int targetUserId = -1;
- int searchUserId = -1;
+ int targetProductId = -1;
+ int searchProductId = -1;
+ /* 
+ int targetGender = -1;
+ int targetCategoryId = -1; */
  int i = 0;
-
  %>
 <!-- 管理者のセッション設定が必要 -->
 <!DOCTYPE html>
@@ -20,14 +27,13 @@
 <head>
 <meta charset="UTF-8">
 <title>管理者ログインページ</title>
-<link rel="stylesheet" href="css/admin-list.css">
+<link rel="stylesheet" href="css/admin-product-list.css">
 <link rel="stylesheet" href="css/admin-navbar.css">
 </head>
 
 <body>
 <%@ include file="includes/admin-navbar.jsp" %>
 <main>
-
 <div class="container"><i class="ri-arrow-right-up-fill"></i>
 	<div class="sidebar">
 									<ul id="category_list">
@@ -105,48 +111,79 @@
 											
 										</div> <!-- アコーディオンここまで -->	
 					                </ul><!-- category_listここまで -->
+					                
+					      
 	
 	
-	</div>
+						</div><!-- sidebar -->
 	<div class="list_container">
 			<div class="top_wrapper">
 				<p class="section_title"><%= title %></p>
 				
-				<button class="register"><a href='AdminUserRegisterServlet'>ユーザー新規登録</a></button>
 			</div>
 			<div class="table_wrapper">
 				<div class="search_header">
-						 <form action="AdminUserListServlet" method="get">
+						 <form action="AdminProductListServlet" method="get">
 			                   <input type="text" name="searchName" class="list_search_box" placeholder="キーワードでを検索">
+			                   <input type="hidden" name="status" value="0">
 			                   <input class="list_search_btn" type="submit" value="検索">
 			             </form>
 				</div>
 				<div class="table_list">
+							<div class="product_category">
+					                 <ul id="category_list">
+						                    <li class="gender list_top"><span>ALL</span>
+						                        <ul class="category">
+						                            <li><a href='AdminProductListServlet?status=0'>全ての商品</a></li>
+						                            <% for ( CategoryBean columns : categoryList){ %>
+						                             <li><a href='AdminProductListServlet?status=0&categoryId=<%= columns.getCategoryId() %>&gender=-1&categoryName=<%= columns.getCategoryName() %>'><%= columns.getCategoryName() %></a></li>
+						                             <% } %>
+						                        </ul>
+						                    </li>
+						                    
+						                    <li class="gender"><span>MAN</span>
+						                        <ul class="category">
+						                             <% for ( CategoryBean columns : categoryList){ %>
+						                            <li><a href='AdminProductListServlet?status=0&categoryId=<%= columns.getCategoryId() %>&gender=0&categoryName=<%= columns.getCategoryName() %>'><%= columns.getCategoryName() %></a></li>
+						                             <% } %>
+						                        </ul>
+						                    </li>
+						                    
+						                    <li class="gender"><span>WOMAN</span>
+						                        <ul class="category">
+						 							<% for ( CategoryBean columns : categoryList){ %>
+						                            <li><a href='AdminProductListServlet?status=0&categoryId=<%= columns.getCategoryId() %>&gender=1&categoryName=<%= columns.getCategoryName() %>'><%= columns.getCategoryName() %></a></li>
+						                            <% } %>
+						                        </ul>
+						                    </li>
+						                    
+						                </ul>
+					                 </div>
 					<table>
 						<thead>
 							<tr>
-							　<th>管理者ID</th>
-						      <th>名前</th>
-						      <th>フリガナ</th>
-						      <th>メールアドレス</th>
+							　<th>商品ID</th>
+						      <th>商品名</th>
+						      <th>価格</th>
+						      <th>登録日</th>
 						      <th>削除</th>
 						    </tr>
 						</thead>
 						<tbody>
 				                     
-						 <% if (searchUsers != null ){
-		                     		for (UserBean columns : userList) { 
-		                     		   	for (UserBean search : searchUsers) {
-		                     			   	targetUserId = columns.getUserId();
-		                     			   	searchUserId = search.getUserId();
-		                     		    		 if (targetUserId == searchUserId){ 
-		                     		    		 		 status = search.isUserStatus();
-		                     		    		 			 if(status){ %>
+						 <% if (searchProducts != null ){
+		                     		for (ProductBean columns : productList) { 
+		                     		   	for (ProductBean search : searchProducts) {
+		                     			   		targetProductId = columns.getProductId();
+		                     			  		 	searchProductId = search.getProductId();
+		                     		    		 if (targetProductId == searchProductId){ 
+		                     		    		 		 status = search.isStatus();
+		                     		    		 			 if(status != true){ %>
 																<tr class="list_tr">
-																		<td class="user_id"><a href="AdminUserDetailServlet"?userId=<%= columns.getUserId() %>"><%= columns.getUserId() %></a></td>
-																		<td><a href="AdminUserDetailServlet?userId=<%= columns.getUserId() %>"><%= columns.getUserName() %></a></td>
-																		<td><a href="AdminUserDetailServlet?userId=<%= columns.getUserId() %>"><%= columns.getKanaName() %></a></td>
-																		<td class="mail"><a href="AdminUserDetailServlet?userId=<%= columns.getUserId() %>"><%= columns.getEmail() %></a></td>
+																		<td><a href="AdminProductDetailServlet?productId=<%= columns.getProductId()%>"><%= columns.getProductId() %></a></td>
+																		<td><a href="AdminProductDetailServlet?productId=<%= columns.getProductId()%>"><%= columns.getProductName() %></a></td>
+																		<td><a href="AdminProductDetailServlet?productId=<%= columns.getProductId()%>"><%= columns.getPrice()%></a></td>
+																		<td><a href="AdminProductDetailServlet?productId=<%= columns.getProductId()%>"><%= columns.getRegistrationDate()%></a></td>
 																		<td id='modalOpen<%= i %>' class="trash"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
 																		<path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
 																		</svg></td>
@@ -154,11 +191,11 @@
 																		<div id="easyModal<%= i %>" class="modal">
 																		    <div class="modal-content">
 																		      <div class="modal-body">
-																		         <p>このユーザーを削除してもよろしいですか？</p>
+																		         <p>この商品を削除してもよろしいですか？</p>
 																				        <div class="delete_btn">
 																					        <label class="modalClose">キャンセル</label>
 																					        <form action="#" method="post">
-																					           <input type="hidden" name="usreId" value="<%= columns.getUserId() %>">
+																					           <input type="hidden" name="productId" value="<%= columns.getProductId() %>">
 																					           <input class="delete" type="submit" value="削除する">
 																					        </form>
 																				        </div>
@@ -172,30 +209,29 @@
 													                    		  <%} } } } %>
 										                     		 
 										    	 
-										                     	 <%  } else {//サーチ関係なし	%>
-										  
-														                        <% for (UserBean columns : userList) {
-										                       						 status = columns.isUserStatus();
-										                       						 if(status){ %>
+										                     	 <%  } else {//サーチ関係なし	%>         
+											                        <% for (ProductBean columns : productList) {
+							                       						 status = columns.isStatus();
+							                       						 if(status != true){ %>
 					                       						 
 											            			  
 											            			<tr class="list_tr">
-																		<td class="user_id"><a href="AdminUserDetailServlet?userId=<%= columns.getUserId() %>"><%= columns.getUserId() %></a></td>
-																		<td><a href="AdminUserDetailServlet?userId=<%= columns.getUserId() %>"><%= columns.getUserName() %></a></td>
-																		<td><a href="AdminUserDetailServlet?userId=<%= columns.getUserId() %>"><%= columns.getKanaName() %></a></td>
-																		<td class="mail"><a href="AdminUserDetailServlet?userId=<%= columns.getUserId() %>"><%= columns.getEmail() %></a></td>
-																		<td id='modalOpen<%= i %>' class="trash"　><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
+																		<td><a href="AdminProductDetailServlet?productId=<%= columns.getProductId()%>"><%= columns.getProductId() %></a></td>
+																		<td><a href="AdminProductDetailServlet?productId=<%= columns.getProductId()%>"><%= columns.getProductName()%></a></td>
+																		<td><a href="AdminProductDetailServlet?productId=<%= columns.getProductId()%>"><%= columns.getPrice()%></a></td>
+																		<td><a href="AdminProductDetailServlet?productId=<%= columns.getProductId()%>"><%= columns.getRegistrationDate()%></a></td>
+																		<td id='modalOpen<%= i %>' class="trash"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
 																		<path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
 																		</svg></td>
 																		
 																		<div id="easyModal<%= i %>" class="modal">
 																		    <div class="modal-content">
 																		      <div class="modal-body">
-																		         <p>このユーザーをしてもよろしいですか？</p>
+																		         <p>この商品を削除してもよろしいですか？</p>
 																				        <div class="delete_btn">
 																					        <label class="modalClose">キャンセル</label>
 																					        <form action="#" method="post">
-																					           <input type="hidden" name="userId" value="<%= columns.getUserId() %>">
+																					           <input type="hidden" name="productId" value="<%= columns.getProductId() %>">
 																					           <input class="delete" type="submit" value="削除する">
 																					        </form>
 																				        </div>
@@ -256,179 +292,83 @@
 			
 
 	</script>
-	
+
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<%-- <div class="container">
-	<div class="sidebar">
-	</div>
-	<div class="list_container">
-			<div class="top_wrapper">
-				<p>ユーザー管理</p>
-				<button>ユーザーを新規登録</button>
-			</div>
-			<div class="table_wrapper">
-				<div class="sarch_header">
-						 <form action="AdminUserListServlet" method="get">
-			                   <input type="text" name="searchName" class="search_box" placeholder="キーワードでを検索">
-			                   <input class="sarch_btn" type="submit" value="検索">
-			             </form>
-				</div>
-				<div class="table_list">
-					<table>
-						<thead>
-							<tr>
-							　<th>userID</th>
-						      <th>名前</th>
-						      <th>フリガナ</th>
-						      <th>メールアドレス</th>
-						      <th>削除</th>
-						    </tr>
-						</thead>
-						<tbody>
-						 <% if (searchUsers != null ){
-		                     		for (UserBean columns : userList) { 
-		                     		   	for (UserBean sarch : searchUsers) {
-		                     			   		targetUserId = columns.getUserId();
-		                     			 		sarchUserId = sarch.getUserId();
-		                     		    		 if (targetUserId == sarchUserId){ 
-		                     		    		 		 status = sarch.isUserStatus();
-		                     		    		 			 if(status){ %>
-																		<tr>
-																			<td><%= columns.getUserId() %></td>
-																			<td><%= columns.getUserName() %></td>
-																			<td><%= columns.getKanaName() %></td>
-																			<td><%= columns.getEmail() %></td>
-																			<td><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
-																			  <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
-																			</svg></td>
-																		</tr>
-															  <%} } } } %>
-		                     		 
-		    	 
-		                     	 <%  } else {//サーチ関係なし	%>
-		  
-						                        <% for (UserBean columns : userList) {
-		                       						 status = columns.isUserStatus();
-		                       						 if(status){ %>
-							            			  <tr>
-														<td><%= columns.getUserId() %></td>
-														<td><%= columns.getUserName() %></td>
-														<td><%= columns.getKanaName() %></td>
-														<td><%= columns.getEmail() %></td>
-														<td><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
-														<path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
-														</svg></td>
-													</tr>
-		                  					 <% } } %>				                    
-					                   <% }%>
-						</tbody>
-					</table>
-				</div>
-			</div><!-- wrapper_container -->
-		</div> <!-- list_container -->
-	</div> <!-- container -->
-</main>
-<%@ include file="includes/footer.jsp" %>
-</body>
-</html>
-
-
---ここからしたは前のぶん（新しいものが完成したら削除）
-
-<div class="content wrapper">
-
-						
-				        
-		<button><a href="AdminUserListServlet">一覧表示</a></button>
+<%-- 
+<div class="container">
+		<div class="side_bar">
+                <ul id="category_list">
+                    <li class="gender list_top"><span>ALL</span>
+                        <ul class="category">
+                            <li><a href='AdminProductListServlet'>全ての商品</a></li>
+                            <% for ( CategoryBean columns : categoryList){ %>
+                             <li><a href='AdminProductListServlet?categoryId=<%= columns.getCategoryId() %>&gender=-1&categoryName=<%= columns.getCategoryName() %>'><%= columns.getCategoryName() %></a></li>
+                             <% } %>
+                        </ul>
+                    </li>
+                    
+                    <li class="gender"><span>MAN</span>
+                        <ul class="category">
+                             <% for ( CategoryBean columns : categoryList){ %>
+                            <li><a href='AdminProductListServlet?categoryId=<%= columns.getCategoryId() %>&gender=0&categoryName=<%= columns.getCategoryName() %>'><%= columns.getCategoryName() %></a></li>
+                             <% } %>
+                        </ul>
+                    </li>
+                    
+                    <li class="gender"><span>WOMAN</span>
+                        <ul class="category">
+ 							<% for ( CategoryBean columns : categoryList){ %>
+                            <li><a href='AdminProductListServlet?categoryId=<%= columns.getCategoryId() %>&gender=1&categoryName=<%= columns.getCategoryName() %>'><%= columns.getCategoryName() %></a></li>
+                            <% } %>
+                        </ul>
+                    </li>
+                    
+                </ul>
+          </div><!--  side_barの閉じタグ -->
+          
+         
             
   		<div class="tab">
- 				 <h1 class="page-title"><%= title %></h1>	
- 				 
- 				 <div class="sarch_header">
-							 <form action="AdminUserListServlet" method="get">
-				                   <input type="text" name="searchName" class="search_box" placeholder="キーワードでを検索">
+  		                <div class="search">
+				              <form action="AdminProductListServlet" method="get">
+				                   <input type="text" name="searchName" class="search_box" placeholder="キーワードで商品名を検索">
 				                   <input class="sarch_btn" type="submit" value="検索">
 				               </form>
-					
-					</div>
+				        </div>
+ 				 <h1 class="page-title"><%= title %></h1>	
   
 			    <ul class="tab__menu">
-				      <li class="tab__menu-item is-active" data-tab="01">全ユーザー一覧表</li>
-				      <li class="tab__menu-item" data-tab="02">ユーザー一覧表</li>
-				      <li class="tab__menu-item" data-tab="03">削除済みユーザー一覧表</li>
+				      <li class="tab__menu-item is-active" data-tab="01">商品一覧表</li>
+				      <li class="tab__menu-item" data-tab="02">販売中</li>
+				      <li class="tab__menu-item" data-tab="03">削除済み</li>
 			    </ul> 
 			    
 			    <div class="tab__panel">
                     <div class="tab__panel-box tab__panel-box001 is-show" data-panel="01"> <!-- 全表示 -->
                     	
 				                
-                     	<ul class="user-list">
-                     	
-                     								 <ul>			
-	                     		   					   <li>ユーザーネーム</li>
-	                     		   					   <li>メールアドレス</li>
-	                     		   					   <li></li>
-	                     		   					   <li></li>
-	                     		   					 </ul>
+                     	<ul class="product-list">
+                     	 
+                     	 <% if (searchProducts != null ){
                      		
-                     		<% if (searchUsers != null ){
-	                     		for (UserBean columns : userList) { 
-	                     		   	for (UserBean sarch : searchUsers) {
-	                     			   		targetUserId = columns.getUserId();
-	                     			 		  sarchUserId = sarch.getUserId();
-	                     		    		    if (targetUserId == sarchUserId){ %>
+                     		   	for (ProductBean columns : productList) { 
+                     		   		for (ProductBean sarch : searchProducts) {
+	                     			   		targetProductId = columns.getProductId();
+	                     			 		sarchProductId = sarch.getProductId();
+                     		    		 	if (targetProductId == sarchProductId){ %>
                      		     
-	                     		   			
-	                     		   					 <ul>
-	                     		   					   <li><%= columns.getUserName() %></li>
-	                     		   					   <li><%= columns.getEmail() %></li>
-	                     		   					   <li><%= st.userStatusText(columns.isUserStatus()) %></li>
-	                     		   					   <li><a href="AdminUserDetailServlet?userId=<%= columns.getUserId() %>">詳細を見る</a></li>
+	                     		   				<li>
+	                     		   					 <ul class="pro_list">
+	                     		   					   <li>商品番号:<%= columns.getProductId() %></li>
+	                     		   					   <li>商品名:<%= columns.getProductName()  %></li>
+	                     		   					   <li><%= st.productStatusText(columns.isStatus()) %></li>
+	                     		   					   <li><a href="AdminProductDetailServlet?productId=<%= columns.getProductId() %>">詳細を見る</a></li>
 	                     		   					 </ul>
+					                       			
+								                         <p><%= columns.getProductName() %></p>
+								                          <p>&yen; <%= columns.getPrice() %></p>
+							                         </a>
 				                    			 </li>
 			                    			 
 			                    		  <% } } } %>
@@ -436,12 +376,12 @@
     	 
                      			 <%  } else {	%>
   
-				                         <% for (UserBean columns : userList){%>
-					                    		    <ul>
-	                     		   					   <li><%= columns.getUserName()  %></li>
-	                     		   					   <li><%= columns.getEmail() %></li>
-	                     		   					   <li><%= st.userStatusText(columns.isUserStatus()) %></li>
-	                     		   					   <li><a href="AdminUserDetailServlet?userId=<%= columns.getUserId() %>">詳細を見る</a></li>
+				                         <%   for (ProductBean columns : productList){%>
+					                    		     <ul class="pro_list">
+	                     		   					   <li>商品番号:<%= columns.getProductId() %></li>
+	                     		   					   <li>商品名:<%= columns.getProductName()  %></li>
+	                     		   					   <li><%= st.productStatusText(columns.isStatus()) %></li>
+	                     		   					   <li><a href="AdminProductDetailServlet?productId=<%= columns.getProductId() %>">詳細を見る</a></li>
 	                     		   					 </ul>
 			                    			<% }%>
 			                    
@@ -449,29 +389,32 @@
 			                  
 			                  
 			                  </ul>
-	                    
-                    	 <button><a href="AdminUserRegisterServlet">ユーザー新規登録</a></button>
+	  
+                    	 </ul>
+                    	 <button><a href="ProductAddServlet">商品追加</a></button>
+                    	 <button><a href="ProductCategoriesServlet">カテゴリ追加・削除</a></button>
+                    	 
                      </div>
                      
                      
                      <div class="tab__panel-box tab__panel-box002 " data-panel="02"> <!-- 販売中 -->
-                    	 
+                    	
                      		<ul class="product-list">
                      		
-		                      <% if (searchUsers != null ){
-		                     		for (UserBean columns : userList) { 
-		                     		   	for (UserBean sarch : searchUsers) {
-		                     			   		targetUserId = columns.getUserId();
-		                     			 		sarchUserId = sarch.getUserId();
-		                     		    		 if (targetUserId == sarchUserId){ 
-		                     		    		 		 status = sarch.isUserStatus();
+		                      <% if (searchProducts != null ){
+		                     		for (ProductBean columns : productList) { 
+		                     		   	for (ProductBean sarch : searchProducts) {
+		                     			   		targetProductId = columns.getProductId();
+		                     			 		sarchProductId = sarch.getProductId();
+		                     		    		 if (targetProductId == sarchProductId){ 
+		                     		    		 		 status = sarch.isStatus();
 		                     		    		 			 if(status){ %>
 		                     		     
-						                     		   				 <ul>
-					                     		   					   <li><%= columns.getUserName()  %></li>
-					                     		   					   <li><%= columns.getEmail() %></li>
-					                     		   					   <li><%= st.userStatusText(columns.isUserStatus()) %></li>
-					                     		   					   <li><a href="AdminUserDetailServlet?userId=<%= columns.getUserId() %>">詳細を見る</a></li>
+						                     		   				 <ul class="pro_list">
+					                     		   					   <li>商品番号:<%= columns.getProductId() %></li>
+					                     		   					   <li>商品名:<%= columns.getProductName()  %></li>
+					                     		   					   <li><%= st.productStatusText(columns.isStatus()) %></li>
+					                     		   					   <li><a href="AdminProductDetailServlet?productId=<%= columns.getProductId() %>">詳細を見る</a></li>
 					                     		   					 </ul>
 					                    			 
 					                    		  <%} } } } %>
@@ -479,14 +422,14 @@
 		    	 
 		                     	 <%  } else {//サーチ関係なし	%>
 		  
-						                        <% for (UserBean columns : userList) {
-		                       						 status = columns.isUserStatus();
+						                        <% for (ProductBean columns : productList) {
+		                       						 status = columns.isStatus();
 		                       						 if(status){ %>
-							            			  <ul>
-	                     		   					   <li><%= columns.getUserName() %></li>
-	                     		   					   <li><%= columns.getEmail() %></li>
-	                     		   					   <li><%= st.userStatusText(columns.isUserStatus()) %></li>
-	                     		   					   <li><a href="AdminUserDetailServlet?userId=<%= columns.getUserId() %>">詳細を見る</a></li>
+							            			  <ul class="pro_list">
+	                     		   					   <li>商品番号:<%= columns.getProductId() %></li>
+	                     		   					   <li>商品名:<%= columns.getProductName()  %></li>
+	                     		   					   <li><%= st.productStatusText(columns.isStatus()) %></li>
+	                     		   					   <li><a href="AdminProductDetailServlet?productId=<%= columns.getProductId() %>">詳細を見る</a></li>
 	                     		   					 </ul>
 		                  					 <% } } %>
 					                    
@@ -498,23 +441,22 @@
                      
                      <div class="tab__panel-box tab__panel-box003" data-panel="03"> <!-- 削除済み -->
                      	
-
 	                     <ul class="product-list">
-	                     <% if (searchUsers != null ){
-                     		for (UserBean columns : userList) { 
-                     		   	for (UserBean sarch : searchUsers) {
-                     			   		targetUserId = columns.getUserId();
-                     			 		sarchUserId = sarch.getUserId();
-                     		    		 if (targetUserId == sarchUserId){ 
-                     		    		 		 status = columns.isUserStatus();
+	                     <% if (searchProducts != null ){
+                     		for (ProductBean columns : productList) { 
+                     		   	for (ProductBean sarch : searchProducts) {
+                     			   		targetProductId = columns.getProductId();
+                     			 		sarchProductId = sarch.getProductId();
+                     		    		 if (targetProductId == sarchProductId){ 
+                     		    		 		 status = columns.isStatus();
                      		    		 
                      		    		 			 if(status != true){ %>
                      		     
-				                     		   				<ul>
-			                     		   					   <li><%= columns.getUserName()  %></li>
-			                     		   					   <li><%= columns.getEmail() %></li>
-			                     		   					   <li><%= st.userStatusText(columns.isUserStatus()) %></li>
-			                     		   					   <li><a href="AdminUserDetailServlet?userId=<%= columns.getUserId() %>">詳細を見る</a></li>
+				                     		   				 <ul class="pro_list">
+			                     		   					   <li>商品番号:<%= columns.getProductId() %></li>
+			                     		   					   <li>商品名:<%= columns.getProductName()  %></li>
+			                     		   					   <li><%= st.productStatusText(columns.isStatus()) %></li>
+			                     		   					   <li><a href="AdminProductDetailServlet?productId=<%= columns.getProductId() %>">詳細を見る</a></li>
 			                     		   					 </ul>
 			                    			 
 			                    		  <%} } } } %>
@@ -522,17 +464,17 @@
     	 
                      	 <%  } else {//サーチ関係なし	%>
   
-				                        <% for (UserBean columns : userList) {
-                       								 status = columns.isUserStatus();
+				                        <% for (ProductBean columns : productList) {
+                       						 status = columns.isStatus();
                        						
                        						 if(status != true){ %>
-					            					 <ul>
-	                     		   					   <li><%= columns.getUserName()  %></li>
-	                     		   					   <li><%= columns.getEmail() %></li>
-	                     		   					   <li><%= st.userStatusText(columns.isUserStatus()) %></li>
-	                     		   					   <li><a href="AdminUserDetailServlet?userId=<%= columns.getUserId() %>">詳細を見る</a></li>
+					            					 <ul class="pro_list">
+	                     		   					   <li>商品番号:<%= columns.getProductId() %></li>
+	                     		   					   <li>商品名:<%= columns.getProductName()  %></li>
+	                     		   					   <li><%= st.productStatusText(columns.isStatus()) %></li>
+	                     		   					   <li><a href="AdminProductDetailServlet?productId=<%= columns.getProductId() %>">詳細を見る</a></li>
 	                     		   					 </ul>
-                  						 <% } } %>
+                  					 <% } } %>
 			                    
 			                   <% }%>
 	                     
@@ -541,7 +483,8 @@
 	                  
 	              </div><!-- tab閉じタグ -->
 			</div>
-                    <%@ include file="includes/footer.jsp" %> 
+		</div>
+        <%@ include file="includes/footer.jsp" %>       
 	<body>
 	
   <script>
@@ -596,4 +539,6 @@
   }
 
   </script>
- --%>
+
+</body>
+ --%></html>
