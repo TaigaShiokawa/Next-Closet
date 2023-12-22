@@ -77,9 +77,22 @@ public class AdminDAO {
 				
 				return list;
 			}
-	
-	
-
+			//管理者のパスワードを変更するやつ
+	    public int updatePass(String password,int adminId) throws SQLException, ClassNotFoundException {
+	    	String sql = "UPDATE admins SET hash_pass = ? WHERE admin_id = ?";
+	    	try(Connection con = DBConnection.getConnection();
+	    		PreparedStatement temt = con.prepareStatement(sql)){
+	    		temt.setString(1, password);
+	    		temt.setInt(2, adminId);
+	    		
+	    		int row = temt.executeUpdate();
+	    		return row;
+	    	} catch (SQLException | ClassNotFoundException e) {
+		        e.printStackTrace();
+		        throw e;
+	    }
+	}
+	    //管理者のパスうわーど以外の変更をするやつ
 		public int updateAdmin(String adminName, String kanaName, String email,int adminId)
 	        throws SQLException, ClassNotFoundException {
 	    String sql = "UPDATE admins SET admin_name = ?, admin_kana_name = ?, email = ? WHERE admin_id = ?";

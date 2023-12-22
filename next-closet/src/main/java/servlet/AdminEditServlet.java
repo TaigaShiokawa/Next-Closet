@@ -63,8 +63,6 @@ public class AdminEditServlet extends HttpServlet {
 	        return;
 		}
 		
-		
-		
 		AdminDAO aDao = new AdminDAO();
 		try {
 			if(adminId > 0) {
@@ -74,23 +72,22 @@ public class AdminEditServlet extends HttpServlet {
 					request.getRequestDispatcher("AdminDetailServlet").forward(request, response);
 					}
 				}
-			//ここも今のとこ同じくユーザーと同じ（形だけ）
 		} catch(ClassNotFoundException e) {
 			e.printStackTrace();
 			request.getSession().setAttribute("errorMessage", "内部の設定エラーが発生しました。"
 					+ "お問い合わせよ管理者に連絡して、解決の支援を受けてください。");
-	        response.sendRedirect("error.jsp");
+	        response.sendRedirect("errorToAdmin.jsp");
 		} catch(SQLException e) {
 			e.printStackTrace();
 			request.getSession().setAttribute("errorMessage", "現在データベースにアクセスできません。後ほど再度お試しください。"
 					+ "問題が続く場合は、お問い合わせより管理者にご連絡ください。");
-			response.sendRedirect("error.jsp");
+			response.sendRedirect("errorToAdmin.jsp");
 		}
 		catch(Exception e) {
 			e.printStackTrace();
 			request.getSession().setAttribute("errorMessage", "申し訳ありませんが、システムエラーが発生しました。"
 					+ "もう一度お試しいただくか、お問い合わせより管理者にお問い合わせください。");
-			response.sendRedirect("error.jsp");
+			response.sendRedirect("errorToadmin.jsp");
 		}
 	}
 }
