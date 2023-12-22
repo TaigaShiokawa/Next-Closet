@@ -1,9 +1,320 @@
 @charset "UTF-8";
 
+
+/* 共通　*/
+
 *{
 	padding : 0;
 	margin : 0;
 }
+
+main{
+	background-color:  #ebebeb;;
+	padding:40px;
+	min-height:750px;
+}
+
+a{
+	text-decoration: none;
+	color: rgb(39, 39, 39);
+}
+
+.section_title{
+	font-size: 16pxl;
+}
+
+
+.container{
+	display: flex;
+}
+
+
+.widelink{
+	display: block;
+	height:50px;
+}
+
+table{
+  border-collapse: collapse;
+  width:100%;
+}
+
+.list_tr:hover{
+	background-color: rgb(196, 197, 197);
+}
+
+thead tr{
+	font-size: 12px;
+	color: #565656;
+}
+
+tr{
+	border-bottom:1px solid gray ;
+	height:60px;
+}
+
+td{
+	text-align: center;
+}
+
+.trash:hover{
+	color:rgb(191, 74, 56);
+}
+
+.section_title{
+	line-height: 60px;
+}
+
+/* 新規登録ボタン */
+
+.register{
+	background-color: #565656;
+	border: none;
+	width: 200px;
+	height:50px;
+	margin-bottom:20px;
+}
+
+.register a{
+	display: block;
+	text-align: none;
+	color: #fff;
+}
+
+.register a:hover{
+	opacity: .7;
+}
+
+/* レイアウト　*/
+.sidebar{
+	width: 20%;
+    position: fixed;
+    top: 160px; 
+    left:30px;
+}
+
+.list_container{
+	margin-top:30px;
+	width: 65%;
+	margin-left:25%;
+}
+
+.table_wrapper{
+	background-color: #fff;
+	padding:25px;
+	}
+	
+	.option{
+		background-color: #fff;
+	}
+	
+	.top_wrapper{
+		display: flex;
+		justify-content: space-between;
+	}
+	
+	
+	.list_container a{
+		display: block;
+	}
+	
+	/* 検索　*/
+	
+	.list_search_box{
+		width: 250px;
+		height:40px;
+		padding-left: 10px;
+	}
+	
+	.list_search_btn{
+		width: 60px;
+		height: 40px;
+		color: #fff;
+		background-color: #565656;
+		border: none;
+	}
+	
+	.list_search_btn:hover{
+		opacity: .7;
+	}
+	
+
+/* アコーディオン */
+
+.accordion {
+margin: 3em auto;
+}
+
+.toggle {
+display: none;
+}
+
+.option {
+position: relative;
+}
+
+.option a {
+display: block;
+}
+
+.option a:hover{
+	opacity: .7;
+}
+
+.category{
+	padding-left:20px;
+}
+
+.category li{
+	list-style: none;
+}
+
+.list{
+	font-weight: bold;
+}
+
+.list:hover{
+	opacity: .7;;
+}
+
+
+
+.category_title,
+.category_content {
+-webkit-backface-visibility: hidden;
+backface-visibility: hidden;
+transform: translateZ(0);
+transition: all 0.3s;
+}
+
+.category_title {
+border-bottom: solid 1px #ccc;
+padding: 1em;
+display: block;
+color: #333;
+font-weight: bold;
+}
+
+.category_title::after,
+.category_title::before {
+content: "";
+position: absolute;
+right: 1.25em;
+top: 1.25em;
+width: 2px;
+height: 0.75em;
+background-color: #999;
+transition: all 0.3s;
+}
+
+.category_title::after {
+transform: rotate(90deg);
+}
+.category_content {
+max-height: 0;
+line-height: 40px;
+overflow: hidden;
+background-color: rgb(242, 242, 242);
+}
+
+.toggle:checked + .category_title + .category_content {
+max-height: 500px;
+transition:all 1.5s;
+}
+
+.toggle:checked + .category_title::before {
+transform: rotate(90deg) !important;
+}
+
+.toggle:checked + .category_title::before {
+transform: rotate(45deg) !important;
+}
+.toggle:checked + .category_title::after {
+transform: rotate(135deg) !important;
+}
+
+/* モーダルウィンドウ　削除確認画面　*/
+
+		.modal {
+		  display: none;
+		  position: fixed;
+		  z-index: 1;
+		  left: 0;
+		  top: 0;
+		  height: 100%;
+		  width: 100%;
+		  overflow: auto;
+		  background-color: rgba(0,0,0,0.5);
+		}
+		
+		
+		.modal-content {
+		  background-color: #f4f4f4;
+		  margin: 20% auto;
+		  border-radius:5px ;
+		  padding:30px;
+		  width: 30%;
+		  height:250px;
+		  box-shadow: 0 5px 8px 0 rgba(0,0,0,0.2),0 7px 20px 0 rgba(0,0,0,0.17);
+		  animation-name: modalopen;
+		  animation-duration: 1s;
+		}
+		
+		@keyframes modalopen {
+		  from {opacity: 0}
+		  to {opacity: 1}
+		}
+		
+		.modal-header h1 {
+		  margin: 1rem 0;
+		}
+		
+		.modal-body {
+		  padding: 30px 20px;
+		  color: black;
+		}
+		
+		.modal-body p{
+		  font-size: 16px;
+		  text-align: center;
+		}
+		
+		 .check{
+		 color:rgb(54, 55, 55);
+		  font-size:16px;
+		  text-align:center;
+	  }
+	  
+	  .delete_btn{
+		  display:flex;
+		  justify-content: space-between;
+		  padding: 10px;
+	  }
+	  
+	   	.modalClose, .delete{
+		   width: 200px;
+		   height:60px;
+		   border-radius:5px ;
+		   line-height: 60px;
+		   margin-top:60px;
+	   }
+	   
+	   .modalClose{
+		   text-align: center;
+		   border: #333 2px solid;
+	   }
+	   
+	   .delete{
+		   background-color: rgb(206, 71, 47);
+		   border: none;
+		   color: #fff;
+	   }
+	  
+	  .modalClose:hover, .delete:hover{
+		  opacity: .6;
+	  }
+	  
+
 
 .tab {
   max-width: 800px;
@@ -126,4 +437,12 @@ li{
 
 .category li a:hover{
     border-bottom: 1px solid #ccc;
+}
+
+.table_list{
+	display: flex;
+}
+
+.product_category{
+	padding-top:60px;
 }
