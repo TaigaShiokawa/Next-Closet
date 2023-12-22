@@ -27,17 +27,24 @@ private static final long serialVersionUID = 1L;
 			if(res == 1) {
 				response.sendRedirect("AdminUserListServlet");
 			}
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO 自動生成された catch ブロック
+		} catch(ClassNotFoundException e) {
 			e.printStackTrace();
-		}
+			request.getSession().setAttribute("errorMessageToAdmin", "内部の設定エラーが発生しました。"
+					+ "早急に対応してください。");
+	        response.sendRedirect("errorToAdmin.jsp");
+	        return;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			request.getSession().setAttribute("errorMessageToAdmin", "データベースにアクセスできません。"
+					+ "早急に対応してください。");
+			response.sendRedirect("errorToAdmin.jsp");
+			return;
+		} catch(Exception e) {
+		  e.printStackTrace();
+		  request.getSession().setAttribute("errorMessageToAdmin", "システムエラーが発生しました。早急に対応してください。");
+		  response.sendRedirect("errorToAdmin.jsp");
+		  return;
+	  }
 	
 	}
-	
-
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
-			throws ServletException, IOException {
-	}	
-
 }

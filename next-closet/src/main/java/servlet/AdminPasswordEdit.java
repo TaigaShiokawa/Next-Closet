@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import hashedPassword.HashPW;
 import model.dao.AdminDAO;
+import regexp.PasswordValidator;
 
 @WebServlet("/AdminPasswordEdit")
 public class AdminPasswordEdit extends HttpServlet {
@@ -25,6 +26,13 @@ public class AdminPasswordEdit extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 	    int adminId = Integer.parseInt(request.getParameter("adminId"));
 		String password = request.getParameter("password");
+		
+		//パスワードのバリデーションチェック 日本語はNG
+		if(!PasswordValidator.isHalfWidth(password)) {
+			request.getSession().setAttribute("passError", "不正なパスワードです");
+			response.sendRedirect("admin-edit.jsp");
+			return;
+		}
 		
 		//パスワードの文字数チェック
 		if((password.length() < 8) && (password.trim().isEmpty())) { //8文字以上かつ空文字を許可しない

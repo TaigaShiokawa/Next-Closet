@@ -24,10 +24,25 @@ public class AdminUserRestorationServlet extends HttpServlet {
 			int res = uDao.userTrueStatus(userId);
 			if(res== 0 ) {
 			}
-		} catch (ClassNotFoundException | SQLException e){
+		} catch(ClassNotFoundException e) {
 			e.printStackTrace();
-			
-		}
+			request.getSession().setAttribute("errorMessageToAdmin", "内部の設定エラーが発生しました。"
+					+ "早急に対応してください。");
+	        response.sendRedirect("errorToAdmin.jsp");
+	        return;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			request.getSession().setAttribute("errorMessageToAdmin", "データベースにアクセスできません。"
+					+ "早急に対応してください。");
+			response.sendRedirect("errorToAdmin.jsp");
+			return;
+		} catch(Exception e) {
+		  e.printStackTrace();
+		  request.getSession().setAttribute("errorMessageToAdmin", "システムエラーが発生しました。早急に対応してください。");
+		  response.sendRedirect("errorToAdmin.jsp");
+		  return;
+	  }
+		
 		response.sendRedirect("AdminUserListServlet");
 	}
 
