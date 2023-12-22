@@ -38,14 +38,14 @@
 				value="<%=request.getSession().getAttribute("kanaName") != null ? request.getSession().getAttribute("kanaName") : user.getKanaName() %>"><br>
 			<label class="caption">*カタカナのみで入力してください</label><br>
 			
-			<label>郵便番号：</label><input type="text" name="postcode" 
+			<label>郵便番号：</label><input type="text" id="postcode" name="postcode" 
 				value="<%=request.getSession().getAttribute("postCode") != null ? request.getSession().getAttribute("postCode") : user.getPostCode() %>"><br> 
 			
 			<%
 			    String selectedPrefecture = (String)request.getSession().getAttribute("prefectures");
 			%>
 			<label>都道府県：</label>
-			<select name="prefectures" required>
+			<select id="prefectures" name="prefectures" required>
 			    <option value="<%=user.getPrefectures()%>"><%=user.getPrefectures()%></option>
 	    		<option value="北海道" <%= "北海道".equals(selectedPrefecture) ? "selected" : "" %>>北海道</option>
 			    <option value="青森県" <%= "青森県".equals(selectedPrefecture) ? "selected" : "" %>>青森県</option>
@@ -113,5 +113,22 @@
 		</div>
 </main>
 <%@ include file="includes/footer.jsp" %>
+
+	<script>
+	//郵便番号で都道府県を検索
+		document.getElementById('postcode').addEventListener('input', function() {
+		    var postcode = this.value;
+		    if (postcode.length === 7) { // 郵便番号が7桁の場合のみAPIを呼び出す
+		        fetch('https://zipcloud.ibsnet.co.jp/api/search?zipcode=' + postcode)
+		        .then(response => response.json())
+		        .then(data => {
+		            if (data && data.results) {
+		                var prefecture = data.results[0].address1; // 都道府県を取得
+		                document.getElementById('prefectures').value = prefecture;
+		            }
+		        });
+		    }
+		});
+	</script>
 </body>
 </html>
