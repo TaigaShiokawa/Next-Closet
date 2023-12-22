@@ -347,6 +347,18 @@ public class UserDAO {
 			}
 			return userList;
 		}
+		
+		public int userTrueStatus(int userId) throws ClassNotFoundException, SQLException {
+			int processingNum = 0;
+			String sql = "UPDATE users SET user_status = true WHERE user_id = ?";
+			try (Connection con = DBConnection.getConnection(); 
+					PreparedStatement pstmt = con.prepareStatement(sql)) {
+				pstmt.setInt(1, userId);
+				pstmt.executeUpdate();
+				processingNum = pstmt.executeUpdate();
+			}
+			return processingNum;
+		}
 
 }
 

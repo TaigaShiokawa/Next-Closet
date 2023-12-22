@@ -26,7 +26,7 @@
 
 <body>
 <%@ include file="includes/admin-navbar.jsp" %>
-<main>
+<main><p>削除管理者のページ</p>
 <div class="container"><i class="ri-arrow-right-up-fill"></i>
 	<div class="sidebar">
 									<ul id="category_list">
@@ -110,13 +110,13 @@
 	<div class="list_container">
 			<div class="top_wrapper">
 				<p class="section_title"><%= title %></p>
-				
-				<button class="register"><a href='AdminRegisterServlet'>管理者新規登録</a></button>
-			</div>
+				<!-- titleとリンク飛ばす  -->
+		</div>
 			<div class="table_wrapper">
 				<div class="search_header">
 						 <form action="AdminListServlet" method="get">
 			                   <input type="text" name="searchName" class="list_search_box" placeholder="キーワードでを検索">
+			                   <input type="hidden" name="status" value="0">
 			                   <input class="list_search_btn" type="submit" value="検索">
 			             </form>
 				</div>
@@ -140,31 +140,13 @@
 					                     			   		searchAdminId = search.getAdminId();
 					                     		    		 if (targetAdminId == searchAdminId){ 
 					                     		    		 		 status = search.isAdminStatus();
-					                     		    		 			 if(status){ %>
-																				<tr class="list_tr">
-																		<td class="user_id"><a href="AdminDetailServlet?adminId=<%= columns.getAdminId() %>"><%= columns.getAdminId() %></a></td>
+					                     		    		 			 if(status != true){ %>
+																	<tr class="list_tr">
+																		<td><a href="AdminDetailServlet?adminId=<%= columns.getAdminId() %>"><%= columns.getAdminId() %></a></td>
 																		<td><a href="AdminDetailServlet?adminId=<%= columns.getAdminId() %>"><%= columns.getAdminName() %></a></td>
 																		<td><a href="AdminDetailServlet?adminId=<%= columns.getAdminId() %>"><%= columns.getAdminKanaName() %></a></td>
 																		<td class="mail"><a href="AdminDetailServlet?adminId=<%= columns.getAdminId() %>"><%= columns.getEmail() %></a></td>
-																		<td id='modalOpen<%= i %>' class="trash"　><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
-																		<path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
-																		</svg></td>
-																		
-																		<div id="easyModal<%= i %>" class="modal">
-																		    <div class="modal-content">
-																		      <div class="modal-body">
-																		         <p>この管理者を削除してもよろしいですか？</p>
-																				        <div class="delete_btn">
-																					        <label class="modalClose">キャンセル</label>
-																					        <form action="#" method="post">
-																					           <input type="hidden" name="adminId" value="<%= columns.getAdminId() %>">
-																					           <input class="delete" type="submit" value="削除する">
-																					        </form>
-																				        </div>
-																		      </div>
-																		    </div>
-																	   </diV>
-																		<% i += 1 ;  %>
+																		<td class="trash">復元</td>
 																	</tr>
 															 <%} } } } %>
 					                     		 
@@ -173,33 +155,14 @@
 					  
 									                        <% for (AdminBean columns : adminList) {
 					                       						 status = columns.isAdminStatus();
-					                       						 if(status){ %>
+					                       						 if(status != true){ %>
 					                       						 
-											            			  
-											            			<tr class="list_tr">
-																		<td class="user_id"><a href="AdminDetailServlet?adminId=<%= columns.getAdminId() %>"><%= columns.getAdminId() %></a></td>
+											            			  <tr class="list_tr">
+																		<td><a href="AdminDetailServlet?adminId=<%= columns.getAdminId() %>"><%= columns.getAdminId() %></a></td>
 																		<td><a href="AdminDetailServlet?adminId=<%= columns.getAdminId() %>"><%= columns.getAdminName() %></a></td>
 																		<td><a href="AdminDetailServlet?adminId=<%= columns.getAdminId() %>"><%= columns.getAdminKanaName() %></a></td>
 																		<td class="mail"><a href="AdminDetailServlet?adminId=<%= columns.getAdminId() %>"><%= columns.getEmail() %></a></td>
-																		<td id='modalOpen<%= i %>' class="trash"　><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
-																		<path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
-																		</svg></td>
-																		
-																		<div id="easyModal<%= i %>" class="modal">
-																		    <div class="modal-content">
-																		      <div class="modal-body">
-																		         <p>この管理者を削除してもよろしいですか？</p>
-																				        <div class="delete_btn">
-																					        <label class="modalClose">キャンセル</label>
-																					        <form action="#" method="post">
-																					           <input type="hidden" name="adminId" value="<%= columns.getAdminId() %>">
-																					           <input class="delete" type="submit" value="削除する">
-																					        </form>
-																				        </div>
-																		      </div>
-																		    </div>
-																	   </diV>
-																		<% i += 1 ;  %>
+																		<td class="trash">復元</td>
 																	</tr>
 		                  					                   <% } } %>				                    
 					                                        <% }%>

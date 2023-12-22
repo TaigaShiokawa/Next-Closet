@@ -23,18 +23,53 @@ public class AdminListServlet extends HttpServlet {
 		String searchName = request.getParameter("searchName");
 		SearchDAO searchDao = new SearchDAO();
 		AdminDAO adminDao = new AdminDAO();
+		String status = request.getParameter("status");
 		
 		try {
+			
+			
 					request.setAttribute("adminList",adminDao.getAllStatusAdminList()); //ユーザー一覧
 					
-					 if (searchName != null && !searchName.isEmpty()) {
-						//検索がある場合、検索機能を使用
-				        request.setAttribute("searchAdmins", searchDao.searchStatusAdminList(searchName));
-						request.setAttribute("title", "管理者一覧 / " + searchName + "の検索結果");				
+					if(status == null) {
+					
+							 if (searchName != null && !searchName.isEmpty()) {
+								//検索がある場合、検索機能を使用
+						        request.setAttribute("searchAdmins", searchDao.searchStatusAdminList(searchName));
+								request.setAttribute("title", "管理者一覧 / " + searchName + "の検索結果<br><a class=\"list\" href=\"AdminListServlet\">一覧表示する</a>");				
+								
+							} else {
+										request.setAttribute("title","管理者一覧表示");
+							}
+							 
+							 RequestDispatcher dispatcher = request.getRequestDispatcher("admin-list.jsp");
+					   	     dispatcher.forward(request, response);	
+					   	     
+					} else if(status.equals("0")) {  //削除済み
 						
-					} else {
-								request.setAttribute("title","管理者一覧表示");
+						 if (searchName != null && !searchName.isEmpty()) {
+								//検索がある場合、検索機能を使用
+						        request.setAttribute("searchAdmins", searchDao.searchStatusAdminList(searchName));
+								request.setAttribute("title", "削除済み管理者一覧 / " + searchName + "の検索結果<br><a class=\"list\" href=\"AdminListServlet?status=0\">一覧表示する</a>");				
+								
+							} else {
+										request.setAttribute("title","削除済み管理者一覧表示");
+							}
+							 
+							 RequestDispatcher dispatcher = request.getRequestDispatcher("admin-delete-list.jsp");
+					   	     dispatcher.forward(request, response);	
+						
+						
+						
 					}
+					 
+					 
+					 
+					 
+					 
+					 
+					 
+					 
+					 
 			 
 		} catch(ClassNotFoundException e) {
 			e.printStackTrace();
@@ -50,8 +85,7 @@ public class AdminListServlet extends HttpServlet {
 			return;
 		} 
 		
-		 RequestDispatcher dispatcher = request.getRequestDispatcher("admin-list.jsp");
-   	     dispatcher.forward(request, response);	
+		 
     	
     	}
 }

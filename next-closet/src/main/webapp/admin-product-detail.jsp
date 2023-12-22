@@ -16,10 +16,16 @@
           response.sendRedirect("AdminProductListServlet");
           return;
       }
-
+      
       ProductBean firstProduct = productList.get(0);
+      String img = firstProduct.getImage();
+      if (img == null || img.isEmpty()) {
+          img = "https://placehold.jp/480x640.png";
+      } else {
+          img = "image/" + img;
+      }
     %>
-        <p><img src="<%= firstProduct.getImage() %>" alt="Product Image"></p>
+        <p><img src="<%= img %>" alt="Product Image"></p>
         <p>ID: <%= firstProduct.getProductId() %></p>
         <p>商品名: <%= firstProduct.getProductName() %></p>
         <p>説明: <%= firstProduct.getDescription() %></p>
