@@ -125,7 +125,7 @@
 					<table>
 						<thead>
 							<tr>
-							　<th>管理者ID</th>
+							　<th>ユーザーID</th>
 						      <th>名前</th>
 						      <th>フリガナ</th>
 						      <th>メールアドレス</th>
@@ -157,7 +157,7 @@
 																		         <p>このユーザーを削除してもよろしいですか？</p>
 																				        <div class="delete_btn">
 																					        <label class="modalClose">キャンセル</label>
-																					        <form action="#" method="post">
+																					        <form action="AdminUserWithdrawalServlet" method="get">
 																					           <input type="hidden" name="usreId" value="<%= columns.getUserId() %>">
 																					           <input class="delete" type="submit" value="削除する">
 																					        </form>
@@ -194,7 +194,7 @@
 																		         <p>このユーザーをしてもよろしいですか？</p>
 																				        <div class="delete_btn">
 																					        <label class="modalClose">キャンセル</label>
-																					        <form action="#" method="post">
+																					        <form action="AdminUserWithdrawalServlet" method="get">
 																					           <input type="hidden" name="userId" value="<%= columns.getUserId() %>">
 																					           <input class="delete" type="submit" value="削除する">
 																					        </form>

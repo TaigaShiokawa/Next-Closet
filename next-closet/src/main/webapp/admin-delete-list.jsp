@@ -128,7 +128,7 @@
 						      <th>名前</th>
 						      <th>フリガナ</th>
 						      <th>メールアドレス</th>
-						      <th>削除</th>
+						      <th>復元</th>
 						    </tr>
 						</thead>
 						<tbody>

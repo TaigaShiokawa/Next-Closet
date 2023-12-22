@@ -196,7 +196,7 @@
 																		         <p>この商品を削除してもよろしいですか？</p>
 																				        <div class="delete_btn">
 																					        <label class="modalClose">キャンセル</label>
-																					        <form action="#" method="post">
+																					        <form action="ProductStatusChangeServlet" method="get">
 																					           <input type="hidden" name="productId" value="<%= columns.getProductId() %>">
 																					           <input class="delete" type="submit" value="削除する">
 																					        </form>
@@ -232,7 +232,7 @@
 																		         <p>この商品を削除してもよろしいですか？</p>
 																				        <div class="delete_btn">
 																					        <label class="modalClose">キャンセル</label>
-																					        <form action="#" method="post">
+																					        <form action="ProductStatusChangeServlet" method="get">
 																					           <input type="hidden" name="productId" value="<%= columns.getProductId() %>">
 																					           <input class="delete" type="submit" value="削除する">
 																					        </form>
