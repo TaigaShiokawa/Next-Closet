@@ -61,6 +61,10 @@ td{
 	color:rgb(191, 74, 56);
 }
 
+.trash a:hover{
+	color:rgb(191, 74, 56);
+}
+
 .section_title{
 	line-height: 60px;
 }
