@@ -35,7 +35,7 @@ public class AdminUserEditServlet extends HttpServlet {
 	String address = request.getParameter("address");
 	String telNumber = request.getParameter("telnumber");
 	String email = request.getParameter("email");
-	 int userId = Integer.parseInt(request.getParameter("userId"));
+	int userId = Integer.parseInt(request.getParameter("userId"));
 		
 	// データベース内のユーザー情報を更新
      try {
