@@ -28,7 +28,8 @@
       if(!productList.isEmpty()) {
     	  ProductBean firstProduct = productList.get(0);
     %>
-      <form action="AdminProductEditServlet" method="post">
+      <!-- enctype="multipart/form-data"を追加 -->
+      <form action="AdminProductEditServlet" method="post" enctype="multipart/form-data">
           <input type="hidden" name="productId" value="<%= firstProduct.getProductId() %>">
           <p>商品名 <input type="text" name="productName" value="<%= firstProduct.getProductName() %>"></p>
           <p>商品説明 <textarea name="description"> <%= firstProduct.getDescription() %></textarea></p>
