@@ -147,7 +147,7 @@
 																		<td><a href="AdminUserDetailServlet?userId=<%= columns.getUserId() %>"><%= columns.getUserName() %></a></td>
 																		<td><a href="AdminUserDetailServlet?userId=<%= columns.getUserId() %>"><%= columns.getKanaName() %></a></td>
 																		<td class="mail"><a href="AdminUserDetailServlet?userId=<%= columns.getUserId() %>"><%= columns.getEmail() %></a></td>
-																		<td' class="trash">復元</td>
+																		<td class="trash"><a href="AdminUserRestorationServlet?userId=<%= columns.getUserId() %>">復元</a></td>
 																		
 																	</tr>
 																	
@@ -167,7 +167,7 @@
 																		<td><a href="AdminUserDetailServlet?userId=<%= columns.getUserId() %>"><%= columns.getUserName() %></a></td>
 																		<td><a href="AdminUserDetailServlet?userId=<%= columns.getUserId() %>"><%= columns.getKanaName() %></a></td>
 																		<td class="mail"><a href="AdminUserDetailServlet?userId=<%= columns.getUserId() %>"><%= columns.getEmail() %></a></td>
-																		<td class="trash"　>復元</td>
+																		<td class="trash"><a href="AdminUserRestorationServlet?userId=<%= columns.getUserId() %>">復元</a></td>
 																	</tr>
 		                  					                   <% } } %>				                    
 					                                        <% }%>
