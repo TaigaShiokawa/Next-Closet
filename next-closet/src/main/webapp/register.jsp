@@ -21,13 +21,6 @@
 		
 			<h2>新規会員登録</h2>
 			<% String failure = (String)request.getSession().getAttribute("failure"); %>
-			<% String userNameError = (String)request.getSession().getAttribute("userNameError"); %>
-			<% String kanaNameError = (String)request.getSession().getAttribute("kanaNameError"); %>
-			<% String postCodeError = (String)request.getSession().getAttribute("postCodeError"); %>
-			<% String addressError = (String)request.getSession().getAttribute("addressError"); %>
-			<% String passError = (String)request.getSession().getAttribute("passError"); %>
-			<% String telNumberError = (String)request.getSession().getAttribute("telNumberError"); %>
-			<% String emailError = (String)request.getSession().getAttribute("emailError"); %>
 			
 			<% if(failure != null) { %>
 			<p><%=failure %></p>
@@ -38,7 +31,7 @@
     		// セッションからエラーメッセージのリストを取得
 		    List<String> errorMessages = (List<String>) request.getSession().getAttribute("errorMessages");
 		
-		    // エラーメッセージが存在する場合、それらを表示
+		    // エラーメッセージを表示
 		    if(errorMessages != null && !errorMessages.isEmpty()) {
 			%>
 			        <div class="error-messages">
@@ -52,31 +45,20 @@
 			%>
 			<form action="RegisterServlet" method="post">
 					<div class="form_container">
+					
 					<label>お名前</label>
 					<input type="text" name="username" placeholder="例) テスト　太郎" 
 					    value="<%= request.getSession().getAttribute("userName") != null ? request.getSession().getAttribute("userName") : "" %>" required><br>
 					<label class="caption">*姓と名のスペースは全角にしてください</label><br> 
-					<%-- <% if(userNameError != null) { %>
-					    <label class="caption"><%= userNameError %></label>
-					    <% session.removeAttribute("userNameError"); %>
-					<% } %> --%>
+					
 					<label>フリガナ</label><input type="text" name="kananame" placeholder="例) テスト　タロウ" 
 						value="<%= request.getSession().getAttribute("kanaName") != null ? request.getSession().getAttribute("kanaName") : "" %>" required><br>
 					<label class="caption">*カタカナのみで入力してください</label><br> 
-					<% if(kanaNameError != null) { %>
-					<label class="caption"><%=kanaNameError %></label>
-					<% session.removeAttribute("kanaNameError"); %>
-					<% } %>
+					
 					<label>郵便番号</label><input type="text" name="postcode" placeholder="例) 0000000" 
 						value="<%= request.getSession().getAttribute("postCode") != null ? request.getSession().getAttribute("postCode") : "" %>" required><br> 
-					<% if(postCodeError != null) { %>
-					<label class="caption"><%=postCodeError %></label>
-					<% session.removeAttribute("postCodeError"); %>
-					<% } %>
 					
-					<%
-					    String selectedPrefecture = (String)request.getSession().getAttribute("prefectures");
-					%>
+					<% String selectedPrefecture = (String)request.getSession().getAttribute("prefectures"); %>
 					<label>都道府県</label>
 					<select name="prefectures" required>
 					    <option value="北海道" <%= "北海道".equals(selectedPrefecture) ? "selected" : "" %>>北海道</option>
@@ -137,9 +119,7 @@
 						value="<%= request.getSession().getAttribute("email") != null ? request.getSession().getAttribute("email") : "" %>" required><br> 
 			
 					<label>パスワード</label><input id="passwordField" type="password" name="password" placeholder="8文字以上" required>
-					
 					<label class="caption pass_open" id="togglePassword">パスワードを表示</label>
-					
 					<label class="caption">*8文字以上で入力してください　　<div id="password_strength">パスワード強度: レベル 1 / 5 </div></label> 
 					<div class="pass_count_box">
 							<div id="pass1" class="pass1 pb red"></div>

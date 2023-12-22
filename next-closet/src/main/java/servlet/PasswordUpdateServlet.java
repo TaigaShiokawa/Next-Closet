@@ -46,7 +46,7 @@ public class PasswordUpdateServlet extends HttpServlet {
 			return;
 		}
 		int passwordStrength = PasswordStrengthChecker.calculatePasswordStrength(password);
-		request.getSession().setAttribute("passwordStrength", passwordStrength);
+		request.getSession().setAttribute("passStrength", passwordStrength);
 		
 		String hashedPass = null;
 		try {

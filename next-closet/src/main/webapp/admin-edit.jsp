@@ -18,7 +18,8 @@
 	<label>メールアドレス：</label><input type="email" name="email" value="<%=admin.getEmail() %>"><br>
 	<button type="submit">更新</button>
  </form>
- <form method="post" action="">
+ <form method="post" action="AdminPasswordEdit">
+  	<input type="hidden" name="adminId" value="<%=admin.getAdminId()%>">
  	<label>パスワード：</label><input type="password" name="password"><br>
  	<button type="submit">更新</button>
  </form>

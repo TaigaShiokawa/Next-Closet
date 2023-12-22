@@ -12,20 +12,17 @@ import javax.servlet.http.HttpServletResponse;
 import model.dao.UserDAO;
 
 
-@WebServlet("/AdminUserWithdrawalServlet")
-public class AdminUserWithdrawalServlet extends HttpServlet {
-private static final long serialVersionUID = 1L;
+@WebServlet("/AdminUserRestorationServlet")
+public class AdminUserRestorationServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
        
-    
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int userId = Integer.parseInt(request.getParameter("userId"));
-		 UserDAO uDao = new UserDAO();
+		UserDAO uDao = new UserDAO();
 		
 		try {
-			int res = uDao.userWithdrawal(userId);
-			if(res == 1) {
-				response.sendRedirect("AdminUserListServlet");
+			int res = uDao.userTrueStatus(userId);
+			if(res== 0 ) {
 			}
 		} catch(ClassNotFoundException e) {
 			e.printStackTrace();
@@ -45,6 +42,8 @@ private static final long serialVersionUID = 1L;
 		  response.sendRedirect("errorToAdmin.jsp");
 		  return;
 	  }
-	
+		
+		response.sendRedirect("AdminUserListServlet");
 	}
+
 }
