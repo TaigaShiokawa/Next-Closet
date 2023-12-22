@@ -29,6 +29,7 @@ public class AdminProductListServlet extends HttpServlet {
 		String categoryIdStr = request.getParameter("categoryId");
 		String genderStr =  request.getParameter("gender");
 		String searchName = request.getParameter("searchName");
+		String status = request.getParameter("status");
 		
 		if( categoryIdStr != null ) {
 			try {
@@ -62,36 +63,87 @@ public class AdminProductListServlet extends HttpServlet {
 		try {
 			request.setAttribute("categoryList", dao.categoryList());
 			
-			 if (searchName != null && !searchName.isEmpty()) {
-				//検索がある場合、検索機能を使用
-				SearchDAO searchDao = new SearchDAO();
-				searchProducts = searchDao.searchStatusProductList(searchName);
-				request.setAttribute("searchProducts", searchProducts);
-				request.setAttribute("productList",dao.allStatusProductList());
-				request.setAttribute("title", searchName + "の検索結果");				
+			if(status == null) {
 				
-			} else {
-			
-					if( categoryId == -1 ) {
-						request.setAttribute("title","ALL / 商品一覧");
+				 if (searchName != null && !searchName.isEmpty()) {
+						//検索がある場合、検索機能を使用
+						SearchDAO searchDao = new SearchDAO();
+						searchProducts = searchDao.searchStatusProductList(searchName);
+						request.setAttribute("searchProducts", searchProducts);
 						request.setAttribute("productList",dao.allStatusProductList());
-					
-						
+						request.setAttribute("title", searchName + "の検索結果");				
 						
 					} else {
-						
-									if(  gender == -1 ){
-										request.setAttribute("title",  " ALL / " + categoryName + "/ 商品一覧");
-										request.setAttribute("productList",dao.allStatusCategoryProductList(categoryId));
-									
-										
-									}else {
-										request.setAttribute("title", genderStr + "/" + categoryName + "/ 商品一覧");
-										request.setAttribute("productList",dao.categoryStatusProductList(categoryId , gender));
-									
-									}
+					
+							if( categoryId == -1 ) {
+								request.setAttribute("title","ALL / 商品一覧");
+								request.setAttribute("productList",dao.allStatusProductList());
+							
+								
+								
+							} else {
+								
+											if(  gender == -1 ){
+												request.setAttribute("title",  " ALL / " + categoryName + "/ 商品一覧");
+												request.setAttribute("productList",dao.allStatusCategoryProductList(categoryId));
+											
+												
+											}else {
+												request.setAttribute("title", genderStr + "/" + categoryName + "/ 商品一覧");
+												request.setAttribute("productList",dao.categoryStatusProductList(categoryId , gender));
+											
+											}
+							}
 					}
+				
+			
+			 RequestDispatcher dispatcher = request.getRequestDispatcher("admin-product-list.jsp");
+	   	     dispatcher.forward(request, response);	
+	    	
+				
+			} else if(status.equals("0")) { //削除済み
+				
+				
+				 if (searchName != null && !searchName.isEmpty()) {
+						//検索がある場合、検索機能を使用
+						SearchDAO searchDao = new SearchDAO();
+						searchProducts = searchDao.searchStatusProductList(searchName);
+						request.setAttribute("searchProducts", searchProducts);
+						request.setAttribute("productList",dao.allStatusProductList());
+						request.setAttribute("title", "削除済みユーザー一覧 /" +searchName + "の検索結果");				
+						
+					} else {
+					
+							if( categoryId == -1 ) {
+								request.setAttribute("title","削除済み商品 / ALL / 商品一覧");
+								request.setAttribute("productList",dao.allStatusProductList());
+							
+								
+								
+							} else {
+								
+											if(  gender == -1 ){
+												request.setAttribute("title",  "削除済み商品 / ALL / " + categoryName + "/ 商品一覧");
+												request.setAttribute("productList",dao.allStatusCategoryProductList(categoryId));
+											
+												
+											}else {
+												request.setAttribute("title", "削除済み商品 / "+ genderStr + "/" + categoryName + "/ 商品一覧");
+												request.setAttribute("productList",dao.categoryStatusProductList(categoryId , gender));
+											
+											}
+							}
+					}
+				
+				 RequestDispatcher dispatcher = request.getRequestDispatcher("admin-product-delete-list.jsp");
+		   	     dispatcher.forward(request, response);	
+		    	
+				
+				
+				
 			}
+			
+			
 		} catch(ClassNotFoundException e) {
 			e.printStackTrace();
 			request.getSession().setAttribute("errorMessageToAdmin", "内部の設定エラーが発生しました。"
@@ -114,9 +166,7 @@ public class AdminProductListServlet extends HttpServlet {
 		request.setAttribute("gender", gender);
 		request.setAttribute("categoryId",categoryId);
 
-		 RequestDispatcher dispatcher = request.getRequestDispatcher("admin-product-list.jsp");
-   	     dispatcher.forward(request, response);	
-    	
+		
     	}
     
   
