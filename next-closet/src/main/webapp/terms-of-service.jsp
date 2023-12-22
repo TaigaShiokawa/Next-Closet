@@ -12,6 +12,8 @@ UserBean loginUser = (UserBean) request.getSession().getAttribute("user");
 </head>
 <body>
 	<%@ include file="includes/navbar.jsp"%>
+	
+	<h1>利用規約</h1>
 
 	<h2>第1条</h2>
 	<p>このウェブサイトの目的と範囲について説明します。</p>
@@ -33,7 +35,8 @@ UserBean loginUser = (UserBean) request.getSession().getAttribute("user");
 
 	<h2>第7条</h2>
 	<p>利用規約の変更や通知に関する規定。</p>
-
+	
+	<%@ include file="includes/footer.jsp" %>
 
 </body>
 </html>
