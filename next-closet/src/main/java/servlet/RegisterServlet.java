@@ -74,7 +74,7 @@ public class RegisterServlet extends HttpServlet {
 			request.getSession().setAttribute("kanaName", kanaName);
 		}
 		
-		//郵便番号チェック全角を半角に置換
+		//郵便番号チェック: 全角を半角に置換
 		String convertPostCode = postCode.replaceAll("０", "0")
 								 		 .replaceAll("１", "1")
 								 		 .replaceAll("２", "2")
@@ -116,7 +116,7 @@ public class RegisterServlet extends HttpServlet {
 	        
 	        
 		} else {
-			//住所のデータを統一(全角を半角にする)
+			//住所に含まれる全角数字を半角に置換
 			normalizedAddress = AddressValidator.normalizeAddress(address);
 			request.getSession().setAttribute("address", normalizedAddress);
 		}
