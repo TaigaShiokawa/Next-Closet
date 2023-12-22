@@ -82,7 +82,7 @@
 						        <span class="modalClose">×</span>
 						      </div>
 						      <div class="modal-body">
-						        <p>一度退会するとアカウントの復元はできません<br>本当に削除しますか？</p>
+						        <p>一度退会するとアカウントの復元はできません<br>本当に退会しますか？</p>
 						        <form action="WithdrawalServlet" method="post">
 						           <input class="delete" type="submit" value="本当に退会する">
 						        </form>
