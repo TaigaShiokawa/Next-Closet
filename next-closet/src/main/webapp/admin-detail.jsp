@@ -5,22 +5,61 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" href="css/admin-detail.css">
 <link rel="stylesheet" href="css/admin-delete.css">
+<link rel="stylesheet" href="css/admin-navbar.css"> 
 <meta charset="UTF-8">
 <title>next closet...</title>
 </head>
 <body>
 <%@ include file="includes/admin-navbar.jsp" %>
-<form action="AdminEditServlet" method="post">
-	<div>お名前：<%=admin.getAdminName()%></div>
-	<div>フリガナ：<%=admin.getAdminKanaName()%></div>
-	<div>メールアドレス：<%=admin.getEmail()%></div>
-</form>
-<button type="submit"><a href="AdminEditServlet?adminId=<%=admin.getAdminId()%>">更新</a></button>
-	<!--削除はjsでするからこっちはaタグを使わない？-->
- <div class="delete_box">
-        	<button id="modalOpen" class="delete_button">削除</button>
-       				 </div>
+<main>
+	<div class="wrapper">
+	
+	<form action="AdminEditServlet" method="post">
+	<table>
+		<tr>
+	        <td><label for="email">管理者ID</label></td>
+	        <td><%=admin.getAdminId()%></td>
+	    </tr>
+	    
+	    <tr>
+	        <td><label for="name">お名前</label></td>
+	      <td><%=admin.getAdminName()%></td> 
+	    </tr>
+	    <tr>
+	        <td><label for="furigana">フリガナ</label></td>
+	        <td><%=admin.getAdminKanaName()%></td>
+	    </tr>
+	 
+	    <tr>
+	        <td><label for="email">メールアドレス</label></td>
+	        <td><%=admin.getEmail()%></td>
+	    </tr>
+	    
+	     <tr>
+	        <td><label for="email">登録日</label></td>
+	        <td><%=admin.getRegistrationDate()%></td>
+	    </tr>
+	    
+	    
+	    
+	</table>
+		
+	<div class="btn_wrapper">
+	
+	  <button class="btn"><a href="AdminEditServlet?adminId=<%=admin.getAdminId()%>">更新</a></button>
+        <% if (admin.isAdminStatus()) { %>
+              <label class="label_btn" id="modalOpen" class="delete_button">削除</label> 
+        <% } else { %>
+        <button class="btn"><a href="AdminRestorationServlet?adminId=<%= admin.getAdminId()%>">復元</a></button>
+		 <% } %>		      
+		
+	</div>
+	</form>
+	<p class="back"><a href="AdminListServlet">戻る</a><p>
+	</div>
+</main>
 						  <div id="easyModal" class="modal">
 						    <div class="modal-content">
 						      <div class="modal-header">
@@ -36,7 +75,8 @@
 						      </div>
 						    </div>
 						  </diV>
-<a href="AdminListServlet">戻る</a>
+						  
+<%@ include file="includes/footer.jsp" %>
 <script>
 		const buttonOpen = document.getElementById('modalOpen');
 		const modal = document.getElementById('easyModal');

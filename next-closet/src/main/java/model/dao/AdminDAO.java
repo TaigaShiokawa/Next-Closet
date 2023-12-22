@@ -141,6 +141,9 @@ public class AdminDAO {
 				admin.setAdminName(res.getString("admin_name"));
 				admin.setAdminKanaName(res.getString("admin_kana_name"));
 				admin.setEmail(res.getString("email"));
+				admin.setAdminStatus(res.getBoolean("admin_status"));
+				admin.setRegistrationDate(res.getDate("registration_date"));
+				admin.setEmail(res.getString("email"));
 			}
 		}
 		return admin;
