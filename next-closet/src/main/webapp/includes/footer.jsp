@@ -6,6 +6,9 @@
 			&copy; next closet ...
 		</small>
 	</p>
+	
+	<a href="#">利用規約</a>
+	<a href="#">About Us</a>
 </footer>
 	
 	

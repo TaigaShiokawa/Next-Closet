@@ -24,13 +24,9 @@ private static final long serialVersionUID = 1L;
 		
 		try {
 			int res = uDao.userWithdrawal(userId);
-			
-				
+			if(res == 1) {
 				response.sendRedirect("AdminUserListServlet");
-			
-			
-			
-			
+			}
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO 自動生成された catch ブロック
 			e.printStackTrace();

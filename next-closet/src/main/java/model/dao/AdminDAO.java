@@ -130,6 +130,7 @@ public class AdminDAO {
 		}
 		return AdminId;
 	}
+	
 	//IDごとに管理者の情報を受け取る
 	public AdminBean getDetailadmin(int adminId) throws ClassNotFoundException, SQLException {
 		AdminBean admin = new AdminBean();
