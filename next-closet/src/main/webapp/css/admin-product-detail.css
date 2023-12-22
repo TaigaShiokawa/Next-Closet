@@ -26,7 +26,7 @@ img{
 p{
 	font-family: 'Noto Sans JP', sans-serif;
 	letter-spacing: 1px;
-	font-size: 16px;
+	font-size: 18px;
 }
 
 #product_name{
@@ -44,20 +44,36 @@ p{
 }
 
 
-.btn{
-	width:160px;
-	padding:20px;
-	margin-top:30px;
-	margin-right:50px;
-	text-decoration: none;
-	background-color: rgb(56, 56, 56);
-	color : #fff;
+.btn {
+	background-color: transparent;
 	border: none;
 }
 
 .btn a{
+	width:170px;
+    height:70px;
+    line-height: 70px;
+	margin-top:30px;
+	margin-right:50px;
+	text-decoration: none;
+	background-color: rgb(56, 56, 56);
+	border: none;
 	color: #fff;
 	text-decoration: none;
+	display: block;
+}
+
+.btn_input{
+	width:170px;
+    height:70px;
+	margin-top:30px;
+	margin-right:50px;
+	text-decoration: none;
+	background-color: rgb(56, 56, 56);
+	border: none;
+	color: #fff;
+	text-decoration: none;
+	display: block;
 }
 
 .btn:hover{
@@ -72,8 +88,6 @@ p{
 	border-radius:5px ;
 	color: #fff;
 }
-
-
 
 
  .back{
@@ -107,84 +121,6 @@ p{
 	justify-content: center;
 }
 
-/* ラジオボタン装飾 */
-
-input[type=radio] {
-display: none; /* ラジオボタンを非表示にする */
-}
-
-input[type=radio]:checked + label {
-background: rgb(119, 120, 122);/* マウス選択時の背景色を指定する */
-color: rgb(15, 15, 15); /* マウス選択時のフォント色を指定する */
-}
-.radio_label:hover {
-background-color: rgb(192, 195, 197); /* マウスオーバー時の背景色を指定する */
-}
-
-input[type=radio]:checked + label {
-background: rgb(52, 53, 55);/* マウス選択時の背景色を指定する */
-color: #c7c7c7; /* マウス選択時のフォント色を指定する */
-}
-
-
-.radio_label{
-display: inline-block; /* ブロックレベル要素化する */
-margin: 5px; /* ボックス外側の余白を指定する */
-width: 50px; /* ボックスの横幅を指定する */
-height: 50px; /* ボックスの高さを指定する */
-color: rgb(43, 43, 46); /* フォントの色を指定 */
-border: 1px solid #c7c7c7;/* ボックスの境界線を実線で指定する */
-line-height: 50px;
-border-radius: 50%;
-color: rgb(34, 34, 34);/* チェックされていないラベル*/
-text-align: center;
-}
-
-.size_box{
-	padding-bottom:20px;
-}
-
-.tax_in , .quantity{
-	font-size: 14px;
-	padding-left:5px;
-}
-
-.number_input{
-	margin-top: 5px ;
-
-	text-align: center;
-	width:100px;
-	height: 40px;
-}
-
-/* スピンボタン */
-
-/** スピンボタン要素 **/
-.number-spinner-wrap .spinner{
-  margin:0;
-  width: 40px;
-  height: 40px;
-  text-align: center;
-  line-height: 40px;
-  border-radius:50%;
-  display: inline-block;
-  font-size: 16px;
-  text-align: center;
-  background: lightgray;
-}
-
-.spinner:hover{
-	opacity: .7;
-}
-
-/* Chrome, Safari, Edge */
-input[type=number]::-webkit-outer-spin-button,
-input[type=number]::-webkit-inner-spin-button {
-  margin: 0;
-  -webkit-appearance: none;
-}
-
-
 #goLogin , #goLogin a{
 	background-color: rgb(56, 56, 56);
 	height:60px;
@@ -195,13 +131,7 @@ input[type=number]::-webkit-inner-spin-button {
 	width: 280px;
 	}
 	
-	
-	
-	 #goLogin a{
-		 line-height: 60px;
-		 margin:0 auto;
-	 }
-	 
+
 	 .btn_wrapper{
 		 display: flex;
 	 }

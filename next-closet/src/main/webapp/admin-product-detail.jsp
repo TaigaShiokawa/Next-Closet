@@ -50,12 +50,12 @@
 									        <% if (firstProduct.isStatus()) { %>
 									            <form action="ProductStatusChangeServlet" method="get">
 									                <input type="hidden" name="productId" value="<%= firstProduct.getProductId() %>">
-									                <input class="btn" type="submit" value="削除">
+									                <input class="btn_input" type="submit" value="削除">
 									            </form>
 									        <% } else { %>
 									            <form action="ProductStatusChangeServlet" method="get">
 									                <input type="hidden" name="productId" value="<%= firstProduct.getProductId() %>">
-									                <input class="btn" type="submit" value="復元">
+									                <input class="btn_input" type="submit" value="復元">
 									            </form>
 									        <% } %>
 								        </div>
