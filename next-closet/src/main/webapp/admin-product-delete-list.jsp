@@ -24,12 +24,12 @@
 <!-- 管理者のセッション設定が必要 -->
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8">
-<title>管理者ログインページ</title>
-<link rel="stylesheet" href="css/admin-product-list.css">
-<link rel="stylesheet" href="css/admin-navbar.css">
-</head>
+	<head>
+		<meta charset="UTF-8">
+		<title>管理者ログインページ</title>
+		<link rel="stylesheet" href="css/admin-product-list.css">
+		<link rel="stylesheet" href="css/admin-navbar.css">
+	</head>
 
 <body>
 <%@ include file="includes/admin-navbar.jsp" %>

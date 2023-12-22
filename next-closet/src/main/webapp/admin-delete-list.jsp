@@ -26,7 +26,7 @@
 
 <body>
 <%@ include file="includes/admin-navbar.jsp" %>
-<main><p>削除管理者のページ</p>
+<main>
 <div class="container"><i class="ri-arrow-right-up-fill"></i>
 	<div class="sidebar">
 									<ul id="category_list">
