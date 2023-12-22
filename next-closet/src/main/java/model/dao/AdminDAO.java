@@ -148,5 +148,16 @@ public class AdminDAO {
 		}
 		return admin;
 	}
-
+	//管理者削除用
+		public int adminDelete(int adminId) throws ClassNotFoundException, SQLException {
+			int processingNum = 0;
+			String sql = "UPDATE admins SET admin_status = false WHERE admin_id = ?";
+			try (Connection con = DBConnection.getConnection(); 
+					PreparedStatement pstmt = con.prepareStatement(sql)) {
+				pstmt.setInt(1, adminId);
+				pstmt.executeUpdate();
+				processingNum = pstmt.executeUpdate();
+			}
+			return processingNum;
+		}
 }
