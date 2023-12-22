@@ -7,9 +7,6 @@
 		</small>
 	</p>
 	
-	<a href="#">利用規約</a>
-	<a href="#">About Us</a>
+	<a href="terms-of-service.jsp">利用規約</a>
+	<a href="about-us.jsp">About(会社概要)</a>
 </footer>
-	
-	
-	

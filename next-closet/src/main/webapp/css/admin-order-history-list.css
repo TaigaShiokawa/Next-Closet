@@ -51,7 +51,6 @@ thead tr{
 tr{
 	border-bottom:1px solid gray ;
 	height:60px;
-	max-height: 60px;
 }
 
 td{
@@ -87,8 +86,6 @@ td{
 }
 
 /* レイアウト　*/
-
-
 .sidebar{
 	width: 20%;
     position: fixed;
@@ -96,23 +93,19 @@ td{
     left:30px;
 }
 
-.product_category{
-	width: 20%;
-    position: absolute;
-    top: 15%;
-    left:5%;
-}
-
 .list_container{
 	margin-top:30px;
 	width: 65%;
 	margin-left:25%;
-	position: relative;
+
 }
 
 .table_wrapper{
 	background-color: #fff;
 	padding:25px;
+    padding-bottom: 500px;
+    margin-bottom:150px;
+	
 	}
 	
 	.option{
@@ -264,7 +257,7 @@ transform: rotate(135deg) !important;
 		  margin: 20% auto;
 		  border-radius:5px ;
 		  padding:30px;
-		  width: 70%;
+		  width: 30%;
 		  height:250px;
 		  box-shadow: 0 5px 8px 0 rgba(0,0,0,0.2),0 7px 20px 0 rgba(0,0,0,0.17);
 		  animation-name: modalopen;
@@ -325,90 +318,51 @@ transform: rotate(135deg) !important;
 		  opacity: .6;
 	  }
 	  
+	  
+	  /* tab */
 
 
-.tab {
-  max-width: 800px;
-  margin: 0 auto;
-  margin-top: 120px;
+
+/* is-activeがついている時のスタイル */
+
+/* タブパネル */
+.tab__panel {
+ width: 100%;
 }
 
+.is-active {
+  color: rgb(173, 38, 26);
+}
 
+.tab__panel-box001 ,.tab__panel-box002,.tab__panel-box003 {
+  display: none;
+}
 
 /* is-showがついている時のスタイル */
 .tab__panel-box.is-show {
   display: block;
 }
-
-
-.container{
+	  
+	  
+.tab__menu{
 	display: flex;
 }
 
-
-.side_bar{
-	width:30%;
+.tab__menu-item{
+	text-align: center;
+	width: 150px;
+	height: 60px;
+	line-height: 60px;
+	border-radius:5px ;
+	border: 1px solid rgb(77, 77, 77);
+	font-size: 12px;
+	margin-right:30px;
 }
 
-.tab {
-	width:70%;
+.tab__menu-item:hover{
+opacity: .7;	
 }
 
-li{
+.tab__menu li{
 	list-style: none;
-}
-
-
-
-
-
-/* サイドバー */
-
-.side_bar{
-	padding-top:120px;
-    width: 15%;
-}
-
-#category_list{
-    margin-left:10px;
-}
-
-.side_bar > a{
-    
-    display: block;
-    font-size: 12px;
-    letter-spacing: .2em;
-}
-
-.category_content .category li{
-    display: block;
-}
-
-.category li a{
-	display: inline-block;
-    color: #444;
-    width:100%;
-    padding:5px;
-}
-
-.product_category .category li a:hover{
-    border-bottom: 1px solid #ccc;
-}
-
-.category li{
-	width: 100%;
-}
-	
-	
-.table_list{
-	padding-left:250px;
-	padding-bottom:400px;
-}
-
-.product_category{
-	padding-top:60px;
-}
-
-.product_category {
-	width:150px;
 }

@@ -28,27 +28,7 @@
 <% session.removeAttribute("productNotFound"); %>
 <% } %>
     <main> 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-        <%-- <div class = "container product_list_main" >
+        <div class = "container product_list_main" >
             <div class="side_bar">
                 <ul id="category_list">
                 	<div class="accordion">
@@ -152,4 +132,4 @@
 <%@ include file="includes/footer.jsp" %>
 <script src="js/form.js"></script>
 </body>
-</html> --%>
+</html>
