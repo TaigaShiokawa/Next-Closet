@@ -25,8 +25,12 @@
 <body>
 
     <%
-      if(!productList.isEmpty()) {
-    	  ProductBean firstProduct = productList.get(0);
+        if(!productList.isEmpty()) {
+        ProductBean firstProduct = productList.get(0);
+        String imagePath = firstProduct.getImage(); // 修正: '=' を正しい文字にする
+        if (imagePath == null || imagePath.isEmpty()) {
+            imagePath = "https://placehold.jp/480x640.png"; // デフォルト画像
+        }
     %>
       <!-- enctype="multipart/form-data"を追加 -->
       <form action="AdminProductEditServlet" method="post" enctype="multipart/form-data">
@@ -35,7 +39,7 @@
           <p>商品説明 <textarea name="description"> <%= firstProduct.getDescription() %></textarea></p>
           <p>金額 <input type="number" name="price" value="<%= firstProduct.getPrice() %>"></p>
           <p>画像
-              <img id="imagePreview" src="<%= firstProduct.getImage() %>" alt="Image preview"/>
+              <img id="imagePreview" src="<%= imagePath %>" alt="Image preview"/>
               <input type="file" name="image" id="imageUpload" onchange="previewImage();">
           </p>
           

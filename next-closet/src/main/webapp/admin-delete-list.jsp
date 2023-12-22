@@ -26,7 +26,7 @@
 
 <body>
 <%@ include file="includes/admin-navbar.jsp" %>
-<main><p>削除管理者のページ</p>
+<main>
 <div class="container"><i class="ri-arrow-right-up-fill"></i>
 	<div class="sidebar">
 									<ul id="category_list">
@@ -128,7 +128,7 @@
 						      <th>名前</th>
 						      <th>フリガナ</th>
 						      <th>メールアドレス</th>
-						      <th>削除</th>
+						      <th>復元</th>
 						    </tr>
 						</thead>
 						<tbody>

@@ -61,10 +61,6 @@ td{
 	color:rgb(191, 74, 56);
 }
 
-.trash a:hover{
-	color:rgb(191, 74, 56);
-}
-
 .section_title{
 	line-height: 60px;
 }
@@ -101,11 +97,15 @@ td{
 	margin-top:30px;
 	width: 65%;
 	margin-left:25%;
+
 }
 
 .table_wrapper{
 	background-color: #fff;
 	padding:25px;
+    padding-bottom: 500px;
+    margin-bottom:150px;
+	
 	}
 	
 	.option{
@@ -318,3 +318,51 @@ transform: rotate(135deg) !important;
 		  opacity: .6;
 	  }
 	  
+	  
+	  /* tab */
+
+
+
+/* is-activeがついている時のスタイル */
+
+/* タブパネル */
+.tab__panel {
+ width: 100%;
+}
+
+.is-active {
+  color: rgb(173, 38, 26);
+}
+
+.tab__panel-box001 ,.tab__panel-box002,.tab__panel-box003 {
+  display: none;
+}
+
+/* is-showがついている時のスタイル */
+.tab__panel-box.is-show {
+  display: block;
+}
+	  
+	  
+.tab__menu{
+	display: flex;
+}
+
+.tab__menu-item{
+	text-align: center;
+	width: 150px;
+	height: 60px;
+	line-height: 60px;
+	border-radius:5px ;
+	border: 1px solid rgb(77, 77, 77);
+	font-size: 12px;
+	margin-right:30px;
+}
+
+.tab__menu-item:hover{
+opacity: .7;	
+}
+
+.tab__menu li{
+	list-style: none;
+}

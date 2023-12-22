@@ -156,7 +156,7 @@
 																		         <p>この管理者を削除してもよろしいですか？</p>
 																				        <div class="delete_btn">
 																					        <label class="modalClose">キャンセル</label>
-																					        <form action="#" method="post">
+																					        <form action="AdminDeleteServlet" method="post">
 																					           <input type="hidden" name="adminId" value="<%= columns.getAdminId() %>">
 																					           <input class="delete" type="submit" value="削除する">
 																					        </form>
@@ -191,7 +191,7 @@
 																		         <p>この管理者を削除してもよろしいですか？</p>
 																				        <div class="delete_btn">
 																					        <label class="modalClose">キャンセル</label>
-																					        <form action="#" method="post">
+																					        <form action="AdminDeleteServlet" method="post">
 																					           <input type="hidden" name="adminId" value="<%= columns.getAdminId() %>">
 																					           <input class="delete" type="submit" value="削除する">
 																					        </form>
