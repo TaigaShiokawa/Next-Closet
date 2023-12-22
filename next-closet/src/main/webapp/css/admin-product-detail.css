@@ -16,17 +16,17 @@ img{
 	width: 100%;
 	max-width:1200px;
 	margin: 0 auto;
-	padding : 70px;
+	padding : 200px;
 }
 
 .product_contents{
 	margin: 0 auto;
-	padding: 130px;
 }
 
 p{
 	font-family: 'Noto Sans JP', sans-serif;
 	letter-spacing: 1px;
+	font-size: 16px;
 }
 
 #product_name{
@@ -38,7 +38,13 @@ p{
 	border: none;
 }
 
-.submit{
+.list{
+	display: inline-block;
+	width:100px;
+}
+
+
+.btn{
 	width:160px;
 	padding:20px;
 	margin-top:30px;
@@ -46,6 +52,16 @@ p{
 	text-decoration: none;
 	background-color: rgb(56, 56, 56);
 	color : #fff;
+	border: none;
+}
+
+.btn a{
+	color: #fff;
+	text-decoration: none;
+}
+
+.btn:hover{
+	opacity: .7;
 }
 
 #goLogin a , .submit a {
@@ -184,6 +200,10 @@ input[type=number]::-webkit-inner-spin-button {
 	 #goLogin a{
 		 line-height: 60px;
 		 margin:0 auto;
+	 }
+	 
+	 .btn_wrapper{
+		 display: flex;
 	 }
 	
 	

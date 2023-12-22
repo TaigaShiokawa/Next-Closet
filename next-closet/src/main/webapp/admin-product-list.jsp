@@ -34,7 +34,7 @@
 <body>
 <%@ include file="includes/admin-navbar.jsp" %>
 <main>
-<div class="container"><i class="ri-arrow-right-up-fill"></i>
+<div class="container"><!-- <i class="ri-arrow-right-up-fill"></i> -->
 	<div class="sidebar">
 									<ul id="category_list">
 					                	<div class="accordion">

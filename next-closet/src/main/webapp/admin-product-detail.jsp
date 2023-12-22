@@ -8,8 +8,8 @@
 <head>
     <meta charset="UTF-8">
     <title>管理者側商品詳細画面</title>
-</head>
-<body>
+    <link rel="stylesheet" href="css/admin-product-detail.css">
+    <link rel="stylesheet" href="css/admin-navbar.css">
     <%
       List<ProductBean> productList = (List<ProductBean>)request.getAttribute("productList");
       if (productList == null || productList.isEmpty()) {
@@ -25,29 +25,46 @@
           img = "image/" + img;
       }
     %>
-        <p><img src="<%= img %>" alt="Product Image"></p>
-        <p>ID: <%= firstProduct.getProductId() %></p>
-        <p>商品名: <%= firstProduct.getProductName() %></p>
-        <p>説明: <%= firstProduct.getDescription() %></p>
-        <p>価格: <%= firstProduct.getPrice() %>円</p>
-        <p>登録日: <%= firstProduct.getRegistrationDate() %></p>
+</head>
+<body>
+		<%@ include file="includes/admin-navbar.jsp" %>
+		<main>
+			<div class="wrapper">
+							<div class="product_contents">
+								<div class="img">
+									<p><img src="<%= img %>" alt="Product Image"></p>
+								</div> <!-- img閉じタグ -->
+								<div id="product-detail">
+										<p><span class="list">商品ID:</span> <%= firstProduct.getProductId() %></p>
+								        <p><span class="list">商品名:</span> <%= firstProduct.getProductName() %></p>
+								        <p><span class="list">説明:</span> <%= firstProduct.getDescription() %></p>
+								        <p><span class="list">価格: </span><%= firstProduct.getPrice() %>円</p>
+								        <p><span class="list">登録日:</span> <%= firstProduct.getRegistrationDate() %></p>
+								
+								        <% for (SizeBean size : firstProduct.getSizes()) { %>
+								            <p><span class="list">サイズ:</span><%= size.getSizeName() %>, 在庫数: <%= size.getStockQuantity() %></p>
+								        <% } %>
+								
+								        <div class="btn_wrapper">
+									        <button class="btn"><a href="AdminProductEditServlet?productId=<%= firstProduct.getProductId() %>">編集</a></button>
+									        <% if (firstProduct.isStatus()) { %>
+									            <form action="ProductStatusChangeServlet" method="get">
+									                <input type="hidden" name="productId" value="<%= firstProduct.getProductId() %>">
+									                <input class="btn" type="submit" value="削除">
+									            </form>
+									        <% } else { %>
+									            <form action="ProductStatusChangeServlet" method="get">
+									                <input type="hidden" name="productId" value="<%= firstProduct.getProductId() %>">
+									                <input class="btn" type="submit" value="復元">
+									            </form>
+									        <% } %>
+								        </div>
+								</div>
+							</div>
+			</div>
 
-        <% for (SizeBean size : firstProduct.getSizes()) { %>
-            <p>サイズ: <%= size.getSizeName() %>, 在庫数: <%= size.getStockQuantity() %></p>
-        <% } %>
-
-        <p><a href="AdminProductEditServlet?productId=<%= firstProduct.getProductId() %>">編集</a></p>
-        <% if (firstProduct.isStatus()) { %>
-            <form action="ProductStatusChangeServlet" method="get">
-                <input type="hidden" name="productId" value="<%= firstProduct.getProductId() %>" />
-                <input type="submit" value="削除" />
-            </form>
-        <% } else { %>
-            <form action="ProductStatusChangeServlet" method="get">
-                <input type="hidden" name="productId" value="<%= firstProduct.getProductId() %>" />
-                <input type="submit" value="復活" />
-            </form>
-        <% } %>
+        </main>
+        <%@ include file="includes/footer.jsp" %>
     
 </body>
 </html>

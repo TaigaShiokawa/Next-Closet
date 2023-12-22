@@ -68,7 +68,7 @@
 					<!-- ログインしてなかったらログインに飛ばす -->
 				</form>
 				<% } else { %>
-						<button id="goLogin"><a href="login.jsp">ログイン または新規登録して購入する</a></button>	
+						<button id="goLogin"><a href="login.jsp">ログイン または新規登録して購入する</a></button>	<br>
 				<% } %>
 				
 				<a class="back" href="ProductListServlet">商品一覧へ戻る</a>
