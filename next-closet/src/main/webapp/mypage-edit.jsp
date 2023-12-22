@@ -50,9 +50,9 @@
 			<label class="label">フリガナ</label><input type="text" name="kananame" value="<%=loginUser.getKanaName() %>"><br>
 			<label class="caption">*姓と名のスペースは全角にしてください</label><br> 
 			<label class="caption">*カタカナのみで入力してください</label><br> 
-			<label class="label">郵便番号</label><input type="text" name="postcode" value="<%=loginUserAddress.getPostCode()%>"><br> 
+			<label class="label">郵便番号</label><input type="text" id="postcode" name="postcode" value="<%=loginUserAddress.getPostCode()%>"><br> 
 			<label class="label">都道府県</label>
-			<select name="prefectures">
+			<select id="prefectures" name="prefectures" required>
 			    <option value="<%=loginUserAddress.getPrefectures()%>"><%=loginUserAddress.getPrefectures()%></option>
 			    <option value="北海道">北海道</option>
 			    <option value="青森県">青森県</option>
@@ -246,7 +246,22 @@ passwordInput.addEventListener('input', function() {
 		      	btn4.classList.add("green");
 		      	btn5.classList.add("green"); 
 			}
-});
+	});
+
+	//郵便番号で都道府県を検索
+	document.getElementById('postcode').addEventListener('input', function() {
+	    var postcode = this.value;
+	    if (postcode.length === 7) { // 郵便番号が7桁の場合のみAPIを呼び出す
+	        fetch('https://zipcloud.ibsnet.co.jp/api/search?zipcode=' + postcode)
+	        .then(response => response.json())
+	        .then(data => {
+	            if (data && data.results) {
+	                var prefecture = data.results[0].address1; // 都道府県を取得
+	                document.getElementById('prefectures').value = prefecture;
+	            }
+	        });
+	    }
+	});
 </script>
 		
 </body>
