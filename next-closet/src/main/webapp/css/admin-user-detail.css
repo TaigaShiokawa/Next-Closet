@@ -43,7 +43,6 @@ p{
     height:70px;
     line-height: 70px;
 	margin-top:30px;
-	margin-right:50px;
 	text-decoration: none;
 	background-color: rgb(56, 56, 56);
 	border: none;
@@ -69,7 +68,7 @@ p{
 
 .back{
 	text-align: center;
-	padding-bottom:50px;
+	padding:100px;
 }
 
 .back a{

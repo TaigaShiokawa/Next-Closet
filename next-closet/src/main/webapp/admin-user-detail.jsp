@@ -64,6 +64,8 @@
 		%>
         
 	</div>
+	
+	<p class="back"><a href="AdminUserListServlet">一覧に戻る</a></p>
 </div>
 
 </main>
