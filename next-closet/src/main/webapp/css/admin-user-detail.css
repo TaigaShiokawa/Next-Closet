@@ -67,4 +67,15 @@ p{
 	
 	
 
+.back{
+	text-align: center;
+	padding-bottom:50px;
+}
+
+.back a{
+	text-decoration: none;
+	color: rgb(27, 27, 27);
+	
+	}
+	
 

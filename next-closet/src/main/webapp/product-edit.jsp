@@ -38,7 +38,7 @@
         }
     %>
     <div class="container">
-    <h2>商品追加</h2>
+    <h2>商品情報編集画面</h2>
 					<div class="form_container">
 					      <!-- enctype="multipart/form-data"を追加 -->
 					      <form action="AdminProductEditServlet" method="post" enctype="multipart/form-data">
@@ -66,12 +66,14 @@
 					             } else {
 					                break;
 					             }
-					           }
+					           
 					         %>
 					          
 					          <input id="btn" type="submit" value="更新">
 					      </form>
-			  			  <% } %>
+					      <p class="back"><a href="AdminProductDetailServlet?productId=<%= product.getProductId()%>">詳細へ戻る</a></p>
+		
+			  			  <% }}%>
 			</div><!-- form_container -->
 	 </div>
    </main>

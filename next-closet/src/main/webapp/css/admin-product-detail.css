@@ -136,6 +136,24 @@ p{
 		 display: flex;
 	 }
 	
+	.btn_input:hover{
+		opacity: .7;
+	}
 	
+	
+
+.back{
+	text-align: center;
+	padding-top:50px;
+}
+
+.back a{
+	text-decoration: none;
+	color: rgb(27, 27, 27);
+	
+	}
+	
+
+
 
 

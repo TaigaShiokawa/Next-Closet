@@ -4,9 +4,16 @@
 <head>
 <meta charset="UTF-8">
 <title>商品登録</title>
+<link rel="stylesheet" href="css/product-edit.css">
+<link rel="stylesheet" href="css/admin-navbar.css">
 </head>
 <body>
-	<h1>新規登録</h1>
+<%@ include file="includes/admin-navbar.jsp" %>
+<% String imagePath = null; %>
+<main>
+<div class="container">
+
+<h2>商品新規登録</h2>
 	<% String productNameError = (String)request.getAttribute("productNameError"); %>
 	<% String descriptionError = (String)request.getAttribute("descriptionError"); %>
 	<% if(productNameError != null) { %>
@@ -42,7 +49,9 @@
 		<input type="text" id="p_price" name="price" placeholder="0" required><br>
 		
 		<label for="p_image">画像</label>
-		<input type="file" id="p_image" name="image" required><br>
+		<input type="file" id="p_image" name="image" onchange="previewImage()" required>
+		 <img id="imagePreview" src="<%= imagePath %>" alt="Image preview"/><br>
+		 <br>
 		
 		<label for=s_size>Sサイズ 在庫数</label>
 		<input type="number" id="s_size" name="s_size_inventory" placeholder="0" required><br>
@@ -51,8 +60,18 @@
 		<label for=l_size>Lサイズ 在庫数</label>
 		<input type="number" id="l_size" name="l_size_inventory" placeholder="0" required><br>
 		
-		<input type="submit" value="登録">
+		<input id="btn" type="submit" value="登録">
+		
+		<p class="back"><a href="AdminProductListServlet">商品一覧へ戻る</a></p>
 		</form>
+		
+		
+</div>
+
+
+</main>
+<%@ include file="includes/footer.jsp" %>
+	
 		
 		<script>
 		document.getElementById('p_name').addEventListener('input', function() {
@@ -80,6 +99,18 @@
 		    	descriptionCounter.style.color = 'initial';
 			}
 	    });
+
+	  
+	    function previewImage() {
+	        var oFReader = new FileReader();
+	        oFReader.readAsDataURL(document.getElementById("p_image").files[0]);
+
+	        oFReader.onload = function (oFREvent) {
+	             document.getElementById("imagePreview").src = oFREvent.target.result;
+	        };
+	    }
+	    
+	</script>
 		</script>
 </body>
 </html>
