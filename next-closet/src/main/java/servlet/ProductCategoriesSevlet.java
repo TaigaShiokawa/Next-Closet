@@ -61,6 +61,7 @@ public class ProductCategoriesSevlet extends HttpServlet {
 				System.out.println(categoryId);
 				if(categoryDao.getNoProductCategory(categoryId)) {  // もし今このカテゴリーに属する商品がなければ
 					categoryDao.deleteCategory(categoryId); //削除
+					request.setAttribute("message","カテゴリーを削除しました");	
 				} else {
 					request.setAttribute("message","このカテゴリーに属する商品があるので削除できません");
 				}

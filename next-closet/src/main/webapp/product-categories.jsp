@@ -14,29 +14,39 @@ if(message == null){
 <html>
 <head>
 <meta charset="UTF-8">
-<title>管理者カテゴリー</title>
+<title>next closet...</title>
+<link rel="stylesheet" href="css/categories.css">
+<link rel="stylesheet" href="css/admin-navbar.css">
 </head>
 	<body>
-	<p><%= message %></p>
-	    <ul class="categoryList">
-	    	<% for ( CategoryBean columns : categoryList){ %>
-    				<ul>
-	    				<li><%= columns.getCategoryName() %></li>
-				    	<li>
-				    	  <form action="ProductCategoriesServlet" method="post">
-				    	  	<input type="hidden" name="delete" value='<%= columns.getCategoryId() %>'>
-				    	  	<input type="submit" value="削除">
-				    	  </form>
-				    	</li>
-    				</ul>
-	      　<% } %>
-	    </ul>
-		<form action="ProductCategoriesServlet" method="post">
-			<input type="text" name="AddCategoryName"> 
-			<input type="hidden" name="add" value="add">
-			<input type="submit" value="新規登録">
-		</form>
-		
-		<button><a href="AdminProductListServlet">商品一覧に戻る</a></button>
+	<%@ include file="includes/admin-navbar.jsp" %>
+	<main>
+	<div class="container">
+		<h2 class="section_title">カテゴリー追加 / 削除</h2>
+		<p class="list_title">カテゴリー一覧</p>
+		<p><%= message %></p>
+		    <ul class="category_list">
+		    	<% for ( CategoryBean columns : categoryList){ %>
+	    				<ul>
+		    				<li class="category_name"><%= columns.getCategoryName() %></li>
+					    	<li>
+					    	  <form action="ProductCategoriesServlet" method="post">
+					    	  	<input type="hidden" name="delete" value='<%= columns.getCategoryId() %>'>
+					    	  	<input class="spinner" type="submit" value="−">
+					    	  </form>
+					    	</li>
+	    				</ul>
+		      　<% } %>
+		    </ul>
+			<form action="ProductCategoriesServlet" method="post">
+				<input class="add" type="text" name="AddCategoryName"> 
+				<input type="hidden" name="add" value="add">
+				<input class="add_btn" type="submit" value="カテゴリー追加">
+			</form>
+			
+			<p class="back"><a href="AdminProductListServlet">商品一覧に戻る</a></p>
+		</div>
+		</main>
+		<%@ include file="includes/footer.jsp" %>
 	</body>
 </html>
