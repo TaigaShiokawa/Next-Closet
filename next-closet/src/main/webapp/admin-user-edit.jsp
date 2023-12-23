@@ -5,8 +5,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- <link rel="stylesheet" href="css/mypage-edit.css"> -->
-<!-- <link rel="stylesheet" href="css/navbar.css"> -->
+<link rel="stylesheet" href="css/admin-user-register.css">
+<link rel="stylesheet" href="css/admin-navbar.css">
 <meta charset="UTF-8">
 <title>会員情報編集</title>
 </head>
@@ -19,7 +19,7 @@
 
 <main>
 <div class="container">
-<h3>会員情報更新画面</h3>
+<h2>会員情報更新画面</h2>
 <% List<String> errorMessages = (List<String>)request.getSession().getAttribute("errorMessages"); %>
 <% if(errorMessages != null && !errorMessages.isEmpty()) { %>
 	<% for(String errorMessage : errorMessages) { %>
@@ -103,13 +103,14 @@
 			
 			<label>メールアドレス：</label><input type="email" name="email" 
 				value="<%=request.getSession().getAttribute("email") != null ? request.getSession().getAttribute("email") : user.getEmail() %>"><br> 
-			<% 
- }
-%>
+		
 			
-			<button type="submit">会員情報を更新する</button>			
+			<button class="update_submit" type="submit">会員情報を更新する</button>			
 		</form>
-
+		<p class="back"><a href="AdminUserDetailServlet?userId=<%= user.getUserId() %>">詳細に戻る</a></p>
+			<% 
+				 }
+				%>
 		</div>
 </main>
 <%@ include file="includes/footer.jsp" %>
