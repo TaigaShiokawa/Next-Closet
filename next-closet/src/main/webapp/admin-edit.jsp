@@ -7,21 +7,31 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" href="css/admin-user-register.css">
+<link rel="stylesheet" href="css/admin-navbar.css">
 <title>next closet...</title>
 </head>
 <body>
-<%-- <%@ include file="includes/navbar.jsp" %> --%>
- <form method="post" action="AdminEditServlet">
- <input type="hidden" name="adminId" value="<%=admin.getAdminId()%>">
-	<label>お名前：</label><input type="text" name="adminname" value="<%=admin.getAdminName() %>"><br>
-	<label>フリガナ：</label><input type="text" name="kananame" value="<%=admin.getAdminKanaName() %>"><br>
-	<label>メールアドレス：</label><input type="email" name="email" value="<%=admin.getEmail() %>"><br>
-	<button type="submit">更新</button>
- </form>
- <form method="post" action="AdminPasswordEdit">
-  	<input type="hidden" name="adminId" value="<%=admin.getAdminId()%>">
- 	<label>パスワード：</label><input type="password" name="password"><br>
- 	<button type="submit">更新</button>
- </form>
+  <%@ include file="includes/admin-navbar.jsp" %>
+<main>
+ 	<div class="container"
+		 <form method="post" action="AdminEditServlet">
+		 	<input type="hidden" name="adminId" value="<%=admin.getAdminId()%>">
+			<label>お名前：</label><input type="text" name="adminname" value="<%=admin.getAdminName() %>"><br>
+			<label>フリガナ：</label><input type="text" name="kananame" value="<%=admin.getAdminKanaName() %>"><br>
+			<label>メールアドレス：</label><input type="email" name="email" value="<%=admin.getEmail() %>"><br>
+			<button class="admin_submit" type="submit">更新</button>
+		 </form>
+		 
+		 <form method="post" action="AdminPasswordEdit">
+		  	<input type="hidden" name="adminId" value="<%=admin.getAdminId()%>">
+		 	<label>パスワード：</label><input type="password" name="password"><br>
+		 	<button class="admin_submit" type="submit">更新</button>
+		 </form>
+		 
+		 <p class="back"><a href="AdminDetailServlet?adminId=<%= admin.getAdminId() %>">詳細へ戻る</a></p>
+	</div>
+ </main>
+   <%@ include file="includes/footer.jsp" %>
 </body>
 </html>

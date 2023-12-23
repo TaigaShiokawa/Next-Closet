@@ -7,11 +7,14 @@
 <head>
 <meta charset="UTF-8">
 <title>next closet...</title>
+<link rel="stylesheet" href="css/admin-user-register.css">
+<link rel="stylesheet" href="css/admin-navbar.css">
 </head>
 <body>
-
-
   <%@ include file="includes/admin-navbar.jsp" %>
+  <main>
+  <div class="container">
+　<h2>新規管理者登録</h2>
 
  			<% String adminNameError = (String)request.getSession().getAttribute("adminNameError"); %>
 			<% String userNameError = (String)request.getSession().getAttribute("userNameError"); //エラー出てたから追加した%> 
@@ -46,8 +49,12 @@
 					<label>フリガナ：</label><input type="text" name="kananame" placeholder="例) テスト　タロウ" required><br>
 					<label>メールアドレス：</label><input type="email" name="email" placeholder="例) 〇〇@〇〇.com" required><br> 
 					<label>パスワード：</label><input type="password" name="password" placeholder="8文字以上" required><br> 
-					<button type="submit">管理者を登録する</button>
+					<button class="update_submit" type="submit">管理者を登録する</button>
+					
+					<p class="back"><a href="AdminListServlet">一覧に戻る</a></p>
 </form>
-
+</div>
+  </main>
+  <%@ include file="includes/footer.jsp" %>
 </body>
 </html>

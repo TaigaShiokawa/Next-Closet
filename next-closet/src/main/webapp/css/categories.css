@@ -1,0 +1,101 @@
+@charset "UTF-8";
+
+/* 共通　*/
+*{
+    padding: 0;
+    margin: 0;
+}
+
+main{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container{
+    width: 100%;
+    max-width: 500px;
+    min-height:600px;
+    padding: 50px ;
+}
+
+
+a:hover{
+	opacity: .7;
+}
+
+.section_title{
+	font-size: 28px;
+	padding-bottom:30px;
+}
+
+.list_title{
+	font-size: 16px;
+}
+
+/* list関係 */
+
+.category_list ul{
+	display: flex;
+	margin:0 auto;
+	padding-top:20px;
+	}
+
+.category_list li{
+	list-style: none;
+	font-size: 24px;
+}
+
+.category_name{
+	width: 250px;
+}
+
+/* テキストボックス */
+.add{
+	width: 250px;
+	height:60px;
+	padding-left:10px;
+}
+
+.add_btn{
+	width: 150px;
+	height: 60px;
+	margin-bottom: 30px;
+	background-color: rgb(93, 93, 93);
+	color: #fff;
+	border: none;
+}
+
+/* 削除ボタン */
+
+.spinner{
+  margin:0;
+  width: 40px;
+  height: 40px;
+  border: 1px solid gainsboro;
+  text-align: center;
+  line-height: 40px;
+  border-radius:50%;
+  display: inline-block;
+  font-size: 24px;
+  text-align: center;
+  background: lightgray;
+  color: rgb(93, 93, 93);
+}
+
+.spinner:hover{
+	opacity: .7;
+}
+
+/* 一覧に戻るボタン*/
+
+.back{
+	text-align: center;
+	padding-bottom:50px;
+}
+
+.back a{
+	text-decoration: none;
+	color: rgb(27, 27, 27);
+}
+
