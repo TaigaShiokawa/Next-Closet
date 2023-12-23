@@ -20,62 +20,74 @@
 <head>
 <meta charset="UTF-8">
 <title>管理者ログインページ</title>
-<link rel="stylesheet" href="css/admin-user-list.css">
+<link rel="stylesheet" href="css/admin-order-history.css">
+	<link rel="stylesheet" href="css/admin-navbar.css">
 </head>
 
 <body>
 <%@ include file="includes/admin-navbar.jsp" %>
-<div class="content wrapper">
-
+		<main>
+		
+		<div class="container">
+				<div class="box">
         
-			                    			 
-                  			 <% for( OrderBean list : orderList) {  %>
-                  				 
-                  					<ul>
-                  						<li>
-                  							  <p>注文番号</p>
-                  							  <p><%= list.getOrderItemId() %></p>
-                  						</li>
-                  						<li>
-                  							  <p>商品名</p>
-                  							  <p><%= orderDao.getProductName(list.getProductId()) %></p>
-                  						</li>                  						
-                  						<li>
-                  							  <p>数量</p>
-                  							  <p><%= list.getQuantity() %></p>
-                  						</li>
-                  						<li>
-                  							  <p>サイズ</p>
-                  							  <p><%= st.sizeText(list.getSizeId()) %></p>
-                  						</li>
-                  						<li>
-                  							  <p>購入者</p>
-                  							  <p><%= orderDao.getUserName(list.getUserId()) %></p>
-                  						</li>
-                  						<li>
-                  							  <p>合計金額</p>
-                  							  <p><%= list.getTotalAmount() %></p>
-                  						</li>
-                  						<li>
-                  							  <p>発送先住所</p>
-                  							  <p><%= list.getDeliveryAddress() %></p>
-                  						</li>
-                  						<li>
-                  							  <p>注文日時</p>
-                  							  <p><%= list.getOrderDate() %></p>
-                  						</li>
-                 		   			
-                 		   			<% } %>
-                 		   			
-                 		   			<button><a href="AdminOrderHistoryListServlet">購入通知一覧に戻る</a></button>
+					                    			 
+		                  			 <% for( OrderBean list : orderList) {  %>
+		                  			 
+		                  			 <table>
+		                  			 <tr>
+								        <td><label for="name">注文番号</label></td>
+								     	 <td><%= list.getOrderItemId() %></td> 
+								     </tr>
+								     
+								     <tr>
+								        <td><label for="name">商品名</label></td>
+								     	 <td><%= orderDao.getProductName(list.getProductId()) %></td> 
+								     </tr>
+								     
+								     <tr>
+								        <td><label for="name">数量</label></td>
+								     	 <td><%= list.getQuantity() %></td> 
+								     </tr>
+								     
+								     <tr>
+								        <td><label for="name">サイズ</label></td>
+								     	 <td><%= st.sizeText(list.getSizeId()) %></td> 
+								     </tr>
+								     
+								      <tr>
+								        <td><label for="name">購入者</label></td>
+								     	 <td><%= orderDao.getUserName(list.getUserId()) %></td> 
+								     </tr>
+								     
+								      <tr>
+								        <td><label for="name">合計金額</label></td>
+								     	 <td><%= list.getTotalAmount() %></td> 
+								     </tr>
+								     
+								      <tr>
+								        <td><label for="name">発送先住所</label></td>
+								     	 <td><%= list.getDeliveryAddress() %></td> 
+								     </tr>
+								     
+								      <tr>
+								        <td><label for="name">注文日時</label></td>
+								     	 <td><%= list.getOrderDate() %></td> 
+								     </tr>
+		                  	</table>
+		                  				
+		                 		   			<% } %>
+		                 		   			
+		                 		   <p class="back"><a href="AdminOrderHistoryListServlet">購入通知一覧に戻る</a></p>
 			                  
-			                  
-			</div>
-                    
+			           </div>       
+				</div>
+		</main>
+        <%@ include file="includes/footer.jsp" %>     
 	<body>
+	
   <script>
 
-  'use strict'; /* 厳格にエラーをチェック */
 
   { /* ローカルスコープ */
 
