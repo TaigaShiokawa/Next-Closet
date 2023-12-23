@@ -1,3 +1,4 @@
+
 package servlet;
 
 import java.io.IOException;
@@ -192,6 +193,11 @@ public class RegisterServlet extends HttpServlet {
 				int userId = uDao.getUserId(email);
 				try {
 					int setAddress = uDao.registerAddress(userId, convertPostCode, prefectures, normalizedAddress);
+				    request.getSession().setAttribute("postCode", "");
+				    request.getSession().setAttribute("prefectures", "");
+				    request.getSession().setAttribute("address","");
+				    request.getSession().setAttribute("telNumber", "");
+				    request.getSession().setAttribute("email", "");
 					if(setAddress == 1) { //ユーザーの住所情報が1行追加されたら...
 						request.getSession().setAttribute("success", "登録が完了しました");
 						response.sendRedirect("login.jsp");
