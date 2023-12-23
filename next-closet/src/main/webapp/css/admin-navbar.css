@@ -10,6 +10,10 @@ header , footer{
 	height : 70px;
 }
 
+main{
+	min-height:90vh;	
+}
+
 .header_inner{
     max-width:1200px;
     width: 100%;
