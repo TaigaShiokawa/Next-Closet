@@ -23,6 +23,7 @@
 	</head>
 	<body>
 	<%@ include file="includes/navbar.jsp" %> 
+	<main>
 	<div class="wrapper">
 		<div class="product_contents">
 			<div class="img">
@@ -75,7 +76,7 @@
 			</div>
 		</div>
 	</div>
-		
+	</main>	
 	<%@ include file="includes/footer.jsp" %>
 		
 		<script>
