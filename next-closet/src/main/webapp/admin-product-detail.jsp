@@ -59,6 +59,8 @@
 									            </form>
 									        <% } %>
 								        </div>
+								        
+								        <p class="back"><a href="AdminProductListServlet">商品一覧へ戻る</a></p>
 								</div>
 							</div>
 			</div>
