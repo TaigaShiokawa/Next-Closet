@@ -127,6 +127,14 @@ span{
 .update_submit{
 	margin:30px auto;
 }
-	
+
+a:hover{
+	opacity: .7;
+}
+
+/* adminのform*/
+.admin_submit{
+	margin:20px auto 50px;
+}
 
 

@@ -57,7 +57,7 @@
 		
 	</div>
 	</form>
-	<p class="back"><a href="AdminListServlet">戻る</a><p>
+	<p class="back"><a href="AdminListServlet">管理者一覧へ戻る</a><p>
 	</div>
 </main>
 						  <div id="easyModal" class="modal">
