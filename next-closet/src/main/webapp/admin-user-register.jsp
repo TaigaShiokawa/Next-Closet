@@ -3,12 +3,16 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>next closet...</title>
+<link rel="stylesheet" href="css/admin-user-register.css">
+<link rel="stylesheet" href="css/admin-navbar.css">
 </head>
 <body>
 <%@ include file="includes/admin-navbar.jsp" %>
+<main>
+<div class="container">
+　<h2>新規会員登録</h2>
 
-	<h1>新規会員登録</h1>
 	<% String success = (String)request.getSession().getAttribute("success"); %>
 	<% String failure = (String)request.getSession().getAttribute("failure"); %>
 	<% String userNameError = (String)request.getSession().getAttribute("userNameError"); %>
@@ -121,7 +125,7 @@
 		<input type="text" id="telNum" name="telNumber"><br>
 		
 		<label for="mail">メールアドレス</label>
-		<input type="email" id="mail" name="email"><br>
+		<input type="email" name="email"><br>
 		
 		<label for="pass">パスワード</label>
 		<input type="password" id="pass" name="password"><br>
@@ -129,9 +133,13 @@
 					<div id="password_strength"></div><br>
 		
 		<button type="submit">新規登録する</button><br>
+			<p class="back"><a href="AdminUserListServlet">一覧に戻る</a></p>
 	</form>
 	
-	<a href="AdminUserListServlet">一覧に戻る</a>
+
+	</div>
+	</main>
+	<%@ include file="includes/footer.jsp" %>
 	
 	<script>
 		    // パスワード入力フィールドの要素を取得
