@@ -402,7 +402,7 @@ li{
 	
 .table_list{
 	padding-left:250px;
-	padding-bottom:400px;
+	min-height:600px;
 }
 
 .product_category{

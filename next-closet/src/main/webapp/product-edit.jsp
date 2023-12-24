@@ -34,8 +34,11 @@
         ProductBean firstProduct = productList.get(0);
         String imagePath = firstProduct.getImage(); // 修正: '=' を正しい文字にする
         if (imagePath == null || imagePath.isEmpty()) {
-            imagePath = "https://placehold.jp/480x640.png"; // デフォルト画像
+            imagePath = "image/noimg.jpg"; // デフォルト画像
+        }else{
+        	imagePath = "image/" + imagePath;
         }
+     
     %>
     <div class="container">
     <h2>商品情報編集画面</h2>

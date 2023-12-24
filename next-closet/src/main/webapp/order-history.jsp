@@ -31,8 +31,8 @@ String img = null;
 			<% for( OrderBean list : orderList) {
 				
 				img = dao.getProductImage(list.getProductId());
-                if ( img.isEmpty() ){
-             	   img = "https://placehold.jp/480x640.png";
+				 if (img.isEmpty()){
+              	   img = "image/noimg.jpg";
                 } else {
              	    img = "image/" + img;
                 }

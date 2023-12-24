@@ -2,7 +2,7 @@
 
 <header>
 	<div class="header_inner">
-		<h1 id="site_title">next closet...</h1>
+		<h1 id="site_title"><a href='AdminProductListServlet'>next closet...</a></h1>
 		<div class="header_right">
 			<ul>
 				<li><a href = "＃">ログアウト</a></li>

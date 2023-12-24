@@ -29,8 +29,8 @@
 			<div class="img">
 				<% for ( ProductBean columns : productList){ 
 				  	String img = columns.getImage();
-			        if ( img == null ){
-			     	   img = "https://placehold.jp/480x640.png";
+				  	 if (img.isEmpty()){
+                  	   img = "image/noimg.jpg";
 			        } else {
 			     	   img = "image/" + img;
 			        }

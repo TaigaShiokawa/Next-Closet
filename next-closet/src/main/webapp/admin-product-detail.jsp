@@ -19,8 +19,8 @@
       
       ProductBean firstProduct = productList.get(0);
       String img = firstProduct.getImage();
-      if (img == null || img.isEmpty()) {
-          img = "https://placehold.jp/480x640.png";
+      if (img.isEmpty()){
+   	   img = "image/noimg.jpg";
       } else {
           img = "image/" + img;
       }
@@ -38,7 +38,7 @@
 										<p><span class="list">商品ID:</span> <%= firstProduct.getProductId() %></p>
 								        <p><span class="list">商品名:</span> <%= firstProduct.getProductName() %></p>
 								        <p><span class="list">説明:</span> <%= firstProduct.getDescription() %></p>
-								        <p><span class="list">価格: </span><%= firstProduct.getPrice() %>円</p>
+								        <p><span class="list">価格: </span>&yen;<%= String.format("%,d", firstProduct.getPrice())%> 税込</p>
 								        <p><span class="list">登録日:</span> <%= firstProduct.getRegistrationDate() %></p>
 								
 								        <% for (SizeBean size : firstProduct.getSizes()) { %>
