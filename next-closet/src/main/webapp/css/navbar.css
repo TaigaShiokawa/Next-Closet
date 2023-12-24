@@ -1,5 +1,20 @@
 @charset "UTF-8";
 
+/* 共通 */
+
+li{
+	list-style: none;
+}
+
+a{
+	text-decoration:none;
+}
+
+a:hover{
+	opacity: .7;
+}
+
+
 /* header関係 */
 
 header , footer{
@@ -7,11 +22,34 @@ header , footer{
 	padding :0;
 	margin : 0;
 	background-image:url(../image/decoration/includes_bgi.jpg);
+}
+
+header{
 	height : 70px;
 }
 
+footer{
+	height : 120px;
+	text-align: center;
+}
+
+footer ul {
+	display: flex;
+	justify-content: space-between;
+	width: 240px;
+	margin:0 auto;
+	margin-bottom:10px;
+	font-weight: 100;
+	padding-left: 0;
+	
+}
+
+footer a{
+	color: #333;
+}
+
 main{
-	min-height:90vh;
+	min-height:85vh;
 }
 
 .header_inner{
@@ -20,6 +58,12 @@ main{
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
+}
+
+.footer_inner{
+	max-width:1200px;
+    width: 100%;
+    margin: 0 auto;	
 }
 
 .header_right ul{

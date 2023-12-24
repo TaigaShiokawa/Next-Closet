@@ -8,16 +8,19 @@ UserBean loginUser = (UserBean) request.getSession().getAttribute("user");
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<link rel="stylesheet" href="css/terms-of-service.css">
+<link rel = "stylesheet" href = "css/navbar.css">
+<title>会社概要</title>
 </head>
 <body>
 	<%@ include file="includes/navbar.jsp"%>
-
-	<h1>About(会社概要)</h1>
-
-	<h2>next closet...についての説明をする</h2>
-	<p>中西の中西による中西のための中西</p>
-	
+	<main>
+		<div class="container">
+			<h2>About(会社概要)</h2>
+			<h3>next closet...についての説明をする</h3>
+			<p>中西の中西による中西のための中西</p>
+		</div>
+	</main>
 	<%@ include file="includes/footer.jsp" %>
 </body>
 </html>
