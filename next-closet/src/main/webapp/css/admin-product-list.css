@@ -264,7 +264,7 @@ transform: rotate(135deg) !important;
 		  margin: 20% auto;
 		  border-radius:5px ;
 		  padding:30px;
-		  width: 70%;
+		  width: 30%;
 		  height:250px;
 		  box-shadow: 0 5px 8px 0 rgba(0,0,0,0.2),0 7px 20px 0 rgba(0,0,0,0.17);
 		  animation-name: modalopen;
