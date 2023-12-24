@@ -191,7 +191,7 @@ td{
 		   color: #fff;
 	   }
 	  
-	  .modalClose:hover, .delete:hover{
+	  .modalClose:hover, .delete_btn:hover{
 		  opacity: .6;
 	  }
 	  

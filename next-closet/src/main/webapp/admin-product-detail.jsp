@@ -48,10 +48,8 @@
 								        <div class="btn_wrapper">
 									        <button class="btn"><a href="AdminProductEditServlet?productId=<%= firstProduct.getProductId() %>">編集</a></button>
 									        <% if (firstProduct.isStatus()) { %>
-									            <form action="ProductStatusChangeServlet" method="get">
-									                <input type="hidden" name="productId" value="<%= firstProduct.getProductId() %>">
-									                <input class="btn_input" type="submit" value="削除">
-									            </form>
+									                   <label class="btn_input" id="modalOpen">削除</label> 
+									           
 									        <% } else { %>
 									            <form action="ProductStatusChangeServlet" method="get">
 									                <input type="hidden" name="productId" value="<%= firstProduct.getProductId() %>">
@@ -64,9 +62,50 @@
 								</div>
 							</div>
 			</div>
+			
+			 <div id="easyModal" class="modal">
+						    <div class="modal-content">
+						      <div class="modal-body">
+						        <p><strong>本当に削除しますか？</strong></p>
+						        <div class="delete_btn_wrapper">
+						        	<label class="modalClose">キャンセル</label>
+							        <form action="ProductStatusChangeServlet" method="get">
+						                <input type="hidden" name="productId" value="<%= firstProduct.getProductId() %>">
+						                <input class="delete_btn" type="submit" value="削除">
+									  </form>
+							    </div>
+						    </div>
+						  </diV>
+						   </diV>
 
         </main>
         <%@ include file="includes/footer.jsp" %>
+        
+<script>
+		const buttonOpen = document.getElementById('modalOpen');
+		const modal = document.getElementById('easyModal');
+		const buttonClose = document.getElementsByClassName('modalClose')[0];
+	
+		// ボタンがクリックされた時
+		buttonOpen.addEventListener('click', modalOpen);
+		function modalOpen() {
+		  modal.style.display = 'block';
+		}
+	
+		// バツ印がクリックされた時
+		buttonClose.addEventListener('click', modalClose);
+		function modalClose() {
+		  modal.style.display = 'none';
+		}
+	
+		// モーダルコンテンツ以外がクリックされた時
+		addEventListener('click', outsideClose);
+		function outsideClose(e) {
+		  if (e.target == modal) {
+		    modal.style.display = 'none';
+		  }
+		}
+	</script>
     
 </body>
 </html>

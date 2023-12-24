@@ -21,7 +21,11 @@
 <%@ include file="includes/navbar.jsp" %> 
  <main>
 
-		<div class="title">
+		
+   
+ <div class="container">
+ 
+ 		<div class="title">
 			<h2 id="section_title">MyPage</h2>
 		    <h3 class="page-title">マイページ</h3>
 		    <% Integer passwordStrength = (Integer)request.getSession().getAttribute("passStrength"); %>
@@ -30,37 +34,35 @@
 			<% session.removeAttribute("passStrength"); %>
 			<% } %>
 		</div>
-   
- <div class="container">
         <table>
 		    <tr>
 		        <td><label for="name">お名前</label></td>
-		      <td><%=loginUser.getUserName() %></td> 
+		      <td class="content"><%=loginUser.getUserName() %></td> 
 		    </tr>
 		    <tr>
 		        <td><label for="furigana">フリガナ</label></td>
-		        <td><%=loginUser.getKanaName() %></td>
+		        <td class="content"><%=loginUser.getKanaName() %></td>
 		    </tr>
 		    <tr>
 		        <td><label for="postalcode">郵便番号</label></td>
-		        <td><%=loginUserAddress.getPostCode() %></td>
+		        <td class="content"><%=loginUserAddress.getPostCode() %></td>
 		    </tr>
 		    <tr>
 		        <td><label for="address">都道府県</label></td>
-		        <td><%=loginUserAddress.getPrefectures() %></td>
+		        <td class="content"><%=loginUserAddress.getPrefectures() %></td>
 		    </tr>
 		    <tr>
 		        <td><label for="city">住所</label></td>
-		        <td><%=loginUserAddress.getAddress() %></td>
-		        <td><a href="SubAddressServlet">その他の住所を見る</a></td> <!-- サブ住所の追加 SubAddressServletへ -->
+		        <td class="content"><%=loginUserAddress.getAddress() %></td>
+		        <td class="add"><a href="SubAddressServlet">その他の住所を見る</a></td>
 		    </tr>
 		    <tr>
 		        <td><label for="phone">電話番号</label></td>
-		        <td><%=loginUser.getTelNumber() %></td>
+		        <td class="content"><%=loginUser.getTelNumber() %></td>
 		    </tr>
 		    <tr>
 		        <td><label for="email">メールアドレス</label></td>
-		        <td><%=loginUser.getEmail() %></td>
+		        <td class="content"><%=loginUser.getEmail() %></td>
 		    </tr>
 	</table>
 
