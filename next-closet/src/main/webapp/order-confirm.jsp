@@ -55,7 +55,7 @@ String img = null;%>
 							   int sizeId = (int)request.getAttribute("sizeId");
 							   int quantity =  (int)request.getAttribute("quantity");
 							   totalAmount += price * quantity; %>
-							   
+							    <% String formattedItemPrice = String.format("%,d", columns.getPrice()); %>
 				 			
 						  		<div class="right">
 						  		<div class="order_box">
@@ -64,7 +64,7 @@ String img = null;%>
 									    <p class="product">商品名：<%= columns.getProductName() %></p>
 									    <p class="size">サイズ：<%= st.sizeText(sizeId) %></p>
 									    <p class="quantity">数量：<%= quantity %></p>
-									    <p class="price">料金：<%= columns.getPrice() %></p>
+									    <p class="price">&yen; <%= formattedItemPrice %> 税込</p>
 									     </div>
 										 </div>
 									    <input type="hidden" name="productId" value="<%= columns.getProductId() %>">
@@ -94,6 +94,7 @@ String img = null;%>
 									<% int sizeId = cartItem.getSizeId(); %>
 									<% int quantity = cartItem.getQuantity(); %>
 									<% totalAmount += price * quantity; %>
+									 <% String formattedItemPrice = String.format("%,d", pl.getPrice()); %>
 								<div class="right">
 								 <div class="order_box">
 									<figure class="image"><img src="<%= img %>" alt="商品画像"></figure>
@@ -101,7 +102,7 @@ String img = null;%>
 										 <p class="product">商品名：<%= pl.getProductName() %></p>
 										 <p class="size">サイズ：<%= st.sizeText(sizeId) %></p>
 										 <p class="quantity">数量：<%= quantity %></p>
-										 <p class="price">料金：<%= pl.getPrice() %></p>
+										 <p class="price">&yen; <%= formattedItemPrice %> 税込</p>
 									 </div>
 									 </div>
 									 <input type="hidden" name="productId" value="<%= pl.getProductId() %>">
@@ -131,6 +132,7 @@ String img = null;%>
 							  		     int sizeId = item.getSizeId();
 							  		     int quantity = item.getQuantity(); 
 							  		     totalAmount = totalAmount + (price * quantity); %>
+							  		     <% String formattedItemPrice = String.format("%,d", price); %>
 		  		     	  		    
 						      	  <div class="right">
 						      	  	  <div class="order_box">
@@ -139,7 +141,7 @@ String img = null;%>
 					  						 <p class="product">商品名： <%= item.getProduct().getProductName() %></p>
 					  						 <p class="size">サイズ：<%= st.sizeText(sizeId) %></p>
 					  						 <p class="quantity">数量：<%= quantity %></p>	
-					  						 <p class="price">料金：<%= item.getProduct().getPrice() %></p>
+					  						 <p class="price">&yen; <%= formattedItemPrice %> 税込</p>
 				  						 </div>
 						      	  	  </div>
 				  						 
@@ -165,7 +167,8 @@ String img = null;%>
 			<% } %> 
 			<div class="total">
 			<span class="bold">ご注文金額</span>
-			<p>合計金額 &yen;<%= totalAmount %>(税込)</p>
+			<% String formattedTolalAmount = String.format("%,d", totalAmount); %>
+			<p>合計金額 &yen;<%= formattedTolalAmount %> 税込</p>
 		</div>
 
 		</div>

@@ -15,7 +15,7 @@ String img = null;
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>next closet...</title>
+	<title>購入履歴</title>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Tangerine&display=swap" rel="stylesheet">	
@@ -37,6 +37,7 @@ String img = null;
              	    img = "image/" + img;
                 }
             %>
+             <% String TotalAmount = String.format("%,d", list.getTotalAmount()); %>
 			<div class="border">
 		   		<div class="container">
 		  			 
@@ -47,7 +48,7 @@ String img = null;
 				 		     <p class="product">商品名<%= dao.getProductName(list.getProductId()) %></p>
 				   			 <p class="purchasedate">注文日 <%= list.getOrderDate() %></p>
 				   			 <p class="purchasedate">配達先住所 <%= list.getDeliveryAddress() %></p>
-				   			 <p class="amount">合計金額<%= list.getTotalAmount() %></p>
+				   			 <p class="amount">合計 &yen; <%= TotalAmount %> 税込</p>
 				    		 <p class="size">サイズ<%= st.sizeText(list.getSizeId()) %></p>
 			    		 </div>
 		 		    </div>
@@ -56,20 +57,13 @@ String img = null;
 		   </div>
 		   <% } %>
 	</div>
-</main>
+
  <% if(orderList.isEmpty()){ %>
  <div class="no_order_container">
  	 <p class="no_order">購入履歴はありません</p>
  </div>
- <footer class="non_footer">
-	<p>
-		<small>
-			&copy; next closet ...
-		</small>
-	</p>
-</footer>
-<% } else { %>
- <%@ include file="includes/footer.jsp" %>  
 <% } %>
+</main>
+<%@ include file="includes/footer.jsp" %>
 </body>
 </html>

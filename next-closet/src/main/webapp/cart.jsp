@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>next closet ...</title>
+<title>買い物かご</title>
 <link rel="stylesheet" href="css/cart.css">
 <link rel="stylesheet" href="css/navbar.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -37,15 +37,8 @@
 		</div>
 		
 		<p>カート内に商品がありません。<p>
-	
 	</div>
-	<footer class="non_footer">
-	<p>
-		<small>
-			&copy; next closet ...
-		</small>
-	</p>
-</footer>
+
 	
 	<% } else { %>
 	<div class="container">
@@ -120,7 +113,7 @@
 						            <input type="hidden" name="cartItemId" value="<%= item.getCartItemId() %>">
 						            <input class="buy" type="submit" value="この商品のみ購入">
 						        </form>
-						         	<p>価格: <%= formattedItemTotal %>円</p>
+						         	<p>&yen; <%= formattedItemTotal %> 税込</p>
 						        
 					        </div>
 					    </div>
@@ -136,15 +129,15 @@
 				<div class="right-container">
 					<div class="total_amount">
 							         	<p>ご注文金額<span>（合計）</span><br>
-							         	<span>税込</span>　 <%= formattedTotalPrice %>円</p>
+							         	 &yen;<%= formattedTotalPrice %> <span>税込</span></p>
 					</div>
 					
 				</div>
 			</div>
-    </main>    
-    <%@ include file="includes/footer.jsp" %>
+  
 	<% }  %>
-		     
+	</main>    
+    <%@ include file="includes/footer.jsp" %>
 
 	
 

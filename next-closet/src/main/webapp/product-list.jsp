@@ -84,11 +84,12 @@
                             	   img = "image/" + img;
                                }
                           %>  
+                          <% String formattedItemPrice = String.format("%,d", columns.getPrice()); %>
                    		  <li>
 	                         <a href="ProductDetailServlet?productId=<%= columns.getProductId() %>">
 		                          <img src="<%= img %>">
 		                          <p><%= columns.getProductName() %></p>
-		                          <p>&yen; <%= columns.getPrice() %></p>
+		                          <p>&yen; <%= formattedItemPrice %>　税込</p>
 	                         </a>
                     	  </li>
 		                 <% 
@@ -105,9 +106,10 @@
 		            	 %>
 		            	 <li>
 	                         <a href="ProductDetailServlet?productId=<%= columns.getProductId() %>">
+	                         <% String formattedItemPrice = String.format("%,d", columns.getPrice()); %>
 		                          <img src="<%= img %>">
 		                          <p><%= columns.getProductName() %></p>
-		                          <p>&yen; <%= columns.getPrice() %></p>
+		                          <p>&yen; <%= formattedItemPrice %> 税込</p>
 	                         </a>
                     	 </li>
                   		 <%  
