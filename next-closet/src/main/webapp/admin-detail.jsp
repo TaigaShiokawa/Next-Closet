@@ -5,8 +5,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <link rel="stylesheet" href="css/admin-detail.css">
-<link rel="stylesheet" href="css/admin-delete.css">
 <link rel="stylesheet" href="css/admin-navbar.css"> 
 <meta charset="UTF-8">
 <title>next closet...</title>
@@ -60,21 +60,21 @@
 	<p class="back"><a href="AdminListServlet">管理者一覧へ戻る</a><p>
 	</div>
 </main>
+
 						  <div id="easyModal" class="modal">
 						    <div class="modal-content">
-						      <div class="modal-header">
-						        <h1 class="check">最終確認画面</h1>
-						        <span class="modalClose">×</span>
-						      </div>
 						      <div class="modal-body">
 						        <p><strong>本当に削除しますか？</strong></p>
-						        <form action="AdminDeleteServlet" method="post">
-						        <input type="hidden" name="adminId" value="<%=admin.getAdminId()%>">
-						        <input class="delete" type="submit" value="削除する">
-						        </form>
-						      </div>
+						        <div class="delete_btn_wrapper">
+						        <label class="modalClose">キャンセル</label>
+							        <form action="AdminDeleteServlet" method="post">
+								        <input type="hidden" name="adminId" value="<%=admin.getAdminId()%>">
+								        <input class="delete_btn" type="submit" value="削除する">
+							        </form>
+							        </div>
 						    </div>
 						  </diV>
+						  
 						  
 <%@ include file="includes/footer.jsp" %>
 <script>
