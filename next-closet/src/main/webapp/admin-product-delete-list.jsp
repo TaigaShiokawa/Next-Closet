@@ -164,7 +164,7 @@
 							<tr>
 							　<th>商品ID</th>
 						      <th>商品名</th>
-						      <th>価格</th>
+						      <th>価格(税込)</th>
 						      <th>登録日</th>
 						      <th>復元</th>
 						    </tr>
@@ -182,7 +182,7 @@
 																<tr class="list_tr">
 																		<td><a href="AdminProductDetailServlet?productId=<%= columns.getProductId()%>"><%= columns.getProductId() %></a></td>
 																		<td><a href="AdminProductDetailServlet?productId=<%= columns.getProductId()%>"><%= columns.getProductName() %></a></td>
-																		<td><a href="AdminProductDetailServlet?productId=<%= columns.getProductId()%>"><%= columns.getPrice()%></a></td>
+																		<td><a href="AdminProductDetailServlet?productId=<%= columns.getProductId()%>">&yen; <%= String.format("%,d", columns.getPrice())%></a></td>
 																		<td><a href="AdminProductDetailServlet?productId=<%= columns.getProductId()%>"><%= columns.getRegistrationDate()%></a></td>
 																		<td><a href="ProductStatusChangeServlet?productId=<%= columns.getProductId()%>">復元</a></td>
 																		
@@ -201,7 +201,7 @@
 											            			<tr class="list_tr">
 																		<td><a href="AdminProductDetailServlet?productId=<%= columns.getProductId()%>"><%= columns.getProductId() %></a></td>
 																		<td><a href="AdminProductDetailServlet?productId=<%= columns.getProductId()%>"><%= columns.getProductName()%></a></td>
-																		<td><a href="AdminProductDetailServlet?productId=<%= columns.getProductId()%>"><%= columns.getPrice()%></a></td>
+																		<td><a href="AdminProductDetailServlet?productId=<%= columns.getProductId()%>">&yen; <%= String.format("%,d", columns.getPrice())%></a></td>
 																		<td><a href="AdminProductDetailServlet?productId=<%= columns.getProductId()%>"><%= columns.getRegistrationDate()%></a></td>
 																		<td><a href="ProductStatusChangeServlet?productId=<%= columns.getProductId()%>">復元</a></td></td>
 																		
