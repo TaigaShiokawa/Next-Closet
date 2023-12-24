@@ -1,9 +1,17 @@
 
 @charset "UTF-8";
 
+/* 共通 */
+
 *{
     padding: 0;
     margin: 0;
+}
+
+.title{
+	width:100%;
+	max-width:700px;
+	margin:0 auto;
 }
 
 p{
@@ -11,17 +19,11 @@ p{
 	margin-bottom:20px;
 }
 
-.title{
-	padding-top: 40px;
-	width:100%;
-	max-width:700px;
-	margin:0 auto;
-}
-
 .container{
 	width:100%;
-	max-width:500px;
+	max-width:800px;
 	margin:30px auto;
+	padding:100px;
 }
 
 
@@ -38,10 +40,10 @@ p{
   padding-bottom: 30px;
 }
 
-table{
-	width: 90%;
-	margin:0 auto;
+.add{
+	padding-left:30px;
 }
+
 
 a{
 	font-size: 12px;
@@ -54,6 +56,18 @@ a:hover{
 }
 
 
+/* table関係 */
+
+label{
+	width: 100px;
+}
+
+
+table{
+	width: 90%;
+	margin:0 auto;
+}
+
 th{
   padding: 10px;
   text-align: left;
@@ -61,8 +75,8 @@ th{
   white-space: nowrap; /* 文字列を折り返さずに表示 */
 }
 
-td {
-width: 150px;
+.content{
+width: 300px;
 height: 50px;
  table-layout: fixed; /* セルの幅を指定した幅に固定 */
 }
@@ -75,6 +89,8 @@ button{
     border:none;
 }
 
+
+/* ボタン関係 */
 
 button a{
 	padding:20px;
@@ -89,6 +105,7 @@ button a{
 	padding: 20px 40px;
 }
 
+/* 戻る */
 
 .back{
 	text-align: center;
@@ -123,6 +140,12 @@ form{
 
 .delete_box{
 	text-align: center;
+}
+
+.button_nav{
+	margin:0 auto;
+	width: 100%;
+	max-width:500px;
 }
 
  /* モーダルウィンドウ　削除確認画面　*/

@@ -53,22 +53,63 @@
 	
 	<div class="btn_wrapper">
 	
-	  <button class="btn"><a href="AdminUserUpdateServlet?userId=<%= user.getUserId() %>">更新</a>
+	  <button class="btn"><a href="AdminUserUpdateServlet?userId=<%= user.getUserId() %>">更新</a></button>
         <% if (user.isUserStatus()) { %>
-             <button class="btn"><a href="AdminUserWithdrawalServlet?userId=<%= user.getUserId() %>">削除</button></a>
+           <label class="label_btn delete_button" id="modalOpen">削除</label> 
         <% } else { %>
            <button class="btn"><a href="AdminUserRestorationServlet?userId=<%= user.getUserId() %>">復活</button></a>
-		 <% } %>		      
-		<% 
+		 <% } %>		        
+	</div>
+	 <div id="easyModal" class="modal">
+						    <div class="modal-content">
+						      <div class="modal-body">
+						        <p><strong>本当に削除しますか？</strong></p>
+						        <div class="delete_btn_wrapper">
+						        	<label class="modalClose">キャンセル</label>
+							        <form action="AdminUserWithdrawalServlet" method="get">
+								        <input type="hidden" name="userId" value="<%= user.getUserId() %>">
+								        <input class="delete_btn" type="submit" value="削除する">
+							        </form>
+							    </div>
+						    </div>
+						  </diV>
+						   </diV>
+						  
+		 <% 
 		 }
 		%>
-        
-	</div>
+		
 	
 	<p class="back"><a href="AdminUserListServlet">一覧に戻る</a></p>
 </div>
 
 </main>
 <%@ include file="includes/footer.jsp" %>
+
+<script>
+		const buttonOpen = document.getElementById('modalOpen');
+		const modal = document.getElementById('easyModal');
+		const buttonClose = document.getElementsByClassName('modalClose')[0];
+	
+		// ボタンがクリックされた時
+		buttonOpen.addEventListener('click', modalOpen);
+		function modalOpen() {
+		  modal.style.display = 'block';
+		}
+	
+		// バツ印がクリックされた時
+		buttonClose.addEventListener('click', modalClose);
+		function modalClose() {
+		  modal.style.display = 'none';
+		}
+	
+		// モーダルコンテンツ以外がクリックされた時
+		addEventListener('click', outsideClose);
+		function outsideClose(e) {
+		  if (e.target == modal) {
+		    modal.style.display = 'none';
+		  }
+		}
+	</script>
 </body>
 </html>

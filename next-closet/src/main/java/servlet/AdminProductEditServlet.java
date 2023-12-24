@@ -51,6 +51,8 @@ public class AdminProductEditServlet extends HttpServlet {
             String description = request.getParameter("description");
             
            Part filePart = request.getPart("image");
+          
+  
            String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
            if (fileName != null && !fileName.isEmpty()) {
         	   filePart.write(fileName);

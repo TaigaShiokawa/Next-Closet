@@ -58,6 +58,10 @@ td{
 	text-align: center;
 }
 
+td a{
+	line-height: 60px;
+}
+
 .trash:hover{
 	color:rgb(191, 74, 56);
 }

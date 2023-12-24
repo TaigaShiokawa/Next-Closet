@@ -50,7 +50,7 @@
 	
 	  <button class="btn"><a href="AdminEditServlet?adminId=<%=admin.getAdminId()%>">更新</a></button>
         <% if (admin.isAdminStatus()) { %>
-              <label class="label_btn" id="modalOpen" class="delete_button">削除</label> 
+              <label class="label_btn delete_button" id="modalOpen">削除</label> 
         <% } else { %>
         <button class="btn"><a href="AdminRestorationServlet?adminId=<%= admin.getAdminId()%>">復元</a></button>
 		 <% } %>		      
