@@ -28,7 +28,7 @@ h1{
 
 /* form関係 */
 
-input{
+main input{
     width: 60%;
     height: 50px;
     margin:0 auto;
@@ -53,7 +53,7 @@ input{
     padding-left:10px;
 }
 
-a{
+main a{
     display: block;
     text-decoration: none;
     font-weight: bold;
