@@ -5,7 +5,7 @@
 <html>
 	<head>
 	<meta charset="UTF-8">
-	<title>next closet...</title>
+	<title>商品詳細</title>
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400&display=swap" rel="stylesheet">
@@ -36,12 +36,13 @@
 			        }
 			        
 			        product_id = columns.getProductId();
+			         String formattedItemPrice = String.format("%,d", columns.getPrice()); 
 				%>
 				<img src="<%= img %>">
 			</div> <!-- img閉じタグ -->
 			<div id="product-detail">
 				<p id="product_name" class="text"><%= columns.getProductName() %><p>
-				<p class="text">&yen; <%= columns.getPrice() %><span class="tax_in">税込</span></p>
+				<p class="text">&yen; <%= formattedItemPrice %><span class="tax_in">税込</span></p>
 				<p id="product_descruption" class="text"><%= columns.getDescription() %></p>
 				
 				<% } %>
@@ -64,9 +65,10 @@
 						<input class="number_input" type="number" name = "quantity" min="1" max="10"  step="1" value="1" required>
 						<span class="spinner spinner-up">+</span>
 					</label><br>
-					<input class="submit" type="submit" value="ADD TO CART">
-					<input class="submit" type="submit" value="BUY NOW" onclick="goOrder()">
-					<!-- ログインしてなかったらログインに飛ばす -->
+	
+						<input class="submit" type="submit" value="ADD TO CART">
+						<input class="submit" type="submit" value="BUY NOW" onclick="goOrder()">
+					
 				</form>
 				<% } else { %>
 						<button id="goLogin"><a href="login.jsp">ログイン または新規登録して購入する</a></button>	<br>
