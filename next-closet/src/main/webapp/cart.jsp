@@ -34,7 +34,7 @@
 			<h2>ShopingCart</h2>
 			<h3>買い物かご</h3>
 		</div>
-		</div>
+	</div>
 		
 		<p>カート内に商品がありません。<p>
 	</div>
@@ -80,8 +80,8 @@
 					            int quantity = item.getQuantity();
 					            String formattedItemTotal = String.format("%,d", itemPrice * quantity);
 					            String img =  item.getProduct().getImage();
-				                if ( img == null ){
-				              	   img = "https://placehold.jp/480x640.png";
+					            if (img.isEmpty()){
+				                  	   img = "image/noimg.jpg";
 				                 } else {
 				              	   img = "image/" + img;
 				                 }
@@ -144,23 +144,21 @@
     
     <script>
 					var countrepeat = document.getElementById("count").getAttribute("data-repeat-count");
-					for( let j = 0 ; j <= countrepeat ; j++ ){
+					for( let j = 1 ; j <= countrepeat ; j++ ){
+	
+							const $wrap = document.querySelector('.number-spinner-wrap' + j);
+							const $input = $wrap.querySelector('input');
+							
+							$wrap.querySelector('.spinner-down').onclick = ()=>{
+							  $input.stepDown()
+							}
+								
+							$wrap.querySelector('.spinner-up').onclick = ()=>{
+							  $input.stepUp()
+							}
 
-						const $wrap = document.querySelector('.number-spinner-wrap' + j)
-						const $input = $wrap.querySelector('input')
-						
-						$wrap.querySelector('.spinner-down').onclick = ()=>{
-						  $input.stepDown()
-						}
-						$wrap.querySelector('.spinner-up').onclick = ()=>{
-						  $input.stepUp()
 						}
 
-						}
-					
-
-				
-			
 		</script>
 </body>
 </html>
