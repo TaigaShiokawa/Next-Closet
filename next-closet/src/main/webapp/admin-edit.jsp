@@ -7,6 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+ <link rel="icon" href="image/favicon.png" id="favicon">
 <link rel="stylesheet" href="css/admin-user-register.css">
 <link rel="stylesheet" href="css/admin-navbar.css">
 <title>next closet...</title>
@@ -32,6 +33,6 @@
 		 <p class="back"><a href="AdminDetailServlet?adminId=<%= admin.getAdminId() %>">詳細へ戻る</a></p>
 	</div>
  </main>
-   <%@ include file="includes/footer.jsp" %>
+<%@ include file="includes/admin-footer.jsp" %>  
 </body>
 </html>
