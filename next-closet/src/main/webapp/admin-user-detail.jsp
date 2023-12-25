@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="icon" href="image/favicon.png" id="favicon">
 <link rel="stylesheet" href="css/admin-user-detail.css">
 <link rel="stylesheet" href="css/admin-navbar.css"> 
 <meta charset="UTF-8">
@@ -84,7 +85,7 @@
 </div>
 
 </main>
-<%@ include file="includes/footer.jsp" %>
+<%@ include file="includes/admin-footer.jsp" %> 
 
 <script>
 		const buttonOpen = document.getElementById('modalOpen');

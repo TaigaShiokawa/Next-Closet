@@ -13,7 +13,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>管理者購入履歴詳細</title>
+ <link rel="icon" href="image/favicon.png" id="favicon">
 <link rel="stylesheet" href="css/order-history.css">
 </head>
 <body>
@@ -47,5 +48,6 @@
 </div>
 <% } %>
 </main>
+<%@ include file="includes/admin-footer.jsp" %>  
 </body>
 </html>

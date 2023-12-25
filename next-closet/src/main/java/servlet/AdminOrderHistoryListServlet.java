@@ -34,7 +34,12 @@ public class AdminOrderHistoryListServlet extends HttpServlet {
 					+ "早急に対応してください。");
 			response.sendRedirect("errorToAdmin.jsp");
 			return;
-		} 
+		} catch(Exception e) {
+			  e.printStackTrace();
+			  request.getSession().setAttribute("errorMessageToAdmin", "システムエラーが発生しました。早急に対応してください。");
+			  response.sendRedirect("errorToAdmin.jsp");
+			  return;
+		  }
 		
 		 RequestDispatcher dispatcher = request.getRequestDispatcher("admin-order-history-list.jsp");
    	     dispatcher.forward(request, response);	

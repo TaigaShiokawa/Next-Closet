@@ -86,7 +86,12 @@ public class AdminRegisterServlet extends HttpServlet {
 			e.printStackTrace();
 			request.getSession().setAttribute("errorMessage", "データベースエラーが発生しました。しばらくしてから再開してください");
 	        response.sendRedirect("errorToAdmin.jsp");
-		}
+		} catch(Exception e) {
+			  e.printStackTrace();
+			  request.getSession().setAttribute("errorMessageToAdmin", "システムエラーが発生しました。早急に対応してください。");
+			  response.sendRedirect("errorToAdmin.jsp");
+			  return;
+		  }
 	}
 
 }

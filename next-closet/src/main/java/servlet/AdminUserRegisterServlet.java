@@ -3,6 +3,8 @@ package servlet;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -51,18 +53,22 @@ request.setCharacterEncoding("UTF-8");
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
+		List<String> errorMessages = new ArrayList<>();
+		
 		//名前の入力チェック
 		if(!UserNameValidator.validate(userName)) {
-			request.getSession().setAttribute("userNameError", "名前の入力が正しくありません");
-	        response.sendRedirect("admin-user-register.jsp");
-	        return;
+			errorMessages.add("名前の入力が正しくありません");
+			saveFormDataInSession(request, userName, kanaName, postCode, prefectures, address, telNumber, email);
+		} else {
+			request.getSession().setAttribute("userName", userName);
 		}
 		
 		//フリガナの全角チェック (ひらがなは許可せず, カタカナのみ)
 		if(!KanaNameValidator.validate(kanaName)) {
-			request.getSession().setAttribute("kanaNameError", "フリガナの入力が正しくありません");
-	        response.sendRedirect("admin-user-register.jsp");
-	        return;
+			errorMessages.add("フリガナの入力が正しくありません");
+			saveFormDataInSession(request, userName, kanaName, postCode, prefectures, address, telNumber, email);
+		} else {
+			request.getSession().setAttribute("kanaName", kanaName);
 		}
 		
 		//郵便番号チェック全角を半角に置換
@@ -78,9 +84,10 @@ request.setCharacterEncoding("UTF-8");
 								 		 .replaceAll("９", "9");
 		//郵便番号の入力に対してハイフン無しの形式を要求
 		if(!PostCodeValidator.validate(convertPostCode)) {
-			request.getSession().setAttribute("postCodeError", "郵便番号が正しくありません");
-	        response.sendRedirect("admin-user-register.jsp");
-	        return;
+			errorMessages.add("郵便番号が正しくありません");
+			saveFormDataInSession(request, userName, kanaName, convertPostCode, prefectures, address, telNumber, email);
+		} else {
+			request.getSession().setAttribute("postCode", convertPostCode);
 		}
 		
 		//住所の空文字チェック
@@ -178,7 +185,16 @@ request.setCharacterEncoding("UTF-8");
 			  response.sendRedirect("errorToAdmin.jsp");
 			  return;
 		  }
-		
+	}
+	
+	private void saveFormDataInSession(HttpServletRequest request, String userName, String kanaName, String postCode, String prefectures, String address, String telNumber, String email) {
+	    request.getSession().setAttribute("userName", userName);
+	    request.getSession().setAttribute("kanaName", kanaName);
+	    request.getSession().setAttribute("postCode", postCode);
+	    request.getSession().setAttribute("prefectures", prefectures);
+	    request.getSession().setAttribute("address", address);
+	    request.getSession().setAttribute("telNumber", telNumber);
+	    request.getSession().setAttribute("email", email);
 	}
 
 }

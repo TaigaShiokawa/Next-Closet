@@ -5,7 +5,7 @@
 		<h1 id="site_title"><a href='AdminProductListServlet'>next closet...</a></h1>
 		<div class="header_right">
 			<ul>
-				<li><a href = "＃">ログアウト</a></li>
+				<li><a href = "LogoutServlet">ログアウト</a></li>
 				<li><a href = "AdminProductListServlet">商品</a></li>
 				<li><a href = "AdminUserListServlet">ユーザー</a></li>
 				<li><a href = "AdminListServlet">管理者</a></li>

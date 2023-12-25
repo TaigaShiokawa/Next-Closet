@@ -5,11 +5,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+ <link rel="icon" href="image/favicon.png" id="favicon">
 <link rel="stylesheet" href="css/admin-detail.css">
 <link rel="stylesheet" href="css/admin-navbar.css"> 
 <meta charset="UTF-8">
-<title>next closet...</title>
+<title>管理者詳細</title>
 </head>
 <body>
 <%@ include file="includes/admin-navbar.jsp" %>
@@ -59,9 +59,8 @@
 	</form>
 	<p class="back"><a href="AdminListServlet">管理者一覧へ戻る</a><p>
 	</div>
-</main>
-
-						  <div id="easyModal" class="modal">
+	
+	<div id="easyModal" class="modal">
 						    <div class="modal-content">
 						      <div class="modal-body">
 						        <p><strong>本当に削除しますか？</strong></p>
@@ -74,9 +73,11 @@
 							        </div>
 						    </div>
 						  </diV>
+	</main>
+
 						  
 						  
-<%@ include file="includes/footer.jsp" %>
+<%@ include file="includes/admin-footer.jsp" %>  
 <script>
 		const buttonOpen = document.getElementById('modalOpen');
 		const modal = document.getElementById('easyModal');

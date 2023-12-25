@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="icon" href="image/favicon.png" id="favicon">
 <link rel="stylesheet" href="css/admin-user-register.css">
 <link rel="stylesheet" href="css/admin-navbar.css">
 <meta charset="UTF-8">
@@ -113,7 +114,7 @@
 				%>
 		</div>
 </main>
-<%@ include file="includes/footer.jsp" %>
+<%@ include file="includes/admin-footer.jsp" %> 
 
 	<script>
 	//郵便番号で都道府県を検索
