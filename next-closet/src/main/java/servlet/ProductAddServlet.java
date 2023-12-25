@@ -105,6 +105,7 @@ public class ProductAddServlet extends HttpServlet {
 			            
 			            if (insertInventoryS == 1 && insertInventoryM == 1 && insertInventoryL == 1) {
 			                // 在庫挿入が成功した場合の処理
+			            	request.setAttribute("clear","商品の登録ができました！");
 			                response.sendRedirect("product-add.jsp"); 
 			            } else {
 			                // 在庫挿入が失敗した場合の処理
