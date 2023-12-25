@@ -44,12 +44,13 @@
 		<% } %>
 		
 	<form action="AdminUserRegisterServlet" method="post">
+	
 		<label for="name">お名前</label>
-		<input type="text" id="name" name="username" 
+		<input type="text" id="name" name="username"
 			value="<%= request.getSession().getAttribute("userName") != null ? request.getSession().getAttribute("userName") : "" %>" required><br>
 		
 		<label for="kana">フリガナ</label>
-		<input type="text" id="kana" name="kananame" 
+		<input type="text" id="kana" name="kananame"
 			value="<%= request.getSession().getAttribute("kanaName") != null ? request.getSession().getAttribute("kanaName") : "" %>" required><br>
 		
 		<label for="postCode">郵便番号</label>
