@@ -8,6 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>商品編集画面</title>
+<link rel="icon" href="image/favicon.png" id="favicon">
 <link rel="stylesheet" href="css/product-edit.css">
 <link rel="stylesheet" href="css/admin-navbar.css">
 <%
@@ -80,6 +81,6 @@
 			</div><!-- form_container -->
 	 </div>
    </main>
-   <%@ include file="includes/footer.jsp" %>    
+<%@ include file="includes/admin-footer.jsp" %>  
 </body>
 </html>

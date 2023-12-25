@@ -10,6 +10,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+ <link rel="icon" href="image/favicon.png" id="favicon">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
@@ -45,6 +46,6 @@
 		</div>
 	</main>
 
-<%@ include file="includes/footer.jsp" %>
+<%@ include file="includes/admin-footer.jsp" %>    
 </body>
 </html>

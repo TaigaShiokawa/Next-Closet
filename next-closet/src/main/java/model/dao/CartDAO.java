@@ -94,6 +94,7 @@ public class CartDAO {
 	                CartItemBean cartItem = new CartItemBean();
 	                cartItem.setCartItemId(res.getInt("cart_item_id"));
 	                cartItem.setQuantity(res.getInt("quantity"));
+	                cartItem.setSizeName(res.getString("size_name"));
 	                
 	                ProductBean product = new ProductBean();
 	                product.setProductName(res.getString("product_name"));
