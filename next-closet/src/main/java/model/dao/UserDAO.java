@@ -70,15 +70,23 @@ public class UserDAO {
 			pstmt.setString(4, address);
 			
 			processingNum = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+                               ", SQLステート: " + e.getSQLState() + 
+                               ", エラーコード: " + e.getErrorCode());
+		} catch (Exception e) {
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+                               ", メッセージ: " + e.getMessage() + 
+                               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
 		}
 		return processingNum;
 	}
 	
 	//ユーザIDを取得
-	public int getUserId(String email) throws ClassNotFoundException, SQLException {
-
+	public int getUserId(String email) 
+			throws ClassNotFoundException, SQLException {
 		int userId = -1;
-		String sql = "SELECT user_id FROM users WHERE email = ";
+		String sql = "SELECT user_id FROM users WHERE email = ?";
 		try (Connection con = DBConnection.getConnection(); 
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setString(1, email);
@@ -87,14 +95,14 @@ public class UserDAO {
 			if(res.next()) {
 				userId = res.getInt("user_id");
 			}
-		} catch(SQLException e) {
-		    System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
-		                       ", SQLステート: " + e.getSQLState() + 
-		                       ", エラーコード: " + e.getErrorCode());
-		} catch(Exception e) {
+		} catch (SQLException e) {
+			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+                               ", SQLステート: " + e.getSQLState() + 
+                               ", エラーコード: " + e.getErrorCode());
+		} catch (Exception e) {
 			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
-                    ", メッセージ: " + e.getMessage() + 
-                    ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
+                               ", メッセージ: " + e.getMessage() + 
+                               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
 		}
 		return userId;
 	}
@@ -103,9 +111,9 @@ public class UserDAO {
 	public AddressBean getUserAddressId(int userId) 
 			throws ClassNotFoundException, SQLException {
 		String sql = "SELECT * FROM addresses WHERE user_id = ?";
+		AddressBean address = null;
 		try (Connection con = DBConnection.getConnection(); 
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
-			AddressBean address = new AddressBean();
 			pstmt.setInt(1, userId);
 			
 			ResultSet res = pstmt.executeQuery();
@@ -116,16 +124,22 @@ public class UserDAO {
 				address.setPrefectures(res.getString("prefectures"));
 				address.setAddress(res.getString("address"));
 			}
-			return address;
+		} catch (SQLException e) {
+			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+                               ", SQLステート: " + e.getSQLState() + 
+                               ", エラーコード: " + e.getErrorCode());
+		} catch (Exception e) {
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+                               ", メッセージ: " + e.getMessage() + 
+                               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
 		}
+		return address;
 	}
 
 	//ユーザーログイン
 	public UserBean userLogin(String email, String password) 
 			throws ClassNotFoundException, SQLException {
-		
 		UserBean user = new UserBean();
-		
 		String sql = "SELECT * FROM users WHERE email = ? AND hash_pass = ? AND user_status = true";
 		try (Connection con = DBConnection.getConnection(); 
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
@@ -143,6 +157,14 @@ public class UserDAO {
 				user.setTelNumber(res.getString("tel_number"));
 				user.setUserStatus(res.getBoolean("user_status"));
 			}
+		} catch (SQLException e) {
+			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+                               ", SQLステート: " + e.getSQLState() + 
+                               ", エラーコード: " + e.getErrorCode());
+		} catch (Exception e) {
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+                               ", メッセージ: " + e.getMessage() + 
+                               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
 		}
 		return user;
 	}
@@ -161,6 +183,14 @@ public class UserDAO {
 			pstmt.setInt(5, userId);
 			
 			processingNum = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+                               ", SQLステート: " + e.getSQLState() + 
+                               ", エラーコード: " + e.getErrorCode());
+		} catch (Exception e) {
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+                               ", メッセージ: " + e.getMessage() + 
+                               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
 		}
 		return processingNum;
 	}
@@ -177,6 +207,14 @@ public class UserDAO {
 			pstmt.setInt(4, userId);
 			
 			processingNum = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+                               ", SQLステート: " + e.getSQLState() + 
+                               ", エラーコード: " + e.getErrorCode());
+		} catch (Exception e) {
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+                               ", メッセージ: " + e.getMessage() + 
+                               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
 		}
 		return processingNum;
 	}
@@ -197,6 +235,14 @@ public class UserDAO {
 				user.setHashPass(res.getString("hash_pass")); //消してもいいかも. 後で確認する.
 				user.setTelNumber(res.getString("tel_number"));
 			}
+		} catch (SQLException e) {
+			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+                               ", SQLステート: " + e.getSQLState() + 
+                               ", エラーコード: " + e.getErrorCode());
+		} catch (Exception e) {
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+                               ", メッセージ: " + e.getMessage() + 
+                               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
 		}
 		return user;
 	}
@@ -211,6 +257,14 @@ public class UserDAO {
 			pstmt.setInt(2, userId);
 			
 			processingNum = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+                               ", SQLステート: " + e.getSQLState() + 
+                               ", エラーコード: " + e.getErrorCode());
+		} catch (Exception e) {
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+                               ", メッセージ: " + e.getMessage() + 
+                               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
 		}
 		return processingNum;
 	}
@@ -228,6 +282,14 @@ public class UserDAO {
 			pstmt.setString(4, prefectures);
 			
 			processingNum = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+                               ", SQLステート: " + e.getSQLState() + 
+                               ", エラーコード: " + e.getErrorCode());
+		} catch (Exception e) {
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+                               ", メッセージ: " + e.getMessage() + 
+                               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
 		}
 		return processingNum;
 	}
@@ -235,7 +297,6 @@ public class UserDAO {
 	//サブ住所取得
 	public List<AddressBean> getSubAddress(int userId) 
 			throws ClassNotFoundException, SQLException {
-		
 		List<AddressBean> addressList = new ArrayList<>();
 		String sql = "SELECT * FROM add_addresses WHERE user_id = ?";
 		try (Connection con = DBConnection.getConnection(); 
@@ -253,6 +314,14 @@ public class UserDAO {
 				
 				addressList.add(address);
 			}
+		} catch (SQLException e) {
+			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+                               ", SQLステート: " + e.getSQLState() + 
+                               ", エラーコード: " + e.getErrorCode());
+		} catch (Exception e) {
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+                               ", メッセージ: " + e.getMessage() + 
+                               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
 		}
 		return addressList;
 	}
@@ -260,19 +329,27 @@ public class UserDAO {
 	// サブ住所削除
 	public int deleteSubAddress(int addAddressId) 
 	        throws ClassNotFoundException, SQLException {
-		
 		int processingNum = 0;
 	    String sql = "DELETE FROM add_addresses WHERE add_address_id = ?";
 	    try (Connection con = DBConnection.getConnection(); 
 	            PreparedStatement pstmt = con.prepareStatement(sql)) {
 	        pstmt.setInt(1, addAddressId);
 	        processingNum = pstmt.executeUpdate();
+	    } catch (SQLException e) {
+	    	System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+                               ", SQLステート: " + e.getSQLState() + 
+                               ", エラーコード: " + e.getErrorCode());
+	    } catch (Exception e) {
+	    	System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+                               ", メッセージ: " + e.getMessage() + 
+                               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
 	    }
 	    return processingNum;
 	}
 	
 	//ユーザー退会
-	public int userWithdrawal(int userId) throws ClassNotFoundException, SQLException {
+	public int userWithdrawal(int userId) 
+			throws ClassNotFoundException, SQLException {
 		int processingNum = 0;
 		String sql = "UPDATE users SET user_status = false WHERE user_id = ?";
 		try (Connection con = DBConnection.getConnection(); 
@@ -280,52 +357,60 @@ public class UserDAO {
 			pstmt.setInt(1, userId);
 			pstmt.executeUpdate();
 			processingNum = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+                               ", SQLステート: " + e.getSQLState() + 
+                               ", エラーコード: " + e.getErrorCode());
+		} catch (Exception e) {
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+                               ", メッセージ: " + e.getMessage() + 
+                               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
 		}
 		return processingNum;
 	}
-	
 		
-      //全ユーザーの情報取得
-		public List< UserBean > getAllUserInfo() throws ClassNotFoundException, SQLException {
-			 List< UserBean > list = new  ArrayList <UserBean>();
-			
-			
-			String sql = "SELECT * FROM users ";
-			try (Connection con = DBConnection.getConnection(); 
-					PreparedStatement pstmt = con.prepareStatement(sql)) { 
-			    	ResultSet res = pstmt.executeQuery();
-					
-					while (res.next()){ 
-		            	int user_id	    	 	  	= res.getInt("user_id");
-		            	String user_name	     	= res.getString("user_name");
-		            	String kana_name       	    = res.getString("kana_name");
-		            	String email  				= res.getString("email");
-		            	String hash_pass            = res.getString("hash_pass");
-		            	Date register_date          = res.getDate("registration_date"); 
-		            	String tel_number   		= res.getString("tel_number");
-		            	boolean status       		= res.getBoolean("user_status");
-		            	list.add(new UserBean (user_id, user_name,  kana_name, email, hash_pass ,  register_date ,tel_number , status ));
-		            }
-				}
-			
-			return list;
-		}
+    //全ユーザーの情報取得
+	public List< UserBean > getAllUserInfo() 
+			throws ClassNotFoundException, SQLException {
+		List< UserBean > list = new  ArrayList <UserBean>();
+		String sql = "SELECT * FROM users ";
+		try (Connection con = DBConnection.getConnection(); 
+				PreparedStatement pstmt = con.prepareStatement(sql)) { 
+		    ResultSet res = pstmt.executeQuery();
+		    while (res.next()) { 
+		    	int user_id = res.getInt("user_id");
+			    String user_name = res.getString("user_name");
+		        String kana_name  = res.getString("kana_name");
+		        String email = res.getString("email");
+		        String hash_pass = res.getString("hash_pass");
+		        Date register_date = res.getDate("registration_date"); 
+		        String tel_number = res.getString("tel_number");
+		        boolean status = res.getBoolean("user_status");
+		        
+		        list.add(new UserBean (user_id, user_name,  kana_name, email, hash_pass ,  register_date ,tel_number , status ));
+		    }
+	    } catch (SQLException e) {
+	    	System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+                               ", SQLステート: " + e.getSQLState() + 
+                               ", エラーコード: " + e.getErrorCode());
+	    } catch (Exception e) {
+	    	System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+                               ", メッセージ: " + e.getMessage() + 
+                               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
+	    }
+	    return list;
+	}
 		
-		//ユーザーidからユーザーの情報を取得（アドミン用ユーザー詳細情報用）
-		public List<UserBean> getUserDetail(int userId) throws ClassNotFoundException, SQLException {
-			List< UserBean > userList = new ArrayList<UserBean>();
-			
-			String sql = "SELECT * FROM users JOIN addresses ON users.user_id = addresses.user_id WHERE users.user_id = ?";
-			//sql実行
-			try (Connection con = DBConnection.getConnection();
-										PreparedStatement pstmt = con.prepareStatement(sql)){
-				
-				pstmt.setInt(1, userId);
-				
-				ResultSet res = pstmt.executeQuery();
-				
-				while (res.next()) {
-				
+	//ユーザーidからユーザーの情報を取得（アドミン用ユーザー詳細情報用）
+	public List<UserBean> getUserDetail(int userId) 
+			throws ClassNotFoundException, SQLException {
+		List< UserBean > userList = new ArrayList<UserBean>();
+		String sql = "SELECT * FROM users JOIN addresses ON users.user_id = addresses.user_id WHERE users.user_id = ?";
+		try (Connection con = DBConnection.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)){
+			pstmt.setInt(1, userId);
+			ResultSet res = pstmt.executeQuery();
+			while (res.next()) {
 				int user_id = res.getInt("user_id"); 
 				String user_name = res.getString("user_name");
 				String kana_name = res.getString("kana_name");
@@ -350,23 +435,39 @@ public class UserDAO {
 				userLists.setPrefectures(prefectures);
 				
 				userList.add(userLists);
-				
-				}
 			}
-			return userList;
+		} catch (SQLException e) {
+			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+                               ", SQLステート: " + e.getSQLState() + 
+                               ", エラーコード: " + e.getErrorCode());
+		} catch (Exception e) {
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+                               ", メッセージ: " + e.getMessage() + 
+                               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
 		}
+		return userList;
+	}
 		
-		public int userTrueStatus(int userId) throws ClassNotFoundException, SQLException {
-			int processingNum = 0;
-			String sql = "UPDATE users SET user_status = true WHERE user_id = ?";
-			try (Connection con = DBConnection.getConnection(); 
-					PreparedStatement pstmt = con.prepareStatement(sql)) {
-				pstmt.setInt(1, userId);
-				pstmt.executeUpdate();
-				processingNum = pstmt.executeUpdate();
-			}
-			return processingNum;
+	// ユーザーのステータスを変更する
+	public int userTrueStatus(int userId) throws ClassNotFoundException, SQLException {
+		int processingNum = 0;
+		String sql = "UPDATE users SET user_status = true WHERE user_id = ?";
+		try (Connection con = DBConnection.getConnection(); 
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setInt(1, userId);
+			pstmt.executeUpdate();
+			processingNum = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+                               ", SQLステート: " + e.getSQLState() + 
+                               ", エラーコード: " + e.getErrorCode());
+		} catch (Exception e) {
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+                               ", メッセージ: " + e.getMessage() + 
+                               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
 		}
+		return processingNum;
+	}
 
 }
 
