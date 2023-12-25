@@ -19,6 +19,7 @@ import javax.servlet.http.Part;
 import model.bean.ProductBean;
 import model.bean.SizeBean;
 import model.dao.AdminProductDAO;
+import model.dao.ProductDAO;
 
 @WebServlet("/AdminProductEditServlet")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB
@@ -30,10 +31,12 @@ public class AdminProductEditServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             int productId = Integer.parseInt(request.getParameter("productId"));
-            AdminProductDAO productDao = new AdminProductDAO();
-            List<ProductBean> productList = productDao.editAdminProductList(productId);
+            AdminProductDAO adminProductDao = new AdminProductDAO();
+            ProductDAO productDao = new ProductDAO();
+            List<ProductBean> productList = adminProductDao.editAdminProductList(productId);
 
             request.setAttribute("productList", productList);
+            request.setAttribute("categoryList", productDao.categoryList());
             RequestDispatcher dispatcher = request.getRequestDispatcher("product-edit.jsp");
             dispatcher.forward(request, response);
         } catch (NumberFormatException | SQLException | ClassNotFoundException e) {
@@ -49,6 +52,8 @@ public class AdminProductEditServlet extends HttpServlet {
             String productName = request.getParameter("productName");
             int price = Integer.parseInt(request.getParameter("price"));
             String description = request.getParameter("description");
+            int gender = Integer.parseInt(request.getParameter("gender"));
+            int categoryId = Integer.parseInt(request.getParameter("category"));
             
            Part filePart = request.getPart("image");
           
@@ -68,6 +73,8 @@ public class AdminProductEditServlet extends HttpServlet {
             productToUpdate.setPrice(price);
             productToUpdate.setDescription(description);
             productToUpdate.setImage(fileName);
+            productToUpdate.setGender(gender);
+            productToUpdate.setCategoryId(categoryId);
 
             Map<String, Integer> stockQuantities = new HashMap<>();
             for (ProductBean product : productList) {

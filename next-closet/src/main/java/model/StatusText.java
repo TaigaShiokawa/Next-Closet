@@ -38,4 +38,18 @@ public String adminStatusText ( boolean status ) {
 	}
 	return text;
 }
+
+	public String genderText ( int genderId ) {
+		
+		String text = "";
+		
+		if( genderId == 1) {
+			text = "MAN";
+		} else if( genderId == 2) {
+			text = "WOMAN";
+		}
+	
+		return text;
+	}
+
 }
