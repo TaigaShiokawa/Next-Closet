@@ -19,6 +19,11 @@
 	    List<CategoryBean> categoryList = (ArrayList <CategoryBean>)request.getAttribute("categoryList");
 	    List<ProductBean> searchProducts = (ArrayList<ProductBean>)request.getAttribute("searchProducts");
 	    String  title = (String)request.getAttribute("title");
+	    String  searchName = (String)request.getAttribute("searchName");
+	    String searchText = "" ;
+	    if( searchName != null ){
+	    	searchText = searchName;
+	    }
     %>
 </head>
 <body>

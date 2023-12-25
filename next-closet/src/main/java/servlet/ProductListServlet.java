@@ -24,7 +24,6 @@ public class ProductListServlet extends HttpServlet {
 		int gender = 0;
 		String categoryIdStr = request.getParameter("categoryId");
 		String genderStr =  request.getParameter("gender");
-		
 		String searchName = request.getParameter("searchName");
 		
 		if( categoryIdStr != null ) {
@@ -57,6 +56,7 @@ public class ProductListServlet extends HttpServlet {
 				//検索がある場合、検索機能を使用
 				SearchDAO searchDao = new SearchDAO();
 				searchProducts = searchDao.searchProductList(searchName);
+				request.setAttribute("searchName", searchName);
 				request.setAttribute("searchProducts", searchProducts);
 				request.setAttribute("title", searchName + "の検索結果");
 			} else {
