@@ -35,9 +35,9 @@ public class ProductListServlet extends HttpServlet {
 			gender = Integer.parseInt(request.getParameter("gender"));
 		}
 		
-		if (gender == 0 ) {
+		if (gender == 1 ) {
 			genderStr = "MEN";
-		} else if( gender == 1 ) {
+		} else if( gender == 2 ) {
 			genderStr = "WOMEN";
 		} else {
 			genderStr = "ALL";

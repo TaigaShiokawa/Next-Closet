@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 import connection.DBConnection;
+import model.bean.CategoryBean;
 import model.bean.ProductBean;
 import model.bean.SizeBean;
 
@@ -94,10 +95,11 @@ public class AdminProductDAO {
 	public List<ProductBean> detailAdminProductList(int productId)
 			throws SQLException, ClassNotFoundException {
 	    Map<Integer, ProductBean> productMap = new HashMap<>();
-	    String sql = "SELECT p.*, i.inventory_id, i.size_id, s.size_name, i.stock_quantity "
+	    String sql = "SELECT p.*, i.inventory_id, i.size_id, s.size_name, i.stock_quantity , c.category_name "
 	               + "FROM products p "
 	               + "LEFT JOIN inventory i ON p.product_id = i.product_id "
 	               + "LEFT JOIN sizes s ON i.size_id = s.size_id "
+	               + "LEFT JOIN categories c ON p.category_id = c.category_id "
 	               + "WHERE p.product_id = ?";
 	    try (Connection con = DBConnection.getConnection();
 	    		PreparedStatement pstmt = con.prepareStatement(sql)) {
@@ -116,7 +118,15 @@ public class AdminProductDAO {
 	                product.setImage(res.getString("image"));
 	                product.setStatus(res.getBoolean("status"));
 	                product.setRegistrationDate(res.getDate("registration_date"));
-	                productMap.put(prodId, product);
+	                product.setGender(res.getInt("gender"));
+	                
+	                CategoryBean category = new CategoryBean();
+		            category.setCategoryId(res.getInt("category_id"));
+		            category.setCategoryName(res.getString("category_name"));  
+		            product.setCategory(category);
+		            
+		            productMap.put(prodId, product);
+	                
 	            }
 	            
 	            SizeBean size = new SizeBean();
@@ -125,6 +135,7 @@ public class AdminProductDAO {
 	            size.setStockQuantity(res.getInt("stock_quantity"));
 
 	            product.addSize(size);
+	            
 	        }
 	    }
 	    return new ArrayList<>(productMap.values());
@@ -136,10 +147,11 @@ public class AdminProductDAO {
 			throws ClassNotFoundException, SQLException {
 	    Map<Integer, ProductBean> productMap = new HashMap<>();
 	    String sql = "SELECT p.product_id, p.category_id, p.gender, p.product_name, p.price, p.description, p.status, p.image, p.registration_date, "
-	               + "i.inventory_id, s.size_id, s.size_name, i.stock_quantity "
+	               + "i.inventory_id, s.size_id, s.size_name, i.stock_quantity , c.category_name "
 	               + "FROM products p "
 	               + "JOIN inventory i ON p.product_id = i.product_id "
 	               + "JOIN sizes s ON i.size_id = s.size_id "
+	               + "JOIN categories c ON p.category_id = c.category_id "
 	               + "WHERE p.product_name = (SELECT product_name FROM products WHERE product_id = ?) "
 	               + "ORDER BY s.size_id;";
 	    try (Connection con = DBConnection.getConnection();
@@ -156,18 +168,26 @@ public class AdminProductDAO {
 	            boolean status = res.getBoolean("status");
 	            String image = res.getString("image");
 	            Date registration_date = res.getDate("registration_date");
+	            String category_name = res.getString("category_name");
 	                    
 	            SizeBean size = new SizeBean();
 	            size.setSizeId(res.getInt("size_id"));
 	            size.setSizeName(res.getString("size_name"));
 	            size.setStockQuantity(res.getInt("stock_quantity"));
 	            
+	            CategoryBean category = new CategoryBean();
+	            category.setCategoryId(res.getInt("category_id"));
+	            category.setCategoryName(res.getString("category_name"));
+	           
+	            
 	            ProductBean product = productMap.get(product_id);
 	            if (product == null) {
 	            	product = new ProductBean(product_id, category_id, gender, product_name, price, description, status, image, registration_date);
 	            	productMap.put(product_id, product);
 	            }
-	            product.addSize(size);
+	            product.addSize(size); 
+	            product.setCategory(category);
+	
 	        }
 	    }
 	    return new ArrayList<>(productMap.values());
@@ -177,7 +197,7 @@ public class AdminProductDAO {
 	public void updateProduct(ProductBean product, Map<String, Integer> stockQuantities) 
 			throws SQLException, ClassNotFoundException {
 		// 商品情報の更新
-	    String updateProductSql = "UPDATE products SET product_name = ?, price = ?, description = ?, image = ? WHERE product_id IN (SELECT product_id FROM (SELECT product_id FROM products WHERE product_name = (SELECT product_name FROM products WHERE product_id = ?)) AS temp);";
+	    String updateProductSql = "UPDATE products SET product_name = ?, price = ?, description = ?, gender = ?, category_id = ?, image = ? WHERE product_id IN (SELECT product_id FROM (SELECT product_id FROM products WHERE product_name = (SELECT product_name FROM products WHERE product_id = ?)) AS temp);";
 	    // 在庫数量の更新
 	    String updateInventorySql = "UPDATE inventory SET stock_quantity = ? WHERE product_id = ? AND size_id = (SELECT size_id FROM sizes WHERE size_name = ?);";
 		try (Connection con = DBConnection.getConnection();
@@ -187,8 +207,11 @@ public class AdminProductDAO {
 			pstmtProduct.setString(1, product.getProductName());
 			pstmtProduct.setInt(2, product.getPrice());
 			pstmtProduct.setString(3, product.getDescription());
-			pstmtProduct.setString(4, product.getImage());
-			pstmtProduct.setInt(5, product.getProductId());
+			pstmtProduct.setInt(4, product.getGender());
+			pstmtProduct.setInt(5, product.getCategoryId());
+			pstmtProduct.setString(6, product.getImage());
+			pstmtProduct.setInt(7, product.getProductId());
+			
 			pstmtProduct.executeUpdate();
 			// 在庫数量の更新
 	        for (Map.Entry<String, Integer> entry : stockQuantities.entrySet()) {

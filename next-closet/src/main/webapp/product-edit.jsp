@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.* , java.util.ArrayList, model.bean.* , java.util.List" %>
 <%@ page import= "java.util.List" %>
 <%@ page import="model.bean.ProductBean" %>
 <%@ page import="model.bean.SizeBean" %>
+<%@ page import="model.bean.CategoryBean" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,7 +14,8 @@
 <link rel="stylesheet" href="css/product-edit.css">
 <link rel="stylesheet" href="css/admin-navbar.css">
 <%
-  List<ProductBean> productList = (List<ProductBean>) request.getAttribute("productList");
+List<ProductBean> productList = (List<ProductBean>) request.getAttribute("productList");
+List<CategoryBean> categoryList = (ArrayList <CategoryBean>)request.getAttribute("categoryList");
 %>
 <script>
     function previewImage() {
@@ -49,12 +52,37 @@
 					          <input type="hidden" name="productId" value="<%= firstProduct.getProductId() %>">
 					          <label>商品名</label> <input type="text" name="productName" value="<%= firstProduct.getProductName() %>">
 					          <label>商品説明</label>  <textarea name="description"> <%= firstProduct.getDescription() %></textarea>
-					          <label>金額</label>  <input type="number" name="price" value="<%= firstProduct.getPrice() %>"><br>
-					          <label>画像</label>  <input class="file" type="file" name="image" id="imageUpload" onchange="previewImage()"> <br>
+					          
+					         		<label for="p_category">カテゴリー</label>
+									<select id="p_category" name="category">
+									<% for ( CategoryBean columns : categoryList){ %>
+										<% int categoryListId = columns.getCategoryId(); %>
+										<% int productCategoryId = firstProduct.getCategory().getCategoryId(); %>
+										
+										 <% if( categoryListId == productCategoryId ){ %>
+										<option value="<%= categoryListId %>" selected><%= columns.getCategoryName() %></option>
+										 <% } else { %>
+										<option value="<%= categoryListId %>"><%= columns.getCategoryName() %></option>
+										<% } %>
+									<% } %>
+									</select><br>
+									
+									<label for="p_gender">性別</label>
+									<select id="p_gender" name="gender">
+									<% int gender = firstProduct.getGender();%>
+									<% if(gender == 1){ %>
+									<option value="1" selected>MAN</option>
+									<option value="2">WOMAN</option>
+									<% } else if(gender == 2 ){ %>
+									<option value="1">MAN</option>
+									<option value="2" selected>WOMAN</option>
+									<% } %>
+									</select><br>
+		
+						          <label>金額</label>  <input type="number" name="price" value="<%= firstProduct.getPrice() %>"><br>
+						          <label>画像</label>  <input class="file" type="file" name="image" id="imageUpload" onchange="previewImage()"> <br>
 					              <img id="imagePreview" src="<%= imagePath %>" alt="Image preview"/><br>
 					             
-					          
-					          
 					         <% 
 					            int count = 0;
 					            for (ProductBean product : productList) { 

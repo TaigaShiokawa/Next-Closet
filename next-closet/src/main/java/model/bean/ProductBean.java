@@ -122,6 +122,17 @@ public class ProductBean extends InventoryBean implements Serializable{
         }
         this.sizes.add(size);
     }
+   
+    private CategoryBean category; // 商品のサイズのリスト
 
+    // category のゲッターとセッター
+    public CategoryBean getCategory() {
+        return category;
+    }
+
+    public void setCategory(CategoryBean category) {
+        this.category = category;
+    }
+    
 	
 }

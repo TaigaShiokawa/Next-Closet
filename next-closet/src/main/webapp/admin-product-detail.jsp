@@ -2,6 +2,8 @@
 <%@ page import="java.util.List" %>
 <%@ page import="model.bean.ProductBean" %>
 <%@ page import="model.bean.SizeBean" %>
+<%@ page import="model.StatusText" %>
+<% StatusText text = new StatusText(); %>
 
 <!DOCTYPE html>
 <html>
@@ -38,6 +40,8 @@
 								<div id="product-detail">
 										<p><span class="list">商品ID:</span> <%= firstProduct.getProductId() %></p>
 								        <p><span class="list">商品名:</span> <%= firstProduct.getProductName() %></p>
+								        <p><span class="list">性別カテゴリー:</span> <%= text.genderText(firstProduct.getGender()) %></p>
+								        <p><span class="list">商品カテゴリー:</span> <%= firstProduct.getCategory().getCategoryName() %></p>
 								        <p><span class="list">説明:</span> <%= firstProduct.getDescription() %></p>
 								        <p><span class="list">価格: </span>&yen;<%= String.format("%,d", firstProduct.getPrice())%> 税込</p>
 								        <p><span class="list">登録日:</span> <%= firstProduct.getRegistrationDate() %></p>
