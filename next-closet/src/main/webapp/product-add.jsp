@@ -42,8 +42,8 @@
 		<label for="p_gender">性別</label>
 		<select id="p_gender" name="gender">
 		<option>性別を選択</option>
-		<option value="1">WOMAN</option>
-		<option value="2">MAN</option>
+		<option value="1">MAN</option>
+		<option value="2">WOMAN</option>
 		</select><br>
 		
 		<label for="p_price">金額</label>

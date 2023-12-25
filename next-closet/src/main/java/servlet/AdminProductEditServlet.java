@@ -36,9 +36,30 @@ public class AdminProductEditServlet extends HttpServlet {
             request.setAttribute("productList", productList);
             RequestDispatcher dispatcher = request.getRequestDispatcher("product-edit.jsp");
             dispatcher.forward(request, response);
-        } catch (NumberFormatException | SQLException | ClassNotFoundException e) {
+        } catch (NumberFormatException e) {
             e.printStackTrace();
-        }
+            request.getSession().setAttribute("errorMessageToAdmin", "内部の設定エラーが発生しました。"
+					+ "早急に対応してください。");
+	        response.sendRedirect("errorToAdmin.jsp");
+	        return;
+        } catch(ClassNotFoundException e) {
+			e.printStackTrace();
+			request.getSession().setAttribute("errorMessageToAdmin", "内部の設定エラーが発生しました。"
+					+ "早急に対応してください。");
+	        response.sendRedirect("errorToAdmin.jsp");
+	        return;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			request.getSession().setAttribute("errorMessageToAdmin", "データベースにアクセスできません。"
+					+ "早急に対応してください。");
+			response.sendRedirect("errorToAdmin.jsp");
+			return;
+		} catch(Exception e) {
+		  e.printStackTrace();
+		  request.getSession().setAttribute("errorMessageToAdmin", "システムエラーが発生しました。早急に対応してください。");
+		  response.sendRedirect("errorToAdmin.jsp");
+		  return;
+	  }
     }
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response) 
@@ -82,8 +103,23 @@ public class AdminProductEditServlet extends HttpServlet {
             dao.updateProduct(productToUpdate, stockQuantities);
             
             response.sendRedirect("AdminProductDetailServlet?productId=" + productId);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        } catch(ClassNotFoundException e) {
+			e.printStackTrace();
+			request.getSession().setAttribute("errorMessageToAdmin", "内部の設定エラーが発生しました。"
+					+ "早急に対応してください。");
+	        response.sendRedirect("errorToAdmin.jsp");
+	        return;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			request.getSession().setAttribute("errorMessageToAdmin", "データベースにアクセスできません。"
+					+ "早急に対応してください。");
+			response.sendRedirect("errorToAdmin.jsp");
+			return;
+		} catch(Exception e) {
+		  e.printStackTrace();
+		  request.getSession().setAttribute("errorMessageToAdmin", "システムエラーが発生しました。早急に対応してください。");
+		  response.sendRedirect("errorToAdmin.jsp");
+		  return;
+	  }
     }
 }

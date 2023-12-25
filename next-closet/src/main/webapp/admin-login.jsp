@@ -34,9 +34,13 @@
 
 	<h2>管理者ログイン</h2>
 		<% String errorMessageToAdmin = (String)request.getSession().getAttribute("errorMessageToAdmin"); %>
+		<% String loginError = (String)request.getSession().getAttribute("loginError"); %>
 		<% if(errorMessageToAdmin != null) { %>
 		<p><%=errorMessageToAdmin %></p>
 		<% session.removeAttribute("errorMessageToAdmin"); %>
+		<% } else if(loginError != null) { %>
+		<p><%=loginError %></p>
+		<% session.removeAttribute("loginError"); %>
 		<% } %>
 		<form class="form_wrapper" action="AdminLoginServlet" method="post">
 			<input class="box" type="text" name="email" placeholder="メールアドレス"><br>

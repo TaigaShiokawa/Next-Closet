@@ -91,13 +91,16 @@ request.setCharacterEncoding("UTF-8");
 		}
 		
 		//住所の空文字チェック
+		String normalizedAddress = null;
 		if(address.isEmpty()) {
-			request.getSession().setAttribute("addressError", "住所が正しくありません");
-	        response.sendRedirect("admin-user-register.jsp");
-	        return;
+			errorMessages.add("住所を入力してください");
+			//	request.getSession().setAttribute("addressError", "住所を入力してください");
+			saveFormDataInSession(request, userName, kanaName, convertPostCode, prefectures, address, telNumber, email);
+		} else {
+			//住所に含まれる全角数字を半角に置換
+			normalizedAddress = AddressValidator.normalizeAddress(address);
+			request.getSession().setAttribute("address", normalizedAddress);
 		}
-		//住所のデータを統一(全角を半角にする)
-		String normalizedAddress = AddressValidator.normalizeAddress(address);
 		
 		//電話番号チェック 全角を半角に置換
 		String convertTelNumber = telNumber.replaceAll("０", "0")
@@ -113,31 +116,34 @@ request.setCharacterEncoding("UTF-8");
 		
 		//電話番号の入力に対してハイフン無しの形式を要求
 		if(!TelNumberValidator.validate(convertTelNumber)) {
-			request.getSession().setAttribute("telNumberError", "無効な電話番号です");
-			response.sendRedirect("admin-user-register.jsp");
-			return;
+			errorMessages.add("無効な電話番号です");
+			saveFormDataInSession(request, userName, kanaName, convertPostCode, prefectures, normalizedAddress, telNumber, email);
+		} else {
+			request.getSession().setAttribute("telNumber", convertTelNumber);
 		}
 		
 		//メールアドレスチェック(一般的な形式に則っていなければ無効)
 		if (!EmailValidator.validate(email)) { 
 	        // Eメールが無効な形式の場合の処理
-	        request.getSession().setAttribute("emailError", "無効なEメールアドレスです");
-	        response.sendRedirect("admin-user-register.jsp");
-	        return;
+			errorMessages.add("無効なEメールアドレスです");
+			saveFormDataInSession(request, userName, kanaName, convertPostCode, prefectures, address, convertTelNumber, email);
+		} else {
+			request.getSession().setAttribute("email", email);
 		}
 		
 		//パスワード 半角であれば特殊文字を許可
 		if(!PasswordValidator.isHalfWidth(password)) {
-			request.getSession().setAttribute("passError", "パスワードが不正です。正しく入力してください");
-			response.sendRedirect("admin-user-register.jsp");
-			return;
-			
+			errorMessages.add("パスワードが不正です。正しく入力してください。");
 			//パスワードの文字数と空文字チェック
 		} else if((password.length() < 8) || (password.trim().isEmpty())) { 
-			request.getSession().setAttribute("passError", "8文字以上で設定してください");
-			response.sendRedirect("register.jsp");
-			return;
+			errorMessages.add("8文字以上で設定してください");
 		} 
+		
+		if(!errorMessages.isEmpty()) {
+			request.getSession().setAttribute("errorMessages", errorMessages);
+			response.sendRedirect("admin-user-register.jsp");
+			return;
+		}
 		
 		int passwordStrength =  PasswordStrengthChecker.calculatePasswordStrength(password);
 		request.getSession().setAttribute("passwordStrength", passwordStrength);
@@ -157,6 +163,11 @@ request.setCharacterEncoding("UTF-8");
 				int userId = uDao.getUserId(email);
 				try {
 					int setAddress = uDao.registerAddress(userId, convertPostCode, prefectures, normalizedAddress);
+					request.getSession().setAttribute("postCode", "");
+				    request.getSession().setAttribute("prefectures", "");
+				    request.getSession().setAttribute("address","");
+				    request.getSession().setAttribute("telNumber", "");
+				    request.getSession().setAttribute("email", "");
 					if(setAddress == 1) { //ユーザーの住所情報が1行追加されたら...
 						request.getSession().setAttribute("success", "正常に登録できました。");
 						response.sendRedirect("admin-user-register.jsp");
