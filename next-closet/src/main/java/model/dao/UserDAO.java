@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -77,7 +78,7 @@ public class UserDAO {
 	public int getUserId(String email) throws ClassNotFoundException, SQLException {
 
 		int userId = -1;
-		String sql = "SELECT user_id FROM users WHERE email = ?";
+		String sql = "SELECT user_id FROM users WHERE email = ";
 		try (Connection con = DBConnection.getConnection(); 
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setString(1, email);
@@ -86,10 +87,17 @@ public class UserDAO {
 			if(res.next()) {
 				userId = res.getInt("user_id");
 			}
+		} catch(SQLException e) {
+		    System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+		                       ", SQLステート: " + e.getSQLState() + 
+		                       ", エラーコード: " + e.getErrorCode());
+		} catch(Exception e) {
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+                    ", メッセージ: " + e.getMessage() + 
+                    ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
 		}
 		return userId;
 	}
-
 	
 	//アドレスid取得
 	public AddressBean getUserAddressId(int userId) 
