@@ -3,7 +3,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>next closet...</title>
+<title>ユーザー新規登録</title>
+<link rel="icon" href="image/favicon.png" id="favicon">
 <link rel="stylesheet" href="css/admin-user-register.css">
 <link rel="stylesheet" href="css/admin-navbar.css">
 </head>
@@ -139,7 +140,7 @@
 
 	</div>
 	</main>
-	<%@ include file="includes/footer.jsp" %>
+	<%@ include file="includes/admin-footer.jsp" %>
 	
 	<script>
 		    // パスワード入力フィールドの要素を取得

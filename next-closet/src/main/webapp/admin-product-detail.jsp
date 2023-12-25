@@ -8,6 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <title>管理者側商品詳細画面</title>
+     <link rel="icon" href="image/favicon.png" id="favicon">
     <link rel="stylesheet" href="css/admin-product-detail.css">
     <link rel="stylesheet" href="css/admin-navbar.css">
     <%
@@ -79,7 +80,7 @@
 						   </diV>
 
         </main>
-        <%@ include file="includes/footer.jsp" %>
+       <%@ include file="includes/admin-footer.jsp" %> 
         
 <script>
 		const buttonOpen = document.getElementById('modalOpen');

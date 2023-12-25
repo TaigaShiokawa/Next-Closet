@@ -19,7 +19,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>管理者ログインページ</title>
+<title>管理者購入通知</title>
+ <link rel="icon" href="image/favicon.png" id="favicon">
 <link rel="stylesheet" href="css/admin-order-history.css">
 	<link rel="stylesheet" href="css/admin-navbar.css">
 </head>
@@ -83,7 +84,7 @@
 			           </div>       
 				</div>
 		</main>
-        <%@ include file="includes/footer.jsp" %>     
+    <%@ include file="includes/admin-footer.jsp" %>    
 	<body>
 	
   <script>

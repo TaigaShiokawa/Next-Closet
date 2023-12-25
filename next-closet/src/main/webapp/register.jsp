@@ -36,7 +36,7 @@
 			%>
 			        <div class="error-messages">
 			            <% for(String errorMessage : errorMessages) { %>
-			                <p><%= errorMessage %></p>
+			                <p class="error_message"><%= errorMessage %></p>
 			            <% } %>
 			        </div>
 			<%

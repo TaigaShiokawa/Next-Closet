@@ -97,6 +97,10 @@ span{
 	background-color: gray;
 }
 
+.error_message{
+	color:rgb(186, 41, 28);
+}
+
 #pass{
 	margin: 0;
 }

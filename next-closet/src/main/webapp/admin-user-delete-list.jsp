@@ -18,7 +18,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>管理者ログインページ</title>
+<title>管理者削除ユーザー一覧表</title>
+<link rel="icon" href="image/favicon.png" id="favicon">
 <link rel="stylesheet" href="css/admin-list.css">
 <link rel="stylesheet" href="css/admin-navbar.css">
 </head>
@@ -179,7 +180,7 @@
 		</div> <!-- list_container -->
 	</div> <!-- container -->
 </main>
-<%@ include file="includes/footer.jsp" %>    
+<%@ include file="includes/admin-footer.jsp" %>    
 
 	<script>
 
