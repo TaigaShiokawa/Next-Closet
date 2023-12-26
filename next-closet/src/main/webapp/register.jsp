@@ -27,7 +27,7 @@
 			<% session.getAttribute("failure"); %>
 			<% } %>
 			
-			<%
+			<%-- <%
     		// セッションからエラーメッセージのリストを取得
 		    List<String> errorMessages = (List<String>) request.getSession().getAttribute("errorMessages");
 		
@@ -42,22 +42,39 @@
 			<%
 			        request.getSession().removeAttribute("errorMessages");
 			    }
-			%>
+			%> --%>
 			<form action="RegisterServlet" method="post">
 					<div class="form_container">
 					
 					<label>お名前</label>
 					<input type="text" name="username" placeholder="例) テスト　太郎" 
 					    value="<%= request.getSession().getAttribute("userName") != null ? request.getSession().getAttribute("userName") : "" %>" required><br>
+					<% if(request.getSession().getAttribute("errorMessages") != null) { %>
+						<% HashMap<String, String> errorMessage = (HashMap<String, String>)request.getSession().getAttribute("errorMessages"); %>
+						<% if(errorMessage.containsKey("userName")) { %>
+							<p class="error_message"><%=errorMessage.get("userName") %></p>
+						<% } %>
+					<% } %>
 					<label class="caption">*姓と名のスペースは全角にしてください</label><br> 
 					
 					<label>フリガナ</label><input type="text" name="kananame" placeholder="例) テスト　タロウ" 
 						value="<%= request.getSession().getAttribute("kanaName") != null ? request.getSession().getAttribute("kanaName") : "" %>" required><br>
+					<% if(request.getSession().getAttribute("errorMessages") != null) { %>
+						<% HashMap<String, String> errorMessage = (HashMap<String, String>)request.getSession().getAttribute("errorMessages"); %>
+						<% if(errorMessage.containsKey("kanaName")) { %>
+							<p class="error_message"><%=errorMessage.get("kanaName") %></p>
+						<% } %>
+					<% } %>
 					<label class="caption">*カタカナのみで入力してください</label><br> 
 					
 					<label>郵便番号</label><input type="text" id="postcode" name="postcode" placeholder="例) 0000000"
 						value="<%= request.getSession().getAttribute("postCode") != null ? request.getSession().getAttribute("postCode") : "" %>" required><br> 
-					
+					<% if(request.getSession().getAttribute("errorMessages") != null) { %>
+						<% HashMap<String, String> errorMessage = (HashMap<String, String>)request.getSession().getAttribute("errorMessages"); %>
+						<% if(errorMessage.containsKey("postCode")) { %>
+							<p class="error_message"><%=errorMessage.get("postCode") %></p>
+						<% } %>
+					<% } %>
 					<% String selectedPrefecture = (String)request.getSession().getAttribute("prefectures"); %>
 					<label>都道府県</label>
 					<select id="prefectures" name="prefectures" required>
@@ -111,14 +128,39 @@
 					</select><br>
 					
 					<label>住所</label><textarea type="text" name="address" placeholder="例) 〇〇市〇〇区〇丁目" required><%= request.getSession().getAttribute("address") != null ? request.getSession().getAttribute("address") : "" %></textarea><br>
+					<% if(request.getSession().getAttribute("errorMessages") != null) { %>
+						<% HashMap<String, String> errorMessage = (HashMap<String, String>)request.getSession().getAttribute("errorMessages"); %>
+						<% if(errorMessage.containsKey("address")) { %>
+							<p class="error_message"><%=errorMessage.get("address") %></p>
+						<% } %>
+					<% } %>
 					
 					<label>電話番号</label><input type="text" name="telnumber" placeholder="例) 00000000000" 
 						value="<%= request.getSession().getAttribute("telNumber") != null ? request.getSession().getAttribute("telNumber") : "" %>" required><br> 
-						
+						<% if(request.getSession().getAttribute("errorMessages") != null) { %>
+						<% HashMap<String, String> errorMessage = (HashMap<String, String>)request.getSession().getAttribute("errorMessages"); %>
+						<% if(errorMessage.containsKey("telNumber")) { %>
+							<p class="error_message"><%=errorMessage.get("telNumber") %></p>
+						<% } %>
+					<% } %>
+					
 					<label>メールアドレス</label><input type="email" name="email" placeholder="例) 〇〇@〇〇.com" 
 						value="<%= request.getSession().getAttribute("email") != null ? request.getSession().getAttribute("email") : "" %>" required><br> 
-			
+						<% if(request.getSession().getAttribute("errorMessages") != null) { %>
+						<% HashMap<String, String> errorMessage = (HashMap<String, String>)request.getSession().getAttribute("errorMessages"); %>
+						<% if(errorMessage.containsKey("email")) { %>
+							<p class="error_message"><%=errorMessage.get("email") %></p>
+						<% } %>
+					<% } %>
+					
 					<label>パスワード</label><input id="passwordField" type="password" name="password" placeholder="8文字以上" required>
+					<% if(request.getSession().getAttribute("errorMessages") != null) { %>
+						<% HashMap<String, String> errorMessage = (HashMap<String, String>)request.getSession().getAttribute("errorMessages"); %>
+						<% if(errorMessage.containsKey("password")) { %>
+							<p class="error_message"><%=errorMessage.get("password") %></p>
+						<% } %>
+					<% } %>
+					
 					<label class="caption pass_open" id="togglePassword">パスワードを表示</label>
 					<label class="caption">*8文字以上で入力してください　　<div id="password_strength">パスワード強度: レベル 1 / 5 </div></label> 
 					<div class="pass_count_box">

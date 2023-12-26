@@ -4,8 +4,7 @@ package servlet;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -53,11 +52,11 @@ public class RegisterServlet extends HttpServlet {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
-		List<String> errorMessages = new ArrayList<>();
+		HashMap<String, String> errorMessages = new HashMap<>();
 		
 		//名前の入力チェック
 		if(!UserNameValidator.validate(userName)) {
-			errorMessages.add("名前の入力が正しくありません");
+			errorMessages.put("userName", "名前の入力が正しくありません");
 //			request.getSession().setAttribute("userNameError", "名前の入力が正しくありません");
 			saveFormDataInSession(request, userName, kanaName, postCode, prefectures, address, telNumber, email);
 	        
@@ -67,7 +66,7 @@ public class RegisterServlet extends HttpServlet {
 		
 		//フリガナの全角チェック (ひらがなは許可せず, カタカナのみ)
 		if(!KanaNameValidator.validate(kanaName)) {
-			errorMessages.add("フリガナの入力が正しくありません");
+			errorMessages.put("kanaName", "フリガナの入力が正しくありません");
 //			request.getSession().setAttribute("kanaNameError", "フリガナの入力が正しくありません");
 			saveFormDataInSession(request, userName, kanaName, postCode, prefectures, address, telNumber, email);
 	        
@@ -88,7 +87,7 @@ public class RegisterServlet extends HttpServlet {
 								 		 .replaceAll("９", "9");
 		//郵便番号の入力に対してハイフン無しの形式を要求
 		if(!PostCodeValidator.validate(convertPostCode)) {
-			errorMessages.add("郵便番号が正しくありません");
+			errorMessages.put("postCode", "郵便番号が正しくありません");
 //			request.getSession().setAttribute("postCodeError", "郵便番号が正しくありません");
 			saveFormDataInSession(request, userName, kanaName, convertPostCode, prefectures, address, telNumber, email);
 	        
@@ -99,7 +98,7 @@ public class RegisterServlet extends HttpServlet {
 		
 		//都道府県の空チェック
 		if(prefectures.isEmpty()) {
-			errorMessages.add("都道府県を選択してください");
+			errorMessages.put("prefectures", "都道府県を選択してください");
 //			request.getSession().setAttribute("prefecturesError", "都道府県を選択してください");
 			saveFormDataInSession(request, userName, kanaName, convertPostCode, prefectures, address, telNumber, email);
 	        
@@ -111,7 +110,7 @@ public class RegisterServlet extends HttpServlet {
 		//住所の空文字チェック
 		String normalizedAddress = null;
 		if(address.isEmpty()) {
-			errorMessages.add("住所を入力してください");
+			errorMessages.put("address", "住所を入力してください");
 //			request.getSession().setAttribute("addressError", "住所を入力してください");
 			saveFormDataInSession(request, userName, kanaName, convertPostCode, prefectures, address, telNumber, email);
 	        
@@ -136,7 +135,7 @@ public class RegisterServlet extends HttpServlet {
 		
 		//電話番号の入力に対してハイフン無しの形式を要求
 		if(!TelNumberValidator.validate(convertTelNumber)) {
-			errorMessages.add("無効な電話番号です");
+			errorMessages.put("telNumber", "無効な電話番号です");
 //			request.getSession().setAttribute("telNumberError", "無効な電話番号です");
 			saveFormDataInSession(request, userName, kanaName, convertPostCode, prefectures, normalizedAddress, convertTelNumber, email);
 			
@@ -148,7 +147,7 @@ public class RegisterServlet extends HttpServlet {
 		//メールアドレスチェック(一般的な形式に則っていなければ無効)
 		if (!EmailValidator.validate(email)) { 
 	        // Eメールが無効な形式の場合の処理
-			errorMessages.add("無効なEメールアドレスです");
+			errorMessages.put("email", "無効なEメールアドレスです");
 //	        request.getSession().setAttribute("emailError", "無効なEメールアドレスです");
 	        saveFormDataInSession(request, userName, kanaName, convertPostCode, prefectures, normalizedAddress, convertTelNumber, email);
 	       
@@ -158,13 +157,13 @@ public class RegisterServlet extends HttpServlet {
 		
 		//パスワード 半角であれば特殊文字を許可
 		if(!PasswordValidator.isHalfWidth(password)) {
-			errorMessages.add("パスワードが不正です。正しく入力してください");
+			errorMessages.put("password", "パスワードが不正です。正しく入力してください");
 //			request.getSession().setAttribute("passError", "パスワードが不正です。正しく入力してください");
 //			
 			
 			//パスワードの文字数と空文字チェック
 		} else if((password.length() < 8) || (password.trim().isEmpty())) { 
-			errorMessages.add("8文字以上で設定してください");
+			errorMessages.put("password", "8文字以上で設定してください");
 //			request.getSession().setAttribute("passError", "8文字以上で設定してください");
 			
 		} 
