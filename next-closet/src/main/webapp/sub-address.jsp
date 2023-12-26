@@ -7,10 +7,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="icon" href="image/favicon.png" id="favicon">
 <link rel="stylesheet" href="css/sub-address.css">
 <link rel="stylesheet" href="css/navbar.css">
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>追加した住所編集</title>
 </head>
 <body>
 <main>

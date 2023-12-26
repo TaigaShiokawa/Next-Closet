@@ -1,5 +1,6 @@
 package servlet;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.sql.SQLException;
@@ -14,6 +15,7 @@ import javax.servlet.http.Part;
 
 import model.bean.AdminBean;
 import model.dao.AdminProductDAO;
+import model.dao.CategoryDAO;
 
 @WebServlet("/ProductAddServlet")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB 
@@ -35,7 +37,14 @@ public class ProductAddServlet extends HttpServlet {
              return;
          }
 		
-		response.sendRedirect("product-add.jsp");
+         try {
+	        CategoryDAO categoryDao = new CategoryDAO();
+	        request.setAttribute("categoryList", categoryDao.getCategoryList());
+         } catch( SQLException | ClassNotFoundException e) {
+        	 e.printStackTrace();
+         }
+         
+         request.getRequestDispatcher("product-add.jsp").forward(request, response);
 		
 	}
 
@@ -45,29 +54,28 @@ public class ProductAddServlet extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
         
-        // アップロードファイルを保存するパスを取得
-//        String appPath = request.getServletContext().getRealPath("");
-//        String savePath =  UPLOAD_DIRECTORY;
+		// アップロードファイルを保存するパスをEclipseのプロジェクトディレクトリに設定
+	    String savePath = getServletContext().getRealPath("/image");
 
-        // ディレクトリが存在しない場合は作成
-//        File fileSaveDir = new File(savePath);
-//        if (!fileSaveDir.exists()) {
-//            fileSaveDir.mkdir();
-//        }
+	    // ディレクトリが存在しない場合は作成
+	    File fileSaveDir = new File(savePath);
+	    if (!fileSaveDir.exists()) {
+	        fileSaveDir.mkdir();
+	    }
 
-        // ファイル名を取得し、サーバーに保存
-        String fileName = "";
-        Part filePart = request.getPart("image"); // inputタグのname="image"から取得
-        if (filePart != null) {
-            // ファイル名のみを取得する
-            fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-            if (fileName != null && !fileName.isEmpty()) {
-                filePart.write(fileName);
-            }
-        }
-        
-        // imagePathは保存されたファイルのパス
-        String imagePath = fileName;
+	    // ファイル名を取得し、サーバーに保存
+	    String fileName = "";
+	    Part filePart = request.getPart("image");
+	    if (filePart != null) {
+	        fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
+	        if (fileName != null && !fileName.isEmpty()) {
+	            String filePath = savePath + File.separator + fileName;
+	            filePart.write(filePath);
+	        }
+	    }
+
+	    // imagePathは保存されたファイルのパス
+	    String imagePath = fileName;
 		
 		//各種パラメータ取得
 		String pName = request.getParameter("productName");
@@ -147,4 +155,6 @@ public class ProductAddServlet extends HttpServlet {
 			  return;
 		  }
 	}
+	
+	
 }

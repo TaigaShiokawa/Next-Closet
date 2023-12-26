@@ -14,7 +14,8 @@ if(message == null){
 <html>
 <head>
 <meta charset="UTF-8">
-<title>next closet...</title>
+<link rel="icon" href="image/favicon.png" id="favicon">
+<title>カテゴリー編集</title>
 <link rel="stylesheet" href="css/categories.css">
 <link rel="stylesheet" href="css/admin-navbar.css">
 </head>

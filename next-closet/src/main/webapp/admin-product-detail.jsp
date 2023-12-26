@@ -9,7 +9,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>管理者側商品詳細画面</title>
+    <title>管理者商品詳細画面</title>
      <link rel="icon" href="image/favicon.png" id="favicon">
     <link rel="stylesheet" href="css/admin-product-detail.css">
     <link rel="stylesheet" href="css/admin-navbar.css">

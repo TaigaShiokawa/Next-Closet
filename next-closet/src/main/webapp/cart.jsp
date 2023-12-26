@@ -12,6 +12,7 @@
 <head>
 <meta charset="UTF-8">
 <title>買い物かご</title>
+<link rel="icon" href="image/favicon.png" id="favicon">
 <link rel="stylesheet" href="css/cart.css">
 <link rel="stylesheet" href="css/navbar.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
