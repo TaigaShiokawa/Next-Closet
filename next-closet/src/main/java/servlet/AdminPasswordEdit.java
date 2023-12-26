@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import hashedPassword.HashPW;
+import model.bean.AdminBean;
 import model.dao.AdminDAO;
 import regexp.PasswordValidator;
 
@@ -19,7 +20,15 @@ public class AdminPasswordEdit extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	request.getRequestDispatcher("admin-edit.jsp").forward(request, response);
+	
+		 AdminBean admin = (AdminBean)request.getSession().getAttribute("admin"); 
+         
+         if ( admin == null) {
+         	response.sendRedirect("AdminLoginServlet");
+             return;
+         }
+		
+		request.getRequestDispatcher("admin-edit.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

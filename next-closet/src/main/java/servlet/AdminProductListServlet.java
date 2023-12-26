@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.bean.AdminBean;
 import model.bean.ProductBean;
 import model.dao.ProductDAO;
 import model.dao.SearchDAO;
@@ -23,6 +24,14 @@ public class AdminProductListServlet extends HttpServlet {
 	
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
     		throws ServletException, IOException {
+    	 
+		 AdminBean admin = (AdminBean)request.getSession().getAttribute("admin"); 
+            
+            if ( admin == null) {
+            	response.sendRedirect("AdminLoginServlet");
+                return;
+            }
+            
     	
     	int categoryId = -1;
 		int gender = 0;

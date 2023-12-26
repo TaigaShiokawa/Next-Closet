@@ -18,6 +18,13 @@ public class AdminDetailServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    request.setCharacterEncoding("UTF-8");
+	    
+		 AdminBean admin = (AdminBean)request.getSession().getAttribute("admin"); 
+         
+         if ( admin == null) {
+         	response.sendRedirect("AdminLoginServlet");
+             return;
+         }
 
 	    int adminId = Integer.parseInt(request.getParameter("adminId"));
 

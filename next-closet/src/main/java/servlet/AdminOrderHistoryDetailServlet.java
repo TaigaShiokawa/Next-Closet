@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.bean.AdminBean;
 import model.dao.OrderDAO;
 
 @WebServlet("/AdminOrderHistoryDetailServlet")
@@ -17,6 +18,13 @@ public class AdminOrderHistoryDetailServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     
+   	 AdminBean admin = (AdminBean)request.getSession().getAttribute("admin"); 
+     
+     if ( admin == null) {
+     	response.sendRedirect("AdminLoginServlet");
+         return;
+     }
+     
 		OrderDAO orderDao = new OrderDAO();
 		String orderItemIdStr = (String)request.getParameter("orderItemId");
 		int orderItemId = Integer.parseInt(orderItemIdStr);
