@@ -46,16 +46,6 @@ public class ProductAddServlet extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
         
-        // アップロードファイルを保存するパスを取得
-//        String appPath = request.getServletContext().getRealPath("");
-//        String savePath =  UPLOAD_DIRECTORY;
-
-        // ディレクトリが存在しない場合は作成
-//        File fileSaveDir = new File(savePath);
-//        if (!fileSaveDir.exists()) {
-//            fileSaveDir.mkdir();
-//        }
-
 		// アップロードファイルを保存するパスをEclipseのプロジェクトディレクトリに設定
 	    String savePath = getServletContext().getRealPath("/image");
 
@@ -77,10 +67,7 @@ public class ProductAddServlet extends HttpServlet {
 	    }
 
 	    // imagePathは保存されたファイルのパス
-	    String imagePath = "/image" + File.separator + fileName;
-        
-        // imagePathは保存されたファイルのパス
-//        String imagePath = fileName;
+	    String imagePath = fileName;
 		
 		//各種パラメータ取得
 		String pName = request.getParameter("productName");
@@ -160,4 +147,6 @@ public class ProductAddServlet extends HttpServlet {
 			  return;
 		  }
 	}
+	
+	
 }
