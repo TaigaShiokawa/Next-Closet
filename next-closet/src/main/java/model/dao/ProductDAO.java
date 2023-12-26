@@ -181,17 +181,18 @@ public class ProductDAO {
 			pstmt.setInt(1, productId);
 			ResultSet res = pstmt.executeQuery();
 			while (res.next()) { 
-				int product_id = res.getInt("product_id");
-		        int category_id = res.getInt("category_id");
-		        int gender = res.getInt("gender");	
-		        String product_name = res.getString("product_name");
-		        int price = res.getInt("price");
-		        String description = res.getString("description");
-		        boolean status = res.getBoolean("status");
-		        String image = res.getString("image");
-		        Date registration_date = res.getDate("registration_date");
+				ProductBean product = new ProductBean();
+				product.setProductId(res.getInt("product_id"));
+				product.setCategoryId(res.getInt("category_id"));
+				product.setGender(res.getInt("gender"));
+				product.setProductName(res.getString("product_name"));
+				product.setPrice(res.getInt("price"));
+				product.setDescription(res.getString("description"));
+				product.setStatus(res.getBoolean("status"));
+				product.setImage(res.getString("image"));
+				product.setRegistrationDate(res.getDate("registration_date"));
 		        
-		        productList.add(new ProductBean (product_id, category_id,  gender, product_name, price , description , status , image , registration_date));
+		        productList.add(product);
 		    }
 		}	
 		return productList;		
