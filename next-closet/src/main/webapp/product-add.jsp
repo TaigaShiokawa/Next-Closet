@@ -1,12 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.* , java.util.ArrayList, model.bean.* , model.dao.* ,java.util.List" %>
+<%@ page import="junit.model.dao.*" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>商品登録</title>
+<title>商品新規登録</title>
 <link rel="icon" href="image/favicon.png" id="favicon">
 <link rel="stylesheet" href="css/product-edit.css">
 <link rel="stylesheet" href="css/admin-navbar.css">
+<% List<CategoryBean> categoryList = (ArrayList <CategoryBean>)request.getAttribute("categoryList"); %>
 </head>
 <body>
 <%@ include file="includes/admin-navbar.jsp" %>
@@ -34,9 +37,9 @@
 		<label for="p_category">カテゴリー</label>
 		<select id="p_category" name="category">
 		<option>カテゴリーを選択</option>
-		<option value="tops">tops</option>
-		<option value="bottoms">bottoms</option>
-		<option value="shoes">shoes</option>
+		<% for ( CategoryBean category : categoryList){ %>
+		 <option value="<%= category.getCategoryId() %>"><%= category.getCategoryName() %></option>
+		<% } %>  
 		</select><br>
 		
 		<label for="p_gender">性別</label>

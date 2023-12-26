@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="css/admin-detail.css">
 <link rel="stylesheet" href="css/admin-navbar.css"> 
 <meta charset="UTF-8">
-<title>管理者詳細</title>
+<title>管理者情報詳細</title>
 </head>
 <body>
 <%@ include file="includes/admin-navbar.jsp" %>

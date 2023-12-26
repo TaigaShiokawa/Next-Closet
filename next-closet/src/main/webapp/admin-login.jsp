@@ -16,7 +16,8 @@
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="css/admin-login.css">
 	<link rel = "stylesheet" href = "css/admin-navbar.css">
-<title>next closet...</title>
+	
+<title>管理者ログイン</title>
 </head>
 <body>
 

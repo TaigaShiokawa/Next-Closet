@@ -6,6 +6,7 @@
 	<head>
 	<meta charset="UTF-8">
 	<title>商品詳細</title>
+	<link rel="icon" href="image/favicon.png" id="favicon">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400&display=swap" rel="stylesheet">

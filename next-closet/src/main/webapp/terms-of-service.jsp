@@ -8,6 +8,7 @@ UserBean loginUser = (UserBean) request.getSession().getAttribute("user");
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="icon" href="image/favicon.png" id="favicon">
 <link rel="stylesheet" href="css/terms-of-service.css">
 <link rel = "stylesheet" href = "css/navbar.css">
 <title>利用規約</title>

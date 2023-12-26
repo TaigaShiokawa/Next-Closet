@@ -26,7 +26,8 @@ String img = null;%>
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>next closet ...</title>
+		<link rel="icon" href="image/favicon.png" id="favicon">
+		<title>購入確認画面</title>
 		<link rel="stylesheet" href="css/order-confirm.css">
 		<link rel = "stylesheet" href = "css/navbar.css">
 	</head>

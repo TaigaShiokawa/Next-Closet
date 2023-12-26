@@ -15,6 +15,7 @@ import javax.servlet.http.Part;
 
 import model.bean.AdminBean;
 import model.dao.AdminProductDAO;
+import model.dao.CategoryDAO;
 
 @WebServlet("/ProductAddServlet")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024 * 2, // 2MB 
@@ -36,7 +37,14 @@ public class ProductAddServlet extends HttpServlet {
              return;
          }
 		
-		response.sendRedirect("product-add.jsp");
+         try {
+	        CategoryDAO categoryDao = new CategoryDAO();
+	        request.setAttribute("categoryList", categoryDao.getCategoryList());
+         } catch( SQLException | ClassNotFoundException e) {
+        	 e.printStackTrace();
+         }
+         
+         request.getRequestDispatcher("product-add.jsp").forward(request, response);
 		
 	}
 

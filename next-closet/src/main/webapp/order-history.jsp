@@ -21,6 +21,7 @@ String img = null;
 	<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Tangerine&display=swap" rel="stylesheet">	
 	<link rel="stylesheet" href="css/order-history.css">
 	<link rel="stylesheet" href="css/navbar.css">
+	<link rel="icon" href="image/favicon.png" id="favicon">
 </head>
 <body>
 <%@ include file="includes/navbar.jsp" %> 

@@ -9,7 +9,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>next closet...</title>
+	<title>ログイン画面</title>
 	 <link rel="icon" href="image/favicon.png" id="favicon">
 	<link rel="stylesheet" href="css/login.css">
 	<link rel = "stylesheet" href = "css/navbar.css">

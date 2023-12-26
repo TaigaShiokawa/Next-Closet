@@ -11,6 +11,7 @@
 		<head>
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link rel="icon" href="image/favicon.png" id="favicon">
 		<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Tangerine&display=swap" rel="stylesheet">	
 		<link rel="stylesheet" href="css/mypage.css">
 		<link rel="stylesheet" href="css/navbar.css">
