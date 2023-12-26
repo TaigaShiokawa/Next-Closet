@@ -10,7 +10,7 @@
  <link rel="icon" href="image/favicon.png" id="favicon">
 <link rel="stylesheet" href="css/admin-user-register.css">
 <link rel="stylesheet" href="css/admin-navbar.css">
-<title>next closet...</title>
+<title>管理者情報編集</title>
 </head>
 <body>
   <%@ include file="includes/admin-navbar.jsp" %>

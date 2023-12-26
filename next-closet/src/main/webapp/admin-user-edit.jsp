@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="css/admin-user-register.css">
 <link rel="stylesheet" href="css/admin-navbar.css">
 <meta charset="UTF-8">
-<title>会員情報編集</title>
+<title>ユーザー情報編集</title>
 </head>
 <body>
 <%@ include file="includes/admin-navbar.jsp" %>

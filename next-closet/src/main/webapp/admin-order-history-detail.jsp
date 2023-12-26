@@ -19,7 +19,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>管理者購入通知</title>
+<title>管理者購入通知詳細</title>
  <link rel="icon" href="image/favicon.png" id="favicon">
 <link rel="stylesheet" href="css/admin-order-history.css">
 	<link rel="stylesheet" href="css/admin-navbar.css">

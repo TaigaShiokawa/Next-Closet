@@ -12,6 +12,7 @@
 <head>
 <link rel="stylesheet" href="css/mypage-edit.css">
 <link rel="stylesheet" href="css/navbar.css">
+<link rel="icon" href="image/favicon.png" id="favicon">
 <meta charset="UTF-8">
 <title>個人情報編集</title>
 </head>

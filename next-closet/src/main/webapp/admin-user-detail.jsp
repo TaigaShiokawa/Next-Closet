@@ -9,7 +9,7 @@
 <link rel="stylesheet" href="css/admin-user-detail.css">
 <link rel="stylesheet" href="css/admin-navbar.css"> 
 <meta charset="UTF-8">
-<title>登録ユーザー情報編集</title>
+<title>ユーザー情報詳細</title>
 
 </head>
 <body>

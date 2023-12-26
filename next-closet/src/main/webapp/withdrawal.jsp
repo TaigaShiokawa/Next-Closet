@@ -10,6 +10,7 @@ UserBean loginUser = (UserBean) request.getSession().getAttribute("user");
 <head>
 <meta charset="UTF-8">
 <title>退会ページ</title>
+<link rel="icon" href="image/favicon.png" id="favicon">
 <link rel="stylesheet" href="css/withdrawal.css">
 <link rel="stylesheet" href="css/navbar.css">
 </head>
