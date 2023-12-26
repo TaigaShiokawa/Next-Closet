@@ -181,18 +181,17 @@ public class ProductDAO {
 			pstmt.setInt(1, productId);
 			ResultSet res = pstmt.executeQuery();
 			while (res.next()) { 
-				ProductBean product = new ProductBean();
-				product.setProductId(res.getInt("product_id"));
-				product.setCategoryId(res.getInt("category_id"));
-				product.setGender(res.getInt("gender"));
-				product.setProductName(res.getString("product_name"));
-				product.setPrice(res.getInt("price"));
-				product.setDescription(res.getString("description"));
-				product.setStatus(res.getBoolean("status"));
-				product.setImage(res.getString("image"));
-				product.setRegistrationDate(res.getDate("registration_date"));
+				int product_id = res.getInt("product_id");
+		        int category_id = res.getInt("category_id");
+		        int gender = res.getInt("gender");	
+		        String product_name = res.getString("product_name");
+		        int price = res.getInt("price");
+		        String description = res.getString("description");
+		        boolean status = res.getBoolean("status");
+		        String image = res.getString("image");
+		        Date registration_date = res.getDate("registration_date");
 		        
-		        productList.add(product);
+		        productList.add(new ProductBean (product_id, category_id,  gender, product_name, price , description , status , image , registration_date));
 		    }
 		}	
 		return productList;		
@@ -372,48 +371,6 @@ public class ProductDAO {
 			}
 		}	
 		return productList;	
-	}
-	
-	// 特定のページの製品リストを取得するメソッド
-	public List<ProductBean> getProductListByPage(int pageNumber, int pageSize)
-	        throws ClassNotFoundException, SQLException {
-	    List<ProductBean> productList = new ArrayList<>();
-	    int offset = (pageNumber - 1) * pageSize;
-	    String sql = "SELECT * FROM products WHERE status = 1 LIMIT ? OFFSET ?";
-
-	    try (Connection con = DBConnection.getConnection(); 
-	         PreparedStatement pstmt = con.prepareStatement(sql)) {
-	        pstmt.setInt(1, pageSize);
-	        pstmt.setInt(2, offset);
-	        ResultSet res = pstmt.executeQuery();
-	        while (res.next()) {
-	        	int product_id = res.getInt("product_id");
-			       int category_id = res.getInt("category_id");
-			       int gender = res.getInt("gender");	
-			       String product_name = res.getString("product_name");
-			       int price = res.getInt("price");
-			       String description = res.getString("description");
-			       boolean status = res.getBoolean("status");
-			       String image = res.getString("image");
-			       Date registration_date = res.getDate("registration_date");
-			       
-			       productList.add(new ProductBean (product_id, category_id,  gender, product_name, price , description , status , image , registration_date));
-			   }
-	    }
-	    return productList;
-	}
-	
-	// 製品の総数を取得するメソッド
-	public int getTotalProductCount() throws ClassNotFoundException, SQLException {
-	    String sql = "SELECT COUNT(*) FROM products WHERE status = 1";
-	    try (Connection con = DBConnection.getConnection(); 
-	         PreparedStatement pstmt = con.prepareStatement(sql)) {
-	        ResultSet res = pstmt.executeQuery();
-	        if (res.next()) {
-	            return res.getInt(1);
-	        }
-	    }
-	    return 0;
 	}
 	
 }
