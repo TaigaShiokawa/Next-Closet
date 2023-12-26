@@ -1,4 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+       String searchName = (String)request.getAttribute("searchName");
+	    String searchText = "" ;
+	    if( searchName != null ){
+	    	searchText = searchName;
+	    }
+	    %>
 
 <header>
         <div class="header_inner">
