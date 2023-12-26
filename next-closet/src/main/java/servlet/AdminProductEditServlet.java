@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import model.bean.AdminBean;
 import model.bean.ProductBean;
 import model.bean.SizeBean;
 import model.dao.AdminProductDAO;
@@ -29,6 +30,14 @@ maxRequestSize = 1024 * 1024 * 50)   // 50MB
 public class AdminProductEditServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
+    	
+   	 AdminBean admin = (AdminBean)request.getSession().getAttribute("admin"); 
+     
+     if ( admin == null) {
+     	response.sendRedirect("AdminLoginServlet");
+         return;
+     }
+     
         try {
             int productId = Integer.parseInt(request.getParameter("productId"));
             AdminProductDAO adminProductDao = new AdminProductDAO();
