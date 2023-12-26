@@ -13,6 +13,8 @@
 <title>Insert title here</title>
 </head>
 <body>
+<main>
+<%@ include file="includes/navbar.jsp" %>
   <div class="container">
   <div class="split left-box">
 <!-- add_addressテーブルに追加する --> 
@@ -106,7 +108,8 @@
    </div>
 </div>
    <div class="center"><a href="MypageServlet">マイページに戻る</a></div>
-   
+   </main>
+   <%@ include file="includes/footer.jsp" %>
    <script>
 	 //郵便番号で都道府県を検索
 		document.getElementById('postcode').addEventListener('input', function() {
