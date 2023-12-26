@@ -10,7 +10,8 @@
 <html>
 	<head>
 	<meta charset="UTF-8">
-	<title>next closet...</title>
+	<link rel="icon" href="image/favicon.png" id="favicon">
+	<title>新規会員登録</title>
 	<link rel="stylesheet" href="css/register.css">
 	<link rel = "stylesheet" href = "css/navbar.css">
 	</head>

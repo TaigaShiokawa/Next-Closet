@@ -3,7 +3,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>商品登録</title>
+<title>商品新規登録</title>
 <link rel="icon" href="image/favicon.png" id="favicon">
 <link rel="stylesheet" href="css/product-edit.css">
 <link rel="stylesheet" href="css/admin-navbar.css">
