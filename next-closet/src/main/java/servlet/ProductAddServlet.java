@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
+import model.bean.AdminBean;
 import model.dao.AdminProductDAO;
 
 @WebServlet("/ProductAddServlet")
@@ -27,6 +28,13 @@ public class ProductAddServlet extends HttpServlet {
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
+		
+		 AdminBean admin = (AdminBean)request.getSession().getAttribute("admin"); 
+         
+         if ( admin == null) {
+         	response.sendRedirect("AdminLoginServlet");
+             return;
+         }
 		
 		response.sendRedirect("product-add.jsp");
 		

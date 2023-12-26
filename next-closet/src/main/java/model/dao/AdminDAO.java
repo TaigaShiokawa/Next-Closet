@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import connection.DBConnection;
@@ -32,6 +33,14 @@ public class AdminDAO {
 				admin.setPassword(res.getString("hash_pass"));
 				admin.setAdminStatus(res.getBoolean("admin_status"));
 			}
+		} catch (SQLException e) {
+			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+                               ", SQLステート: " + e.getSQLState() + 
+                               ", エラーコード: " + e.getErrorCode());
+		} catch (Exception e) {
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+                               ", メッセージ: " + e.getMessage() + 
+                               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
 		}
 		return admin;
 	}
@@ -48,6 +57,14 @@ public class AdminDAO {
 			pstmt.setString(3, email);
 			pstmt.setString(4, password);
 			processingNum = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+                               ", SQLステート: " + e.getSQLState() + 
+                               ", エラーコード: " + e.getErrorCode());
+		} catch (Exception e) {
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+                               ", メッセージ: " + e.getMessage() + 
+                               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
 		}
 		return processingNum;
 	}
@@ -71,6 +88,14 @@ public class AdminDAO {
 
 			    list.add(new AdminBean (admin_id, admin_name,  kana_name, email, hash_pass , status , registration_date ));
 			}
+		} catch (SQLException e) {
+			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+                               ", SQLステート: " + e.getSQLState() + 
+                               ", エラーコード: " + e.getErrorCode());
+		} catch (Exception e) {
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+                               ", メッセージ: " + e.getMessage() + 
+                               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
 		}
 		return list;
 	}
@@ -85,9 +110,14 @@ public class AdminDAO {
 	    	pstmt.setString(1, password);
 	    	pstmt.setInt(2, adminId);
 	    	row = pstmt.executeUpdate();
-	    } catch (SQLException | ClassNotFoundException e) {
-	    	e.printStackTrace();
-	    	throw e;
+	    } catch (SQLException e) {
+	    	System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+                               ", SQLステート: " + e.getSQLState() + 
+                               ", エラーコード: " + e.getErrorCode());
+	    } catch (Exception e) {
+	    	System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+                               ", メッセージ: " + e.getMessage() + 
+                               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
 	    }
 	    return row;
 	}
@@ -104,9 +134,14 @@ public class AdminDAO {
 	        pstmt.setString(3, email);
 	        pstmt.setInt(4, adminId);
 	        row = pstmt.executeUpdate();
-	    } catch (SQLException | ClassNotFoundException e) {
-	        e.printStackTrace();
-	        throw e;
+	    } catch (SQLException e) {
+	    	System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+                               ", SQLステート: " + e.getSQLState() + 
+                               ", エラーコード: " + e.getErrorCode());
+	    } catch (Exception e) {
+	    	System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+                               ", メッセージ: " + e.getMessage() + 
+                               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
 	    }
 	    return row;
 	}
@@ -123,6 +158,14 @@ public class AdminDAO {
 			if(res.next()) {
 				AdminId = res.getInt("admin_id");
 			}
+		} catch (SQLException e) {
+			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+                               ", SQLステート: " + e.getSQLState() + 
+                               ", エラーコード: " + e.getErrorCode());
+		} catch (Exception e) {
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+                               ", メッセージ: " + e.getMessage() + 
+                               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
 		}
 		return AdminId;
 	}
@@ -145,30 +188,54 @@ public class AdminDAO {
 				admin.setRegistrationDate(res.getDate("registration_date"));
 				admin.setEmail(res.getString("email"));
 			}
+		} catch (SQLException e) {
+			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+                               ", SQLステート: " + e.getSQLState() + 
+                               ", エラーコード: " + e.getErrorCode());
+		} catch (Exception e) {
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+                               ", メッセージ: " + e.getMessage() + 
+                               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
 		}
 		return admin;
 	}
 	
-			//管理者を復元
-			public void adminTrueStatus(int adminId) throws ClassNotFoundException, SQLException {
-
-				String sql = "UPDATE admins SET admin_status = true WHERE admin_id = ?";
-				try (Connection con = DBConnection.getConnection(); 
-						PreparedStatement pstmt = con.prepareStatement(sql)) {
-					pstmt.setInt(1, adminId);
-					pstmt.executeUpdate();
-				}
-			}
+	//管理者を復元
+	public void adminTrueStatus(int adminId) 
+			throws ClassNotFoundException, SQLException {
+		String sql = "UPDATE admins SET admin_status = true WHERE admin_id = ?";
+		try (Connection con = DBConnection.getConnection(); 
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+			pstmt.setInt(1, adminId);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+                               ", SQLステート: " + e.getSQLState() + 
+                               ", エラーコード: " + e.getErrorCode());
+		} catch (Exception e) {
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+                               ", メッセージ: " + e.getMessage() + 
+                               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
+		}
+	}
 
 	//管理者の削除
 		public int adminDelete(int adminId) throws ClassNotFoundException, SQLException {
 			int processingNum = 0;
-			String sql = "UPDATE admins SET admin_status = false WHERE admin_id = ?";
+			String sql = "PDATE admins SET admin_status = false WHERE admin_id = ?";
 			try (Connection con = DBConnection.getConnection(); 
 					PreparedStatement pstmt = con.prepareStatement(sql)) {
 				pstmt.setInt(1, adminId);
 				pstmt.executeUpdate();
 				processingNum = pstmt.executeUpdate();
+			} catch (SQLException e) {
+				System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+                                   ", SQLステート: " + e.getSQLState() + 
+                                   ", エラーコード: " + e.getErrorCode());
+			} catch (Exception e) {
+				System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+                                   ", メッセージ: " + e.getMessage() + 
+                                   ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
 			}
 			return processingNum;
 		}

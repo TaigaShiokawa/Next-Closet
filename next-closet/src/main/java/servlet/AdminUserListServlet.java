@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import model.bean.AdminBean;
 import model.dao.SearchDAO;
 import model.dao.UserDAO;
 
@@ -18,7 +19,13 @@ import model.dao.UserDAO;
 public class AdminUserListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
+		 AdminBean admin = (AdminBean)request.getSession().getAttribute("admin"); 
+         
+         if ( admin == null) {
+         	response.sendRedirect("AdminLoginServlet");
+             return;
+         }
+         
 		String searchName = request.getParameter("searchName");
 		SearchDAO searchDao = new SearchDAO();
 		UserDAO userDao = new UserDAO();
