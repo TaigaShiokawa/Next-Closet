@@ -6,10 +6,10 @@ import org.junit.jupiter.api.Test;
 
 import model.bean.SubAddressBean;
 
-class SubAddressBeanTest {
+public class SubAddressBeanTest {
 
 	@Test
-	void testSubAddressBean() {
+	public void testSubAddressBean() {
 		
 		SubAddressBean subAddress = new SubAddressBean();
 		
