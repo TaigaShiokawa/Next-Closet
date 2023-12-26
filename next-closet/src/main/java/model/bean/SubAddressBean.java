@@ -19,5 +19,4 @@ public class SubAddressBean {
 		this.addAddressId = addAddressId;
 	}
 	
-	
 }

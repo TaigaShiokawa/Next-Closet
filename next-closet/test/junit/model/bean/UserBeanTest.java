@@ -12,10 +12,10 @@ class UserBeanTest {
 
 	@Test
     public void testUserBean() {
-        // UserBean のインスタンスを作成
+       
         UserBean user = new UserBean();
 
-        // テストデータの設定
+        // テストデータ
         int userId = 1;
         String userName = "Test User";
         String kanaName = "テストユーザー";
