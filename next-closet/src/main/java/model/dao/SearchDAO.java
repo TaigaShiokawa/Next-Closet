@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import connection.DBConnection;
@@ -36,6 +37,14 @@ public class SearchDAO {
 				Date registration_date = res.getDate("registration_date");
 				productList.add(new ProductBean (product_id, category_id, gender, product_name, price, description, status, image, registration_date));
 			}	 
+		} catch (SQLException e) {
+			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+                               ", SQLステート: " + e.getSQLState() + 
+                               ", エラーコード: " + e.getErrorCode());
+		} catch (Exception e) {
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+                               ", メッセージ: " + e.getMessage() + 
+                               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
 		}
 		return productList;
 	}
@@ -62,11 +71,19 @@ public class SearchDAO {
 				
 				productList.add(new ProductBean (product_id, category_id, gender, product_name, price, description, status, image, registration_date));
 			} 
+		} catch (SQLException e) {
+			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+                               ", SQLステート: " + e.getSQLState() + 
+                               ", エラーコード: " + e.getErrorCode());
+		} catch (Exception e) {
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+                               ", メッセージ: " + e.getMessage() + 
+                               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
 		}
 		return productList;
 	}
 		
-	//ユーザーの検索機能
+	// ユーザーの検索機能
 	public List< UserBean > searchStatusUserList(String searchName) 
 			throws ClassNotFoundException, SQLException {
 		 List< UserBean > list = new  ArrayList <UserBean>();
@@ -87,11 +104,19 @@ public class SearchDAO {
 		        
 		        list.add(new UserBean (user_id, user_name,  kana_name, email, hash_pass , registration_date ,tel_number , status ));
 		    }
+		} catch (SQLException e) {
+			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+                               ", SQLステート: " + e.getSQLState() + 
+                               ", エラーコード: " + e.getErrorCode());
+		} catch (Exception e) {
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+                               ", メッセージ: " + e.getMessage() + 
+                               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
 		}
 		return list;
 	}
 		
-	//検索した管理者の情報取得
+	// 検索した管理者の情報取得
 	public List< AdminBean > searchStatusAdminList(String searchName) 
 			throws ClassNotFoundException, SQLException {
 		List< AdminBean > list = new  ArrayList <AdminBean>();
@@ -111,6 +136,14 @@ public class SearchDAO {
 		        
 		        list.add(new AdminBean (admin_id, admin_name,  kana_name, email, hash_pass , status , registration_date ));
 		    }
+		} catch (SQLException e) {
+			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+                               ", SQLステート: " + e.getSQLState() + 
+                               ", エラーコード: " + e.getErrorCode());
+		} catch (Exception e) {
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+                               ", メッセージ: " + e.getMessage() + 
+                               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
 		}
 		return list;
 	}

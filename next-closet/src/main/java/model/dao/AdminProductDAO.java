@@ -152,7 +152,7 @@ public class AdminProductDAO {
 	               + "JOIN inventory i ON p.product_id = i.product_id "
 	               + "JOIN sizes s ON i.size_id = s.size_id "
 	               + "JOIN categories c ON p.category_id = c.category_id "
-	               + "WHERE p.product_name = (SELECT product_name FROM products WHERE product_id = ?) "
+	               + "WHERE p.product_id = ? "
 	               + "ORDER BY s.size_id;";
 	    try (Connection con = DBConnection.getConnection();
 	    		PreparedStatement pstmt = con.prepareStatement(sql)) {
@@ -168,7 +168,6 @@ public class AdminProductDAO {
 	            boolean status = res.getBoolean("status");
 	            String image = res.getString("image");
 	            Date registration_date = res.getDate("registration_date");
-	            String category_name = res.getString("category_name");
 	                    
 	            SizeBean size = new SizeBean();
 	            size.setSizeId(res.getInt("size_id"));
