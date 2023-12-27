@@ -169,7 +169,7 @@ public class RegisterServlet extends HttpServlet {
 		} 
 		
 		if (!errorMessages.isEmpty()) {
-            request.getSession().setAttribute("errorMessages", errorMessages);
+            request.getSession().setAttribute("registerMSG", errorMessages);
             response.sendRedirect("register.jsp");
             return;
         }
