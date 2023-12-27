@@ -166,7 +166,7 @@ String img = null;%>
 				<input class="check" type="checkbox" name="address" value="<%= add.getPrefectures() + add.getAddress() %>"><laber><%= add.getPrefectures() + add.getAddress() %> </laber><br>
 		
 			<% } %> 
-			<a href="MypageServlet">マイページから住所追加</a><br>
+			<a class="mypage" href="MypageServlet">マイページから住所追加</a><br>
 			<div class="total">
 			<span class="bold">ご注文金額</span>
 			<% String formattedTolalAmount = String.format("%,d", totalAmount); %>

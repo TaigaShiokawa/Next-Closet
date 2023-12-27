@@ -152,3 +152,9 @@ a:hover{
 .bold{
 	font-weight: bold;
 }
+
+.mypage{
+	color: rgb(44, 44, 44);
+	border-bottom:1px solid  rgb(44, 44, 44);
+	padding-bottom: 2px;
+}
