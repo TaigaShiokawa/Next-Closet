@@ -22,27 +22,45 @@
 <div class="container">
 <h3>ユーザー情報更新画面</h3>
 
-<% List<String> errorMessages = (List<String>)request.getSession().getAttribute("errorMessage"); %>
+<%-- <% List<String> errorMessages = (List<String>)request.getSession().getAttribute("errorMessage"); %>
 <% if(errorMessages != null) { %>
 	<% for(String errorMessage : errorMessages) { %>
     <p><%= errorMessage %></p>
 	<% } %>
 	<% request.getSession().removeAttribute("errorMessage"); %>
-<% } %>
+<% } %> --%>
 
 		<form action="UserEditServlet" method="post" class="center-form">
 			<label class="label">お名前</label><input type="text" name="username" 
 				value="<%=request.getSession().getAttribute("userName") != null ? request.getSession().getAttribute("userName") : loginUser.getUserName() %>"><br>
+			<% if(request.getSession().getAttribute("mypageErrorMSG") != null) { %>
+						<% HashMap<String, String> mypageErrorMSG = (HashMap<String, String>)request.getSession().getAttribute("mypageErrorMSG"); %>
+						<% if(mypageErrorMSG.containsKey("userName")) { %>
+							<p class="error_message"><%=mypageErrorMSG.get("userName") %></p>
+						<% } %>
+					<% } %>
 			<label class="caption">*姓と名のスペースは全角にしてください</label><br> 
+			
 			
 			<label class="label">フリガナ</label><input type="text" name="kananame" 
 				value="<%=request.getSession().getAttribute("kanaName") != null ? request.getSession().getAttribute("kanaName") : loginUser.getKanaName() %>"><br>
+			<% if(request.getSession().getAttribute("mypageErrorMSG") != null) { %>
+						<% HashMap<String, String> mypageErrorMSG = (HashMap<String, String>)request.getSession().getAttribute("mypageErrorMSG"); %>
+						<% if(mypageErrorMSG.containsKey("kanaName")) { %>
+							<p class="error_message"><%=mypageErrorMSG.get("kanaName") %></p>
+						<% } %>
+					<% } %>
 			<label class="caption">*姓と名のスペースは全角にしてください</label><br> 
 			<label class="caption">*カタカナのみで入力してください</label><br> 
 			
 			<label class="label">郵便番号</label><input type="text" id="postcode" name="postcode" 
 				value="<%=request.getSession().getAttribute("postCode") != null ? request.getSession().getAttribute("postCode") : loginUserAddress.getPostCode() %>"><br> 
-			
+			<% if(request.getSession().getAttribute("mypageErrorMSG") != null) { %>
+						<% HashMap<String, String> mypageErrorMSG = (HashMap<String, String>)request.getSession().getAttribute("mypageErrorMSG"); %>
+						<% if(mypageErrorMSG.containsKey("postCode")) { %>
+							<p class="error_message"><%=mypageErrorMSG.get("postCode") %></p>
+						<% } %>
+					<% } %>
 			<% String selectedPrefecture = (String)request.getSession().getAttribute("prefectures"); %>
 			<label class="label">都道府県</label>
 			<select id="prefectures" name="prefectures" required>
@@ -97,13 +115,30 @@
 			</select><br>
 
 			<label class="label">住所</label><textarea type="text" name="address"><%=request.getSession().getAttribute("address") != null ? request.getSession().getAttribute("address") : loginUserAddress.getAddress() %></textarea><br>
-			
+			<% if(request.getSession().getAttribute("mypageErrorMSG") != null) { %>
+						<% HashMap<String, String> mypageErrorMSG = (HashMap<String, String>)request.getSession().getAttribute("mypageErrorMSG"); %>
+						<% if(mypageErrorMSG.containsKey("address")) { %>
+							<p class="error_message"><%=mypageErrorMSG.get("address") %></p>
+						<% } %>
+					<% } %>
+					
 			<label class="label">電話番号</label><input type="text" name="telnumber" 
 				value="<%=request.getSession().getAttribute("telNumber") != null ? request.getSession().getAttribute("telNumber") : loginUser.getTelNumber() %>"><br> 
-				
+				<% if(request.getSession().getAttribute("mypageErrorMSG") != null) { %>
+						<% HashMap<String, String> mypageErrorMSG = (HashMap<String, String>)request.getSession().getAttribute("mypageErrorMSG"); %>
+						<% if(mypageErrorMSG.containsKey("telNumber")) { %>
+							<p class="error_message"><%=mypageErrorMSG.get("telNumber") %></p>
+						<% } %>
+					<% } %>
+					
 			<label class="label">メールアドレス</label><input type="email" name="email" 
 				value="<%=request.getSession().getAttribute("email") != null ? request.getSession().getAttribute("email") : loginUser.getEmail() %>"><br> 
-			
+			<% if(request.getSession().getAttribute("mypageErrorMSG") != null) { %>
+						<% HashMap<String, String> mypageErrorMSG = (HashMap<String, String>)request.getSession().getAttribute("mypageErrorMSG"); %>
+						<% if(mypageErrorMSG.containsKey("email")) { %>
+							<p class="error_message"><%=mypageErrorMSG.get("email") %></p>
+						<% } %>
+					<% } %> 
 			<button type="submit">更新する</button>			
 		</form>
 
@@ -115,6 +150,12 @@
 		<form action="PasswordUpdateServlet" method="post">
 		<label for="pass" class="label">パスワードの変更</label>
 		<input type="password" id="pass" name="password" placeholder="8文字以上">
+		<% if(request.getSession().getAttribute("mypageErrorMSG") != null) { %>
+						<% HashMap<String, String> mypageErrorMSG = (HashMap<String, String>)request.getSession().getAttribute("mypageErrorMSG"); %>
+						<% if(mypageErrorMSG.containsKey("password")) { %>
+							<p class="error_message"><%=mypageErrorMSG.get("password") %></p>
+						<% } %>
+					<% } %>
 		<label class="caption">*8文字以上で入力してください　　<div id="password_strength">パスワード強度: レベル 1 / 5 </div></label> 
 		<div class="pass_count_box">
 				<div id="pass1" class="pass1 pb red"></div>

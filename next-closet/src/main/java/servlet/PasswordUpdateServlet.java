@@ -3,6 +3,7 @@ package servlet;
 import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,14 +35,17 @@ public class PasswordUpdateServlet extends HttpServlet {
 			throws ServletException, IOException {
 		
 		int userId = Integer.parseInt(request.getParameter("userId"));
+		HashMap<String, String> errorMessages = new HashMap<>();
 		
 		String password = request.getParameter("password");
 		if(!PasswordValidator.isHalfWidth(password)) {
-			request.getSession().setAttribute("passError", "パスワードが不正です。正しく入力してください");
+			errorMessages.put("password", "パスワードが不正です。正しく入力してください");
+			request.getSession().setAttribute("mypageErrorMSG", errorMessages);
 			response.sendRedirect("mypage-edit.jsp");
 			return;
 		} else if((password.length() < 8) || (password.trim().isEmpty())) { 
-			request.getSession().setAttribute("passError", "8文字以上で設定してください");
+			errorMessages.put("password", "8文字以上で設定してください");
+			request.getSession().setAttribute("mypageErrorMSG", errorMessages);
 			response.sendRedirect("mypage-edit.jsp");
 			return;
 		}
