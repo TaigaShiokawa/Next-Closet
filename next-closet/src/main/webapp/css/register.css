@@ -99,6 +99,8 @@ span{
 
 .error_message{
 	color:rgb(186, 41, 28);
+	font-size: 12px;
+	padding-left:180px;
 }
 
 #pass{
