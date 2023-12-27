@@ -128,7 +128,7 @@ public class UserEditServlet extends HttpServlet {
 		}
 		
 		if(!errorMessages.isEmpty()) {
-			request.getSession().setAttribute("userEditErrorMSG", errorMessages);
+			request.getSession().setAttribute("errorMessage", errorMessages);
 			response.sendRedirect("mypage-edit.jsp");
 			return;
 		}
