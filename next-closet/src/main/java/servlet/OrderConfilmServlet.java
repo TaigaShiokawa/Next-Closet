@@ -284,7 +284,6 @@ public class OrderConfilmServlet extends HttpServlet {
 				stock = productDao.cartProductStock(userId);
 			} catch ( SQLException | ClassNotFoundException e) {
 				e.printStackTrace();
-				System.out.println("-----------");
 			}
 			
 				if (stock) { //もし在庫が揃ってたら
@@ -299,7 +298,7 @@ public class OrderConfilmServlet extends HttpServlet {
 						} catch(ClassNotFoundException e) {
 							e.printStackTrace();
 							request.getSession().setAttribute("errorMessage", "内部の設定エラーが発生しました。"
-									+ "お問い合わせよ管理者に連絡して、解決の支援を受けてください。");
+									+ "お問い合わせより管理者に連絡して、解決の支援を受けてください。");
 					        response.sendRedirect("error.jsp");
 					        return;
 						} catch(SQLException e) {
