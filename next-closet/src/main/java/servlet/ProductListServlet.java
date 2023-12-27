@@ -21,29 +21,17 @@ public class ProductListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		int categoryId = -1;
-		int gender = 0;
 		String categoryIdStr = request.getParameter("categoryId");
 		String genderStr = request.getParameter("gender");
 		String searchName = request.getParameter("searchName");
-
-		if (categoryIdStr != null) {
-			categoryId = Integer.parseInt(request.getParameter("categoryId"));
-		}
-
-		if (genderStr != null) {
-			gender = Integer.parseInt(request.getParameter("gender"));
-		}
-
-		if (gender == 1) {
-			genderStr = "MEN";
-		} else if (gender == 2) {
-			genderStr = "WOMEN";
-		} else {
-			genderStr = "ALL";
-		}
-
 		String categoryName = request.getParameter("categoryName");
+
+		int categoryId = categoryIdStr != null ? Integer.parseInt(categoryIdStr) : -1;
+        int gender = genderStr != null ? Integer.parseInt(genderStr) : -1;
+
+		String genderLabel = gender == 1 ? "MEN" : gender == 2 ? "WOMEN" : "ALL";
+        String title = "";
+
 		ProductDAO dao = new ProductDAO();
 
 		List<ProductBean> searchProducts = new ArrayList<>();
@@ -55,27 +43,22 @@ public class ProductListServlet extends HttpServlet {
 				//検索がある場合、検索機能を使用
 				SearchDAO searchDao = new SearchDAO();
 				searchProducts = searchDao.searchProductList(searchName);
-				request.setAttribute("searchName", searchName);
-				request.setAttribute("searchProducts", searchProducts);
-				request.setAttribute("title", searchName + "の検索結果");
-			} else {
-
-				if (categoryId == -1) {
-					request.setAttribute("title", "ALL / 商品一覧");
-					request.setAttribute("productList", dao.allProductList());
-
+				title = searchName + "の検索結果";
+			} else if (categoryId != -1) {
+				if (gender != -1) {
+					searchProducts = dao.categoryProductList(categoryId, gender);
+					title = genderLabel + "/" + categoryName + "/ 商品一覧";
 				} else {
-
-					if (gender == -1) {
-						request.setAttribute("title", " ALL / " + categoryName + "/ 商品一覧");
-						request.setAttribute("productList", dao.allCategoryProductList(categoryId));
-
-					} else {
-						request.setAttribute("title", genderStr + "/" + categoryName + "/ 商品一覧");
-						request.setAttribute("productList", dao.categoryProductList(categoryId, gender));
-					}
+					searchProducts = dao.allCategoryProductList(categoryId);
+					title = "ALL / " + categoryName + "/ 商品一覧";
 				}
+			} else {
+				searchProducts = dao.allProductList();
+				title = "ALL / 商品一覧";
 			}
+
+			request.setAttribute("title", title);
+			request.setAttribute("productList", searchProducts);
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 			request.getSession().setAttribute("errorMessage", "内部の設定エラーが発生しました。"
