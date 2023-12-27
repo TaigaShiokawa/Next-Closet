@@ -34,30 +34,30 @@
 					<label>お名前</label>
 					<input type="text" name="username" placeholder="例) テスト　太郎" 
 					    value="<%= request.getSession().getAttribute("userName") != null ? request.getSession().getAttribute("userName") : "" %>" required><br>
-					<% if(request.getSession().getAttribute("registerMSG") != null) { %>
-						<% HashMap<String, String> registerMSG = (HashMap<String, String>)request.getSession().getAttribute("registerMSG"); %>
-						<% if(registerMSG.containsKey("userName")) { %>
-							<p class="error_message"><%=registerMSG.get("userName") %></p>
+					<% if(request.getSession().getAttribute("registerErrorMSG") != null) { %>
+						<% HashMap<String, String> registerErrorMSG = (HashMap<String, String>)request.getSession().getAttribute("registerErrorMSG"); %>
+						<% if(registerErrorMSG.containsKey("userName")) { %>
+							<p class="error_message"><%=registerErrorMSG.get("userName") %></p>
 						<% } %>
 					<% } %>
 					<label class="caption">*姓と名のスペースは全角にしてください</label><br> 
 					
 					<label>フリガナ</label><input type="text" name="kananame" placeholder="例) テスト　タロウ" 
 						value="<%= request.getSession().getAttribute("kanaName") != null ? request.getSession().getAttribute("kanaName") : "" %>" required><br>
-					<% if(request.getSession().getAttribute("registerMSG") != null) { %>
-						<% HashMap<String, String> registerMSG = (HashMap<String, String>)request.getSession().getAttribute("registerMSG"); %>
-						<% if(registerMSG.containsKey("kanaName")) { %>
-							<p class="error_message"><%=registerMSG.get("kanaName") %></p>
+					<% if(request.getSession().getAttribute("registerErrorMSG") != null) { %>
+						<% HashMap<String, String> registerErrorMSG = (HashMap<String, String>)request.getSession().getAttribute("registerErrorMSG"); %>
+						<% if(registerErrorMSG.containsKey("kanaName")) { %>
+							<p class="error_message"><%=registerErrorMSG.get("kanaName") %></p>
 						<% } %>
 					<% } %>
 					<label class="caption">*カタカナのみで入力してください</label><br> 
 					
 					<label>郵便番号</label><input type="text" id="postcode" name="postcode" placeholder="例) 0000000"
 						value="<%= request.getSession().getAttribute("postCode") != null ? request.getSession().getAttribute("postCode") : "" %>" required><br> 
-					<% if(request.getSession().getAttribute("registerMSG") != null) { %>
-						<% HashMap<String, String> registerMSG = (HashMap<String, String>)request.getSession().getAttribute("registerMSG"); %>
-						<% if(registerMSG.containsKey("postCode")) { %>
-							<p class="error_message"><%=registerMSG.get("postCode") %></p>
+					<% if(request.getSession().getAttribute("registerErrorMSG") != null) { %>
+						<% HashMap<String, String> registerErrorMSG = (HashMap<String, String>)request.getSession().getAttribute("registerErrorMSG"); %>
+						<% if(registerErrorMSG.containsKey("postCode")) { %>
+							<p class="error_message"><%=registerErrorMSG.get("postCode") %></p>
 						<% } %>
 					<% } %>
 					<% String selectedPrefecture = (String)request.getSession().getAttribute("prefectures"); %>
@@ -113,36 +113,36 @@
 					</select><br>
 					
 					<label>住所</label><textarea type="text" name="address" placeholder="例) 〇〇市〇〇区〇丁目" required><%= request.getSession().getAttribute("address") != null ? request.getSession().getAttribute("address") : "" %></textarea><br>
-					<% if(request.getSession().getAttribute("registerMSG") != null) { %>
-						<% HashMap<String, String> registerMSG = (HashMap<String, String>)request.getSession().getAttribute("registerMSG"); %>
-						<% if(registerMSG.containsKey("address")) { %>
-							<p class="error_message"><%=registerMSG.get("address") %></p>
+					<% if(request.getSession().getAttribute("registerErrorMSG") != null) { %>
+						<% HashMap<String, String> registerErrorMSG = (HashMap<String, String>)request.getSession().getAttribute("registerErrorMSG"); %>
+						<% if(registerErrorMSG.containsKey("address")) { %>
+							<p class="error_message"><%=registerErrorMSG.get("address") %></p>
 						<% } %>
 					<% } %>
 					
 					<label>電話番号</label><input type="text" name="telnumber" placeholder="例) 00000000000" 
 						value="<%= request.getSession().getAttribute("telNumber") != null ? request.getSession().getAttribute("telNumber") : "" %>" required><br> 
-						<% if(request.getSession().getAttribute("registerMSG") != null) { %>
-						<% HashMap<String, String> registerMSG = (HashMap<String, String>)request.getSession().getAttribute("registerMSG"); %>
-						<% if(registerMSG.containsKey("telNumber")) { %>
-							<p class="error_message"><%=registerMSG.get("telNumber") %></p>
+						<% if(request.getSession().getAttribute("registerErrorMSG") != null) { %>
+						<% HashMap<String, String> registerErrorMSG = (HashMap<String, String>)request.getSession().getAttribute("registerErrorMSG"); %>
+						<% if(registerErrorMSG.containsKey("telNumber")) { %>
+							<p class="error_message"><%=registerErrorMSG.get("telNumber") %></p>
 						<% } %>
 					<% } %>
 					
 					<label>メールアドレス</label><input type="email" name="email" placeholder="例) 〇〇@〇〇.com" 
 						value="<%= request.getSession().getAttribute("email") != null ? request.getSession().getAttribute("email") : "" %>" required><br> 
-						<% if(request.getSession().getAttribute("registerMSG") != null) { %>
-						<% HashMap<String, String> registerMSG = (HashMap<String, String>)request.getSession().getAttribute("registerMSG"); %>
-						<% if(registerMSG.containsKey("email")) { %>
-							<p class="error_message"><%=registerMSG.get("email") %></p>
+						<% if(request.getSession().getAttribute("registerErrorMSG") != null) { %>
+						<% HashMap<String, String> registerErrorMSG = (HashMap<String, String>)request.getSession().getAttribute("registerErrorMSG"); %>
+						<% if(registerErrorMSG.containsKey("email")) { %>
+							<p class="error_message"><%=registerErrorMSG.get("email") %></p>
 						<% } %>
 					<% } %>
 					
 					<label>パスワード</label><input id="passwordField" type="password" name="password" placeholder="8文字以上" required>
-					<% if(request.getSession().getAttribute("registerMSG") != null) { %>
-						<% HashMap<String, String> registerMSG = (HashMap<String, String>)request.getSession().getAttribute("registerMSG"); %>
-						<% if(registerMSG.containsKey("password")) { %>
-							<p class="error_message"><%=registerMSG.get("password") %></p>
+					<% if(request.getSession().getAttribute("registerErrorMSG") != null) { %>
+						<% HashMap<String, String> registerErrorMSG = (HashMap<String, String>)request.getSession().getAttribute("registerErrorMSG"); %>
+						<% if(registerErrorMSG.containsKey("password")) { %>
+							<p class="error_message"><%=registerErrorMSG.get("password") %></p>
 						<% } %>
 					<% } %>
 					
