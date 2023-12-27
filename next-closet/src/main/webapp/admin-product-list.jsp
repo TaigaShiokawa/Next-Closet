@@ -139,7 +139,7 @@
 						                        <ul class="category">
 						                            <li><a href='AdminProductListServlet'>全ての商品</a></li>
 						                            <% for ( CategoryBean columns : categoryList){ %>
-						                             <li><a href='AdminProductListServlet?categoryId=<%= columns.getCategoryId() %>&gender=-1&categoryName=<%= columns.getCategoryName() %>'><%= columns.getCategoryName() %></a></li>
+						                             <li><a href='AdminProductListServlet?categoryId=<%= columns.getCategoryId() %>&gender=0&categoryName=<%= columns.getCategoryName() %>'><%= columns.getCategoryName() %></a></li>
 						                             <% } %>
 						                        </ul>
 						                    </li>
@@ -147,7 +147,7 @@
 						                    <li class="gender"><span>MAN</span>
 						                        <ul class="category">
 						                             <% for ( CategoryBean columns : categoryList){ %>
-						                            <li><a href='AdminProductListServlet?categoryId=<%= columns.getCategoryId() %>&gender=0&categoryName=<%= columns.getCategoryName() %>'><%= columns.getCategoryName() %></a></li>
+						                            <li><a href='AdminProductListServlet?categoryId=<%= columns.getCategoryId() %>&gender=1&categoryName=<%= columns.getCategoryName() %>'><%= columns.getCategoryName() %></a></li>
 						                             <% } %>
 						                        </ul>
 						                    </li>
@@ -155,7 +155,7 @@
 						                    <li class="gender"><span>WOMAN</span>
 						                        <ul class="category">
 						 							<% for ( CategoryBean columns : categoryList){ %>
-						                            <li><a href='AdminProductListServlet?categoryId=<%= columns.getCategoryId() %>&gender=1&categoryName=<%= columns.getCategoryName() %>'><%= columns.getCategoryName() %></a></li>
+						                            <li><a href='AdminProductListServlet?categoryId=<%= columns.getCategoryId() %>&gender=2&categoryName=<%= columns.getCategoryName() %>'><%= columns.getCategoryName() %></a></li>
 						                            <% } %>
 						                        </ul>
 						                    </li>
