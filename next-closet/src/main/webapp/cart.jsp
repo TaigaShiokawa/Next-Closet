@@ -65,7 +65,6 @@
 					    		return;
 					    	}
 						
-						
 					        double totalPrice = 0;
 					        for (CartItemBean item : cartItems) {
 					            int itemPrice = item.getProduct().getPrice();

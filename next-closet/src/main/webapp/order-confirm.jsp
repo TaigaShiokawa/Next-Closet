@@ -158,14 +158,15 @@ String img = null;%>
 				</div>
 				</div>
 			<div class=changeDelivery>
-				<span class="bold">配送先を変える</span>
-				<a href="MypageServlet">マイページから住所追加</a><br>
+				<span class="bold">配送先を変える</span><br>
+				
 	
 			<% List <AddressBean> addAddresses = ( ArrayList<AddressBean> )request.getAttribute("addAddresses");//サブ住所 %>
 			<% for( AddressBean add : addAddresses) { %> 	
 				<input class="check" type="checkbox" name="address" value="<%= add.getPrefectures() + add.getAddress() %>"><laber><%= add.getPrefectures() + add.getAddress() %> </laber><br>
 		
 			<% } %> 
+			<a href="MypageServlet">マイページから住所追加</a><br>
 			<div class="total">
 			<span class="bold">ご注文金額</span>
 			<% String formattedTolalAmount = String.format("%,d", totalAmount); %>

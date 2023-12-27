@@ -114,6 +114,7 @@
 		                          <p>&yen; <%= formattedItemPrice %> 税込</p>
 	                         </a>
                     	 </li>
+                    	 
                   		 <%  
 		            	     }
 		                 } else {

@@ -25,7 +25,7 @@ public class ProductListServlet extends HttpServlet {
 		String genderStr = request.getParameter("gender");
 		String searchName = request.getParameter("searchName");
 		String categoryName = request.getParameter("categoryName");
-
+		
 		int categoryId = categoryIdStr != null ? Integer.parseInt(categoryIdStr) : -1;
         int gender = genderStr != null ? Integer.parseInt(genderStr) : -1;
 
