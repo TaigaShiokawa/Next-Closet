@@ -45,7 +45,7 @@
  }
  
  .product_detail{
-	 padding-right: 100px;
+	 padding-right: 20px;
 	 padding-top: 20px;
  }
  
@@ -84,19 +84,36 @@
 	
 }
 
-.update , .delete{
+.update{
+	color: #fff;	
+	background-color: rgb(99, 101, 100);
+	height: 40px;
+	width: 70px;
+	border:none;
+}
+
+.delete{
 	color: rgb(44, 44, 44);
 	font-weight: bold;	
 	background-color: transparent;
 	border:none;
+	border-bottom:1px solid  rgb(44, 44, 44);
+	padding-bottom: 2px;
 }
+
+
+.delete:hover , .update:hover{
+	opacity: .7;
+}
+
+
 
 .buy{
 	width:200px;
 	padding:20px;
 	margin-top:30px;
 	text-decoration: none;
-	background-color: rgb(101, 101, 101);
+	background-color: rgb(56, 56, 56);
 	color : #fff;
 	border:none;
 	border-radius: 30px;
