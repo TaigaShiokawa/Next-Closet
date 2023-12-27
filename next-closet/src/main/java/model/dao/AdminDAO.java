@@ -68,7 +68,7 @@ public class AdminDAO {
 			    String hash_pass = res.getString("hash_pass");
 			    boolean status = res.getBoolean("admin_status");
 			    Date registration_date = res.getDate("registration_date"); 
-
+			    
 			    list.add(new AdminBean (admin_id, admin_name,  kana_name, email, hash_pass , status , registration_date ));
 			}
 		}

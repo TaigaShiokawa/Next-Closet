@@ -78,7 +78,7 @@ class AdminDAOTest {
         // テストデータの挿入
         try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost/next_closet_db", "root", "")) {
             String insertSql = "INSERT INTO admins (admin_name, admin_kana_name, email, hash_pass, admin_status, registration_date) " +
-                    "VALUES ('田中　健二', 'タナカ ケンジ', 'tanaka@email.com', '7e071fd9b023ed8f18458a73613a0834f6220bd5cc50357ba3493c6040a9ea8c', 1, '2023-12-17 23:51:07.0')";
+                    "VALUES ('田中　健二', 'タナカ　ケンジ', 'tanaka@email.com', '7e071fd9b023ed8f18458a73613a0834f6220bd5cc50357ba3493c6040a9ea8c', 1, '2023-12-17 23:51:07.0')";
             try (PreparedStatement pstmt = con.prepareStatement(insertSql)) {
                 pstmt.executeUpdate();
             }
@@ -91,6 +91,7 @@ class AdminDAOTest {
             // 期待値と実際の結果の比較
             assertFalse(adminList.isEmpty());
             AdminBean admin = adminList.get(0);
+            System.out.println(admin.getAdminKanaName());
             assertEquals("田中　健二", admin.getAdminName());
             assertEquals("タナカ　ケンジ", admin.getAdminKanaName());
             assertEquals("tanaka@email.com", admin.getEmail());
