@@ -22,12 +22,12 @@
 <div class="container">
 <h3>ユーザー情報更新画面</h3>
 
-<% List<String> errorMessages = (List<String>)request.getSession().getAttribute("errorMessages"); %>
+<% List<String> errorMessages = (List<String>)request.getSession().getAttribute("errorMessage"); %>
 <% if(errorMessages != null) { %>
 	<% for(String errorMessage : errorMessages) { %>
     <p><%= errorMessage %></p>
 	<% } %>
-	<% request.getSession().removeAttribute("errorMessages"); %>
+	<% request.getSession().removeAttribute("errorMessage"); %>
 <% } %>
 
 		<form action="UserEditServlet" method="post" class="center-form">
