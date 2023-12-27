@@ -115,6 +115,8 @@ span{
 }
 
 
+
+
 #pass{
 	margin: 0;
 }
@@ -133,4 +135,12 @@ span{
 
 .gray{
 	background-color: gray;
+}
+
+/*　エラーメッセージ*/
+
+.error_message{
+	color:rgb(186, 41, 28);
+	font-size: 12px;
+	padding-left:180px;
 }
