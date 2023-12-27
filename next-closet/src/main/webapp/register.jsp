@@ -27,23 +27,7 @@
 			<p><%=failure %></p>
 			<% session.getAttribute("failure"); %>
 			<% } %>
-			
-			<%-- <%
-    		// セッションからエラーメッセージのリストを取得
-		    List<String> errorMessages = (List<String>) request.getSession().getAttribute("errorMessages");
-		
-		    // エラーメッセージを表示
-		    if(errorMessages != null && !errorMessages.isEmpty()) {
-			%>
-			        <div class="error-messages">
-			            <% for(String errorMessage : errorMessages) { %>
-			                <p class="error_message"><%= errorMessage %></p>
-			            <% } %>
-			        </div>
-			<%
-			        request.getSession().removeAttribute("errorMessages");
-			    }
-			%> --%>
+	
 			<form action="RegisterServlet" method="post">
 					<div class="form_container">
 					

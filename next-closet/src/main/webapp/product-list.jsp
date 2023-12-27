@@ -125,21 +125,11 @@
         </div>
     </main>
     
-    <% 
-	int currentPage = (Integer)request.getAttribute("currentPage") != null ? (Integer) request.getAttribute("currentPage") : 1;
-	int totalPages = (Integer)request.getAttribute("totalPages") != null ? (Integer) request.getAttribute("totalPages") : 1;
-	%>
-	<div class="pagination">
-    <% for(int i = 1; i <= totalPages; i++) { %>
-        <% if(i == currentPage) { %>
-            <span class="current"><%= i %></span>
-        <% } else { %>
-            <a href="ProductListServlet?page=<%= i %>"><%= i %></a>
-        <% } %>
-    <% } %>
-</div>
-	
-    
+    <ul class="page_list">
+    　<li><a href="ProductListServlet">1</a></li>
+    　<li> <a href="PagenationServlet?value=2">2</a></li>
+    　<li><a href="PagenationServlet?value=3">3</a></li>
+    </ul>
     
    
     
