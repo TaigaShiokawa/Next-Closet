@@ -41,7 +41,7 @@
 			                        <ul class="category">
 			                            <li><a href='ProductListServlet'>全ての商品</a></li>
 			                            <% for ( CategoryBean columns : categoryList){ %>
-			                             <li><a href='ProductListServlet?categoryId=<%= columns.getCategoryId() %>&gender=-1&categoryName=<%= columns.getCategoryName() %>'><%= columns.getCategoryName() %></a></li>
+			                             <li><a href='ProductListServlet?categoryId=<%= columns.getCategoryId() %>&gender=0&categoryName=<%= columns.getCategoryName() %>'><%= columns.getCategoryName() %></a></li>
 			                             <% } %>
 			                        </ul>
 								</div>
@@ -52,7 +52,7 @@
 							<div class="category_content">
 	                      		<ul class="category">
 	                            		<% for ( CategoryBean columns : categoryList){ %>
-	                           				<li><a href='ProductListServlet?categoryId=<%= columns.getCategoryId() %>&gender=0&categoryName=<%= columns.getCategoryName() %>'><%= columns.getCategoryName() %></a></li>
+	                           				<li><a href='ProductListServlet?categoryId=<%= columns.getCategoryId() %>&gender=1&categoryName=<%= columns.getCategoryName() %>'><%= columns.getCategoryName() %></a></li>
 	                           			<% } %>
 	                       		</ul>      			 
 							</div>
@@ -63,7 +63,7 @@
 							<div class="category_content">
 	                      		<ul class="category">
 								<% for ( CategoryBean columns : categoryList){ %>
-	                         		<li><a href='ProductListServlet?categoryId=<%= columns.getCategoryId() %>&gender=1&categoryName=<%= columns.getCategoryName() %>'><%= columns.getCategoryName() %></a></li>
+	                         		<li><a href='ProductListServlet?categoryId=<%= columns.getCategoryId() %>&gender=2&categoryName=<%= columns.getCategoryName() %>'><%= columns.getCategoryName() %></a></li>
 	                         	<% } %>
 	                     		</ul>
 							</div>

@@ -67,7 +67,7 @@ public class ProductListServlet extends HttpServlet {
 				
 			} else {
 				
-				if(  gender == -1 ){
+				if(  gender == 0 ){
 					request.setAttribute("title",  " ALL / " + categoryName + "/ 商品一覧");
 					request.setAttribute("productList",dao.allCategoryProductList(categoryId));
 					
