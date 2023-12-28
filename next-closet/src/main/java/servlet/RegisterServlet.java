@@ -34,8 +34,6 @@ public class RegisterServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
 			throws ServletException, IOException {
 		
-		request.getSession().invalidate();
-		
 		response.sendRedirect("register.jsp");
 	}
 
@@ -44,6 +42,7 @@ public class RegisterServlet extends HttpServlet {
 			throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
+		request.getSession().setMaxInactiveInterval(10);
 		
 		String userName = request.getParameter("username");
 		String kanaName = request.getParameter("kananame");
