@@ -118,11 +118,10 @@ public class CartDAO {
 	public void destroyCartItem(int cartItemId) 
 			throws ClassNotFoundException, SQLException {
 		String sql = "DELETE FROM cart_items WHERE cart_item_id = ?"; 
-		int processingNum = 0;
 		try (Connection con = DBConnection.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)) {	
 		pstmt.setInt(1, cartItemId);
-		processingNum = pstmt.executeUpdate();
+		pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -142,14 +141,13 @@ public class CartDAO {
 	
 	public void destroyAllCartItem(int userId) 
 			throws ClassNotFoundException, SQLException {
-		String sql = "DELETE FROM cart_items WHERE user_id = ?"; 
-		int processingNum = 0;
+		String sql = "DELETE FROM cart_items WHERE user_id = ?";
 		
 		try (Connection con = DBConnection.getConnection();
 		     PreparedStatement pstmt = con.prepareStatement(sql)) {	
 			
 		pstmt.setInt(1, userId);
-		processingNum = pstmt.executeUpdate();
+		pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
