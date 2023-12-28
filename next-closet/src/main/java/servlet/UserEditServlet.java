@@ -2,8 +2,7 @@ package servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -49,11 +48,12 @@ public class UserEditServlet extends HttpServlet {
 		String telNumber = request.getParameter("telnumber");
 		String email = request.getParameter("email");
 		
-		List<String> errorMessages = new ArrayList<>();
+		//List<String> errorMessages = new ArrayList<>();
+		HashMap<String, String> errorMessages = new HashMap<>();
 		
 		//名前の入力チェック
 		if(!UserNameValidator.validate(userName)) {
-			errorMessages.add("名前の入力が正しくありません");
+			errorMessages.put("userName", "名前の入力が正しくありません");
 			saveFormDataInSession(request, userName, kanaName, postCode, prefectures, address, telNumber, email);
 		} else {
 			request.getSession().setAttribute("userName", userName);
@@ -61,7 +61,7 @@ public class UserEditServlet extends HttpServlet {
 		
 		//フリガナの入力チェック
 		if(!KanaNameValidator.validate(kanaName)) {
-			errorMessages.add("フリガナの入力が正しくありません");
+			errorMessages.put("kanaName", "フリガナの入力が正しくありません");
 			saveFormDataInSession(request, userName, kanaName, postCode, prefectures, address, telNumber, email);
 		} else {
 			request.getSession().setAttribute("kanaName", kanaName);
@@ -80,7 +80,7 @@ public class UserEditServlet extends HttpServlet {
 								 		 .replaceAll("９", "9");
 		//郵便番号の入力に対してハイフン無しの形式を要求
 		if(!PostCodeValidator.validate(convertPostCode)) {
-			errorMessages.add("郵便番号が正しくありません");
+			errorMessages.put("postCode", "郵便番号が正しくありません");
 			saveFormDataInSession(request, userName, kanaName, convertPostCode, prefectures, address, telNumber, email);
 		} else {
 			request.getSession().setAttribute("postCode", convertPostCode);
@@ -89,7 +89,7 @@ public class UserEditServlet extends HttpServlet {
 		//住所の空文字チェック
 		String normalizedAddress = null;
 		if(address.isEmpty()) {
-			errorMessages.add("住所が正しくありません");
+			errorMessages.put("address", "住所を入力してください");
 	        saveFormDataInSession(request, userName, kanaName, convertPostCode, prefectures, address, telNumber, email);
 		} else {
 			//住所の数値を統一(全角を半角にする)
@@ -112,7 +112,7 @@ public class UserEditServlet extends HttpServlet {
 		
 		//電話番号の入力に対してハイフン無しの形式を要求
 		if(!TelNumberValidator.validate(convertTelNumber)) {
-			errorMessages.add("無効な電話番号です");
+			errorMessages.put("telNumber", "無効な電話番号です");
 			saveFormDataInSession(request, userName, kanaName, convertPostCode, prefectures, address, convertTelNumber, email);
 		} else {
 			request.getSession().setAttribute("telNumber", convertTelNumber);
@@ -121,14 +121,14 @@ public class UserEditServlet extends HttpServlet {
 		//メールアドレスチェック(一般的な形式に則っていなければ無効)
 		if (!EmailValidator.validate(email)) { 
 	        // Eメールが無効な形式の場合の処理
-			errorMessages.add("無効なEメールアドレスです");
+			errorMessages.put("email", "無効なEメールアドレスです");
 	        saveFormDataInSession(request, userName, kanaName, convertPostCode, prefectures, address, convertTelNumber, email);
 		} else {
 			request.getSession().setAttribute("email", email);
 		}
 		
 		if(!errorMessages.isEmpty()) {
-			request.getSession().setAttribute("errorMessage", errorMessages);
+			request.getSession().setAttribute("mypageErrorMSG", errorMessages);
 			response.sendRedirect("mypage-edit.jsp");
 			return;
 		}
