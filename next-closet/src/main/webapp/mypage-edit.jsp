@@ -33,7 +33,7 @@
 		<form action="UserEditServlet" method="post" class="center-form">
 			<label class="label">お名前</label><input type="text" name="username" 
 				value="<%=request.getSession().getAttribute("userName") != null ? request.getSession().getAttribute("userName") : loginUser.getUserName() %>"><br>
-			<label class="caption">*姓と名のスペースは全角にしてください</label><br> 
+			<label class="caption">*姓と名のスペースは全角にしてください</label><br>
 			
 			<label class="label">フリガナ</label><input type="text" name="kananame" 
 				value="<%=request.getSession().getAttribute("kanaName") != null ? request.getSession().getAttribute("kanaName") : loginUser.getKanaName() %>"><br>

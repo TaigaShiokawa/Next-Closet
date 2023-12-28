@@ -22,6 +22,7 @@
 					<% String success = (String)request.getSession().getAttribute("success"); %>
 					<% String loginError = (String)request.getSession().getAttribute("loginError"); %>
 					<% String notFound = (String)request.getSession().getAttribute("notFound"); %>
+					<% String email = (String)request.getSession().getAttribute("email"); %>
 					<% Integer passwordStrength = (Integer)request.getSession().getAttribute("passwordStrength"); %>
 					<% if(success != null) { %>
 					<p><%=success %></p>
@@ -32,20 +33,17 @@
 					<% } else if(notFound != null) { %>
 					<p><%=notFound %></p>
 					<% session.removeAttribute("notFound"); %>
-					<% } else if(passwordStrength != null) { %>
-					<p>※パスワード強度は<%=passwordStrength %> レベルです</p>
-					<% session.removeAttribute("passwordStrength"); %>
 					<% } %>
 					<div class="form_wrapper">
 						<form action="LoginServlet" method="post">
-							<input class="box" type="email" name="email" placeholder="メールアドレス" required><br>
-							<input class="box" type="password" name="password" placeholder="password" required><br>
+							<input class="box" type="email" name="email" value="<%= email != null ? email : "" %>" required><br>
+							<input class="box" type="password" name="password" required><br>
 							<input type="hidden" name="userStatus" value="true">
 							<button id="login_submit" type="submit">login</button>
 						</form>
 					</div>
 					<p>アカウントをお持ちでない場合はこちらから</p>
-					<a href="register.jsp">申し込み</a>
+					<a href="RegisterServlet">申し込み</a>
 				</div>
 		</main>
 		<%@ include file="includes/footer.jsp" %>
