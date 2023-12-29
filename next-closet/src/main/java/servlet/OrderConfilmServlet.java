@@ -19,12 +19,12 @@ import model.dao.UserDAO;
 
 @WebServlet("/OrderConfilmServlet")
 public class OrderConfilmServlet extends HttpServlet {
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
 
 		ProductDAO productDao = new ProductDAO();
 		UserDAO userDao = new UserDAO();
 		CartDAO cartDao = new CartDAO();
+		
 		int userId = (int) request.getSession().getAttribute("userId");
 		String order = request.getParameter("order"); //今すぐ購入だったら中身がある
 		int cartItemId = -1;
@@ -123,23 +123,24 @@ public class OrderConfilmServlet extends HttpServlet {
 					return;
 				}
 				request.setAttribute("order", "allCartItems");//今回のオーダーがカートの中身を全て購入であることを証明
-
 			}
-
 		}
-
 		request.getRequestDispatcher("order-confirm.jsp").forward(request, response);
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 
 		ProductDAO productDao = new ProductDAO();
 		UserDAO userDao = new UserDAO();
 		CartDAO cartDao = new CartDAO();
-
+		StockManager st = new StockManager();
+		
 		int userId = (int) request.getSession().getAttribute("userId");
+		String delivery_address = (String) request.getParameter("address");
+		int totalAmount = Integer.parseInt(request.getParameter("totalAmount"));
+		String order = request.getParameter("order");
+		request.setAttribute("order", order);
 
 		try {
 			//userIdでUserBeanから情報を持ってくる
@@ -159,12 +160,6 @@ public class OrderConfilmServlet extends HttpServlet {
 			response.sendRedirect("error.jsp");
 			return;
 		}
-
-		String delivery_address = (String) request.getParameter("address");
-		int totalAmount = Integer.parseInt(request.getParameter("totalAmount"));
-		String order = request.getParameter("order");
-		request.setAttribute("order", order);
-		StockManager st = new StockManager();
 
 		if (order.equals("order")) { //商品詳細 → 今すぐ購入だったら
 
