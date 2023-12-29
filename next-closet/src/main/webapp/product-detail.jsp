@@ -4,84 +4,81 @@
 <!DOCTYPE html>
 <html>
 	<head>
-	<meta charset="UTF-8">
-	<title>商品詳細</title>
-	<link rel="icon" href="image/favicon.png" id="favicon">
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400&display=swap" rel="stylesheet">
-	   <link rel="stylesheet" href="css/product-detail.css">
-	   <link rel = "stylesheet" href = "css/navbar.css">
-	   <% UserBean loginUser = (UserBean)request.getSession().getAttribute("user");
-	   	  List <ProductBean> productList = (ArrayList <ProductBean>)request.getAttribute("productList");
-		  if(productList == null) {
+		<meta charset="UTF-8">
+		<title>商品詳細</title>
+		<link rel="icon" href="image/favicon.png" id="favicon">
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="css/product-detail.css">
+		<link rel = "stylesheet" href = "css/navbar.css">
+		<% UserBean loginUser = (UserBean)request.getSession().getAttribute("user");
+		   List <ProductBean> productList = (ArrayList <ProductBean>)request.getAttribute("productList");
+		   if(productList == null) {
 				request.getSession().setAttribute("productNotFound", productList);
 				response.sendRedirect("ProductDetailServlet");
 				return;
-		  }
-		  int product_id = -1;
-	    %>
+			}
+			int product_id = -1;
+		 %>
 	</head>
 	<body>
-	<%@ include file="includes/navbar.jsp" %> 
-	<main>
-	<div class="wrapper">
-		<div class="product_contents">
-			<div class="img">
-				<% for ( ProductBean columns : productList){ 
-				  	String img = columns.getImage();
-				  	 if (img.isEmpty()){
-                  	   img = "image/noimg.jpg";
-			        } else {
-			     	   img = "image/" + img;
-			        }
-			        
-			        product_id = columns.getProductId();
-			         String formattedItemPrice = String.format("%,d", columns.getPrice()); 
-				%>
-				<img src="<%= img %>">
-			</div> <!-- img閉じタグ -->
-			<div id="product-detail">
-				<p id="product_name" class="text"><%= columns.getProductName() %><p>
-				<p class="text">&yen; <%= formattedItemPrice %><span class="tax_in">税込</span></p>
-				<p id="product_descruption" class="text"><%= columns.getDescription() %></p>
-				
-				<% } %>
-				
-				<% if( loginUser != null) { %>
-				<form id="form" name="form" action="AddToCartServlet" method="post">
-					<input type="hidden" name="order" value="order" >
-					<input type="hidden" name="productId" value="<%= product_id %>" >
-					<div class="size_box">
-						<input type="radio" name="sizeId" value="1" id="S" checked ><label for="S" class="radio_label">S</label>
-						<input type="radio" name="sizeId" value="2" id="M" ><label for="M" class="radio_label">M</label>
-						<input type="radio" name="sizeId" value="3" id="L" ><label for="L" class="radio_label">L</label>
+		<%@ include file="includes/navbar.jsp" %> 
+		<main>
+			<div class="wrapper">
+				<div class="product_contents">
+					<div class="img">
+						<% for ( ProductBean columns : productList){ 
+					  		String img = columns.getImage();	
+					  		if (img.isEmpty()){
+	                  	   		img = "image/noimg.jpg";
+				        	} else {
+				     	   		img = "image/" + img;
+				       		}
+				        
+				        	product_id = columns.getProductId();
+				         	String formattedItemPrice = String.format("%,d", columns.getPrice()); 
+						%>
+						<img src="<%= img %>">
+					</div> <!-- img閉じタグ -->
+					<div id="product-detail">
+						<p id="product_name" class="text"><%= columns.getProductName() %><p>
+						<p class="text">&yen; <%= formattedItemPrice %><span class="tax_in">税込</span></p>
+						<p id="product_descruption" class="text"><%= columns.getDescription() %></p>
+						
+						<% } // 31行目のfor文終了%> 
+					
+						<% if( loginUser != null) { //ログインしてたら %>
+							<form id="form" name="form" action="AddToCartServlet" method="post">
+								<input type="hidden" name="order" value="order" >
+								<input type="hidden" name="productId" value="<%= product_id %>" >
+								<div class="size_box">
+									<input type="radio" name="sizeId" value="1" id="S" checked ><label for="S" class="radio_label">S</label>
+									<input type="radio" name="sizeId" value="2" id="M" ><label for="M" class="radio_label">M</label>
+									<input type="radio" name="sizeId" value="3" id="L" ><label for="L" class="radio_label">L</label>
+								</div>
+							
+								<label class="quantity">数 量</label><span class="quantity_max">※10点まで購入可能</span><br>
+								<label class="number-spinner-wrap">
+									<span class="spinner spinner-down">-</span>
+									<input class="number_input" type="number" name = "quantity" min="1" max="10"  step="1" value="1" required>
+									<span class="spinner spinner-up">+</span>
+								</label><br>
+			
+								<input class="submit" type="submit" value="ADD TO CART">
+								<input class="submit" type="submit" value="BUY NOW" onclick="goOrder()">		
+							</form>
+						<% } else { //未ログインだったら %>
+							<button id="goLogin"><a href="login.jsp">ログイン または新規登録して購入する</a></button>	<br>
+						<% } %>	
+					
+						<a class="back" href="ProductListServlet">商品一覧へ戻る</a>
 					</div>
-					
-					
-  
-					<label class="quantity">数 量</label><span class="quantity_max">※10点まで購入可能</span><br>
-					<label class="number-spinner-wrap">
-						<span class="spinner spinner-down">-</span>
-						<input class="number_input" type="number" name = "quantity" min="1" max="10"  step="1" value="1" required>
-						<span class="spinner spinner-up">+</span>
-					</label><br>
-	
-						<input class="submit" type="submit" value="ADD TO CART">
-						<input class="submit" type="submit" value="BUY NOW" onclick="goOrder()">
-					
-				</form>
-				<% } else { %>
-						<button id="goLogin"><a href="login.jsp">ログイン または新規登録して購入する</a></button>	<br>
-				<% } %>
-				
-				<a class="back" href="ProductListServlet">商品一覧へ戻る</a>
+				</div>
 			</div>
-		</div>
-	</div>
-	</main>	
-	<%@ include file="includes/footer.jsp" %>
-		
+		</main>	
+		<%@ include file="includes/footer.jsp" %>
+			
 		<script>
 			function goOrder(){
 				document.getElementById('form').method = 'get';
