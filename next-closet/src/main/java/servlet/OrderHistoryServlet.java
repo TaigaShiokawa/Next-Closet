@@ -18,9 +18,9 @@ public class OrderHistoryServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		int userId = (int) request.getSession().getAttribute("userId");
-		OrderDAO dao = new OrderDAO();
+		OrderDAO orderDao = new OrderDAO();
 		try {
-			request.setAttribute("orderList", dao.orderList(userId));
+			request.setAttribute("orderList", orderDao.orderList(userId));
 			request.getRequestDispatcher("order-history.jsp").forward(request, response);
 			
 		} catch(ClassNotFoundException e) {
