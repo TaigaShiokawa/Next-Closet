@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
- <%@ page import="model.*" %>
-<%@ page import="model.dao.bean.*, model.SizeText" %>
-<%@ page import="java.util.* , java.util.ArrayList, java.util.List" %>
+<%@ page import="model.*" %>
+<%@ page import="model.dao.*" %>
+<%@ page import="model.bean.*, model.SizeText" %>
+<%@ page import="java.util.*" %>
 <% UserBean loginUser = (UserBean)request.getSession().getAttribute("user"); %>
 <% if(loginUser == null) { %>
 <% response.sendRedirect("product-list.jsp"); %>
