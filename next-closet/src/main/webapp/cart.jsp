@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="model.*" %>
-<%@ page import="model.bean.*" %>
+<%@ page import="model.*" %>
 <%@ page import="junit.model.dao.*" %>
 <% UserBean loginUser = (UserBean)request.getSession().getAttribute("user"); %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="model.bean.CartItemBean" %>
+<%@ page import="model.CartItemBean" %>
 <% int i = 1 ; %>
 <!DOCTYPE html>
 <html>
