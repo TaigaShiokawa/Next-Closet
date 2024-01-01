@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="java.util.* , java.util.ArrayList,model.*, java.util.List" %>
-<%@ page import="junit.model.dao.*" %>
+<%@ page import="java.util.* , java.util.ArrayList,model.bean.*, java.util.List" %>
+<%@ page import="junit.model.dao.bean.*" %>
 
 <!DOCTYPE html>
 <%  List<CategoryBean> categoryList = (ArrayList <CategoryBean>)request.getAttribute("categoryList"); %>

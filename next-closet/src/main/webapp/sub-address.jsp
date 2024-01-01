@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*" %>
-<%@ page import="model.*" %>
-<%@ page import="junit.model.dao.*" %>
+<%@ page import="model.bean.*" %>
+<%@ page import="junit.model.dao.bean.*" %>
 <% UserBean loginUser = (UserBean)request.getSession().getAttribute("user"); %>
 <!DOCTYPE html>
 <html>

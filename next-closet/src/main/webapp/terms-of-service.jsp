@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="model.*"%>
+<%@ page import="model.bean.*"%>
 <%
 UserBean loginUser = (UserBean) request.getSession().getAttribute("user");
 %>
