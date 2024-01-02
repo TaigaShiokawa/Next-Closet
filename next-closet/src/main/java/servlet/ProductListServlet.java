@@ -26,8 +26,8 @@ public class ProductListServlet extends HttpServlet {
 		String searchName = request.getParameter("searchName");
 		String categoryName = request.getParameter("categoryName");
 		
-		int categoryId = categoryIdStr != null ? Integer.parseInt(categoryIdStr) : -1;
-        int gender = genderStr != null ? Integer.parseInt(genderStr) : -1;
+		int categoryId = categoryIdStr != null ? Integer.parseInt(categoryIdStr) : 0;
+        int gender = genderStr != null ? Integer.parseInt(genderStr) : 0;
 
 		String genderLabel = gender == 1 ? "MEN" : gender == 2 ? "WOMEN" : "ALL";
         String title = "";
@@ -44,8 +44,8 @@ public class ProductListServlet extends HttpServlet {
 				SearchDAO searchDao = new SearchDAO();
 				searchProducts = searchDao.searchProductList(searchName);
 				title = searchName + "の検索結果";
-			} else if (categoryId != -1) {
-				if (gender != -1) {
+			} else if (categoryId != 0) {
+				if (gender != 0) {
 					searchProducts = dao.categoryProductList(categoryId, gender);
 					title = genderLabel + "/" + categoryName + "/ 商品一覧";
 				} else {
