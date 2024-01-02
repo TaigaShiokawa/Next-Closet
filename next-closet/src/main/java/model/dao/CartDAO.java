@@ -79,7 +79,7 @@ public class CartDAO {
 	public List<CartItemBean> getCartItems(int userId) 
 	        throws ClassNotFoundException, SQLException {
 	    List<CartItemBean> cartItems = new ArrayList<>();
-	    String sql = "SELECT ci.cart_item_id, ci.quantity, p.product_name, p.price, p.image, s.size_name "
+	    String sql = "SELECT ci.cart_item_id, ci.quantity, p.product_name, p.price, p.image, p.status, s.size_name "
 	               + "FROM cart_items ci "
 	               + "INNER JOIN products p ON ci.product_id = p.product_id "
 	               + "INNER JOIN sizes s ON ci.size_id = s.size_id "
@@ -89,25 +89,31 @@ public class CartDAO {
 	        pstmt.setInt(1, userId);
 	        try (ResultSet res = pstmt.executeQuery()) {
 	            while (res.next()) {
+	            	boolean status = res.getBoolean("status");
 	            	
-	            	//下記、3つのインスタンス化しているオブジェクトは、Beanファイルでそれぞれを継承させたら少し短くなるかも
-	                CartItemBean cartItem = new CartItemBean();
-	                cartItem.setCartItemId(res.getInt("cart_item_id"));
-	                cartItem.setQuantity(res.getInt("quantity"));
-	                cartItem.setSizeName(res.getString("size_name"));
-	                
-	                ProductBean product = new ProductBean();
-	                product.setProductName(res.getString("product_name"));
-	                product.setPrice(res.getInt("price"));
-	                product.setImage(res.getString("image"));
-	                
-	                SizeBean size = new SizeBean();
-	                size.setSizeName(res.getString("size_name"));
-	                
-	                cartItem.setProduct(product);
-	                cartItem.setSize(size);
-	                
-	                cartItems.add(cartItem);
+	            	if(status) { //販売中商品だったらリストに追加する
+	            		
+	            		//下記、3つのインスタンス化しているオブジェクトは、Beanファイルでそれぞれを継承させたら少し短くなるかも
+		                CartItemBean cartItem = new CartItemBean();
+		                cartItem.setCartItemId(res.getInt("cart_item_id"));
+		                cartItem.setQuantity(res.getInt("quantity"));
+		                cartItem.setSizeName(res.getString("size_name"));
+		                
+		                ProductBean product = new ProductBean();
+		                product.setProductName(res.getString("product_name"));
+		                product.setPrice(res.getInt("price"));
+		                product.setImage(res.getString("image"));
+		                
+		                SizeBean size = new SizeBean();
+		                size.setSizeName(res.getString("size_name"));
+		                
+		                cartItem.setProduct(product);
+		                cartItem.setSize(size);
+		                
+		                cartItems.add(cartItem);
+	            		
+	            	}
+	            	
 	            }
 	        }
 	    }
