@@ -1,14 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="model.bean.* , model.dao.*, model.SizeText" %>
-<%@ page import="java.util.* , java.util.ArrayList, java.util.List" %>
-<% UserBean loginUser = (UserBean)request.getSession().getAttribute("user");
-   if(loginUser == null) { 
-   	response.sendRedirect("product-list.jsp"); 
-   } 
-   List <OrderBean> orderList = ( ArrayList <OrderBean>)request.getAttribute("orderList");
-   SizeText st = new SizeText(); 
-   OrderDAO dao = new OrderDAO(); 
-   String img = null;
+
+<%@ page import="model.*" %>
+<%@ page import="model.dao.*" %>
+<%@ page import="model.bean.*, model.SizeText" %>
+<%@ page import="java.util.*" %>
+<% UserBean loginUser = (UserBean)request.getSession().getAttribute("user"); %>
+<% if(loginUser == null) { %>
+<% response.sendRedirect("product-list.jsp"); %>
+<% } %> 
+<% List <OrderBean> orderList = ( ArrayList <OrderBean>)request.getAttribute("orderList"); %>
+<% SizeText st = new SizeText(); %>
+<% OrderDAO dao = new OrderDAO(); 
+String img = null;
 %>
 <!DOCTYPE html>
 <html>
