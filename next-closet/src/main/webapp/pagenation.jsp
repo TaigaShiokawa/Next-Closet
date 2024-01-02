@@ -12,7 +12,7 @@
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 	<link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Tangerine&display=swap" rel="stylesheet">	
     <link rel="stylesheet" href="css/product-list.css">
-	<link rel = "stylesheet" href = "css/navbar.css">
+	<link rel ="stylesheet" href ="css/navbar.css">
     <%
 	    List<ProductBean> productList = (ArrayList <ProductBean>)request.getAttribute("productList");
 	    List<CategoryBean> categoryList = (ArrayList <CategoryBean>)request.getAttribute("categoryList");
