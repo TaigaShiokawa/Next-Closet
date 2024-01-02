@@ -53,7 +53,11 @@ String img = null;
 					    		 <p class="size">サイズ<%= st.sizeText(list.getSizeId()) %></p>
 				    		 </div>
 			 		    </div>
+			 		    <% if( list.isStatus()){ %>
 			 		    <button><a href="ProductDetailServlet?productId=<%= list.getProductId() %>">もう一度購入</a></button>
+			 		    <% } else { %>
+			 		    <p>この商品は削除されました。</p>
+			 		    <% } %>
 				   </div>
 			   </div>
 			   <% } %>
