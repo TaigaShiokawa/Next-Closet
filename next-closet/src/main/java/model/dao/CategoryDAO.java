@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import connection.DBConnection;
@@ -26,6 +27,14 @@ public class CategoryDAO {
 			    
 	        	categoryList.add(new CategoryBean( category_id , category_name));
 			}
+		} catch (SQLException e) {
+			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+                               ", SQLステート: " + e.getSQLState() + 
+                               ", エラーコード: " + e.getErrorCode());
+		} catch (Exception e) {
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+                               ", メッセージ: " + e.getMessage() + 
+                               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
 		}
 		return categoryList;
 	}
@@ -83,7 +92,7 @@ public class CategoryDAO {
 		return category;
 	}
 		
-	//カテゴリー追加
+	//カテゴリーの削除
 	public void deleteCategory( int categoryId )
 			throws ClassNotFoundException, SQLException {
 		String sql = "DELETE FROM categories WHERE category_id = ?";
@@ -91,6 +100,14 @@ public class CategoryDAO {
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setInt(1, categoryId);
 			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+                               ", SQLステート: " + e.getSQLState() + 
+                               ", エラーコード: " + e.getErrorCode());
+		} catch (Exception e) {
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+                               ", メッセージ: " + e.getMessage() + 
+                               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
 		}
 	}
 	
