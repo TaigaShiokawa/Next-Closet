@@ -17,28 +17,23 @@ public class OrderDAO {
 	public List<OrderBean> orderList( int userId )
 			throws ClassNotFoundException, SQLException {
 		List<OrderBean> orderList = new ArrayList<>();
-		String sql = "SELECT * FROM order_items WHERE user_id = ? ORDER BY order_date DESC"; //product_name用のsql文
-		int order_item_id = 0;
-		int product_id = 0;
-		int quantity = 0;
-		int size_id = 0;
-		int total_amount = 0;
-		Date order_date = null;
-		String delivery_address = null;
+		String sql ="SELECT next_closet_db.oi.* , p.status FROM order_items oi  INNER JOIN products p ON p.product_id = oi.product_id WHERE user_id = ? ORDER BY order_date DESC";
+
 		try (Connection con = DBConnection.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setInt(1, userId);
 			ResultSet res = pstmt.executeQuery();
 			while (res.next()) {
-				order_item_id = res.getInt("order_item_id");
-				product_id = res.getInt("product_id");
-				quantity = res.getInt("quantity");
-				size_id = res.getInt("size_id");
-				total_amount = res.getInt("total_amount");
-				order_date = res.getDate("order_date");
-				delivery_address = res.getString("delivery_address");
-				
-				orderList.add(new OrderBean (order_item_id ,product_id, quantity, size_id, userId, total_amount, order_date, delivery_address));
+				OrderBean order = new OrderBean();
+				order.setOrderItemId(res.getInt("order_item_id"));
+				order.setProductId(res.getInt("product_id"));
+				order.setQuantity(res.getInt("quantity"));
+				order.setSizeId(res.getInt("size_id"));
+				order.setTotalAmount(res.getInt("total_amount"));
+				order.setOrderDate(res.getDate("order_date"));
+				order.setDeliveryAddress(res.getString("delivery_address"));
+				order.setStatus(res.getBoolean("status"));
+				orderList.add(order);
 			}	
 		}
 		return orderList;

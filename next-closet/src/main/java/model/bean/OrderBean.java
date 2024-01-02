@@ -11,6 +11,7 @@ public class OrderBean extends AddressBean{
 	private int totalAmount;
 	private Date orderDate;
 	private String deliveryAddress;
+	private boolean status;
 	
 	public OrderBean(int orderItemId, int productId, int quantity, int sizeId, int userId, int totalAmount,
 			Date orderDate, String deliveryAddress) {
@@ -89,6 +90,14 @@ public class OrderBean extends AddressBean{
 
 	public void setDeliveryAddress(String deliveryAddress) {
 		this.deliveryAddress = deliveryAddress;
+	}
+
+	public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 	
 
