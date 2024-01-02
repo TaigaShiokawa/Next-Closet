@@ -257,4 +257,16 @@ public class AdminProductDAO {
 		}
 	}
 	
+	//ステータスを削除に切り替えた時にカートから削除する
+	public void cartDeleteItem(int productId) throws ClassNotFoundException, SQLException {
+		String sql = "DELETE FROM cart_items WHERE product_id = ?;";
+		try (Connection con = DBConnection.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+			    pstmt.setInt(1, productId);
+				pstmt.executeUpdate();
+			}
+		}
+		
 }
+	
+

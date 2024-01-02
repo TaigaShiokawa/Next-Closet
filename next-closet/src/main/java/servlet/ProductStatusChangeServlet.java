@@ -28,6 +28,7 @@ public class ProductStatusChangeServlet extends HttpServlet {
         try {
         	boolean currentStatus = productDao.getProductStatus(productId);
             productDao.updateProductStatus(productId, !currentStatus);
+            productDao.cartDeleteItem(productId);
             response.sendRedirect("AdminProductListServlet");
         } catch (Exception e) {
             e.printStackTrace();
