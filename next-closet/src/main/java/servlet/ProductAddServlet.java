@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import model.bean.AdminBean;
+import model.bean.CategoryBean;
 import model.dao.AdminProductDAO;
 import model.dao.CategoryDAO;
 
@@ -53,9 +55,29 @@ public class ProductAddServlet extends HttpServlet {
             throws ServletException, IOException {
 		
 		request.setCharacterEncoding("UTF-8");
-        
+		  
 		// アップロードファイルを保存するパスをEclipseのプロジェクトディレクトリに設定
 	    String savePath = getServletContext().getRealPath("/image");
+	    try {
+	        CategoryDAO categoryDao = new CategoryDAO();
+	        request.setAttribute("categoryList", categoryDao.getCategoryList());
+         } catch( SQLException | ClassNotFoundException e) {
+        	 e.printStackTrace();
+         }
+	    
+	    
+	    CategoryDAO categoryDaoo = new CategoryDAO();
+	   try { List <CategoryBean> li = categoryDaoo.getCategoryList();
+	   
+	   for(CategoryBean a : li) {
+	    	System.out.print(a);
+	    }
+	   
+	   } catch( SQLException | ClassNotFoundException e) {
+      	 e.printStackTrace();
+       }
+	    
+	   
 
 	    // ディレクトリが存在しない場合は作成
 	    File fileSaveDir = new File(savePath);
@@ -74,13 +96,6 @@ public class ProductAddServlet extends HttpServlet {
 	        }
 	    }
 	    
-	    try {
-	        CategoryDAO categoryDao = new CategoryDAO();
-	        request.setAttribute("categoryList", categoryDao.getCategoryList());
-         } catch( SQLException | ClassNotFoundException e) {
-        	 e.printStackTrace();
-         }
-
 	    // imagePathは保存されたファイルのパス
 	    String imagePath = fileName;
 		
@@ -93,6 +108,7 @@ public class ProductAddServlet extends HttpServlet {
 		int sSizeInventory = Integer.parseInt(request.getParameter("s_size_inventory"));
 		int mSizeInventory = Integer.parseInt(request.getParameter("m_size_inventory"));
 		int lSizeInventory = Integer.parseInt(request.getParameter("l_size_inventory"));
+		   
 		
 		if(pName.length() > 65) {
 			request.setAttribute("productNameError", "商品名が長すぎます。65文字以内でお願いします。");
@@ -119,6 +135,7 @@ public class ProductAddServlet extends HttpServlet {
 			try {
 				//カテゴリーIDの取得
 				int categoryId = aDao.getCategoryId(categoryName);
+				System.out.println(categoryId);   
 			    if(categoryId > 0) {
 			        // 新規商品を追加
 			        int productId = aDao.addProduct(categoryId, gender, pName, description, price, imagePath);
@@ -130,12 +147,10 @@ public class ProductAddServlet extends HttpServlet {
 			            // Lサイズの在庫を挿入
 			            int insertInventoryL = aDao.setProductInventory(productId, lSizeId, lSizeInventory);
 			            
-			           
-			            
 			            if (insertInventoryS == 1 && insertInventoryM == 1 && insertInventoryL == 1) {
 			                // 在庫挿入が成功した場合の処理
 			            	request.setAttribute("clear","商品の登録ができました！");
-			                response.sendRedirect("product-add.jsp"); 
+			                response.sendRedirect("AdminProductListServlet"); 
 			            } else {
 			                // 在庫挿入が失敗した場合の処理
 			            	request.getSession().setAttribute("productError", "商品の登録に失敗しました。");
