@@ -73,6 +73,13 @@ public class ProductAddServlet extends HttpServlet {
 	            filePart.write(filePath);
 	        }
 	    }
+	    
+	    try {
+	        CategoryDAO categoryDao = new CategoryDAO();
+	        request.setAttribute("categoryList", categoryDao.getCategoryList());
+         } catch( SQLException | ClassNotFoundException e) {
+        	 e.printStackTrace();
+         }
 
 	    // imagePathは保存されたファイルのパス
 	    String imagePath = fileName;
@@ -97,8 +104,12 @@ public class ProductAddServlet extends HttpServlet {
 			request.setAttribute("descriptionError", "商品説明が長すぎます。1000文字以内でお願いします。");
 			request.getRequestDispatcher("product-add.jsp").forward(request, response);
 			return;
-		}
-		
+		}  try {
+	        CategoryDAO categoryDao = new CategoryDAO();
+	        request.setAttribute("categoryList", categoryDao.getCategoryList());
+         } catch( SQLException | ClassNotFoundException e) {
+        	 e.printStackTrace();
+         }
 		
 		AdminProductDAO aDao = new AdminProductDAO();
 		try {
@@ -118,6 +129,8 @@ public class ProductAddServlet extends HttpServlet {
 			            int insertInventoryM = aDao.setProductInventory(productId, mSizeId, mSizeInventory);
 			            // Lサイズの在庫を挿入
 			            int insertInventoryL = aDao.setProductInventory(productId, lSizeId, lSizeInventory);
+			            
+			           
 			            
 			            if (insertInventoryS == 1 && insertInventoryM == 1 && insertInventoryL == 1) {
 			                // 在庫挿入が成功した場合の処理
