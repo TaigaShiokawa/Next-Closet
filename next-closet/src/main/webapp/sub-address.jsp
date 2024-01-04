@@ -99,8 +99,10 @@
 	<% for(AddressBean addresses : addressList) { %>
 		<form action="AddressDeleteServlet" method="post">
 			<div>
+				<label>
 		    	<input type="checkbox" name="addAddressId" value="<%=addresses.getAddAddressId()%>"> <!-- サブ住所のIDを値として返す -->
-		    	<label><%=addresses.getPrefectures()%><%=addresses.getAddress()%></label>
+		    	<%=addresses.getPrefectures()%><%=addresses.getAddress()%>
+		    	</label>
 		    </div>
 	<% } %>
 	<button type="submit">削除</button>
