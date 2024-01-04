@@ -24,7 +24,7 @@ if(message == null){
 	<main>
 	<div class="container">
 		<h2 class="section_title">カテゴリー追加 / 削除</h2>
-		<p class="list_title">カテゴリー一覧</p>
+		<!-- <p class="list_title">カテゴリー一覧</p> -->
 		<p><%= message %></p>
 		    <ul class="category_list">
 		    	<% for ( CategoryBean columns : categoryList){ %>
