@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%
+// Icons by Bootstrap (https://icons.getbootstrap.com/) - licensed under MIT (https://opensource.org/licenses/MIT)
        String searchName = (String)request.getAttribute("searchName");
 	    String searchText = "" ;
 	    if( searchName != null ){
 	    	searchText = searchName;
 	    }
 	    %>
-
+<!-- Icons by Bootstrap (https://icons.getbootstrap.com/) - licensed under MIT (https://opensource.org/licenses/MIT)  -->
 <header>
         <div class="header_inner">
             <div class="header_left">

@@ -1,11 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"    pageEncoding="UTF-8"%>
-
+ <%  AdminBean adminLoginCheck = (AdminBean)request.getSession().getAttribute("admin"); 
+            
+            if ( adminLoginCheck == null) {
+            	response.sendRedirect("AdminLoginServlet");
+                return;
+            } 
+  %>
+<!-- Icons by Bootstrap (https://icons.getbootstrap.com/) - licensed under MIT (https://opensource.org/licenses/MIT)  -->
 <header>
 	<div class="header_inner">
 		<h1 id="site_title"><a href='AdminProductListServlet'>next closet...</a></h1>
 		<div class="header_right">
 			<ul>
-
 				<li><a href = "AdminLogoutServlet">ログアウト</a></li>
 				<li><a href = "AdminProductListServlet">商品</a></li>
 				<li><a href = "AdminUserListServlet">ユーザー</a></li>
