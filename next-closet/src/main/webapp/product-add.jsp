@@ -38,7 +38,7 @@
 		<select id="p_category" name="category">
 		<option>カテゴリーを選択</option>
 		<% for ( CategoryBean category : categoryList){ %>
-		 <option value="<%= category.getCategoryId() %>"><%= category.getCategoryName() %></option>
+		 <option value="<%= category.getCategoryName() %>"><%= category.getCategoryName() %></option>
 		<% } %>  
 		</select><br>
 		
