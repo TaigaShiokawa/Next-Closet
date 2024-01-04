@@ -15,13 +15,7 @@
 
  %>
  <%  AdminBean admin = (AdminBean)request.getSession().getAttribute("admin"); 
-            
-            if ( admin == null) {
-            	response.sendRedirect("AdminLoginServlet");
-                return;
-            } 
-            
-            int loginAdminId = admin.getAdminId();
+     int loginAdminId = admin.getAdminId();
  %>
             
 <!-- 管理者のセッション設定が必要 -->
