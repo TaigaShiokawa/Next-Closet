@@ -19,7 +19,7 @@ public class ProductDAO {
 	public List <ProductBean>  allProductList()
 			throws SQLException , ClassNotFoundException {
 		List <ProductBean> productList = new ArrayList<>();
-		String sql = "SELECT * FROM products WHERE status = 1 LIMIT 16 OFFSET 1";
+		String sql = "SELECT * FROM products WHERE status = 1 LIMIT 16 OFFSET 0";
         try (Connection con = DBConnection.getConnection();
                PreparedStatement statement = con.prepareStatement(sql);
            ResultSet res = statement.executeQuery()) {       
