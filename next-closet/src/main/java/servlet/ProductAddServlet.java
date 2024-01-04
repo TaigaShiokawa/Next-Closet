@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.sql.SQLException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -15,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import model.bean.AdminBean;
-import model.bean.CategoryBean;
 import model.dao.AdminProductDAO;
 import model.dao.CategoryDAO;
 
@@ -63,21 +61,7 @@ public class ProductAddServlet extends HttpServlet {
 	        request.setAttribute("categoryList", categoryDao.getCategoryList());
          } catch( SQLException | ClassNotFoundException e) {
         	 e.printStackTrace();
-         }
-	    
-	    
-	    CategoryDAO categoryDaoo = new CategoryDAO();
-	   try { List <CategoryBean> li = categoryDaoo.getCategoryList();
-	   
-	   for(CategoryBean a : li) {
-	    	System.out.print(a);
-	    }
-	   
-	   } catch( SQLException | ClassNotFoundException e) {
-      	 e.printStackTrace();
-       }
-	    
-	   
+         }	   
 
 	    // ディレクトリが存在しない場合は作成
 	    File fileSaveDir = new File(savePath);
