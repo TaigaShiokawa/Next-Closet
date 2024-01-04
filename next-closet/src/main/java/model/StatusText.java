@@ -2,54 +2,55 @@ package model;
 
 public class StatusText {
 	
-	//size_idをテキストに置換するメソッド
-    public String productStatusText ( boolean status ) {
-    	
-    	String text = "";
-
-    	if ( status == true) {
-    		text = "販売中";
-    	}else if( status == false) {
-    		text = "削除済み";
-    	}
-    	return text;
-    }
-    
-public String userStatusText ( boolean status ) {
-    	
-    	String text = "";
-
-    	if ( status == true) {
-    		text = "";
-    	}else if( status == false) {
-    		text = "削除済み";
-    	}
-    	return text;
-    }
-
-public String adminStatusText ( boolean status ) {
+//　丸ごといらない可能性あり。コメントアウトして様子見中。
 	
-	String text = "";
+//    public String productStatusText ( boolean status ) {
+//    	
+//    	String text = "";
+//
+//    	if ( status == true) {
+//    		text = "販売中";
+//    	}else if( status == false) {
+//    		text = "削除済み";
+//    	}
+//    	return text;
+//    }
+//    
+//public String userStatusText ( boolean status ) {
+//    	
+//    	String text = "";
+//
+//    	if ( status == true) {
+//    		text = "";
+//    	}else if( status == false) {
+//    		text = "削除済み";
+//    	}
+//    	return text;
+//    }
+//
+//public String adminStatusText ( boolean status ) {
+//	
+//	String text = "";
+//
+//	if ( status == true) {
+//		text = "既存";
+//	}else if( status == false) {
+//		text = "削除済み";
+//	}
+//	return text;
+//}
 
-	if ( status == true) {
-		text = "既存";
-	}else if( status == false) {
-		text = "削除済み";
-	}
-	return text;
-}
-
-	public String genderText ( int genderId ) {
-		
-		String text = "";
-		
-		if( genderId == 1) {
-			text = "MAN";
-		} else if( genderId == 2) {
-			text = "WOMAN";
-		}
-	
-		return text;
-	}
+//	public String genderText ( int genderId ) {
+//		
+//		String text = "";
+//		
+//		if( genderId == 1) {
+//			text = "MAN";
+//		} else if( genderId == 2) {
+//			text = "WOMAN";
+//		}
+//	
+//		return text;
+//	}
 
 }
