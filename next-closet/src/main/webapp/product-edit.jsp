@@ -2,9 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.* , java.util.ArrayList,model.bean.*,java.util.List" %>
 <%@ page import= "java.util.List" %>
-<%@ page import="model.ProductBean" %>
-<%@ page import="model.SizeBean" %>
-<%@ page import="model.CategoryBean" %>
+<%@ page import="model.bean.ProductBean" %>
+<%@ page import="model.bean.SizeBean" %>
+<%@ page import="model.bean.CategoryBean" %>
 <!DOCTYPE html>
 <html>
 <head>
