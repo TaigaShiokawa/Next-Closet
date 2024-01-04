@@ -327,7 +327,7 @@ public class ProductDAO {
 	public List<ProductBean> getPagenation() 
 			throws ClassNotFoundException, SQLException {
 		List<ProductBean> productList = new ArrayList<>();
-		String sql = "SELECT * FROM products WHERE status = 1 LIMIT 16 OFFSET 17"; //LIMIT → 行数 OFFSET → 開始位置
+		String sql = "SELECT * FROM products WHERE status = 1 LIMIT 16 OFFSET 16"; //LIMIT → 行数 OFFSET → 開始位置
 		try (Connection con = DBConnection.getConnection(); 
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			ResultSet res = pstmt.executeQuery();
@@ -352,7 +352,7 @@ public class ProductDAO {
 	public List<ProductBean> getPagenationLast() 
 			throws ClassNotFoundException, SQLException {
 		List<ProductBean> productList = new ArrayList<>();
-		String sql = "SELECT * FROM products WHERE status = 1 LIMIT 16 OFFSET 33"; //LIMIT → 行数 OFFSET → 開始位置
+		String sql = "SELECT * FROM products WHERE status = 1 LIMIT 16 OFFSET 32"; //LIMIT → 行数 OFFSET → 開始位置
 		try (Connection con = DBConnection.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			ResultSet res = pstmt.executeQuery();
