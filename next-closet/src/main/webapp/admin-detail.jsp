@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"    pageEncoding="UTF-8"%>
 <%@ page import="model.bean.*" %>
 <%@ page import="model.dao.*" %>
-<% AdminBean admin = (AdminBean)request.getAttribute("admin"); %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +10,16 @@
 <link rel="stylesheet" href="css/admin-navbar.css"> 
 <meta charset="UTF-8">
 <title>管理者情報詳細</title>
+<% AdminBean admin = (AdminBean)request.getAttribute("admin"); %>
+ <% AdminBean loginAdmin = (AdminBean)request.getSession().getAttribute("admin"); 
+            
+            if ( admin == null) {
+            	response.sendRedirect("AdminLoginServlet");
+                return;
+            } 
+            
+            int loginAdminId = loginAdmin.getAdminId();
+ %>
 </head>
 <body>
 <%@ include file="includes/admin-navbar.jsp" %>
@@ -49,9 +59,10 @@
 	<div class="btn_wrapper">
 	
 	  <button class="btn"><a href="AdminEditServlet?adminId=<%=admin.getAdminId()%>">更新</a></button>
-        <% if (admin.isAdminStatus()) { %>
-              <label class="label_btn delete_button" id="modalOpen">削除</label> 
-        <% } else { %>
+        <% if (admin.isAdminStatus()) { if(loginAdminId != admin.getAdminId()){ %> 
+	              <label class="label_btn delete_button" id="modalOpen">削除</label> 
+	             <% } 
+          } else { %>
         <button class="btn"><a href="AdminRestorationServlet?adminId=<%= admin.getAdminId()%>">復元</a></button>
 		 <% } %>		      
 		

@@ -33,7 +33,7 @@ public class AdminProductListServlet extends HttpServlet {
             }
             
     	
-    	int categoryId = -1;
+    	int categoryId = 0;
 		int gender = 0;
 		String categoryIdStr = request.getParameter("categoryId");
 		String genderStr =  request.getParameter("gender");
@@ -56,9 +56,9 @@ public class AdminProductListServlet extends HttpServlet {
 			}
 		}
 		
-		if (gender == 0 ) {
+		if (gender == 1 ) {
 			genderStr = "MENS";
-		} else if( gender == 1 ) {
+		} else if( gender == 2 ) {
 			genderStr = "WOMENS";
 		} else {
 			genderStr = "ALL";
@@ -84,7 +84,7 @@ public class AdminProductListServlet extends HttpServlet {
 						
 					} else {
 					
-							if( categoryId == -1 ) {
+							if( categoryId == 0 ) {
 								request.setAttribute("title","ALL / 商品一覧");
 								request.setAttribute("productList",dao.allStatusProductList());
 							
@@ -92,12 +92,13 @@ public class AdminProductListServlet extends HttpServlet {
 								
 							} else {
 								
-											if(  gender == -1 ){
+											if(  gender == 0 ){
 												request.setAttribute("title",  " ALL / " + categoryName + "/ 商品一覧");
 												request.setAttribute("productList",dao.allStatusCategoryProductList(categoryId));
 											
 												
 											}else {
+												
 												request.setAttribute("title", genderStr + "/" + categoryName + "/ 商品一覧");
 												request.setAttribute("productList",dao.categoryStatusProductList(categoryId , gender));
 											
@@ -123,7 +124,7 @@ public class AdminProductListServlet extends HttpServlet {
 						
 					} else {
 					
-							if( categoryId == -1 ) {
+							if( categoryId == 0 ) {
 								request.setAttribute("title","削除済み商品 / ALL / 商品一覧");
 								request.setAttribute("productList",dao.allStatusProductList());
 							
@@ -131,7 +132,7 @@ public class AdminProductListServlet extends HttpServlet {
 								
 							} else {
 								
-											if(  gender == -1 ){
+											if(  gender == 0 ){
 												request.setAttribute("title",  "削除済み商品 / ALL / " + categoryName + "/ 商品一覧");
 												request.setAttribute("productList",dao.allStatusCategoryProductList(categoryId));
 											
