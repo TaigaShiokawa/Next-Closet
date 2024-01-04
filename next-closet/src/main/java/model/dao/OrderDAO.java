@@ -17,7 +17,7 @@ public class OrderDAO {
 	public List<OrderBean> orderList( int userId )
 			throws ClassNotFoundException, SQLException {
 		List<OrderBean> orderList = new ArrayList<>();
-		String sql ="SELECT next_closet_db.oi.* , p.status FROM order_items oi  INNER JOIN products p ON p.product_id = oi.product_id WHERE user_id = ? ORDER BY order_date DESC";
+		String sql ="SELECT next_closet_db.oi.* , p.status FROM order_items oi  INNER JOIN products p ON p.product_id = oi.product_id WHERE user_id = ? ORDER BY order_item_id DESC";
 
 		try (Connection con = DBConnection.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
@@ -77,7 +77,7 @@ public class OrderDAO {
 	public List<OrderBean> getAllOrderList()
 			throws ClassNotFoundException, SQLException {
 		List<OrderBean> orderList = new ArrayList<>();
-		String sql = "SELECT * FROM order_items ORDER BY order_date DESC"; //product_name用のsql文
+		String sql = "SELECT * FROM order_items ORDER BY order_item_id DESC"; //product_name用のsql文
 		try (Connection con = DBConnection.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			ResultSet res = pstmt.executeQuery();

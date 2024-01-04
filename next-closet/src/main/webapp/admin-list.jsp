@@ -199,7 +199,7 @@
 																		<td><a href="AdminDetailServlet?adminId=<%= columns.getAdminId() %>"><%= columns.getAdminName() %></a></td>
 																		<td><a href="AdminDetailServlet?adminId=<%= columns.getAdminId() %>"><%= columns.getAdminKanaName() %></a></td>
 																		<td class="mail"><a href="AdminDetailServlet?adminId=<%= columns.getAdminId() %>"><%= columns.getEmail() %></a></td>
-																		<% if(loginAdminId == columns.getAdminId()  ){ %>
+																		<% if(loginAdminId == columns.getAdminId() ){ %>
 																		<td>
 																		 <span>削除不可</span>
 																		 </td>
