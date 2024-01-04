@@ -58,16 +58,12 @@ td{
 	text-align: center;
 }
 
-td a{
+.section_title ,td a{
 	line-height: 60px;
 }
 
 .trash:hover{
 	color:rgb(191, 74, 56);
-}
-
-.section_title{
-	line-height: 60px;
 }
 
 /* 新規登録ボタン */
@@ -95,9 +91,6 @@ td a{
 
 .sidebar{
 	width: 20%;
-    position: fixed;
-    top: 160px; 
-    left:30px;
 }
 
 .product_category{
@@ -110,7 +103,7 @@ td a{
 .list_container{
 	margin-top:30px;
 	width: 65%;
-	margin-left:25%;
+	margin-left:60px;
 	position: relative;
 }
 
@@ -368,12 +361,9 @@ li{
 
 /* サイドバー */
 
-.side_bar{
-	padding-top:120px;
-    width: 15%;
-}
 
 #category_list{
+	padding-top: 55px;
     margin-left:10px;
 }
 
