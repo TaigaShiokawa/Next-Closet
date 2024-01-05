@@ -40,12 +40,12 @@ public class PasswordUpdateServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		if(!PasswordValidator.isHalfWidth(password)) {
 			errorMessages.put("password", "パスワードが不正です。正しく入力してください");
-			request.getSession().setAttribute("mypageErrorMSG", errorMessages);
+			request.getSession().setAttribute("mypagePassError", errorMessages);
 			response.sendRedirect("mypage-edit.jsp");
 			return;
 		} else if((password.length() < 8) || (password.trim().isEmpty())) { 
 			errorMessages.put("password", "8文字以上で設定してください");
-			request.getSession().setAttribute("mypageErrorMSG", errorMessages);
+			request.getSession().setAttribute("mypagePassError", errorMessages);
 			response.sendRedirect("mypage-edit.jsp");
 			return;
 		}
