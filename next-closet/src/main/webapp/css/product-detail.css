@@ -1,5 +1,7 @@
 @charset "UTF-8";
 
+
+/* 共通 */
 *{
     padding: 0;
     margin: 0;
@@ -25,7 +27,6 @@ img{
 	width: 100%;
 	max-width:1200px;
 	padding-top:200px ;
-	
 }
 
 p{
@@ -60,9 +61,6 @@ p{
 	border-radius:5px ;
 	color: #fff;
 }
-
-
-
 
  .back{
 	text-decoration: none;
@@ -185,10 +183,10 @@ input[type=number]::-webkit-inner-spin-button {
 	
 	
 	
-	 #goLogin a{
-		 line-height: 60px;
-		 margin:0 auto;
-	 }
+ #goLogin a{
+	 line-height: 60px;
+	 margin:0 auto;
+ }
 	
 	
 

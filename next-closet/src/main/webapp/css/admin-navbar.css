@@ -26,11 +26,13 @@ header , footer{
 
 header{
 	height : 70px;
+	border-bottom:1px solid  #ebebeb;
 }
 
 footer{
 	height : 120px;
 	text-align: center;
+	border-top:1px solid  #ebebeb;
 }
 
 
