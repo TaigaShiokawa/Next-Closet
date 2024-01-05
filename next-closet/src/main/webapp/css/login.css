@@ -1,6 +1,8 @@
 
 @charset "UTF-8";
 
+/* 共通パーツ */
+
 *{
     padding: 0;
     margin: 0;
@@ -18,7 +20,7 @@ h1, h2, p, a, form{
     text-align: center;
 }
 
-h1{
+main h1{
     font-size: 14px;
 }
 
@@ -36,12 +38,12 @@ main input{
 }
 
 #login_submit{
+	width:60%;
+    height: 50px;
     border : none;
     padding: 5px;
     margin-top: 16px;
     margin-bottom:40px;
-    width:60%;
-    height: 50px;
 }
 
 #login_submit:hover , a:hover{

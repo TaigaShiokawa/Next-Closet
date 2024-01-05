@@ -12,13 +12,14 @@ main{
     display:flex;
     justify-content: center;
     align-items: center;
+    background-color:  #ebebeb;
 }
 
 h1, h2, p, a, form{
     text-align: center;
 }
 
-h1{
+main h1{
     font-size: 14px;
 }
 
@@ -41,6 +42,8 @@ input{
     margin-top: 16px;
     width:60%;
     height: 50px;
+    background-color: #565656;;
+    color: #fff;
 }
 
 #login_submit:hover , a:hover{

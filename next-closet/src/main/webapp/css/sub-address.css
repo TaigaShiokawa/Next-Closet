@@ -1,63 +1,61 @@
 @charset "UTF-8";
 
-.center{
-	margin:30px;
-    text-align: center; /* 中央に配置 */
-  }
-  
+/* 共通パーツ*/
+
  .container{
 	display:flex;
 	width:100%;
-	
+	padding-top:200px;
 }
 
 .split {
-	margin-top:50px;
-	padding-left:200px;
     width: 100%;
-    min-height:400px;
     display: flex;
-    flex-direction: column;
-    
+    justify-content: center;
+    position: relative;
 }
 
-.box{
-	width:100%;
-	margin:0 auto;
-	max-width:500px;
-	padding-left:150px;
-}
-
-.left-box select, .left-box textarea , .left-box input{
-	display: inline-block;
-    width: 100%;
-    max-width:250px;
-    height: 40px;
-    margin: 10px auto;
-}
-
-.address{
-	width: 100%;
-	max-width:700px;
-	margin-bottom:30px;
+.split div{
+	min-height:450px;
 }
 
 button{
     width: 200px;
-    color: #fff;
     height: 40px;
-    border: none;
-    margin :100px auto;
-    display: block;
+    margin :0 auto;
+    color: #fff;
+    background-color: grey;
     border-radius: 8px;
-    background-color: grey; /* 背景色をグレーに設定 */
-    margin-top: auto;
+    border: none;
+    display: block; 
+    margin-top:auto;
+    /*コレ*/position: absolute;
+    /*コレ*/bottom: 10px;
 }
 
+button:hover{
+	opacity:.7;
+}
 
+/* マイページに戻るの表記*/
+
+  .center{
+	margin:30px;
+    text-align: center; /* 中央に配置 */
+  }
+  
+  .center a{
+	font-size: 16px;
+	color:rgb(56, 56, 56);
+	text-decoration: none;
+	margin:30px;
+}
+
+  
+  /* left_box*/
+  
 .left-box {
   border-right: 1px dashed black;
-
 }
 
 .left-box label{
@@ -65,15 +63,26 @@ button{
 	width: 100px;
 }
 
-
-.back{
-	font-size: 12px;
-	color:rgb(56, 56, 56);
-	text-decoration: none;
-	margin:30px;
+.left-box select, .left-box textarea , .left-box input{
+	display: inline-block;
+    width: 100%;
+    height: 40px;
+    margin: 10px auto;
 }
 
-.back:hover , .submit:hover{
-	opacity:.7;
+  /* right_box*/
+
+.address{
+	width: 100%;
+	margin-bottom:30px;
 }
+
+
+
+
+
+
+
+
+
 

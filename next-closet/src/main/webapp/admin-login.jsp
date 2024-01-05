@@ -25,7 +25,7 @@
 
      <header>
 	<div class="header_inner">
-		<h1 id="site_title">next closet...</h1>
+		<h1 id="site_title">next closet... 管理者画面</h1>
 		<div class="header_right">
 		</div>
 	</div>
