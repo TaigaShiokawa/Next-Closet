@@ -179,6 +179,7 @@
 			</div><!-- wrapper_container -->
 		</div> <!-- list_container -->
 	</div> <!-- container -->
+<div class="pagetop">Top</div>
 </main>
 <%@ include file="includes/admin-footer.jsp" %>    
 
@@ -217,347 +218,31 @@
 
 			}} 
 
+		// セレクタ名（.pagetop）に一致する要素を取得
+		const pagetop_btn = document.querySelector(".pagetop");
+
+		// .pagetopをクリックしたら
+		pagetop_btn.addEventListener("click", scroll_top);
+
+		// ページ上部へスムーズに移動
+		function scroll_top() {
+		  window.scroll({ top: 0, behavior: "smooth" });
+		}
+
+		// スクロールされたら表示
+		window.addEventListener("scroll", scroll_event);
+		function scroll_event() {
+		  if (window.pageYOffset > 100) {
+		    pagetop_btn.style.opacity = "1";
+		  } else if (window.pageYOffset < 100) {
+		    pagetop_btn.style.opacity = "0";
+		  }
+		}
+		
+
 			
 
 	</script>
 	
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<%-- <div class="container">
-	<div class="sidebar">
-	</div>
-	<div class="list_container">
-			<div class="top_wrapper">
-				<p>ユーザー管理</p>
-				<button>ユーザーを新規登録</button>
-			</div>
-			<div class="table_wrapper">
-				<div class="sarch_header">
-						 <form action="AdminUserListServlet" method="get">
-			                   <input type="text" name="searchName" class="search_box" placeholder="キーワードでを検索">
-			                   <input class="sarch_btn" type="submit" value="検索">
-			             </form>
-				</div>
-				<div class="table_list">
-					<table>
-						<thead>
-							<tr>
-							　<th>userID</th>
-						      <th>名前</th>
-						      <th>フリガナ</th>
-						      <th>メールアドレス</th>
-						      <th>削除</th>
-						    </tr>
-						</thead>
-						<tbody>
-						 <% if (searchUsers != null ){
-		                     		for (UserBean columns : userList) { 
-		                     		   	for (UserBean sarch : searchUsers) {
-		                     			   		targetUserId = columns.getUserId();
-		                     			 		sarchUserId = sarch.getUserId();
-		                     		    		 if (targetUserId == sarchUserId){ 
-		                     		    		 		 status = sarch.isUserStatus();
-		                     		    		 			 if(status){ %>
-																		<tr>
-																			<td><%= columns.getUserId() %></td>
-																			<td><%= columns.getUserName() %></td>
-																			<td><%= columns.getKanaName() %></td>
-																			<td><%= columns.getEmail() %></td>
-																			<td><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
-																			  <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
-																			</svg></td>
-																		</tr>
-															  <%} } } } %>
-		                     		 
-		    	 
-		                     	 <%  } else {//サーチ関係なし	%>
-		  
-						                        <% for (UserBean columns : userList) {
-		                       						 status = columns.isUserStatus();
-		                       						 if(status){ %>
-							            			  <tr>
-														<td><%= columns.getUserId() %></td>
-														<td><%= columns.getUserName() %></td>
-														<td><%= columns.getKanaName() %></td>
-														<td><%= columns.getEmail() %></td>
-														<td><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
-														<path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
-														</svg></td>
-													</tr>
-		                  					 <% } } %>				                    
-					                   <% }%>
-						</tbody>
-					</table>
-				</div>
-			</div><!-- wrapper_container -->
-		</div> <!-- list_container -->
-	</div> <!-- container -->
-</main>
-<%@ include file="includes/footer.jsp" %>
-</body>
-</html>
-
-
---ここからしたは前のぶん（新しいものが完成したら削除）
-
-<div class="content wrapper">
-
-						
-				        
-		<button><a href="AdminUserListServlet">一覧表示</a></button>
-            
-  		<div class="tab">
- 				 <h1 class="page-title"><%= title %></h1>	
- 				 
- 				 <div class="sarch_header">
-							 <form action="AdminUserListServlet" method="get">
-				                   <input type="text" name="searchName" class="search_box" placeholder="キーワードでを検索">
-				                   <input class="sarch_btn" type="submit" value="検索">
-				               </form>
-					
-					</div>
-  
-			    <ul class="tab__menu">
-				      <li class="tab__menu-item is-active" data-tab="01">全ユーザー一覧表</li>
-				      <li class="tab__menu-item" data-tab="02">ユーザー一覧表</li>
-				      <li class="tab__menu-item" data-tab="03">削除済みユーザー一覧表</li>
-			    </ul> 
-			    
-			    <div class="tab__panel">
-                    <div class="tab__panel-box tab__panel-box001 is-show" data-panel="01"> <!-- 全表示 -->
-                    	
-				                
-                     	<ul class="user-list">
-                     	
-                     								 <ul>			
-	                     		   					   <li>ユーザーネーム</li>
-	                     		   					   <li>メールアドレス</li>
-	                     		   					   <li></li>
-	                     		   					   <li></li>
-	                     		   					 </ul>
-                     		
-                     		<% if (searchUsers != null ){
-	                     		for (UserBean columns : userList) { 
-	                     		   	for (UserBean sarch : searchUsers) {
-	                     			   		targetUserId = columns.getUserId();
-	                     			 		  sarchUserId = sarch.getUserId();
-	                     		    		    if (targetUserId == sarchUserId){ %>
-                     		     
-	                     		   			
-	                     		   					 <ul>
-	                     		   					   <li><%= columns.getUserName() %></li>
-	                     		   					   <li><%= columns.getEmail() %></li>
-	                     		   					   <li><%= st.userStatusText(columns.isUserStatus()) %></li>
-	                     		   					   <li><a href="AdminUserDetailServlet?userId=<%= columns.getUserId() %>">詳細を見る</a></li>
-	                     		   					 </ul>
-				                    			 </li>
-			                    			 
-			                    		  <% } } } %>
-                     		 
-    	 
-                     			 <%  } else {	%>
-  
-				                         <% for (UserBean columns : userList){%>
-					                    		    <ul>
-	                     		   					   <li><%= columns.getUserName()  %></li>
-	                     		   					   <li><%= columns.getEmail() %></li>
-	                     		   					   <li><%= st.userStatusText(columns.isUserStatus()) %></li>
-	                     		   					   <li><a href="AdminUserDetailServlet?userId=<%= columns.getUserId() %>">詳細を見る</a></li>
-	                     		   					 </ul>
-			                    			<% }%>
-			                    
-			                 	  <% }%>
-			                  
-			                  
-			                  </ul>
-	                    
-                    	 <button><a href="AdminUserRegisterServlet">ユーザー新規登録</a></button>
-                     </div>
-                     
-                     
-                     <div class="tab__panel-box tab__panel-box002 " data-panel="02"> <!-- 販売中 -->
-                    	 
-                     		<ul class="product-list">
-                     		
-		                      <% if (searchUsers != null ){
-		                     		for (UserBean columns : userList) { 
-		                     		   	for (UserBean sarch : searchUsers) {
-		                     			   		targetUserId = columns.getUserId();
-		                     			 		sarchUserId = sarch.getUserId();
-		                     		    		 if (targetUserId == sarchUserId){ 
-		                     		    		 		 status = sarch.isUserStatus();
-		                     		    		 			 if(status){ %>
-		                     		     
-						                     		   				 <ul>
-					                     		   					   <li><%= columns.getUserName()  %></li>
-					                     		   					   <li><%= columns.getEmail() %></li>
-					                     		   					   <li><%= st.userStatusText(columns.isUserStatus()) %></li>
-					                     		   					   <li><a href="AdminUserDetailServlet?userId=<%= columns.getUserId() %>">詳細を見る</a></li>
-					                     		   					 </ul>
-					                    			 
-					                    		  <%} } } } %>
-		                     		 
-		    	 
-		                     	 <%  } else {//サーチ関係なし	%>
-		  
-						                        <% for (UserBean columns : userList) {
-		                       						 status = columns.isUserStatus();
-		                       						 if(status){ %>
-							            			  <ul>
-	                     		   					   <li><%= columns.getUserName() %></li>
-	                     		   					   <li><%= columns.getEmail() %></li>
-	                     		   					   <li><%= st.userStatusText(columns.isUserStatus()) %></li>
-	                     		   					   <li><a href="AdminUserDetailServlet?userId=<%= columns.getUserId() %>">詳細を見る</a></li>
-	                     		   					 </ul>
-		                  					 <% } } %>
-					                    
-					                   <% }%>
-                   		  </ul>
-                    </div>
-                     
-                     
-                     
-                     <div class="tab__panel-box tab__panel-box003" data-panel="03"> <!-- 削除済み -->
-                     	
-
-	                     <ul class="product-list">
-	                     <% if (searchUsers != null ){
-                     		for (UserBean columns : userList) { 
-                     		   	for (UserBean sarch : searchUsers) {
-                     			   		targetUserId = columns.getUserId();
-                     			 		sarchUserId = sarch.getUserId();
-                     		    		 if (targetUserId == sarchUserId){ 
-                     		    		 		 status = columns.isUserStatus();
-                     		    		 
-                     		    		 			 if(status != true){ %>
-                     		     
-				                     		   				<ul>
-			                     		   					   <li><%= columns.getUserName()  %></li>
-			                     		   					   <li><%= columns.getEmail() %></li>
-			                     		   					   <li><%= st.userStatusText(columns.isUserStatus()) %></li>
-			                     		   					   <li><a href="AdminUserDetailServlet?userId=<%= columns.getUserId() %>">詳細を見る</a></li>
-			                     		   					 </ul>
-			                    			 
-			                    		  <%} } } } %>
-                     		 
-    	 
-                     	 <%  } else {//サーチ関係なし	%>
-  
-				                        <% for (UserBean columns : userList) {
-                       								 status = columns.isUserStatus();
-                       						
-                       						 if(status != true){ %>
-					            					 <ul>
-	                     		   					   <li><%= columns.getUserName()  %></li>
-	                     		   					   <li><%= columns.getEmail() %></li>
-	                     		   					   <li><%= st.userStatusText(columns.isUserStatus()) %></li>
-	                     		   					   <li><a href="AdminUserDetailServlet?userId=<%= columns.getUserId() %>">詳細を見る</a></li>
-	                     		   					 </ul>
-                  						 <% } } %>
-			                    
-			                   <% }%>
-	                     
-	                     </ul>
-	                  </div>
-	                  
-	              </div><!-- tab閉じタグ -->
-			</div>
-                    <%@ include file="includes/footer.jsp" %> 
-	<body>
-	
-  <script>
-
-  'use strict'; /* 厳格にエラーをチェック */
-
-  { /* ローカルスコープ */
-
-  // DOM取得
-  const tabMenus = document.querySelectorAll('.tab__menu-item');
-  console.log(tabMenus);
-
-  // イベント付加
-  tabMenus.forEach((tabMenu) => {
-    tabMenu.addEventListener('click', tabSwitch);
-  })
-
-  // イベントの処理
-  function tabSwitch(e) {
-
-    // クリックされた要素のデータ属性を取得
-    const tabTargetData = e.currentTarget.dataset.tab;
-    // クリックされた要素の親要素と、その子要素を取得
-    const tabList = e.currentTarget.closest('.tab__menu');
-    console.log(tabList);
-    const tabItems = tabList.querySelectorAll('.tab__menu-item');
-    console.log(tabItems);
-    // クリックされた要素の親要素の兄弟要素の子要素を取得
-    const tabPanelItems = tabList.
-    nextElementSibling.querySelectorAll('.tab__panel-box');
-    console.log(tabPanelItems);
-
-    // クリックされたtabの同階層のmenuとpanelのクラスを削除
-    tabItems.forEach((tabItem) => {
-      tabItem.classList.remove('is-active');
-    })
-    tabPanelItems.forEach((tabPanelItem) => {
-      tabPanelItem.classList.remove('is-show');
-    })
-
-    // クリックされたmenu要素にis-activeクラスを付加
-    e.currentTarget.classList.add('is-active');
-    // クリックしたmenuのデータ属性と等しい値を持つパネルにis-showクラスを付加
-    tabPanelItems.forEach((tabPanelItem) => {
-      if (tabPanelItem.dataset.panel ===  tabTargetData) {
-        tabPanelItem.classList.add('is-show');
-      }
-    })
-
-  }
-
-  }
-
-  </script>
- --%>

@@ -143,6 +143,9 @@ td a{
 		opacity: .7;
 	}
 	
+	#category_list{
+		padding-top: 55px;
+	}
 
 /* アコーディオン */
 
@@ -248,8 +251,7 @@ transform: rotate(135deg) !important;
 		  width: 100%;
 		  overflow: auto;
 		  background-color: rgba(0,0,0,0.5);
-		}
-		
+		}	
 		
 		.modal-content {
 		  background-color: #f4f4f4;
@@ -317,3 +319,26 @@ transform: rotate(135deg) !important;
 		  opacity: .6;
 	  }
 	  
+	  
+/* topボタン */
+
+.pagetop {
+  position: fixed;
+  right: 60px;
+  bottom: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  transition: .3s;
+  color: #fff;
+  background:#565656;
+  
+/*   デフォルトは非表示 */
+  opacity: 0;
+}
+.pagetop:hover {
+    box-shadow: 0 0 10px rgb(184, 192, 188);
+}

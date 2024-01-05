@@ -88,16 +88,12 @@ td{
 /* レイアウト　*/
 .sidebar{
 	width: 20%;
-    position: fixed;
-    top: 160px; 
-    left:30px;
 }
 
 .list_container{
 	margin-top:30px;
 	width: 65%;
-	margin-left:25%;
-
+	margin-left:60px;
 }
 
 .table_wrapper{
@@ -111,6 +107,7 @@ td{
 	.option{
 		background-color: #fff;
 	}
+	
 	
 	.top_wrapper{
 		display: flex;
@@ -141,12 +138,13 @@ td{
 	.list_search_btn:hover{
 		opacity: .7;
 	}
-	
 
 /* アコーディオン */
 
 .accordion {
 margin: 3em auto;
+margin-top:95px;
+	
 }
 
 .toggle {
@@ -180,8 +178,6 @@ display: block;
 .list:hover{
 	opacity: .7;;
 }
-
-
 
 .category_title,
 .category_content {
@@ -320,9 +316,6 @@ transform: rotate(135deg) !important;
 	  
 	  
 	  /* tab */
-
-
-
 /* is-activeがついている時のスタイル */
 
 /* タブパネル */
@@ -366,3 +359,30 @@ opacity: .7;
 .tab__menu li{
 	list-style: none;
 }
+
+	  
+/* topボタン */
+
+.pagetop {
+  position: fixed;
+  right: 60px;
+  bottom: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  transition: .3s;
+  color: #fff;
+  background:#565656;
+  
+/*   デフォルトは非表示 */
+  opacity: 0;
+}
+.pagetop:hover {
+    box-shadow: 0 0 10px rgb(184, 192, 188);
+}
+
+
+
