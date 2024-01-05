@@ -96,15 +96,12 @@ td a{
 /* レイアウト　*/
 .sidebar{
 	width: 20%;
-    position: fixed;
-    top: 160px; 
-    left:30px;
 }
 
 .list_container{
 	margin-top:30px;
 	width: 65%;
-	margin-left:25%;
+	margin-left:60px;
 }
 
 .table_wrapper{
@@ -184,8 +181,6 @@ display: block;
 .list:hover{
 	opacity: .7;;
 }
-
-
 
 .category_title,
 .category_content {
