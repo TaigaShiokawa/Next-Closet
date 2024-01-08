@@ -103,7 +103,7 @@
 				value="<%=request.getSession().getAttribute("telNumber") != null ? request.getSession().getAttribute("telNumber") : user.getTelNumber() %>"><br> 
 			
 			<label>メールアドレス：</label><input type="email" name="email" 
-				value="<%=request.getSession().getAttribute("email") != null ? request.getSession().getAttribute("email") : user.getEmail() %>"><br> 
+				value="<%=request.getSession().getAttribute("email") != null ? request.getSession().getAttribute("email") : user.getEmail() %>" disabled><br> 
 		
 			
 			<button class="update_submit" type="submit">会員情報を更新する</button>			
