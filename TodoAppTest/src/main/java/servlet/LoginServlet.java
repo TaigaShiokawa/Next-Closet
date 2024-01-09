@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import hashedPassword.HashPW;
 import model.dao.UserDAO;
 import model.dto.UserDTO;
 
@@ -36,13 +38,20 @@ public class LoginServlet extends HttpServlet {
 			UserDTO user = new UserDTO();
 			String userEmail = request.getParameter("userEmail");
 			String userPassword = request.getParameter("userPassword");
+			String hashedPassword = hashPassword(request, response, userPassword);
 			
-			user = uDao.userLogin(userEmail, userPassword);
+			
+			user = uDao.userLogin(userEmail, hashedPassword);
+			request.getSession().setAttribute("user", user);
 			request.getSession().setAttribute("userId", uDao.getUserId(userEmail));
 			userLoginResult(request, response, user);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private String hashPassword(HttpServletRequest request, HttpServletResponse response, String pass) throws NoSuchAlgorithmException {
+			return HashPW.hashedPass(pass); 
 	}
 	
 	private void userLoginResult(HttpServletRequest request, HttpServletResponse response, UserDTO user) throws ServletException, IOException {

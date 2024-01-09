@@ -3,6 +3,7 @@
 <%@ page import="model.*" %>
 <%@ page import="model.dto.*" %>
 <%@ page import="model.dao.*" %>
+<% UserDTO user = (UserDTO)request.getSession().getAttribute("user"); %>
 
 <!DOCTYPE html>
 <html>
@@ -11,6 +12,7 @@
 <title>ログイン</title>
 </head>
 <body>
+<jsp:include page="/includes/navbar.jsp" />
 <% String userEmail = (String)request.getSession().getAttribute("userEmail"); %>
 	<form action="Login" method="post">
 		<label for="email">Eメール：</label>

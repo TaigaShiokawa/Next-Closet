@@ -3,6 +3,7 @@
 <%@ page import="model.*"%>
 <%@ page import="model.dto.*"%>
 <%@ page import="model.dao.*"%>
+<% UserDTO user = (UserDTO)request.getSession().getAttribute("user"); %>
 
 <!DOCTYPE html>
 <html>
@@ -23,5 +24,7 @@
 	
 	<button type="submit">登録</button>
 	</form>
+	
+	<a href="Login">すでにアカウントをお持ちですか？</a>
 </body>
 </html>

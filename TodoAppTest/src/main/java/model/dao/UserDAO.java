@@ -27,7 +27,7 @@ public class UserDAO {
 	
 	//ログイン
 	public UserDTO userLogin(String email, String password) throws ClassNotFoundException, SQLException {
-		UserDTO user = new UserDTO();
+		UserDTO user = null;
 		String sql = "SELECT * FROM users WHERE email = ? AND password = ?";
 		try (Connection con = DBConnection.getConnection(); 
 				PreparedStatement pstmt = con.prepareStatement(sql)) {

@@ -3,16 +3,12 @@
 <%@ page import="model.*" %>
 <%@ page import="model.dto.*" %>
 <%@ page import="model.dao.*" %>
-<% UserBean user = (UserBean)request.getSession().getAttribute("user"); %>
+<% UserDTO user = (UserDTO)request.getSession().getAttribute("user"); %>
 
 <ul>
 <% if(user != null) { %>
-<li><a href="#">日にちが新しいTodo</a></li>
-<li><a href="#">日にちが古いTodo</a></li>
-<li><a href="#">未完了のTodo</a></li>
-<li><a href="#">完了済みのTodo</a></li>
-<li><a href="#">logout</a></li>
+<li><a href="Logout">logout</a></li>
 <% } else { %>
-<li><a href="#">新規登録</a></li>
+<li><a href="Register">新規登録</a></li>
 <% } %>
 </ul>

@@ -1,6 +1,6 @@
 package model.dto;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 
 public class TodoDTO {
 	
@@ -8,13 +8,13 @@ public class TodoDTO {
 	private String title;
 	private String todo;
 	private String status;
-	private Timestamp time_limit;
+	private Date time_limit;
 	
 	public TodoDTO() {
 		super();
 	}
 
-	public TodoDTO(int id, String title, String todo, String status, Timestamp time_limit) {
+	public TodoDTO(int id, String title, String todo, String status, Date time_limit) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -55,11 +55,11 @@ public class TodoDTO {
 		this.status = status;
 	}
 
-	public Timestamp getTime_limit() {
+	public Date getTime_limit() {
 		return time_limit;
 	}
 
-	public void setTime_limit(Timestamp time_limit) {
+	public void setTime_limit(Date time_limit) {
 		this.time_limit = time_limit;
 	}
 	
