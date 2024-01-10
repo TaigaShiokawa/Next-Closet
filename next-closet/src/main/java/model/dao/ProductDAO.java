@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import connection.DBConnection;
@@ -35,9 +36,17 @@ public class ProductDAO {
 		       Date registration_date = res.getDate("registration_date");
 		       
 		       productList.add(new ProductBean (product_id, category_id,  gender, product_name, price , description , status , image , registration_date));
-		   }
-		}	
-		return productList;		
+		       }
+		   } catch (SQLException e) {
+			   System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+					              ", SQLステート: " + e.getSQLState() + 
+					              ", エラーコード: " + e.getErrorCode());
+			} catch (Exception e) {
+				System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+						           ", メッセージ: " + e.getMessage() + 
+						           ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
+		}
+        return productList;
 	}
 	
 	//商品の販売ステータス関係なしの一覧表示(productsテーブル)
@@ -61,8 +70,16 @@ public class ProductDAO {
 			            	
 			    productList.add(new ProductBean (product_id, category_id,  gender, product_name, price , description , status , image , registration_date));
 			}
-		}	
-		return productList;
+		} catch (SQLException e) {
+			   System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+			                      ", SQLステート: " + e.getSQLState() + 
+			                      ", エラーコード: " + e.getErrorCode());
+		} catch (Exception e) {
+				System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+				                   ", メッセージ: " + e.getMessage() + 
+				                   ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
+		}
+	    return productList;
 	}
 	
 	//商品一覧表示(productsテーブル) 販売中のカテゴリー別の商品一覧
@@ -87,8 +104,16 @@ public class ProductDAO {
 			    
 			    productList.add(new ProductBean (product_id, category_id,  gender, product_name, price , description , status , image , registration_date));
 			}
+		} catch (SQLException e) {
+			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+			                      ", SQLステート: " + e.getSQLState() + 
+			                      ", エラーコード: " + e.getErrorCode());
+		} catch (Exception e) {
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+				               ", メッセージ: " + e.getMessage() + 
+				               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
 		}
-		return productList;		
+		return productList;
 	}
 		
 	//商品一覧表示(productsテーブル) カテゴリー別の商品一覧
@@ -113,7 +138,15 @@ public class ProductDAO {
 				
 				productList.add(new ProductBean (product_id, category_id,  gender, product_name, price , description , status , image , registration_date));
 			}
-		}	
+		} catch (SQLException e) {
+			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+			                   ", SQLステート: " + e.getSQLState() + 
+			                   ", エラーコード: " + e.getErrorCode());
+		} catch (Exception e) {
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+				               ", メッセージ: " + e.getMessage() + 
+				               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
+		}
 		return productList;
 	}
 	
@@ -140,8 +173,16 @@ public class ProductDAO {
 		        
 		        productList.add(new ProductBean (product_id, category_id,  gender, product_name, price , description , status , image , registration_date));
 		    }
-		}	
-		return productList;		
+		} catch (SQLException e) {
+			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+			                   ", SQLステート: " + e.getSQLState() + 
+			                   ", エラーコード: " + e.getErrorCode());
+		} catch (Exception e) {
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+				               ", メッセージ: " + e.getMessage() + 
+				               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
+		}
+		return productList;
 	}
 	
 	//gender(性別)ごとの全ての販売ステータスのカテゴリー別商品一覧
@@ -167,6 +208,14 @@ public class ProductDAO {
 			    
 			    productList.add(new ProductBean (product_id, category_id,  gender, product_name, price , description , status , image , registration_date));
 			}
+		} catch (SQLException e) {
+			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+			                   ", SQLステート: " + e.getSQLState() + 
+			                   ", エラーコード: " + e.getErrorCode());
+		} catch (Exception e) {
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+				               ", メッセージ: " + e.getMessage() + 
+				               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
 		}
 		return productList;
 	}
@@ -193,8 +242,16 @@ public class ProductDAO {
 		        
 		        productList.add(new ProductBean (product_id, category_id,  gender, product_name, price , description , status , image , registration_date));
 		    }
-		}	
-		return productList;		
+		} catch (SQLException e) {
+			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+			                   ", SQLステート: " + e.getSQLState() + 
+			                   ", エラーコード: " + e.getErrorCode());
+		} catch (Exception e) {
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+				               ", メッセージ: " + e.getMessage() + 
+				               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
+		}
+		return productList;
 	}
 	
 	//カテゴリーのリスト
@@ -211,7 +268,15 @@ public class ProductDAO {
 		        
 		        categoryList.add(new CategoryBean( category_id , category_name));
 		    }
-        }
+        } catch (SQLException e) {
+        	System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+			                   ", SQLステート: " + e.getSQLState() + 
+			                   ", エラーコード: " + e.getErrorCode());
+		} catch (Exception e) {
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+				               ", メッセージ: " + e.getMessage() + 
+				               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
+		}
 	    return categoryList;
     }
 
@@ -228,8 +293,16 @@ public class ProductDAO {
 			while(res.next()) {
 				inventory = res.getInt("stock_quantity");
 			}
-		return inventory;
+		} catch (SQLException e) {
+			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+	                           ", SQLステート: " + e.getSQLState() + 
+	                           ", エラーコード: " + e.getErrorCode());
+		} catch (Exception e) {
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+		                       ", メッセージ: " + e.getMessage() + 
+		                       ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
 		}
+		return inventory;
 	}
 		
 	//カート内の全ての商品の在庫と購入数を比較する
@@ -266,9 +339,19 @@ public class ProductDAO {
 						return stock;
 					} 
 				}
-				
-			 }      
-		}
+				if( stock_quantity  - quantity < 0  ) {
+					stock = false;
+				} 
+			 } catch (SQLException e) {
+				 System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+	                                ", SQLステート: " + e.getSQLState() + 
+	                                ", エラーコード: " + e.getErrorCode());
+			} catch (Exception e) {
+				 System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+		                            ", メッセージ: " + e.getMessage() + 
+		                            ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
+			}      
+		} 
 		return stock;
 	}
 		
@@ -283,7 +366,15 @@ public class ProductDAO {
 		   	pstmt.setInt(3, size_id);
 		   	pstmt.setInt(4, user_id);
 		   	pstmt.setInt(5, total_amount);
-	    }
+	    } catch (SQLException e) {
+			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+                               ", SQLステート: " + e.getSQLState() + 
+                               ", エラーコード: " + e.getErrorCode());
+		} catch (Exception e) {
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+                    ", メッセージ: " + e.getMessage() + 
+                    ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
+		}
 	}
 		
 	//今の在庫数を持ってくる
@@ -299,6 +390,14 @@ public class ProductDAO {
 		   	while(res.next()) {
 		   		stock = res.getInt("stock_quantity");
 		   	}
+		} catch (SQLException e) {
+			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+                               ", SQLステート: " + e.getSQLState() + 
+                               ", エラーコード: " + e.getErrorCode());
+		} catch (Exception e) {
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+                               ", メッセージ: " + e.getMessage() + 
+                               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
 		}
 	    return  stock;
 	}
@@ -313,7 +412,15 @@ public class ProductDAO {
 		   	pstmt.setInt(2, product_id);
 		   	pstmt.setInt(3, size_id);
 		   	pstmt.executeUpdate(); 
-	    }
+	    } catch (SQLException e) {
+			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+                               ", SQLステート: " + e.getSQLState() + 
+                               ", エラーコード: " + e.getErrorCode());
+		} catch (Exception e) {
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+                               ", メッセージ: " + e.getMessage() + 
+                               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
+		}
 	}
 		
 	//オーダーに登録
@@ -329,6 +436,14 @@ public class ProductDAO {
 			pstmt.setInt(5, total_amount);
 			pstmt.setString(6, delivery_address);
 			pstmt.executeUpdate(); 
+		} catch (SQLException e) {
+			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+                               ", SQLステート: " + e.getSQLState() + 
+                               ", エラーコード: " + e.getErrorCode());
+		} catch (Exception e) {
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+                               ", メッセージ: " + e.getMessage() + 
+                               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
 		}
 	}
 				
@@ -353,6 +468,14 @@ public class ProductDAO {
 			    
 			    productList.add(new ProductBean (product_id, category_id,  gender, product_name, price , description , status , image , registration_date));
 			}
+		} catch (SQLException e) {
+			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+                               ", SQLステート: " + e.getSQLState() + 
+                               ", エラーコード: " + e.getErrorCode());
+		} catch (Exception e) {
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+                               ", メッセージ: " + e.getMessage() + 
+                               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
 		}
 		return productList;	
 	}
@@ -378,7 +501,15 @@ public class ProductDAO {
 				
 				productList.add(new ProductBean (product_id, category_id,  gender, product_name, price , description , status , image , registration_date));
 			}
-		}	
+		} catch (SQLException e) {
+			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+                               ", SQLステート: " + e.getSQLState() + 
+                               ", エラーコード: " + e.getErrorCode());
+		} catch (Exception e) {
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+                               ", メッセージ: " + e.getMessage() + 
+                               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
+		}
 		return productList;	
 	}
 	
