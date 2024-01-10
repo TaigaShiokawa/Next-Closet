@@ -139,7 +139,7 @@ public class UserDAO {
 	//ユーザーログイン
 	public UserBean userLogin(String email, String password) 
 			throws ClassNotFoundException, SQLException {
-		UserBean user = new UserBean();
+		UserBean user = null;
 		String sql = "SELECT * FROM users WHERE email = ? AND hash_pass = ? AND user_status = true";
 		try (Connection con = DBConnection.getConnection(); 
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
@@ -221,13 +221,14 @@ public class UserDAO {
 	
 	//編集後、ユーザー取得
 	public UserBean getUpdatedUser(int userId) throws ClassNotFoundException, SQLException {
-		UserBean user = new UserBean();
+		UserBean user = null;
 		String sql = "SELECT * FROM users WHERE user_id = ?";
 		try (Connection con = DBConnection.getConnection(); 
 				PreparedStatement pstmt = con.prepareStatement(sql)) { 
 			pstmt.setInt(1, userId);
 			ResultSet res = pstmt.executeQuery();
 			while(res.next()) {
+				user = new UserBean();
 				user.setUserId(res.getInt("user_id"));
 				user.setUserName(res.getString("user_name"));
 				user.setKanaName(res.getString("kana_name"));
