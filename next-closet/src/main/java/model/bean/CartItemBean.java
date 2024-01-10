@@ -53,6 +53,7 @@ public class CartItemBean  extends SizeBean implements Serializable{
 	
 	private ProductBean product;
 	private SizeBean size;
+	
 	public ProductBean getProduct() {
 		return product;
 	}
