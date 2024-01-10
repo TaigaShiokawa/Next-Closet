@@ -79,7 +79,7 @@ public class CartDAO {
 	public List<CartItemBean> getCartItems(int userId) 
 	        throws ClassNotFoundException, SQLException {
 	    List<CartItemBean> cartItems = new ArrayList<>();
-	    String sql = "SELECT ci.cart_item_id, ci.quantity, p.product_name, p.price, p.image, p.status, s.size_name "
+	    String sql = "SELECT ci.cart_item_id, ci.quantity, p.product_name, p.product_id, p.price, p.image, p.status, s.size_name "
 	               + "FROM cart_items ci "
 	               + "INNER JOIN products p ON ci.product_id = p.product_id "
 	               + "INNER JOIN sizes s ON ci.size_id = s.size_id "
@@ -101,6 +101,7 @@ public class CartDAO {
 		                
 		                ProductBean product = new ProductBean();
 		                product.setProductName(res.getString("product_name"));
+		                product.setProductId(res.getInt("product_id"));
 		                product.setPrice(res.getInt("price"));
 		                product.setImage(res.getString("image"));
 		                
