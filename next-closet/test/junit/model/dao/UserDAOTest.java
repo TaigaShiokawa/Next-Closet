@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
+import model.bean.AddressBean;
+import model.bean.UserBean;
 import model.dao.UserDAO;
 
 public class UserDAOTest {
@@ -53,7 +55,7 @@ public class UserDAOTest {
 	
 	@Nested
 	public class getUserIdFromUsersTable {
-		//成功
+		//ユーザーID取得成功
 		@Test
 	    public void testGetUserIdWithExistingEmail() throws ClassNotFoundException, SQLException {
 	        String existingEmail = "yamada@mail.com"; // 実際に存在するメールアドレス
@@ -64,7 +66,7 @@ public class UserDAOTest {
 	        assertEquals(expectedUserId, userId, "存在するメールアドレスで正しいユーザーIDが取得されるべきです");
 	    }
 		
-		//失敗
+		//ユーザーID取得失敗
 	    @Test
 	    public void testGetUserIdWithNonExistingEmail() throws ClassNotFoundException, SQLException {
 	        String nonExistingEmail = "yamada@gmail.com"; // 存在しないメールアドレス
@@ -75,30 +77,89 @@ public class UserDAOTest {
 	    }
 	}
 	
+	@Nested
+	public class getUserAddressIdFromAddressesTable {
+		//アドレスID取得成功
+		@Test
+	    public void testGetUserAddressIdWithExistingUser() throws ClassNotFoundException, SQLException {
+	        int existingUserId = 24; // 存在するユーザーID
+	        AddressBean address = uDao.getUserAddressId(existingUserId);
+
+	        assertNotNull(address, "アドレス情報はnullであってはならない");
+	        assertEquals(existingUserId, address.getUserId(), "ユーザーIDが一致すること");
+	    }
+		
+		//アドレスID取得失敗
+	    @Test
+	    public void testGetUserAddressIdWithNonExistingUser() throws ClassNotFoundException, SQLException {
+	        int nonExistingUserId = 999; // 存在しないユーザーID
+	        AddressBean address = uDao.getUserAddressId(nonExistingUserId);
+
+	        assertNull(address, "存在しないユーザーIDではアドレス情報はnullでなければならない");
+	    }
+	}
 	
-	@Test
-	void testGetUserId() {
-		fail("まだ実装されていません");
-	}
+	@Nested
+	public class useLoginResult {
+		//ログイン成功ケース
+		@Test
+	    public void testUserLoginWithValidCredentials() throws ClassNotFoundException, SQLException {
+	        String email = "yamada@mail.com"; // 有効なメールアドレス
+	        String password = "yamada-pass "; // 有効なパスワード
+	        UserBean user = uDao.userLogin(email, password);
 
-	@Test
-	void testGetUserAddressId() {
-		fail("まだ実装されていません");
-	}
+	        assertNotNull(user, "ユーザー情報はnullであってはならない");
+	        assertEquals(email, user.getEmail(), "メールアドレスが一致すること");
+	    }
+		
+		//ログイン失敗ケース
+	    @Test
+	    public void testUserLoginWithInvalidCredentials() throws ClassNotFoundException, SQLException {
+	        String email = "yamada@gmail.com"; // 無効なメールアドレス
+	        String password = "rootuser"; // 無効なパスワード
+	        UserBean user = uDao.userLogin(email, password);
 
-	@Test
-	void testUserLogin() {
-		fail("まだ実装されていません");
+	        assertNull(user, "無効な認証情報ではユーザー情報はnullでなければならない");
+	    }
 	}
+	
+	@Nested
+	public class updateUserInformationInusersTable {
+		//更新成功
+		@Test
+	    public void testLoginUserUpdateWithValidData() throws ClassNotFoundException, SQLException {
+	        int userId = 25; // 有効なユーザーID
+	        int updatedRows = uDao.loginUserUpdate("New Name", "New Kana", "123456789", "yamada@mail.co.jp", userId);
+	        assertTrue(updatedRows > 0, "有効なデータでユーザー情報が更新されるべきです");
+	    }
 
-	@Test
-	void testLoginUserUpdate() {
-		fail("まだ実装されていません");
+		//更新失敗
+	    @Test
+	    public void testLoginUserUpdateWithInvalidUserId() throws ClassNotFoundException, SQLException {
+	        int invalidUserId = 9999; // 無効なユーザーID
+	        int updatedRows = uDao.loginUserUpdate("Name", "Kana", "123456789", "email@example.com", invalidUserId);
+	        assertEquals(0, updatedRows, "無効なユーザーIDで更新は行われないべきです");
+	    }
+		
 	}
+	
+	@Nested
+	public class updateUserAddressInfomationInAddressesTable {
+		//更新成功
+		@Test
+	    public void testLoginUserAddressUpdateWithValidData() throws ClassNotFoundException, SQLException {
+	        int userId = 25; // 有効なユーザーID
+	        int updatedRows = uDao.loginUserAddressUpdate("123-4567", "Tokyo", "Shibuya", userId);
+	        assertTrue(updatedRows > 0, "有効なデータでユーザーの住所が更新されるべきです");
+	    }
 
-	@Test
-	void testLoginUserAddressUpdate() {
-		fail("まだ実装されていません");
+		//更新失敗
+	    @Test
+	    public void testLoginUserAddressUpdateWithInvalidUserId() throws ClassNotFoundException, SQLException {
+	        int invalidUserId = 9999; // 無効なユーザーID
+	        int updatedRows = uDao.loginUserAddressUpdate("123-4567", "Tokyo", "Shibuya", invalidUserId);
+	        assertEquals(0, updatedRows, "無効なユーザーIDで住所の更新は行われないべきです");
+	    }
 	}
 
 	@Test
