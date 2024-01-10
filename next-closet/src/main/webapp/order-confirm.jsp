@@ -8,10 +8,6 @@
 	} 
     String order = (String)request.getAttribute("order");
     String img = null;
-    String message = (String)request.getAttribute("message"); 
-	if(message == null){
-		message = "";
-	}
 	SizeText st = new SizeText();
     int totalAmount = 0 ;
     int adressCartItemId = -1;
@@ -32,13 +28,10 @@
 			<div class="container">
 				<div　class="order">
 					<img class="step_image" src="image/decoration/step1.jpg">
-					<h3>まだ注文が確定していません。この商品を購入しますか？</h3>
-					<p><%= message %></p>
-					 <% String postCodeError = (String)request.getSession().getAttribute("postCodeError"); %>
-					  <% if(postCodeError != null) { %>
-						<p><%=postCodeError %></p>
-					  <% session.removeAttribute("postCodeError"); %>
-					  <% } %>
+					<h3 id="order_confilm">まだ注文が確定していません。この商品を購入しますか？</h3>
+					<p class="error_message">${error_message}</p>
+					<p class="message">${message}</p>
+					 
 				</div>
 				<div class="border">
 					<form action="OrderConfilmServlet" method="post">
@@ -160,14 +153,16 @@
 						</div>
 					</div>
 				<div class=changeDelivery>
-					<span class="bold">配送先を変える</span><br>
+					<span class="bold">別の配送先を指定する</span><br>
 				<% List <AddressBean> addAddresses = ( ArrayList<AddressBean> )request.getAttribute("addAddresses");//サブ住所 
 				   for( AddressBean add : addAddresses) { %> 	
-					<input class="check" type="checkbox" name="address" value="<%= add.getPrefectures() + add.getAddress() %>"><laber><%= add.getPrefectures() + add.getAddress() %> </laber><br>
+					<input class="check" type="checkbox" name="address" value="<%= add.getPrefectures() + add.getAddress() %>"><label class="sub_address"><%= add.getPrefectures() + add.getAddress() %> </label><br>
 				<% } %> 
-									<div class="form_box">
-							        	<label id="AddressModalOpen">こちらから住所を追加する</label>
-							        </div>
+				
+				<div class="form_box">
+			        	<label id="AddressModalOpen">新しい配送先住所を追加</label>
+			     </div>
+									
 									
 									  
 				<div class="total">
@@ -186,8 +181,8 @@
 									    <div class="formModalContent">
 									      <div class="modal-body">
 									        <form action="OrderConfilmServlet" method="get">
-													<label>郵便番号：</label><input type="text" id="postcode" name="postcode" placeholder="例) 0000000" required><br> 
-													<label>都道府県：</label><select id="prefectures" name="prefectures" required>
+													<label>郵便番号</label><br><input type="text" id="postcode" name="postcode" placeholder="例) 0000000" required><br> 
+													<label>都道府県</label><br><select id="prefectures" name="prefectures" required>
 														    <option value="北海道" selected>北海道</option>
 														    <option value="青森県">青森県</option>
 														    <option value="岩手県">岩手県</option>
@@ -236,7 +231,8 @@
 														    <option value="鹿児島県">鹿児島県</option>
 														    <option value="沖縄県">沖縄県</option>
 													 </select><br>
-												<label>住所：</label><input type="text" name="address" placeholder="例) 〇〇市〇〇区〇丁目" required></input><br>
+												<label>住所</label><br> 
+												<input type="text" class="address_input" name="address" placeholder="例) 〇〇市〇〇区〇丁目" required></input><br>
 											    <% if(order.equals("order")){//もし直接購入だったら %>
 											   
 											   	 	<input type="hidden" name="productId" value="${orderProductId}">
@@ -247,11 +243,11 @@
 											    	<input type="hidden" name="cartItemId" value="<%= adressCartItemId %>">
 											    <% } %>
 											    <input type="hidden" name="addAddress" value="address">
-											    <button type="submit">登録</button>
-											    
+											    <button class="address_submit" type="submit">登録</button><br>
+											    <p id="AddressModalClose">キャンセル</p>
 											</form>
 											
-											    <label id="AddressModalClose">キャンセル</label>
+											    
 									      </div>
 									    </div>
 									  </diV>

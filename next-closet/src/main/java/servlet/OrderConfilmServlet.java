@@ -53,12 +53,12 @@ public class OrderConfilmServlet extends HttpServlet {
 			
 			//郵便番号の入力に対してハイフン無しの形式を要
 			if(!PostCodeValidator.validate(convertPostCode)) {
-				request.setAttribute("message", "郵便番号が正しくありません");
+				request.setAttribute("error_message", "郵便番号が正しくありません");
 			}
 			
 			//住所の空文字チェック
 			if(address.isEmpty()) {
-				request.setAttribute("message", "住所が正しくありません");
+				request.setAttribute("error_message", "住所が正しくありません");
 			}
 			
 			if(PostCodeValidator.validate(convertPostCode) && address != null) {
@@ -244,7 +244,7 @@ public class OrderConfilmServlet extends HttpServlet {
 
 				} else { // もし在庫がたりなかったら
 
-					request.setAttribute("message", "この商品は在庫切れのため現在購入できません");
+					request.setAttribute("error_message", "この商品は在庫切れのため現在購入できません");
 					sizeId = Integer.parseInt(request.getParameter("sizeId")); //もう一度サイズ渡す
 					quantity = Integer.parseInt(request.getParameter("quantity")); //もう数量渡す
 
@@ -309,7 +309,7 @@ public class OrderConfilmServlet extends HttpServlet {
 
 				} else { // もし在庫がたりなかったら
 
-					request.setAttribute("message", "この商品は在庫切れのため現在購入できません");
+					request.setAttribute("error_message", "この商品は在庫切れのため現在購入できません");
 					request.setAttribute("order", "singleCartItem"); //今回のオーダーがカートの中身のうち一つであることを証明
 
 					try {
@@ -401,7 +401,7 @@ public class OrderConfilmServlet extends HttpServlet {
 
 				try {
 					request.setAttribute("cartAllItemList", cartDao.getCartItems(userId));
-					request.setAttribute("message", "在庫切れの商品が含まれているため購入できません");
+					request.setAttribute("error_message", "在庫切れの商品が含まれているため購入できません");
 					request.setAttribute("order", "allCartItems"); //今回のオーダーがカートの中身のうち一つであることを証明
 					request.getRequestDispatcher("order-confirm.jsp").forward(request, response);
 				} catch (ClassNotFoundException e) {

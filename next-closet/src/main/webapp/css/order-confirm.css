@@ -1,5 +1,7 @@
 @charset "UTF-8";
 
+/* 共通 */
+
 *{
     padding: 0;
     margin: 0;
@@ -18,94 +20,7 @@
 	max-width:600px;
 }
 
-.order_box{
-	width:100%;
-	max-width:800px;
-	margin : 0 auto;
-	display: flex;
-	padding-bottom:30px;
-	border-bottom: 1px solid lightslategray;
-}
 
-.order{
-	width: 100%;
-	max-width: 800px;
-	text-align: center;
-	border-bottom: 1px solid lightslategray;
-	padding-bottom: 0px;
-	padding-top: 20px;
-}
-
-.text{
-	padding-left:50px;
-}
-
-h3{
-	font-size: 15px;
-}
-
-
-
-.image img{
-	width:150px;
-	height:150px;
-	object-fit: cover;
-}
-
-.right {
-	padding-top: 60px;
-}
-
-.amount{
-	padding-left: 130px;
-	padding-top: 40px;
-}
-
-.radius{
-	border-radius: 10px;
-	padding: 5px 20px;
-	background-color: grey;
-	color: white;
-	border: 1px solid grey;
-	box-shadow: 4px 4px 2px lightgrey;
-}
-
-.product .quantity .amount {
-	margin: 10px 0 0;
- 	 padding: 0;
-}
-
-.delivery , .changeDelivery{
-	width: 100%;
-	max-width:500px;
-	margin: 15px auto;
-}
-
-
-.add{
-	padding-left: 30px;
-}
-
-.radius:hover{
-	box-shadow: none;
-	color: dimgrey;
-	background-color: darkgrey;
-	border: 1px solid darkgrey;
-}
-
-.button{
-	text-align: center;
-	padding-top: 20px;
-}
-
-.total{
-	margin-top: 30px;
-}
-
-.back{
-	text-align: center;
-	margin-top: 20px;
-}
 
 a{
 	text-decoration: none;
@@ -115,23 +30,88 @@ a{
 }
 
 a:hover{
-	color:lightgray;
+	opacity: .7;
+}
+
+.bold,.message,.error_message ,.form_box{
+	font-weight: bold;
 }
 
 
-.check{
-	margin-bottom:10px;
+
+
+/* message関係 */ 
+
+#order_confilm{
+	font-size: 16px;
 }
 
+.error_message{
+	color:rgb(186, 41, 28);
+}
+
+
+
+/* 商品表示関係 */
+
+.order_box{ /* 商品情報を表示している*/
+	width:100%;
+	max-width:800px;
+	margin : 0 auto;
+	display: flex;
+	padding-bottom:30px;
+	border-bottom: 1px solid lightslategray;
+}
+
+.image img{ /* 商品の画像 */
+	width:150px;
+	height:150px;
+	object-fit: cover;
+}
+
+.amount{
+	padding-left: 130px;
+	padding-top: 40px;
+}
+
+.product .quantity .amount {
+	margin: 10px 0 0;
+ 	 padding: 0;
+}
+
+
+.text{ /* 商品画像とテキストの隙間 */
+	padding-left:50px;
+}
+
+
+.right {/* 余白調整 */
+	padding-top: 60px;
+}
+
+
+/* 住所関係 */
+
+.delivery , .changeDelivery{
+	width: 100%;
+	max-width:800px;
+	margin: 15px auto;
+}
+
+.sub_address{
+	line-height: 40px;
+	margin-left:5px;
+}
+
+/* 送信関係 */
 .submit{
 	width:160px;
 	padding:20px;
-	margin-top:30px;
 	text-decoration: none;
 	background-color: rgb(56, 56, 56);
 	color : #fff;
 	display: inline-block;
-	margin: 0 auto;
+	margin: 30px auto;
 	border:none;
 }
 
@@ -144,22 +124,42 @@ a:hover{
 	opacity: .7;
 }
 
+
+.total{
+	margin-top: 30px;
+}
+
 .back{
 	display: inline-block;
 	margin-bottom:40px;
 }
 
-.bold{
-	font-weight: bold;
+/* 住所追加ボタン */
+
+.form_box{
+	margin-top:10px;
+	border-top: #333 1px solid;
+	width: 100%;
+	height:50px;
+	line-height: 50px;
+	text-align: left;
 }
 
-.mypage{
-	color: rgb(44, 44, 44);
-	border-bottom:1px solid  rgb(44, 44, 44);
-	padding-bottom: 2px;
+.form_box label:hover{
+	opacity: .7;
+	
 }
 
 /* モーダルウィンドウ　削除確認画面　*/
+
+		.modal-body { /* モーダル自体 */
+		  padding: 30px 20px;
+		  height: 100%;
+		  display: flex;
+		  justify-content: center;
+		  align-items: center;
+		 
+		}
 
 		.modal {
 		  display: none;
@@ -167,70 +167,66 @@ a:hover{
 		  z-index: 1;
 		  left: 0;
 		  top: 0;
-		  height: 100%;
 		  width: 100%;
+		  height: 100%;
 		  overflow: auto;
 		  background-color: rgba(0,0,0,0.5);
 		}	
 		
-		.modal-content {
-		  background-color: #f4f4f4;
-		  margin: 20% auto;
-		  border-radius:5px ;
-		  padding:30px;
-		  width: 30%;
-		  height:250px;
-		  box-shadow: 0 5px 8px 0 rgba(0,0,0,0.2),0 7px 20px 0 rgba(0,0,0,0.17);
-		  animation-name: modalopen;
-		  animation-duration: 1s;
+		.address_input{
+			width: 100%;
+			max-width:400px;
 		}
 		
+		.formModalContent form{
+			width:100%;
+			max-width:400px;
+			text-align: left;
+			
+		} 
+		
+		.formModalContent form label,.formModalContent form input{
+			line-height:30px;
+			display: inline-block;
+			margin-bottom:10px;
+			padding-left:5px;
+		}
+		
+		.formModalContent form select{
+			height:30px;
+		}
+		
+		.address_submit{
+			height:30px;
+			width: 80%;
+			height:60px;
+			display: block;
+			border: none;	
+			margin:20px auto 0;
+			text-decoration: none;
+			background-color: rgb(56, 56, 56);
+			color : #fff;
+		}
+				
+				
+		.address_submit:hover{
+			opacity: .7;
+		}
+			
 		@keyframes modalopen {
 		  from {opacity: 0}
 		  to {opacity: 1}
 		}
 		
-		.modal-header h1 {
-		  margin: 1rem 0;
-		}
-		
-		.modal-body {
-		  padding: 30px 20px;
-		  color: black;
-		}
-		
-		.modal-body p{
-		  font-size: 16px;
-		  text-align: center;
-		}
-		
-		 .check{
-		 color:rgb(54, 55, 55);
-		  font-size:16px;
-		  text-align:center;
-	  }
-	  
+	   	#AddressModalClose{
+		 margin:0 auto;
+		 text-align: center;
+		 max-width: 200px;
+	   }
+	   
 
-	   	.modalClose, .delete{
-		   width: 200px;
-		   height:60px;
-		   border-radius:5px ;
-		   line-height: 60px;
-		   margin-top:60px;
-	   }
-	   
-	   .modalClose{
-		   text-align: center;
-		   border: #333 2px solid;
-	   }
-	   
-	   .delete{
-		   background-color: rgb(206, 71, 47);
-		   border: none;
-		   color: #fff;
-	   }
-	  
-	  .modalClose:hover, .delete:hover{
+	   #AddressModalClose:hover{
 		  opacity: .6;
 	  }
 	  
+	
