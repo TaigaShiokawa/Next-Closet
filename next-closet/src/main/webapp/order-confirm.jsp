@@ -14,6 +14,7 @@
 	}
 	SizeText st = new SizeText();
     int totalAmount = 0 ;
+    int adressCartItemId = -1;
 %>
 
 <!DOCTYPE html>
@@ -33,6 +34,11 @@
 					<img class="step_image" src="image/decoration/step1.jpg">
 					<h3>まだ注文が確定していません。この商品を購入しますか？</h3>
 					<p><%= message %></p>
+					 <% String postCodeError = (String)request.getSession().getAttribute("postCodeError"); %>
+					  <% if(postCodeError != null) { %>
+						<p><%=postCodeError %></p>
+					  <% session.removeAttribute("postCodeError"); %>
+					  <% } %>
 				</div>
 				<div class="border">
 					<form action="OrderConfilmServlet" method="post">
@@ -73,7 +79,9 @@
 						  <% } else if(order.equals("singleCartItem")){ //カートのうち一つの商品のみ購入%>
 									  <% CartItemBean cartItem = (CartItemBean)request.getAttribute("cartItem");
 									     List <ProductBean> productList = (List <ProductBean>)request.getAttribute("productList"); 
-									     int cartItemId = Integer.parseInt(request.getParameter("cartItemId"));%>
+									     int cartItemId = Integer.parseInt(request.getParameter("cartItemId"));
+									     adressCartItemId = cartItemId;
+									     %>
 				
 								<div class="flex">		
 									<% for(ProductBean pl : productList ) { 
@@ -157,7 +165,11 @@
 				   for( AddressBean add : addAddresses) { %> 	
 					<input class="check" type="checkbox" name="address" value="<%= add.getPrefectures() + add.getAddress() %>"><laber><%= add.getPrefectures() + add.getAddress() %> </laber><br>
 				<% } %> 
-				<a class="mypage" href="MypageServlet">マイページから住所追加</a><br>
+									<div class="form_box">
+							        	<label id="AddressModalOpen">こちらから住所を追加する</label>
+							        </div>
+									
+									  
 				<div class="total">
 					<span class="bold">ご注文金額</span>
 					<% String formattedTolalAmount = String.format("%,d", totalAmount); %>
@@ -170,6 +182,79 @@
 				</form>
 				<br>
 				<a class="back" href="ProductListServlet">商品一覧に戻る</a>
+				  <div id="AddressEasyModal" class="modal">
+									    <div class="formModalContent">
+									      <div class="modal-body">
+									        <form action="OrderConfilmServlet" method="get">
+													<label>郵便番号：</label><input type="text" id="postcode" name="postcode" placeholder="例) 0000000" required><br> 
+													<label>都道府県：</label><select id="prefectures" name="prefectures" required>
+														    <option value="北海道" selected>北海道</option>
+														    <option value="青森県">青森県</option>
+														    <option value="岩手県">岩手県</option>
+														    <option value="宮城県">宮城県</option>
+														    <option value="秋田県">秋田県</option>
+														    <option value="山形県">山形県</option>
+														    <option value="福島県">福島県</option>
+														    <option value="茨城県">茨城県</option>
+														    <option value="栃木県">栃木県</option>
+														    <option value="群馬県">群馬県</option>
+														    <option value="埼玉県">埼玉県</option>
+														    <option value="千葉県">千葉県</option>
+														    <option value="東京都">東京都</option>
+														    <option value="神奈川県">神奈川県</option>
+														    <option value="新潟県">新潟県</option>
+														    <option value="富山県">富山県</option>
+														    <option value="石川県">石川県</option>
+														    <option value="福井県">福井県</option>
+														    <option value="山梨県">山梨県</option>
+														    <option value="長野県">長野県</option>
+														    <option value="岐阜県">岐阜県</option>
+														    <option value="静岡県">静岡県</option>
+														    <option value="愛知県">愛知県</option>
+														    <option value="三重県">三重県</option>
+														    <option value="滋賀県">滋賀県</option>
+														    <option value="京都府">京都府</option>
+														    <option value="大阪府">大阪府</option>
+														    <option value="兵庫県">兵庫県</option>
+														    <option value="奈良県">奈良県</option>
+														    <option value="和歌山県">和歌山県</option>
+														    <option value="鳥取県">鳥取県</option>
+														    <option value="島根県">島根県</option>
+														    <option value="岡山県">岡山県</option>
+														    <option value="広島県">広島県</option>
+														    <option value="山口県">山口県</option>
+														    <option value="徳島県">徳島県</option>
+														    <option value="香川県">香川県</option>
+														    <option value="愛媛県">愛媛県</option>
+														    <option value="高知県">高知県</option>
+														    <option value="福岡県">福岡県</option>
+														    <option value="佐賀県">佐賀県</option>
+														    <option value="長崎県">長崎県</option>
+														    <option value="熊本県">熊本県</option>
+														    <option value="大分県">大分県</option>
+														    <option value="宮崎県">宮崎県</option>
+														    <option value="鹿児島県">鹿児島県</option>
+														    <option value="沖縄県">沖縄県</option>
+													 </select><br>
+												<label>住所：</label><input type="text" name="address" placeholder="例) 〇〇市〇〇区〇丁目" required></input><br>
+											    <% if(order.equals("order")){//もし直接購入だったら %>
+											   
+											   	 	<input type="hidden" name="productId" value="${orderProductId}">
+											    	<input type="hidden" name="sizeId" value="${sizeId}">
+											    	<input type="hidden" name="quantity" value="${quantity}">
+											    	<input type="hidden" name="order" value="order">
+											    <% }else if(order.equals("singleCartItem")){//もしカート内から一つのアイテムのみ購入だったら %>
+											    	<input type="hidden" name="cartItemId" value="<%= adressCartItemId %>">
+											    <% } %>
+											    <input type="hidden" name="addAddress" value="address">
+											    <button type="submit">登録</button>
+											    
+											</form>
+											
+											    <label id="AddressModalClose">キャンセル</label>
+									      </div>
+									    </div>
+									  </diV>
 			</div>
 	</div>
 	</main>
@@ -186,6 +271,45 @@
 				      }
 				    });
 				  });
+
+			  const buttonOpen = document.getElementById("AddressModalOpen");
+				const modal = document.getElementById("AddressEasyModal");
+				const buttonClose = document.getElementById('AddressModalClose');
+			
+				// ボタンがクリックされた時
+				buttonOpen.addEventListener('click', modalOpen);
+				function modalOpen() {
+				  modal.style.display = 'block';
+				}
+			
+				// バツ印がクリックされた時
+				buttonClose.addEventListener('click', modalClose);
+				function modalClose() {
+				  modal.style.display = 'none';
+				}
+			
+				// モーダルコンテンツ以外がクリックされた時
+				addEventListener('click', outsideClose);
+				function outsideClose(e) {
+				  if (e.target == modal) {
+				    modal.style.display = 'none';
+				  }} 
+
+
+				//郵便番号で都道府県を検索
+				document.getElementById('postcode').addEventListener('input', function() {
+				    var postcode = this.value;
+				    if (postcode.length === 7) { // 郵便番号が7桁の場合のみAPIを呼び出す
+				        fetch('https://zipcloud.ibsnet.co.jp/api/search?zipcode=' + postcode)
+				        .then(response => response.json())
+				        .then(data => {
+				            if (data && data.results) {
+				                var prefecture = data.results[0].address1; // 都道府県を取得
+				                document.getElementById('prefectures').value = prefecture;
+				            }
+				        });
+				    }
+				});
 	</script>
 </body>
 </html>

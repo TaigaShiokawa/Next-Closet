@@ -108,7 +108,7 @@
 	
 	<div class="list_container">
 			<div class="top_wrapper">
-				<p class="section_title">購入履歴・通知</p>
+				<p class="section_title">通知 / 購入履歴一覧</p>
 				
 			</div>
 			
@@ -116,8 +116,8 @@
 				<div class="table_list">
 				
 				   <ul class="tab__menu">
-				      <li class="tab__menu-item is-active" data-tab="01">今日</li>
-				      <li class="tab__menu-item" data-tab="02">昨日</li>
+				      <li class="tab__menu-item is-active" data-tab="01">当日</li>
+				      <li class="tab__menu-item" data-tab="02">前日</li>
 				      <li class="tab__menu-item" data-tab="03">全ての購入通知一覧</li>
 			      </ul> 	
 			      

@@ -16,6 +16,8 @@ import model.bean.CartItemBean;
 import model.dao.CartDAO;
 import model.dao.ProductDAO;
 import model.dao.UserDAO;
+import regexp.AddressValidator;
+import regexp.PostCodeValidator;
 
 @WebServlet("/OrderConfilmServlet")
 public class OrderConfilmServlet extends HttpServlet {
@@ -29,6 +31,69 @@ public class OrderConfilmServlet extends HttpServlet {
 		String order = request.getParameter("order"); //今すぐ購入だったら中身がある
 		int cartItemId = -1;
 		String cartItemIdStr = request.getParameter("cartItemId");
+		String addAddress = request.getParameter("addAddress"); //今すぐ購入だったら中身がある
+		
+		if( addAddress != null) { //住所の追加があった場合
+			
+			String postCode = request.getParameter("postcode");
+			String prefectures = request.getParameter("prefectures");
+			String address = request.getParameter("address");
+			
+			//郵便番号チェック: 全角を半角に置換
+			String convertPostCode = postCode.replace("０", "0")
+											 .replace("１", "1")
+											 .replace("２", "2")
+											 .replace("３", "3")
+											 .replace("４", "4")
+											 .replace("５", "5")
+											 .replace("６", "6")
+											 .replace("７", "7")
+											 .replace("８", "8")
+											 .replace("９", "9");
+			
+			//郵便番号の入力に対してハイフン無しの形式を要
+			if(!PostCodeValidator.validate(convertPostCode)) {
+				request.setAttribute("message", "郵便番号が正しくありません");
+			}
+			
+			//住所の空文字チェック
+			if(address.isEmpty()) {
+				request.setAttribute("message", "住所が正しくありません");
+			}
+			
+			if(PostCodeValidator.validate(convertPostCode) && address != null) {
+			
+				//住所のデータを統一(全角を半角にする)
+				String normalizedAddress = AddressValidator.normalizeAddress(address);
+				
+				UserDAO uDao = new UserDAO();
+				try {
+					int res = uDao.addSubAddress(userId, convertPostCode, normalizedAddress, prefectures);
+					if(res == 1) {
+				        request.setAttribute("message", "住所を追加しました");
+					}
+				} catch(ClassNotFoundException e) {
+					e.printStackTrace();
+					request.getSession().setAttribute("errorMessage", "内部の設定エラーが発生しました。"
+							+ "お問い合わせよ管理者に連絡して、解決の支援を受けてください。");
+			        response.sendRedirect("error.jsp");
+			        return;
+				} catch(SQLException e) {
+					e.printStackTrace();
+					request.getSession().setAttribute("errorMessage", "現在データベースにアクセスできません。後ほど再度お試しください。"
+							+ "問題が続く場合は、お問い合わせより管理者にご連絡ください。");
+					response.sendRedirect("error.jsp");
+					return;
+				} catch(Exception e) {
+					e.printStackTrace();
+					request.getSession().setAttribute("errorMessage", "申し訳ありませんが、システムエラーが発生しました。"
+							+ "もう一度お試しいただくか、お問い合わせより管理者にお問い合わせください。");
+					response.sendRedirect("error.jsp");
+					return;
+				}
+			}
+			
+		} //住所追加処理終了
 
 		if (cartItemIdStr != null) {
 			cartItemId = Integer.parseInt(request.getParameter("cartItemId")); //カートの中身のうち一つのみ購入の場合は中身が入る
@@ -64,6 +129,7 @@ public class OrderConfilmServlet extends HttpServlet {
 				request.setAttribute("productList", productDao.detailProductList(productId)); //商品の詳細情報　商品名やらお金やら
 				request.setAttribute("order", "order");//今回のオーダーが今すぐ購入から購入であることを証明
 				request.setAttribute("sizeId", sizeId);
+				request.setAttribute("orderProductId", productId);
 				request.setAttribute("quantity", quantity);
 			} catch (ClassNotFoundException e) {
 				e.printStackTrace();
