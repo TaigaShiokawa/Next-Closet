@@ -89,9 +89,6 @@ public class AdminProductEditServlet extends HttpServlet {
           
   
            String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-           if (fileName != null && !fileName.isEmpty()) {
-        	   filePart.write(fileName);
-           }
 
             AdminProductDAO productDao = new AdminProductDAO();
             List<ProductBean> productList = productDao.editAdminProductList(productId);
@@ -99,6 +96,12 @@ public class AdminProductEditServlet extends HttpServlet {
                                                      .filter(p -> p.getProductId() == productId)
                                                      .findFirst()
                                                      .orElse(new ProductBean());
+            if (fileName == null || fileName.isEmpty()) {
+            	fileName = productToUpdate.getImage();
+            } else {
+            	filePart.write(fileName);
+            }
+            
             productToUpdate.setProductName(productName);
             productToUpdate.setPrice(price);
             productToUpdate.setDescription(description);

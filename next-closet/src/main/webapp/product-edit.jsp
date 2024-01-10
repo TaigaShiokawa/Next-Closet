@@ -11,10 +11,6 @@
 <link rel="icon" href="image/favicon.png" id="favicon">
 <link rel="stylesheet" href="css/product-edit.css">
 <link rel="stylesheet" href="css/admin-navbar.css">
-<%
-List<ProductBean> productList = (List<ProductBean>) request.getAttribute("productList");
-List<CategoryBean> categoryList = (ArrayList <CategoryBean>)request.getAttribute("categoryList");
-%>
 <script>
     function previewImage() {
         var oFReader = new FileReader();
@@ -32,6 +28,8 @@ List<CategoryBean> categoryList = (ArrayList <CategoryBean>)request.getAttribute
 <main>
 
     <%
+    List<ProductBean> productList = (List<ProductBean>) request.getAttribute("productList");
+    List<CategoryBean> categoryList = (ArrayList <CategoryBean>)request.getAttribute("categoryList");
         if(!productList.isEmpty()) {
         ProductBean firstProduct = productList.get(0);
         String imagePath = firstProduct.getImage(); // 修正: '=' を正しい文字にする
@@ -40,7 +38,6 @@ List<CategoryBean> categoryList = (ArrayList <CategoryBean>)request.getAttribute
         }else{
         	imagePath = "image/" + imagePath;
         }
-     
     %>
     <div class="container">
     <h2>商品情報編集画面</h2>
