@@ -236,7 +236,7 @@ public class ProductDAO {
 	public boolean cartProductStock(int userId)
 			throws SQLException , ClassNotFoundException {
 		CartDAO dao = new CartDAO();
-		List <CartItemBean> cartList = dao.getCartItems(userId);
+		List <CartItemBean> cartList = dao.getAllCartItems(userId);
 		boolean stock = true;
 		int product_id = -1;
 		int size_id = -1;
@@ -245,19 +245,28 @@ public class ProductDAO {
 		String sql = "";
 		for ( CartItemBean list : cartList ) {
 			size_id = list.getSizeId();
-			product_id = list.getProductId();
-			sql = "SELECT stock_quantity FROM inventory WHERE size_id = ? AND product_id = ? ";
+			product_id = list.getProduct().getProductId();
+			quantity = list.getQuantity();
+			System.out.println(size_id + " = size_id");
+			System.out.println(product_id + " = product_id");
+			sql = "SELECT stock_quantity FROM inventory WHERE size_id = ? AND product_id = ?";
 			try (Connection con = DBConnection.getConnection();
 					PreparedStatement pstmt = con.prepareStatement(sql)) {
 				pstmt.setInt(1, size_id);
 				pstmt.setInt(2, product_id);
 				ResultSet res = pstmt.executeQuery();
+				System.out.println("スレッドdesu");
 				while(res.next()) { 
 					stock_quantity  = res.getInt("stock_quantity");
+					int a = stock_quantity  - quantity;
+					System.out.println(a + "desu");
+					if( a < 0  ) {
+						stock = false;
+						System.out.println(stock + "結果");
+						return stock;
+					} 
 				}
-				if( stock_quantity  - quantity < 0  ) {
-					stock = false;
-				} 
+				
 			 }      
 		}
 		return stock;
