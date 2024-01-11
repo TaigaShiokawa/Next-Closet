@@ -78,11 +78,13 @@
 								<div class="flex">		
 									<% for(ProductBean pl : productList ) { 
 									    img = pl.getImage();
-				                        if ( img == null ){
-				                     	   img = "https://placehold.jp/480x640.png";
+								 		 if (img.isEmpty()){
+			                            	   img = "image/noimg.jpg";
 				                        } else {
 				                     	   img = "image/" + img;
-				                        } 
+				                        }
+				                        
+				                        
 										 int price = pl.getPrice();
 										 int sizeId = cartItem.getSizeId();
 										 int quantity = cartItem.getQuantity();
@@ -117,11 +119,12 @@
 						
 						       		 for (CartItemBean item : cartAllItemList) {  
 							       			 img = item.getProduct().getImage();
-							                 if ( img == null ){
-							              	   img = "https://placehold.jp/480x640.png";
-							                 } else {
-							              	   img = "image/" + img;
-							                 } 
+							                 
+									 		 if (img.isEmpty()){
+				                            	   img = "image/noimg.jpg";
+					                        } else {
+					                     	   img = "image/" + img;
+					                        }
 						      			     int price =  item.getProduct().getPrice();
 								  		     int sizeId = item.getSizeId();
 								  		     int quantity = item.getQuantity(); 
