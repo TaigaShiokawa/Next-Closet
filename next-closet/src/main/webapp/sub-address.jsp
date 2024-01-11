@@ -100,6 +100,7 @@
 					<form action="AddressDeleteServlet" method="post">
 							<label>
 					    	<input type="checkbox" name="addAddressId" value="<%=addresses.getAddAddressId()%>"> <!-- サブ住所のIDを値として返す -->
+					    	<%=addresses.getPostCode() %>
 					    	<%=addresses.getPrefectures()%><%=addresses.getAddress()%>
 					    	</label><br>
 					<% } %>
