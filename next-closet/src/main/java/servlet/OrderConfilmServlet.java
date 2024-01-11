@@ -174,7 +174,7 @@ public class OrderConfilmServlet extends HttpServlet {
 			} else { //もしカートの中身全部だったら
 
 				try {
-					request.setAttribute("cartAllItemList", cartDao.getCartItems(userId));
+					request.setAttribute("cartAllItemList", cartDao.getAllCartItems(userId));
 				} catch (ClassNotFoundException e) {
 					e.printStackTrace();
 					request.getSession().setAttribute("errorMessage", "内部の設定エラーが発生しました。"
