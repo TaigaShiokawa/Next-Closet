@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,7 +40,15 @@ public class AdminProductDAO {
 	                }
 	            }
 	        }
-	    }
+	    } catch (SQLException e) {
+			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+                               ", SQLステート: " + e.getSQLState() + 
+                               ", エラーコード: " + e.getErrorCode());
+		} catch (Exception e) {
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+                               ", メッセージ: " + e.getMessage() + 
+                               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
+		}
 	    return productId; // 生成された商品IDを返す
 	}
 	
@@ -55,8 +64,8 @@ public class AdminProductDAO {
 	            return res.getInt("category_id");
 	        } else {
 	            return -1; // カテゴリが見つからなかった場合は-1を返し、IDを無効とする
-	        }
-	    }
+	        } 
+	    } 
 	}
 	
 	//サイズIDの取得
