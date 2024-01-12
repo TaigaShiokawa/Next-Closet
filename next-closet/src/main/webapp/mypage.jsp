@@ -76,7 +76,7 @@
         <p><a href="ProductListServlet" class="back">商品一覧へ戻る</a></p>
         
         <div class="delete_box">
-        <a class="nav_text" href="LogoutServlet">logout</a>
+        <a class="nav_text" href="LogoutServlet">▶︎ logout</a>
         </div>
 
         <!-- <div class="delete_box">
