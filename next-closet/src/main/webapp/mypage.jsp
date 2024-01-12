@@ -74,8 +74,12 @@
 				</div>
         
         <p><a href="ProductListServlet" class="back">商品一覧へ戻る</a></p>
-
+        
         <div class="delete_box">
+        <a class="nav_text" href="LogoutServlet">logout</a>
+        </div>
+
+        <!-- <div class="delete_box">
         	<button id="modalOpen" class="delete_button">▶︎ 退会する</button>
         </div>
 						  <div id="easyModal" class="modal">
@@ -91,7 +95,7 @@
 						        </form>
 						      </div>
 						    </div>
-						  </diV>
+						  </diV> -->
         	
   
         </div>
