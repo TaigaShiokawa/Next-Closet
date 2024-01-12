@@ -46,7 +46,7 @@
 		    </tr>
 		    <tr>
 		        <td><label for="postalcode">郵便番号</label></td>
-		        <td class="content"><%=loginUserAddress.getPostCode() %></td>
+		        <td class="content">&#12306;<%=loginUserAddress.getPostCode() %></td>
 		    </tr>
 		    <tr>
 		        <td><label for="address">都道府県</label></td>
