@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +31,14 @@ public class CartDAO {
 			pstmt.setInt(3, sizeId);
 			pstmt.setInt(4, quantity);
 			processingNum = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+                               ", SQLステート: " + e.getSQLState() + 
+                               ", エラーコード: " + e.getErrorCode());
+		} catch (Exception e) {
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+                               ", メッセージ: " + e.getMessage() + 
+                               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
 		}
 		return processingNum;
 	}
@@ -49,6 +58,14 @@ public class CartDAO {
 				cartItem.setQuantity(res.getInt("quantity"));
 				cartItem.setSizeId(res.getInt("size_id"));
 			}
+		} catch (SQLException e) {
+			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+                               ", SQLステート: " + e.getSQLState() + 
+                               ", エラーコード: " + e.getErrorCode());
+		} catch (Exception e) {
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+                               ", メッセージ: " + e.getMessage() + 
+                               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
 		}
 		return cartItem;
 	}
@@ -71,6 +88,14 @@ public class CartDAO {
 		
 				cartList.add(new CartItemBean ( cart_item_id , product_id,  quantity , size_id ));
 			}
+		} catch (SQLException e) {
+			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+                               ", SQLステート: " + e.getSQLState() + 
+                               ", エラーコード: " + e.getErrorCode());
+		} catch (Exception e) {
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+                               ", メッセージ: " + e.getMessage() + 
+                               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
 		}
 		return cartList;
 	}
@@ -117,7 +142,15 @@ public class CartDAO {
 	            	
 	            }
 	        }
-	    }
+	    } catch (SQLException e) {
+			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+                               ", SQLステート: " + e.getSQLState() + 
+                               ", エラーコード: " + e.getErrorCode());
+		} catch (Exception e) {
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+                               ", メッセージ: " + e.getMessage() + 
+                               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
+		}
 	    return cartItems;
 	}
 	
@@ -129,8 +162,14 @@ public class CartDAO {
 				PreparedStatement pstmt = con.prepareStatement(sql)) {	
 		pstmt.setInt(1, cartItemId);
 		pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+                               ", SQLステート: " + e.getSQLState() + 
+                               ", エラーコード: " + e.getErrorCode());
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+                               ", メッセージ: " + e.getMessage() + 
+                               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
 		}
 	}
 	
@@ -143,6 +182,14 @@ public class CartDAO {
 			pstmt.setInt(1, quantity);
 			pstmt.setInt(2, cart_item_id);
 			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+                               ", SQLステート: " + e.getSQLState() + 
+                               ", エラーコード: " + e.getErrorCode());
+		} catch (Exception e) {
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+                               ", メッセージ: " + e.getMessage() + 
+                               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
 		}
 	}
 	
@@ -155,8 +202,14 @@ public class CartDAO {
 			
 		pstmt.setInt(1, userId);
 		pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+                               ", SQLステート: " + e.getSQLState() + 
+                               ", エラーコード: " + e.getErrorCode());
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+                               ", メッセージ: " + e.getMessage() + 
+                               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
 		}
 	}
 	
@@ -192,6 +245,14 @@ public class CartDAO {
 		        cartItems.add(cartItem);
 		        }
 		    }
+		} catch (SQLException e) {
+			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+                               ", SQLステート: " + e.getSQLState() + 
+                               ", エラーコード: " + e.getErrorCode());
+		} catch (Exception e) {
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+                               ", メッセージ: " + e.getMessage() + 
+                               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
 		}
 		return cartItems;
 	}
