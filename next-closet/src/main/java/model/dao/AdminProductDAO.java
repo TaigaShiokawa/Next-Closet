@@ -86,7 +86,7 @@ public class AdminProductDAO {
 	
 	//商品の在庫
 	public int setProductInventory(int productId, int sizeId, int stockQuantity) 
-			throws ClassNotFoundException, SQLException{
+			throws ClassNotFoundException, SQLException {
 		int processingNum = 0;
 		String sql = "INSERT INTO inventory (product_id, size_id, stock_quantity) VALUES (?, ?, ?)";
 		try (Connection con = DBConnection.getConnection(); 
@@ -96,6 +96,14 @@ public class AdminProductDAO {
 			pstmt.setInt(3, stockQuantity);
 			
 			processingNum = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+                               ", SQLステート: " + e.getSQLState() + 
+                               ", エラーコード: " + e.getErrorCode());
+		} catch (Exception e) {
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+                               ", メッセージ: " + e.getMessage() + 
+                               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
 		}
 		return processingNum;
 	}
@@ -146,7 +154,15 @@ public class AdminProductDAO {
 	            product.addSize(size);
 	            
 	        }
-	    }
+	    } catch (SQLException e) {
+			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+                               ", SQLステート: " + e.getSQLState() + 
+                               ", エラーコード: " + e.getErrorCode());
+		} catch (Exception e) {
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+                               ", メッセージ: " + e.getMessage() + 
+                               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
+		}
 	    return new ArrayList<>(productMap.values());
 	}
 
@@ -197,7 +213,15 @@ public class AdminProductDAO {
 	            product.setCategory(category);
 	
 	        }
-	    }
+	    } catch (SQLException e) {
+			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+                               ", SQLステート: " + e.getSQLState() + 
+                               ", エラーコード: " + e.getErrorCode());
+		} catch (Exception e) {
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+                               ", メッセージ: " + e.getMessage() + 
+                               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
+		}
 	    return new ArrayList<>(productMap.values());
 	}
 	
@@ -235,6 +259,14 @@ public class AdminProductDAO {
 	            
 	            pstmtInventory.executeUpdate();
 	        }
+		} catch (SQLException e) {
+			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+                               ", SQLステート: " + e.getSQLState() + 
+                               ", エラーコード: " + e.getErrorCode());
+		} catch (Exception e) {
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+                               ", メッセージ: " + e.getMessage() + 
+                               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
 		}
 	}
 	
@@ -251,7 +283,7 @@ public class AdminProductDAO {
 	        } else {
 	            throw new SQLException("商品IDが見つかりません");
 	        }
-	    }
+	    } 
 	}
 	
 	//商品のステータスを切り替える
@@ -273,9 +305,16 @@ public class AdminProductDAO {
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			    pstmt.setInt(1, productId);
 				pstmt.executeUpdate();
-			}
+		} catch (SQLException e) {
+			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
+                               ", SQLステート: " + e.getSQLState() + 
+                               ", エラーコード: " + e.getErrorCode());
+		} catch (Exception e) {
+			System.err.println("予期せぬ例外が発生しました。エラーの種類: " + e.getClass().getName() + 
+                               ", メッセージ: " + e.getMessage() + 
+                               ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
 		}
-		
+	}
 }
 	
 
