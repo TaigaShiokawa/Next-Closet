@@ -295,7 +295,7 @@ public class AdminProductDAO {
 			pstmt.setBoolean(1, newStatus);
 			pstmt.setInt(2, productId);
 			pstmt.executeUpdate();
-		}
+		} 
 	}
 	
 	//ステータスを削除に切り替えた時にカートから削除する
