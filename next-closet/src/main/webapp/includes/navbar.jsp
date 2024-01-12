@@ -34,7 +34,7 @@
 	   		                            <label>カート</label>
         		                    </a>
                       		  </li>
-								<li><a class="nav_text" href="LogoutServlet">logout</a></li>
+								<!-- <li><a class="nav_text" href="LogoutServlet">logout</a></li> -->
 								<div class="search">
 				                    	<form action="ProductListServlet" method="get">
 				                        <input type="text" name="searchName" class="search_box" value="<%= searchText %>" placeholder="キーワードで商品名を検索">

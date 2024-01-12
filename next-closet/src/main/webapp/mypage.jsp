@@ -46,7 +46,7 @@
 		    </tr>
 		    <tr>
 		        <td><label for="postalcode">郵便番号</label></td>
-		        <td class="content"><%=loginUserAddress.getPostCode() %></td>
+		        <td class="content">&#12306;<%=loginUserAddress.getPostCode() %></td>
 		    </tr>
 		    <tr>
 		        <td><label for="address">都道府県</label></td>
@@ -74,8 +74,12 @@
 				</div>
         
         <p><a href="ProductListServlet" class="back">商品一覧へ戻る</a></p>
-
+        
         <div class="delete_box">
+        <a class="nav_text" href="LogoutServlet">logout</a>
+        </div>
+
+        <!-- <div class="delete_box">
         	<button id="modalOpen" class="delete_button">▶︎ 退会する</button>
         </div>
 						  <div id="easyModal" class="modal">
@@ -91,7 +95,7 @@
 						        </form>
 						      </div>
 						    </div>
-						  </diV>
+						  </diV> -->
         	
   
         </div>

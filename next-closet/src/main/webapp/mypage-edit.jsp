@@ -173,6 +173,24 @@
 		</div>
 </main>
 
+		<div class="delete_box">
+		        	<button id="modalOpen" class="delete_button">▶︎ 退会する</button>
+		        </div>
+								  <div id="easyModal" class="modal">
+								    <div class="modal-content">
+								      <div class="modal-header">
+								        <h1 class="check">最終確認画面</h1>
+								        <span class="modalClose">×</span>
+								      </div>
+								      <div class="modal-body">
+								        <p>一度退会するとアカウントの復元はできません<br>本当に退会しますか？</p>
+								        <form action="WithdrawalServlet" method="post">
+								           <input class="delete" type="submit" value="本当に退会する">
+								        </form>
+								      </div>
+								    </div>
+								  </diV>
+
 <script>
 //パスワード入力フィールドの要素を取得
 var passwordInput = document.querySelector('input[name="password"]');

@@ -31,7 +31,7 @@ public class OrderConfilmServlet extends HttpServlet {
 		String order = request.getParameter("order"); //今すぐ購入だったら中身がある
 		int cartItemId = -1;
 		String cartItemIdStr = request.getParameter("cartItemId");
-		String addAddress = request.getParameter("addAddress"); //今すぐ購入だったら中身がある
+		String addAddress = request.getParameter("addAddress");
 		
 		if( addAddress != null) { //住所の追加があった場合
 			
