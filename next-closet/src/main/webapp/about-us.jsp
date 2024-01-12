@@ -18,7 +18,6 @@ UserBean loginUser = (UserBean) request.getSession().getAttribute("user");
 		<div class="container">
 			<h2>About(会社概要)</h2>
 			<h3>next closet...についての説明をする</h3>
-			<p>中西の中西による中西のための中西</p>
 		</div>
 	</main>
 	<%@ include file="includes/footer.jsp" %>
