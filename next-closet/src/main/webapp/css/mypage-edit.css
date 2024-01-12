@@ -220,7 +220,6 @@ span{
 		}
 		
 		.modal-header {
-		  background: #ced6d0;
 		  padding: 3px 15px;
 		  display: flex;
 		  justify-content: space-between;
@@ -237,6 +236,7 @@ span{
 		.modal-body {
 		  padding: 30px 20px;
 		  color: black;
+		  text-align: center;
 		}
 		
 		.modal-body p{
