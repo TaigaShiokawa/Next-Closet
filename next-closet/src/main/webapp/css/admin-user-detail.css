@@ -5,11 +5,15 @@
     margin: 0;
 }
 
+#main{
+	padding:100px;
+	min-height:60vh;
+}
+
 .wrapper{
 	width: 100%;
-	max-width:1000px;
+	max-width:1200px;
 	margin: 0 auto;
-	padding:300px;
 }
 
 table{
@@ -62,13 +66,14 @@ p{
 	 display: flex;
 	 justify-content: space-between;
 	 width: 500px;
+	 padding-top:60px;
 	 margin:0 auto;
  }
 	
 	
 .back{
 	text-align: center;
-	padding:100px;
+	padding-top:100px;
 }
 
 .back a{

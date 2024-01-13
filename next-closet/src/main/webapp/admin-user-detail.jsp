@@ -14,7 +14,7 @@
 </head>
 <body>
 <%@ include file="includes/admin-navbar.jsp" %>
-<main>
+<main id="main">
  <%
  List<UserBean> userList = (List<UserBean>)request.getAttribute("userList"); 
  for (UserBean user : userList) {
