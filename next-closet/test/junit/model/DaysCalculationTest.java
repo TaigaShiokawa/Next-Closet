@@ -2,9 +2,12 @@ package junit.model;
 
 import static org.junit.Assert.*;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.Calendar;
+import java.util.Locale;
 
 import org.junit.jupiter.api.Test;
 
@@ -73,9 +76,12 @@ class DaysCalculationTest {
 		
 
 		boolean date = false;
-		String orderDateStr = String.valueOf("2024-01-03");
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.DATE, -1);
+		String yesterday = new SimpleDateFormat("yyyy-MM-dd",Locale.US).format(cal.getTime());
+		System.out.print(yesterday);
 		LocalDate now = LocalDate.now(); 				
-		LocalDate order = LocalDate.parse(orderDateStr,DateTimeFormatter.ISO_DATE); 
+		LocalDate order = LocalDate.parse(yesterday,DateTimeFormatter.ISO_DATE); 
 		long longDays = ChronoUnit.DAYS.between(now , order);
 		String daysStr = String.valueOf(longDays); 								
 		int days = Integer.parseInt(daysStr);
