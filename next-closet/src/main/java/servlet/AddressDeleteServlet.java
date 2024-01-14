@@ -62,7 +62,7 @@ public class AddressDeleteServlet extends HttpServlet {
 	        try {
 	            List<AddressBean> addressList = uDao.getSubAddress(userId); //更新されたサブ住所の取得
 	            if(addressList == null) {
-	    	    	request.getSession().setAttribute("deleteAddressNotFound", "削除する住所にチェックを入れてください。");
+	    	    	request.getSession().setAttribute("deleteAddressNotFound", "サブアドレスが登録されていません。");
 	    	    	response.sendRedirect("SubAddressServlet");
 	    	    	return;
 	    	    }
