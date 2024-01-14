@@ -69,13 +69,14 @@ public class CategoryDAO {
 	}
 	
 	//カテゴリー追加
-	public void addCategory(String categoryName) 
+	public int addCategory(String categoryName) 
 			throws ClassNotFoundException, SQLException {
 		String sql = "INSERT INTO categories (category_name) VALUES (?)";
+		int processingNum = 0;
 		try (Connection con = DBConnection.getConnection(); 
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setString(1, categoryName);
-			pstmt.executeUpdate();
+			processingNum = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
                                ", SQLステート: " + e.getSQLState() + 
@@ -85,6 +86,8 @@ public class CategoryDAO {
                                ", メッセージ: " + e.getMessage() + 
                                ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
 		}
+		
+		return processingNum;
 	}
 	
 	//このカテゴリーを選択している商品が今あるかどうか
@@ -117,13 +120,14 @@ public class CategoryDAO {
 	}
 		
 	//カテゴリーの削除
-	public void deleteCategory( int categoryId )
+	public int deleteCategory( int categoryId )
 			throws ClassNotFoundException, SQLException {
 		String sql = "DELETE FROM categories WHERE category_id = ?";
+		int processingNum = 0;
 		try (Connection con = DBConnection.getConnection(); 
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			pstmt.setInt(1, categoryId);
-			pstmt.executeUpdate();
+			processingNum = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			System.err.println("SQLエラーが発生しました。エラーメッセージ: " + e.getMessage() + 
                                ", SQLステート: " + e.getSQLState() + 
@@ -133,6 +137,7 @@ public class CategoryDAO {
                                ", メッセージ: " + e.getMessage() + 
                                ", スタックトレース: " + Arrays.toString(e.getStackTrace()));
 		}
+		return processingNum;
 	}
 	
 }
