@@ -37,6 +37,7 @@
 						<% HashMap<String, String> mypageErrorMSG = (HashMap<String, String>)request.getSession().getAttribute("mypageErrorMSG"); %>
 						<% if(mypageErrorMSG.containsKey("userName")) { %>
 							<p class="error_message"><%=mypageErrorMSG.get("userName") %></p>
+							<% mypageErrorMSG.remove("userName"); %>
 						<% } %>
 					<% } %>
 			<label class="caption">*姓と名のスペースは全角にしてください</label><br>
@@ -47,6 +48,7 @@
 						<% HashMap<String, String> mypageErrorMSG = (HashMap<String, String>)request.getSession().getAttribute("mypageErrorMSG"); %>
 						<% if(mypageErrorMSG.containsKey("kanaName")) { %>
 							<p class="error_message"><%=mypageErrorMSG.get("kanaName") %></p>
+							<% mypageErrorMSG.remove("kanaName"); %>
 						<% } %>
 					<% } %>
 			<label class="caption">*姓と名のスペースは全角にしてください</label><br> 
@@ -58,6 +60,7 @@
 						<% HashMap<String, String> mypageErrorMSG = (HashMap<String, String>)request.getSession().getAttribute("mypageErrorMSG"); %>
 						<% if(mypageErrorMSG.containsKey("postCode")) { %>
 							<p class="error_message"><%=mypageErrorMSG.get("postCode") %></p>
+							<% mypageErrorMSG.remove("postCode"); %>
 						<% } %>
 					<% } %>
 			
@@ -119,6 +122,7 @@
 						<% HashMap<String, String> mypageErrorMSG = (HashMap<String, String>)request.getSession().getAttribute("mypageErrorMSG"); %>
 						<% if(mypageErrorMSG.containsKey("address")) { %>
 							<p class="error_message"><%=mypageErrorMSG.get("address") %></p>
+							<% mypageErrorMSG.remove("address"); %>
 						<% } %>
 					<% } %>
 			
@@ -128,6 +132,7 @@
 						<% HashMap<String, String> mypageErrorMSG = (HashMap<String, String>)request.getSession().getAttribute("mypageErrorMSG"); %>
 						<% if(mypageErrorMSG.containsKey("telNumber")) { %>
 							<p class="error_message"><%=mypageErrorMSG.get("telNumber") %></p>
+							<% mypageErrorMSG.remove("telNumber"); %>
 						<% } %>
 					<% } %>
 				
@@ -137,6 +142,7 @@
 						<% HashMap<String, String> mypageErrorMSG = (HashMap<String, String>)request.getSession().getAttribute("mypageErrorMSG"); %>
 						<% if(mypageErrorMSG.containsKey("email")) { %>
 							<p class="error_message"><%=mypageErrorMSG.get("email") %></p>
+							<% mypageErrorMSG.remove("email"); %>
 						<% } %>
 					<% } %>
 			
@@ -152,6 +158,7 @@
 						<% HashMap<String, String> mypagePassError = (HashMap<String, String>)request.getSession().getAttribute("mypagePassError"); %>
 						<% if(mypagePassError.containsKey("password")) { %>
 							<p class="error_message"><%=mypagePassError.get("password") %></p>
+							<% mypagePassError.remove("password"); %>
 							
 						<% } %>
 					<% } %>
