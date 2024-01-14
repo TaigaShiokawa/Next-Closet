@@ -45,12 +45,13 @@ String img = null;
 			 		 	 <div class="right">
 			 		 	 	<figure class="image"><img src='<%= img %>' alt=""></figure>
 			 		 	 	 <div class="text_box">	
-					 		     <p class="product">注文番号<%= list.getOrderItemId() %></p>
-					 		     <p class="product">商品名<%= dao.getProductName(list.getProductId()) %></p>
+					 		     <p class="product">注文番号 <%= list.getOrderItemId() %></p>
+					 		     <p class="product">商品名 <%= dao.getProductName(list.getProductId()) %></p>
+					 		     <p class="product">数量 <%= list.getQuantity() %></p>
 					   			 <p class="purchasedate">注文日 <%= list.getOrderDate() %></p>
 					   			 <p class="purchasedate">配達先住所 <%= list.getDeliveryAddress() %></p>
 					   			 <p class="amount">合計 &yen; <%= TotalAmount %> 税込</p>
-					    		 <p class="size">サイズ<%= st.sizeText(list.getSizeId()) %></p>
+					    		 <p class="size">サイズ <%= st.sizeText(list.getSizeId()) %></p>
 				    		 </div>
 			 		    </div>
 			 		    <% if( list.isStatus()){ %>
